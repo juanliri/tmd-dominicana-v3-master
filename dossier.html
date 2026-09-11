@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMD Tecnomaquinarias Diesel — Propuesta 3 Tiers, Capacidades Live Fullbay API & Bucle 720°</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Cinzel:wght@700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            serif: ['Cinzel', 'serif']
+          },
+          colors: {
+            tmd: {
+              gold: '#F59E0B',
+              darkgold: '#D97706',
+              amber: '#EAB308',
+              emerald: '#10B981',
+              cyan: '#06B6D4',
+              blue: '#3B82F6',
+              dark: '#070B12',
+              card: '#0F1626',
+              border: '#1E293B'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-dark: #070b12;
+      --card-dark: #0f1626;
+      --border-dark: rgba(255, 255, 255, 0.08);
+      --accent: #f59e0b;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #070b12; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+    @page {
+      size: letter portrait;
+      margin: 10mm 12mm;
+    }
+
+    @media print {
+      /* Force print color fidelity */
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+      .no-print { display: none !important; }
+      
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+        font-size: 8.2pt !important;
+        line-height: 1.4 !important;
+      }
+
+      /* When printing, expand all accordion rows */
+      .accordion-body {
+        display: table-row-group !important;
+      }
+
+      /* Make sure cards print cleanly on white paper with high-contrast borders */
+      .bg-neutral-900, .bg-neutral-950, .bg-neutral-900\/80, .bg-neutral-900\/90, .bg-gradient-to-b, .bg-gradient-to-r {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        color: #0f172a !important;
+      }
+
+      p, span, li, td, th {
+        color: #1e293b !important;
+      }
+
+      .text-white {
+        color: #0f172a !important;
+      }
+      
+      .text-neutral-200, .text-neutral-300, .text-neutral-400 {
+        color: #334155 !important;
+      }
+
+      .text-amber-400, .text-amber-300 {
+        color: #b45309 !important;
+        font-weight: 800 !important;
+      }
+
+      .text-emerald-400 {
+        color: #047857 !important;
+        font-weight: 800 !important;
+      }
+
+      .text-red-400 {
+        color: #b91c1c !important;
+        font-weight: 800 !important;
+      }
+
+      .bg-amber-500\/10, .bg-amber-500\/20 {
+        background: #fef3c7 !important;
+        border-color: #f59e0b !important;
+      }
+
+      .bg-emerald-500\/10 {
+        background: #d1fae5 !important;
+        border-color: #10b981 !important;
+      }
+
+      .bg-red-950\/10, .bg-red-950\/20, .bg-red-500\/10 {
+        background: #fee2e2 !important;
+        border-color: #ef4444 !important;
+      }
+
+      .border-white\/10, .border-white\/5 {
+        border-color: #e2e8f0 !important;
+      }
+
+      /* Avoid breaking table rows across pages */
+      table {
+        page-break-inside: auto !important;
+        border-collapse: collapse !important;
+      }
+
+      tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      thead {
+        display: table-header-group !important;
+      }
+
+      /* Clean section breaks */
+      .print-page-break {
+        page-break-before: always !important;
+        break-before: page !important;
+      }
+
+      /* Control whether all tabs print or only active tab */
+      body.print-all-tabs .tab-pane {
+        display: block !important;
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+
+      body:not(.print-all-tabs) .tab-pane.hidden {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-neutral-950 text-neutral-100 font-sans antialiased min-h-screen selection:bg-amber-500 selection:text-black">
+
+  <!-- TOP UTILITY & NAVIGATION BAR -->
+  <header class="no-print sticky top-0 z-50 bg-neutral-950/95 backdrop-blur-xl border-b border-white/10 px-4 sm:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      
+      <!-- Brand & Badges -->
+      <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+        <div class="flex items-center gap-2.5">
+          <img src="https://www.tmd.com.do/wp-content/uploads/2023/07/logo.png" alt="TMD Logo" class="h-8 w-auto">
+          <span class="text-neutral-600">|</span>
+          <a href="https://todobuild.store" target="_blank" class="font-serif font-black text-sm tracking-wider text-white hover:text-amber-400 transition hidden md:inline">TODOBUILD TECHNOLOGIES</a>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono font-bold text-amber-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>FULLBAY 720° DOSSIER</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap justify-center">
+        <!-- Currency Toggle -->
+        <button id="currency-toggle" onclick="toggleCurrency()" class="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-white/10 text-xs font-mono font-bold text-neutral-300 hover:text-white transition flex items-center gap-1.5">
+          <span>💵</span> <span id="currency-label">Ver en DOP (RD$ @ 59.50)</span>
+        </button>
+
+        <!-- Quick Links -->
+        <a href="fullbay-proposal-agreement.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-white/10 text-xs font-mono text-neutral-300 hover:text-white transition">
+          📄 Contrato MSA
+        </a>
+        <a href="tmd-fullbay-pitch-deck.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-white/10 text-xs font-mono text-neutral-300 hover:text-white transition">
+          📊 Dossier Ejecutivo
+        </a>
+
+        <!-- Print PDF Controls -->
+        <div class="flex items-center gap-1.5">
+          <button onclick="printCurrentTab()" title="Imprime la sección activa formateada para carta 8.5x11" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>PDF Esta Sección</span>
+          </button>
+          <button onclick="printAllTabs()" title="Imprime el Dossier Ejecutivo Completo (4 Secciones)" class="px-2.5 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-amber-500/40 text-amber-400 text-xs font-mono font-bold transition flex items-center gap-1">
+            <span>📑 Completo</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TABS BAR -->
+    <div class="max-w-7xl mx-auto mt-3 pt-2 border-t border-white/5 flex items-center gap-2 overflow-x-auto custom-scrollbar">
+      <button onclick="switchTab('tab-comparison')" id="btn-tab-comparison" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 bg-amber-500 text-neutral-950 shadow-md">
+        <span>📑</span> 1. Matriz Comparativa 3 Tiers (1-Page)
+      </button>
+      <button onclick="switchTab('tab-fullbay-api')" id="btn-tab-fullbay-api" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 bg-neutral-900 text-neutral-400 hover:text-white border border-white/5">
+        <span>⚡</span> 2. Capacidades Live Fullbay API
+      </button>
+      <button onclick="switchTab('tab-ecosystem-720')" id="btn-tab-ecosystem-720" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 bg-neutral-900 text-neutral-400 hover:text-white border border-white/5">
+        <span>🔄</span> 3. Bucle Omnicanal 720° & Integraciones
+      </button>
+      <button onclick="switchTab('tab-upsells')" id="btn-tab-upsells" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 bg-neutral-900 text-neutral-400 hover:text-white border border-white/5">
+        <span>💎</span> 4. Catálogo de Upgrades & Módulos Extras
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: MATRIZ COMPARATIVA 3 TIERS (1-PAGE EXECUTIVE PRINT READY) -->
+    <!-- ========================================================================= -->
+    <section id="tab-comparison" class="tab-pane block space-y-8">
+      
+      <!-- Document Header -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-neutral-900/80 border border-white/10 backdrop-blur-md relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs font-bold mb-3">
+              <span>DOC REF:</span> <strong>TDB-PROP-2026-TMD-3TIERS</strong> • AUT. DUARTE KM 22
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black uppercase text-white tracking-tight">
+              Propuesta Maestra &amp; Cuadro Comparativo <span class="text-amber-400">3 Tiers</span>
+            </h1>
+            <p class="text-neutral-300 text-sm max-w-3xl mt-2 leading-relaxed">
+              Elaborado exclusivamente para la <strong>Dirección General de Tecnomaquinarias Diesel S.R.L. (TMD)</strong>. 
+              Modernización digital de la flota comercial de alquileres, venta de maquinaria 0 Km (JCB, LiuGong, Ammann, LS Tractor) y conexión en tiempo real con el taller de servicio pesado Km 22.
+            </p>
+          </div>
+          <div class="bg-neutral-950/80 border border-white/10 rounded-2xl p-4 text-right shrink-0">
+            <span class="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">Garantía TodoBuild</span>
+            <span class="text-lg font-black text-emerald-400 font-mono block">SLA 99.5% Uptime</span>
+            <span class="text-[11px] text-neutral-400 block mt-1">Cero Interrupción de su WordPress</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIAGNÓSTICO ESTRATÉGICO: SITIO ACTUAL TMD vs BRECHAS vs POTENCIAL 720° -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-neutral-950 via-neutral-900 to-neutral-950 border border-amber-500/30 shadow-2xl relative">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-white/10">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+              <span>🔍 AUDITORÍA DE IMPACTO COMERCIAL</span> • DIAGNÓSTICO SITIO ACTUAL
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black uppercase text-white mt-1">
+              ¿Por Qué Modernizar? Diagnóstico del Sitio Actual vs Solución 720°
+            </h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold">
+              ● Fugas Operativas Detectadas
+            </span>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
+              ● ROI Recuperable en 30 Días
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <!-- Col 1: Qué Tiene Hoy -->
+          <div class="p-5 rounded-2xl bg-neutral-950/80 border border-white/10 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-black text-neutral-400 uppercase tracking-wider">ESTADO ACTUAL</span>
+              <span class="px-2 py-0.5 rounded bg-neutral-800 text-[10px] font-mono text-neutral-300">WordPress Legado</span>
+            </div>
+            <h3 class="text-base font-black text-white">¿Qué Tiene TMD Hoy?</h3>
+            <ul class="text-xs text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">▪</span>
+                <span>Catálogo plano estático con fotos en baja resolución de celular.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">▪</span>
+                <span>Formulario web genérico que llega a bandejas no leídas.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">▪</span>
+                <span>Botón flotante de WhatsApp sin cotización previa ni datos de máquina.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-400 font-bold">▪</span>
+                <span>Página informativa de marcas sin capacidad de venta ni reserva de flota.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 2: De Qué Carece -->
+          <div class="p-5 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-black text-red-400 uppercase tracking-wider">BRECHAS &amp; PÉRDIDAS</span>
+              <span class="px-2 py-0.5 rounded bg-red-500/20 text-[10px] font-mono text-red-300 font-bold">Fugas de Facturación</span>
+            </div>
+            <h3 class="text-base font-black text-white">¿De Qué Carece el Sitio Actual?</h3>
+            <ul class="text-xs text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✗</span>
+                <span><strong>Cero conexión al Taller Km 22:</strong> Clientes llaman decenas de veces para saber el estado de su retroexcavadora.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✗</span>
+                <span><strong>Sin selector de Renta ($/día):</strong> Pérdida de contratistas que necesitan calcular presupuesto inmediato para licitaciones.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✗</span>
+                <span><strong>Sin stock de repuestos visible:</strong> Constructoras compran filtros o bombas en otros suplidores por no saber si hay stock en Km 22.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✗</span>
+                <span><strong>Sin Portal VIP para Contratistas:</strong> Cero historial de horas de motor ni reportes fotográficos de inspección DVI.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 3: El Salto 720° -->
+          <div class="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/40 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-black text-amber-400 uppercase tracking-wider">SOLUCIÓN TODOBUILD</span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-[10px] font-mono text-amber-300 font-bold">Bucle 720°</span>
+            </div>
+            <h3 class="text-base font-black text-white">El Salto Transformacional 720°</h3>
+            <ul class="text-xs text-neutral-200 space-y-2">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span><strong>Taller Conectado en Vivo:</strong> Rastreador WO con Fullbay API; el cliente consulta el estatus desde su celular 24/7.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span><strong>Cotizador Automático en PDF:</strong> Descarga formal con RNC de TMD lista para adjuntar a licitaciones públicas del MOPC.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span><strong>Almacén Digital Km 22:</strong> Consulta de repuestos OEM con precios y botón de reserva inmediata.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span><strong>Pagos &amp; Anticipos con Square:</strong> Aceptación de tarjetas de crédito corporativas en línea y en mostrador físico.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Tier Cards Summary -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- TIER 1 -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-white/20 transition relative">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-[11px] font-mono font-bold uppercase text-neutral-400 bg-white/5 px-2.5 py-1 rounded-md">TIER 1</span>
+              <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">ENTREGA INMEDIATA</span>
+            </div>
+            <h3 class="text-xl font-black text-white">Digital Showroom</h3>
+            <p class="text-xs text-neutral-400 mt-1">Catálogo transaccional de alquileres diarios y venta 0 Km con cotizador y ruteo a WhatsApp.</p>
+            
+            <div class="my-5 p-4 rounded-2xl bg-neutral-950 border border-white/5">
+              <span class="text-[11px] text-neutral-400 font-mono uppercase block">Inversión Setup Única</span>
+              <div class="text-3xl font-black text-white price-usd font-mono">$1,250 <span class="text-xs font-normal text-neutral-400">USD</span></div>
+              <div class="text-xl font-black text-white price-dop font-mono hidden">RD$ 74,375 <span class="text-xs font-normal text-neutral-400">DOP</span></div>
+              <div class="text-xs text-amber-400 font-mono mt-1">+ $100/mes soporte &amp; hosting</div>
+              <div class="text-[10px] text-emerald-400 font-mono mt-1">Anticipo 50%: $625 USD (RD$ 37,188)</div>
+            </div>
+
+            <ul class="text-xs text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span><span>Catálogo 44 equipos scrapeados oficiales con specs</span></li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span><span>Selector Dual Renta ($/día) vs Venta Maquinaria</span></li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span><span>Mega Menú visual con fotos de estudio limpias</span></li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span><span>Nómina directiva (12 miembros) y 15 marcas</span></li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span><span>Cotizador en modal con exportación a PDF</span></li>
+              <li class="flex items-start gap-2 text-neutral-500"><span class="text-neutral-600 font-bold">✗</span><span>Sin conexión live a Fullbay API</span></li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-white/5">
+            <a href="fullbay-proposal-agreement.html" target="_blank" class="block w-full py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider text-center transition">
+              Seleccionar Tier 1
+            </a>
+          </div>
+        </div>
+
+        <!-- TIER 2 (RECOMMENDED) -->
+        <div class="p-6 rounded-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 border-2 border-amber-500 shadow-2xl shadow-amber-500/10 flex flex-col justify-between relative transform md:-translate-y-2">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-neutral-950 text-[10px] font-black uppercase tracking-widest px-4 py-0.5 rounded-full shadow-lg">
+            ★ RECOMENDADO PARA TMD KM 22
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-3 pt-1">
+              <span class="text-[11px] font-mono font-bold uppercase text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-md">TIER 2: FULLBAY FLEET</span>
+              <span class="text-[10px] font-bold text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded-full">INTEGRACIÓN ERP</span>
+            </div>
+            <h3 class="text-xl font-black text-white">Fullbay Connected &amp; Taller Km 22</h3>
+            <p class="text-xs text-neutral-300 mt-1">Sincronización bidireccional entre la web y Fullbay para seguimiento de reparaciones, repuestos y citas.</p>
+            
+            <div class="my-5 p-4 rounded-2xl bg-neutral-950 border border-amber-500/30">
+              <span class="text-[11px] text-neutral-400 font-mono uppercase block">Inversión Setup Única</span>
+              <div class="text-3xl font-black text-amber-400 price-usd font-mono">$2,850 <span class="text-xs font-normal text-neutral-400">USD</span></div>
+              <div class="text-xl font-black text-amber-400 price-dop font-mono hidden">RD$ 169,575 <span class="text-xs font-normal text-neutral-400">DOP</span></div>
+              <div class="text-xs text-amber-300 font-mono mt-1">+ $250/mes soporte &amp; sync diario</div>
+              <div class="text-[10px] text-emerald-400 font-mono mt-1">Anticipo 50%: $1,425 USD (RD$ 84,788)</div>
+            </div>
+
+            <ul class="text-xs text-neutral-200 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Todo lo incluido en Tier 1</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Conexión API en tiempo real con Fullbay</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Rastreador en vivo de Órdenes de Trabajo (WO)</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Agendamiento directo de Bahías de Taller Km 22</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Buscador de Repuestos con stock de almacén</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Portal VIP Contratistas con reporte de fotos DVI</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-amber-400 font-bold">✓</span><span><strong>Square Checkout para anticipos y depósitos</strong></span></li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-white/5">
+            <a href="fullbay-proposal-agreement.html" target="_blank" class="block w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black text-xs uppercase tracking-wider text-center transition shadow-lg">
+              Elegir Tier 2 Recomendado →
+            </a>
+          </div>
+        </div>
+
+        <!-- TIER 3 -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-white/20 transition relative">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-[11px] font-mono font-bold uppercase text-neutral-400 bg-white/5 px-2.5 py-1 rounded-md">TIER 3</span>
+              <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">ENTERPRISE DEALER</span>
+            </div>
+            <h3 class="text-xl font-black text-white">Omnicanal Multi-Sede &amp; CMS</h3>
+            <p class="text-xs text-neutral-400 mt-1">Para expansión multi-sucursal con Headless CMS Strapi, despiece 3D de piezas y enlace QuickBooks.</p>
+            
+            <div class="my-5 p-4 rounded-2xl bg-neutral-950 border border-white/5">
+              <span class="text-[11px] text-neutral-400 font-mono uppercase block">Inversión Setup Única</span>
+              <div class="text-3xl font-black text-white price-usd font-mono">$4,950 <span class="text-xs font-normal text-neutral-400">USD</span></div>
+              <div class="text-xl font-black text-white price-dop font-mono hidden">RD$ 294,525 <span class="text-xs font-normal text-neutral-400">DOP</span></div>
+              <div class="text-xs text-amber-400 font-mono mt-1">+ $450/mes soporte &amp; guardia 24/7</div>
+              <div class="text-[10px] text-emerald-400 font-mono mt-1">Anticipo 50%: $2,475 USD (RD$ 147,263)</div>
+            </div>
+
+            <ul class="text-xs text-neutral-300 space-y-2">
+              <li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">✓</span><span><strong>Todo lo incluido en Tier 1 y Tier 2</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">✓</span><span><strong>Strapi Headless CMS para control total de contenido</strong></span></li>
+              <li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">✓</span><span>Gestión Multi-Sucursal (Km 22, Santiago, Bávaro)</span></li>
+              <li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">✓</span><span>Despiece 3D interactivo para partes genuinas</span></li>
+              <li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">✓</span><span>Enlace contable QuickBooks &amp; comprobantes DGII B01</span></li>
+              <li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">✓</span><span>Línea telefónica de soporte prioritaria 24/7</span></li>
+            </ul>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-white/5">
+            <a href="fullbay-proposal-agreement.html" target="_blank" class="block w-full py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider text-center transition">
+              Seleccionar Tier 3
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MASTER SIDE-BY-SIDE FEATURE MATRIX (COLLAPSIBLE & PRINTABLE) -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-neutral-900/90 border border-white/10 overflow-hidden shadow-2xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-4 mb-6 gap-4">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+              <span>MATRIZ TÉCNICA EXHAUSTIVA</span> • 33 PUNTOS DE AUDITORÍA
+            </div>
+            <h2 class="text-2xl font-black uppercase text-white">
+              Cuadro Comparativo: Sitio Actual vs Los 3 Tiers TodoBuild
+            </h2>
+            <p class="text-xs text-neutral-400 mt-1">Haz clic en cada categoría para expandir/colapsar detalles técnicos o usa los controles rápidos.</p>
+          </div>
+          
+          <!-- Accordion Controls -->
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="expandAllAccordions()" class="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 border border-white/10 text-xs font-mono text-neutral-200 hover:text-white transition flex items-center gap-1.5">
+              <span>⊞</span> Expandir Todo
+            </button>
+            <button onclick="collapseAllAccordions()" class="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 border border-white/10 text-xs font-mono text-neutral-200 hover:text-white transition flex items-center gap-1.5">
+              <span>⊟</span> Colapsar Todo
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left border-collapse text-xs min-w-[850px]">
+            <thead>
+              <tr class="border-b border-white/10 font-mono uppercase tracking-wider text-neutral-400 bg-neutral-950/80">
+                <th class="py-3.5 px-4 w-[30%]">Capacidad / Módulo de Negocio</th>
+                <th class="py-3.5 px-3 text-center w-[16%] bg-red-950/20 text-red-400 border-x border-red-500/20">Sitio Actual TMD</th>
+                <th class="py-3.5 px-3 text-center w-[18%]">Tier 1: Showroom</th>
+                <th class="py-3.5 px-3 text-center w-[18%] bg-amber-500/10 text-amber-400 font-black border-x border-amber-500/30">Tier 2: Fullbay (Rec.)</th>
+                <th class="py-3.5 px-3 text-center w-[18%]">Tier 3: Enterprise</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-mono">
+
+              <!-- ========================================== -->
+              <!-- GRUPO 1: INVERSIÓN FINANCIERA & PLAZOS -->
+              <!-- ========================================== -->
+              <tr class="accordion-header cursor-pointer bg-neutral-950 hover:bg-neutral-800/80 transition" onclick="toggleAccordionGroup('grp-finance')">
+                <td colspan="5" class="py-3 px-4 font-sans font-black text-sm text-amber-400 border-y border-amber-500/30">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span id="grp-finance-icon" class="text-base transition-transform">▼</span>
+                      <span>💰 1. Inversión Financiera, Retainers &amp; Plazos de Entrega</span>
+                    </span>
+                    <span class="text-[11px] font-mono text-neutral-400 font-normal">6 Métricas Financieras</span>
+                  </div>
+                </td>
+              </tr>
+              <tbody id="grp-finance" class="accordion-body divide-y divide-white/5">
+                <tr class="bg-white/[0.02]">
+                  <td class="py-3 px-4 font-bold text-white font-sans">Inversión Setup Única</td>
+                  <td class="py-3 px-3 text-center text-neutral-500 bg-red-950/10 border-x border-red-500/10 font-bold">Costos Ocultos</td>
+                  <td class="py-3 px-3 text-center font-bold text-white price-usd">$1,250 USD</td>
+                  <td class="py-3 px-3 text-center font-black text-amber-400 bg-amber-500/10 border-x border-amber-500/20 price-usd">$2,850 USD</td>
+                  <td class="py-3 px-3 text-center font-bold text-white price-usd">$4,950 USD</td>
+                </tr>
+                <tr class="bg-white/[0.02] price-dop hidden">
+                  <td class="py-3 px-4 font-bold text-white font-sans">Inversión Setup (DOP @ 59.50)</td>
+                  <td class="py-3 px-3 text-center text-neutral-500 bg-red-950/10 border-x border-red-500/10">N/A</td>
+                  <td class="py-3 px-3 text-center font-bold text-white">RD$ 74,375</td>
+                  <td class="py-3 px-3 text-center font-black text-amber-400 bg-amber-500/10 border-x border-amber-500/20">RD$ 169,575</td>
+                  <td class="py-3 px-3 text-center font-bold text-white">RD$ 294,525</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Anticipo Requerido (Hito 1 - 50%)</td>
+                  <td class="py-3 px-3 text-center text-neutral-500 bg-red-950/10 border-x border-red-500/10">—</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 price-usd">$625 USD</td>
+                  <td class="py-3 px-3 text-center font-black text-emerald-400 bg-amber-500/10 border-x border-amber-500/20 price-usd">$1,425 USD</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 price-usd">$2,475 USD</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Retainer Mensual Cloud, SLA &amp; Soporte</td>
+                  <td class="py-3 px-3 text-center text-neutral-500 bg-red-950/10 border-x border-red-500/10">Hosting Básico</td>
+                  <td class="py-3 px-3 text-center text-neutral-300 price-usd">$100 / mes</td>
+                  <td class="py-3 px-3 text-center font-bold text-amber-400 bg-amber-500/10 border-x border-amber-500/20 price-usd">$250 / mes</td>
+                  <td class="py-3 px-3 text-center text-neutral-300 price-usd">$450 / mes</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Plazo de Puesta en Marcha Operativa</td>
+                  <td class="py-3 px-3 text-center text-neutral-500 bg-red-950/10 border-x border-red-500/10">Inmóvil</td>
+                  <td class="py-3 px-3 text-center text-neutral-300">5 – 7 Días</td>
+                  <td class="py-3 px-3 text-center font-bold text-amber-400 bg-amber-500/10 border-x border-amber-500/20">10 – 14 Días</td>
+                  <td class="py-3 px-3 text-center text-neutral-300">21 – 28 Días</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Retorno de Inversión Estimado (ROI)</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">0% (Costo Hundido)</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">1ra Venta Maquinaria</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-black bg-amber-500/10 border-x border-amber-500/20">15 Días (Rentas + WO)</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">30 Días (Multi-Sede)</td>
+                </tr>
+              </tbody>
+
+              <!-- ========================================== -->
+              <!-- GRUPO 2: SHOWROOM DIGITAL & CATÁLOGO -->
+              <!-- ========================================== -->
+              <tr class="accordion-header cursor-pointer bg-neutral-950 hover:bg-neutral-800/80 transition" onclick="toggleAccordionGroup('grp-showroom')">
+                <td colspan="5" class="py-3 px-4 font-sans font-black text-sm text-amber-400 border-y border-amber-500/30">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span id="grp-showroom-icon" class="text-base transition-transform">▼</span>
+                      <span>🚜 2. Showroom Digital, Maquinaria 0 Km &amp; Catálogo Transaccional</span>
+                    </span>
+                    <span class="text-[11px] font-mono text-neutral-400 font-normal">6 Capacidades Comerciales</span>
+                  </div>
+                </td>
+              </tr>
+              <tbody id="grp-showroom" class="accordion-body divide-y divide-white/5">
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Catálogo 44 Equipos Scrapeados Oficiales</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Incompleto / Estático</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ 44 Equipos</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ 44 Equipos + Specs</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Ilimitado (CMS)</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Selector Dual: Renta ($/día) vs Venta 0 Km</td>
+                  <td class="py-3 px-3 text-center text-red-400 font-bold bg-red-950/10 border-x border-red-500/10">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Con Calculadora</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Depósitos + Fianza</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Multi-Moneda Full</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Mega Menú Visual con Fotos 4K HD de Estudio</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">✗ Menú Plano Texto</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Mega Menú 1-Línea</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Mega Menú Interactivo</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Personalizado Multi-Marca</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Cotizador en Modal con Exportación a PDF</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">✗ Solo Email Estático</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ PDF Formal con RNC</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ PDF + Reserva Km 22</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ PDF + NCF DGII B01</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Nómina Directiva con Retratos 4K &amp; Modales Bio</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Fotos Celular / Bajas</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ 12 Miembros 4K</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ 12 Miembros + Modales</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Organigrama Dinámico</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Velocidad Core Web Vitals &amp; Carga Móvil</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">Lento (&gt; 4.8s)</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Ultra Rápido (1.1s)</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Ultra Rápido + Edge CDN</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Global Edge Server</td>
+                </tr>
+              </tbody>
+
+              <!-- ========================================== -->
+              <!-- GRUPO 3: TALLER CENTRAL KM 22 & FULLBAY ERP -->
+              <!-- ========================================== -->
+              <tr class="accordion-header cursor-pointer bg-neutral-950 hover:bg-neutral-800/80 transition" onclick="toggleAccordionGroup('grp-workshop')">
+                <td colspan="5" class="py-3 px-4 font-sans font-black text-sm text-amber-400 border-y border-amber-500/30">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span id="grp-workshop-icon" class="text-base transition-transform">▼</span>
+                      <span>🔧 3. Taller Central Km 22 &amp; Conexión Fullbay ERP</span>
+                    </span>
+                    <span class="text-[11px] font-mono text-neutral-400 font-normal">5 Funcionalidades Operativas</span>
+                  </div>
+                </td>
+              </tr>
+              <tbody id="grp-workshop" class="accordion-body divide-y divide-white/5">
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Rastreador de Reparaciones en Vivo Fullbay</td>
+                  <td class="py-3 px-3 text-center text-red-400 font-bold bg-red-950/10 border-x border-red-500/10">✗ Llamadas Telefónicas</td>
+                  <td class="py-3 px-3 text-center text-neutral-500">✗ Manual</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Live API (/workorders)</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Live API + Telematics</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Agendamiento Directo de Bahías Taller Km 22</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">WhatsApp Manual</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Solicitud WhatsApp</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ API Fullbay Directa</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Multi-Taller Centralizado</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Inspección Digital DVI con Fotos de Fugas</td>
+                  <td class="py-3 px-3 text-center text-red-400 font-bold bg-red-950/10 border-x border-red-500/10">✗ Hojas Físicas de Papel</td>
+                  <td class="py-3 px-3 text-center text-neutral-500">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Visor DVI para Clientes</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Visor DVI + Firma Legal</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Historial Técnico por Chasis / VIN de Máquina</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">✗ No visible al cliente</td>
+                  <td class="py-3 px-3 text-center text-neutral-500">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Registro Oficial TMD</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Expediente C-Suite</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Aviso Automatizado: "Máquina Lista para Retiro"</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Manual por Recepción</td>
+                  <td class="py-3 px-3 text-center text-neutral-500">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ WhatsApp + Webhook</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ SMS + WhatsApp + Email</td>
+                </tr>
+              </tbody>
+
+              <!-- ========================================== -->
+              <!-- GRUPO 4: ALMACÉN DE REPUESTOS & STOCK -->
+              <!-- ========================================== -->
+              <tr class="accordion-header cursor-pointer bg-neutral-950 hover:bg-neutral-800/80 transition" onclick="toggleAccordionGroup('grp-parts')">
+                <td colspan="5" class="py-3 px-4 font-sans font-black text-sm text-amber-400 border-y border-amber-500/30">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span id="grp-parts-icon" class="text-base transition-transform">▼</span>
+                      <span>📦 4. Almacén de Repuestos &amp; Stock en Vivo Km 22</span>
+                    </span>
+                    <span class="text-[11px] font-mono text-neutral-400 font-normal">5 Funcionalidades de Repuestos</span>
+                  </div>
+                </td>
+              </tr>
+              <tbody id="grp-parts" class="accordion-body divide-y divide-white/5">
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Buscador de Repuestos con Stock Almacén Km 22</td>
+                  <td class="py-3 px-3 text-center text-red-400 font-bold bg-red-950/10 border-x border-red-500/10">✗ Sin buscador de stock</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Catálogo Fijo</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Sync Fullbay Diario</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Sync Realtime + MOTOR</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Consulta por Número de Parte OEM (JCB, Yanmar, LiuGong)</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Búsqueda Básica</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Indexación OEM Exacta</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Despiece 3D Interactivo</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Ruteo a WhatsApp con Pieza &amp; Chasis Precargado</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Mensaje Vacío</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Mensaje con Código</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Orden Pre-Armada</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Checkout Inmediato</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Ventas de Repuestos en Horarios No Laborales / Domingos</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">✗ Tienda Cerrada (0)</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Captación de Leads</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Reserva con Depósito</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Compra Automatizada 24/7</td>
+                </tr>
+              </tbody>
+
+              <!-- ========================================== -->
+              <!-- GRUPO 5: PAGOS, COBROS & SEGURIDAD -->
+              <!-- ========================================== -->
+              <tr class="accordion-header cursor-pointer bg-neutral-950 hover:bg-neutral-800/80 transition" onclick="toggleAccordionGroup('grp-payments')">
+                <td colspan="5" class="py-3 px-4 font-sans font-black text-sm text-amber-400 border-y border-amber-500/30">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span id="grp-payments-icon" class="text-base transition-transform">▼</span>
+                      <span>💳 5. Pasarelas de Pago, Facturación DGII &amp; Seguridad</span>
+                    </span>
+                    <span class="text-[11px] font-mono text-neutral-400 font-normal">5 Puntos de Cumplimiento</span>
+                  </div>
+                </td>
+              </tr>
+              <tbody id="grp-payments" class="accordion-body divide-y divide-white/5">
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Pasarela de Pagos &amp; Depósito de Renta</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Transferencia / Cheque</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Transferencia / Cheque</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Square Online &amp; POS</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Square + ACH + NCF B01</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Cobro en Mostrador Físico Km 22 con Square Terminal</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Verifone Aislado</td>
+                  <td class="py-3 px-3 text-center text-neutral-500">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Sincronizado a Web</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Multi-Caja Conciliada</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Comprobantes Fiscales Dominicanos DGII (NCF B01)</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">Manual en Contabilidad</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Manual</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-amber-500/10 border-x border-amber-500/20">Módulo Opcional</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ 100% Automatizado</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Propiedad Total del Código Fuente y Derechos</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">WordPress Tercerizado</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ 100% TMD</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ 100% TMD</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ 100% TMD</td>
+                </tr>
+              </tbody>
+
+              <!-- ========================================== -->
+              <!-- GRUPO 6: PORTAL VIP & EXPANSION -->
+              <!-- ========================================== -->
+              <tr class="accordion-header cursor-pointer bg-neutral-950 hover:bg-neutral-800/80 transition" onclick="toggleAccordionGroup('grp-portal')">
+                <td colspan="5" class="py-3 px-4 font-sans font-black text-sm text-amber-400 border-y border-amber-500/30">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span id="grp-portal-icon" class="text-base transition-transform">▼</span>
+                      <span>🏢 6. Portal VIP de Contratistas &amp; Expansión Futura</span>
+                    </span>
+                    <span class="text-[11px] font-mono text-neutral-400 font-normal">4 Herramientas de Fidelización</span>
+                  </div>
+                </td>
+              </tr>
+              <tbody id="grp-portal" class="accordion-body divide-y divide-white/5">
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Portal VIP del Cliente con Flotas Activas</td>
+                  <td class="py-3 px-3 text-center text-red-400 font-bold bg-red-950/10 border-x border-red-500/10">✗ Inexistente</td>
+                  <td class="py-3 px-3 text-center text-neutral-500">✗ No disponible</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold bg-amber-500/10 border-x border-amber-500/20">✓ Portal Contratistas</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Portal Enterprise C-Suite</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Gestor de Contenidos (Headless CMS Strapi)</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-red-950/10 border-x border-red-500/10">WordPress Pesado</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">No requerido (Fijo)</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-amber-500/10 border-x border-amber-500/20">No requerido (Fullbay ERP)</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Strapi Headless CMS</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-bold text-white font-sans">Gestión Multi-Sucursal (Km 22, Santiago, Bávaro)</td>
+                  <td class="py-3 px-3 text-center text-red-400 bg-red-950/10 border-x border-red-500/10">✗ Solo Km 22</td>
+                  <td class="py-3 px-3 text-center text-neutral-400">Sede Central</td>
+                  <td class="py-3 px-3 text-center text-neutral-400 bg-amber-500/10 border-x border-amber-500/20">Sede Km 22 + Ruteo</td>
+                  <td class="py-3 px-3 text-center text-emerald-400 font-bold">✓ Multi-Sucursal Activo</td>
+                </tr>
+              </tbody>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Strategy Box: Two-Phase Closing -->
+        <div class="mt-6 p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider block">💡 ESTRATEGIA RECOMENDADA DE CIERRE EN 2 FASES:</span>
+            <p class="text-xs text-neutral-300">
+              Para no paralizar el taller ni saturar al equipo en Km 22, <strong>iniciar de inmediato con el Tier 1 ($1,250 USD)</strong>. Se publica el catálogo transaccional en 7 días y, una vez que el equipo comercial esté validado, se escala al <strong>Tier 2 ($2,850 USD)</strong> acreditando el 100% del pago inicial.
+            </p>
+          </div>
+          <a href="fullbay-proposal-agreement.html" target="_blank" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black text-xs uppercase tracking-wider whitespace-nowrap transition shadow-md">
+            Firmar Acuerdo Fase 1 ($625) →
+          </a>
+        </div>
+
+        <!-- Callout Banner to Tab 4 Upgrades -->
+        <div class="mt-4 p-4 rounded-xl bg-purple-500/10 border border-purple-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2 text-xs text-purple-300">
+            <span class="text-base">💎</span>
+            <span><strong>¿Buscas soluciones avanzadas?</strong> Explora los 6 módulos modulares de ingeniería (Telemática GPS, Despiece 3D, Kiosko Táctil, WhatsApp AI).</span>
+          </div>
+          <button onclick="switchTab('tab-upsells')" class="px-4 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider transition shrink-0">
+            Ver Módulos de Alto Valor →
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: DOSSIER TÉCNICO DE CAPACIDADES LIVE DE FULLBAY API EN LA WEB -->
+    <!-- ========================================================================= -->
+    <section id="tab-fullbay-api" class="tab-pane hidden space-y-8">
+      
+      <div class="p-6 sm:p-8 rounded-3xl bg-neutral-900/80 border border-white/10 backdrop-blur-md">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs font-bold mb-3">
+          <span>ARQUITECTURA DE INTEGRACIÓN</span> • REST API v1/v2 &amp; WEBHOOKS
+        </div>
+        <h2 class="text-3xl font-black uppercase text-white tracking-tight">
+          ¿Qué Funcionalidades Live Habilita la API de Fullbay en la Web de TMD?
+        </h2>
+        <p class="text-neutral-300 text-sm max-w-3xl mt-2 leading-relaxed">
+          Fullbay no es solo una base de datos interna de taller; es el motor operativo de TMD. A través de su REST API y webhooks bidireccionales, TodoBuild convierte el sitio web público en una <strong>interfaz transaccional viva</strong> que ahorra horas de teléfono a recepcionistas y mecánicos.
+        </p>
+      </div>
+
+      <!-- 9 Live Frontend Capabilities Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 1. Live Work Order Tracker -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🛠️</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">GET /workorders/{id}</span>
+          </div>
+          <h3 class="text-base font-bold text-white">1. Rastreador de Órdenes de Trabajo (WO)</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            El cliente introduce su número de orden (ej: <code>TMD-WO-8492</code>) y ve una barra visual interactiva:
+            <span class="text-amber-400 font-semibold block mt-1">[ Diagnóstico ] ➔ [ Espera de Piezas ] ➔ [ En Bahía Km 22 ] ➔ [ Listo ]</span>
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Reduce en un 60% las llamadas telefónicas de "¿ya está lista mi excavadora?".
+          </div>
+        </div>
+
+        <!-- 2. DVI Photo Inspection Gallery -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">📸</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">GET /dvi/{id}</span>
+          </div>
+          <h3 class="text-base font-bold text-white">2. Reporte Digital de Inspección DVI</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Muestra las fotos tomadas por el mecánico en el taller: fugas en mangueras, desgaste de zapatas, presión de aceite y estado del filtro con sellos de fecha/hora.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Respaldo legal antes y después de cada renta de maquinaria pesada.
+          </div>
+        </div>
+
+        <!-- 3. Km 22 Bay Appointment Booking -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">📅</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">POST /service-requests</span>
+          </div>
+          <h3 class="text-base font-bold text-white">3. Agendamiento de Bahía Km 22</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            El cliente agenda en línea el mantenimiento de su tractor o camión según disponibilidad de bahías en el taller central, adjuntando síntomas o códigos de falla.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Crea la orden de servicio en Fullbay sin intervención manual de la secretaria.
+          </div>
+        </div>
+
+        <!-- 4. Live Parts Catalog & Bin Stock -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">📦</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">GET /parts/search</span>
+          </div>
+          <h3 class="text-base font-bold text-white">4. Buscador de Repuestos en Almacén</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Consulta en vivo por número de parte OEM (JCB, LiuGong, Cummins, Perkins). Muestra si hay stock físico en el almacén de Km 22, precio unitario y depósito por núcleo.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: El contratista compra o reserva piezas un domingo por la noche desde su celular.
+          </div>
+        </div>
+
+        <!-- 5. VIP Customer Fleet Portal -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🚜</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">GET /customers/{id}/fleet</span>
+          </div>
+          <h3 class="text-base font-bold text-white">5. Portal VIP de Contratistas</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Las constructoras con flotas de 10+ máquinas tienen un login exclusivo para ver su historial de mantenimiento, horas de uso registradas y estado de sus equipos.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Retención a largo plazo con constructoras institucionales dominicanas.
+          </div>
+        </div>
+
+        <!-- 6. Preventive Maintenance (PM) Alerts -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">⏳</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">GET /pm-schedules</span>
+          </div>
+          <h3 class="text-base font-bold text-white">6. Alertas de Servicio por Horas de Motor</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Indicadores interactivos en la web que avisan cuándo una máquina se acerca a su ciclo de 50h, 250h, 500h o 1,000h de trabajo para cambio de filtros y aceites.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Genera ventas automáticas de paquetes de servicio preventivo recurrentes.
+          </div>
+        </div>
+
+        <!-- 7. E-Sign Estimate Approval -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">✍️</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">POST /estimates/{id}/approve</span>
+          </div>
+          <h3 class="text-base font-bold text-white">7. Aprobación y Firma Digital de Presupuestos</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Cuando el taller detecta una pieza rota adicional, el cliente recibe un enlace seguro al portal web, revisa las fotos, el costo y firma electrónicamente con su dedo.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Elimina el "cuello de botella de espera de aprobación", acelerando la entrega.
+          </div>
+        </div>
+
+        <!-- 8. Live Invoices & Square Card Payments -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">💳</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">GET /invoices/{id}/pay</span>
+          </div>
+          <h3 class="text-base font-bold text-white">8. Pago Digital de Facturas &amp; Depósitos</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Descarga de facturas oficiales y pago de anticipos de renta mediante Square Terminal o pasarela web (tarjeta, ACH o cuenta bancaria) con registro instantáneo en Fullbay.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Mejora el flujo de caja diario y evita el manejo de efectivo en Km 22.
+          </div>
+        </div>
+
+        <!-- 9. Mobile Field Dispatch Request -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 space-y-3 hover:border-cyan-500/40 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🚐</span>
+            <span class="font-mono text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">POST /mobile-dispatch</span>
+          </div>
+          <h3 class="text-base font-bold text-white">9. Despacho de Camioneta Técnica en Faena</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            Botón de emergencia en la web para averías en carretera o cantera. Captura la ubicación GPS del cliente en República Dominicana y la asigna a la camioneta de guardia.
+          </p>
+          <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 text-[11px] text-neutral-300 font-mono">
+            Beneficio: Posiciona a TMD como el servicio de asistencia pesada más rápido del país.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: BUCLE 720° OMNICANAL & ECOSISTEMA DE INTEGRACIONES -->
+    <!-- ========================================================================= -->
+    <section id="tab-ecosystem-720" class="tab-pane hidden space-y-8">
+      
+      <div class="p-6 sm:p-8 rounded-3xl bg-neutral-900/80 border border-white/10 backdrop-blur-md">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold mb-3">
+          <span>ARQUITECTURA DE ECOSISTEMA CERRADO</span> • THE 720° ENGINE LOOP
+        </div>
+        <h2 class="text-3xl font-black uppercase text-white tracking-tight">
+          El Bucle Omnicanal 720°: Conexión Integral Sitio ↔ Fullbay ↔ Ecosistema
+        </h2>
+        <p class="text-neutral-300 text-sm max-w-3xl mt-2 leading-relaxed">
+          No creamos islas tecnológicas. El poder de esta propuesta radica en que <strong>el sitio web, los servicios en la nube (Gmail, WhatsApp, QuickBooks), Fullbay ERP y los dispositivos telemáticos de la maquinaria pesada</strong> operan en sincronía total de 720 grados.
+        </p>
+      </div>
+
+      <!-- The 720 Loop Visual Stages -->
+      <div class="p-6 sm:p-10 rounded-3xl bg-neutral-900 border border-white/10 space-y-8">
+        
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-xs font-mono uppercase text-amber-400 font-bold">Flujo de Datos Bidireccional Continuo</span>
+          <h3 class="text-2xl font-black text-white mt-1">Cómo se Cierra el Ciclo en Cada Interacción</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+          
+          <!-- Step 1 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-amber-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">01</span>
+            <h4 class="text-sm font-bold text-white mb-1">Cliente en la Web</h4>
+            <p class="text-xs text-neutral-400">El contratista cotiza alquiler, busca un repuesto OEM o agenda cita de taller desde su teléfono.</p>
+            <div class="mt-3 text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-1 rounded">React Frontend</div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-blue-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">02</span>
+            <h4 class="text-sm font-bold text-white mb-1">Relay de Mensajería</h4>
+            <p class="text-xs text-neutral-400">Envío instantáneo de confirmación por <strong>Gmail</strong> y mensaje preformateado a <strong>WhatsApp Business</strong> del vendedor TMD.</p>
+            <div class="mt-3 text-[10px] font-mono text-blue-400 bg-blue-500/10 px-2 py-1 rounded">Google Workspace / WA</div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">03</span>
+            <h4 class="text-sm font-bold text-white mb-1">Ingreso a Fullbay ERP</h4>
+            <p class="text-xs text-neutral-400">Webhook inyecta la solicitud como <strong>Orden de Trabajo abierta</strong> en el taller Km 22, reservando repuestos en almacén.</p>
+            <div class="mt-3 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Fullbay REST Webhook</div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-purple-500 text-white font-black font-mono text-xs flex items-center justify-center mb-3">04</span>
+            <h4 class="text-sm font-bold text-white mb-1">Telemática &amp; Taller</h4>
+            <p class="text-xs text-neutral-400">El mecánico ejecuta la inspección DVI en su tablet. Sensores <strong>Samsara</strong> registran horas reales de faena.</p>
+            <div class="mt-3 text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-1 rounded">Samsara / Shop Tablet</div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-cyan-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">05</span>
+            <h4 class="text-sm font-bold text-white mb-1">Sincronización Contable</h4>
+            <p class="text-xs text-neutral-400">Fullbay genera la factura y la sincroniza con <strong>QuickBooks</strong>, agregando el comprobante fiscal DGII (NCF B01).</p>
+            <div class="mt-3 text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded">QuickBooks / DGII</div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">06</span>
+            <h4 class="text-sm font-bold text-white mb-1">Retorno al Portal Web</h4>
+            <p class="text-xs text-neutral-400">El estado de la máquina cambia en el portal del cliente: <em>"Listo para entrega en Km 22 con DVI aprobado"</em>.</p>
+            <div class="mt-3 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Live Client Portal</div>
+          </div>
+
+          <!-- Step 7 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-amber-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">07</span>
+            <h4 class="text-sm font-bold text-white mb-1">Cobro con Square Terminal</h4>
+            <p class="text-xs text-neutral-400">El cliente paga en línea con tarjeta o en el mostrador del Km 22 con <strong>Square Terminal</strong> en dólares o pesos.</p>
+            <div class="mt-3 text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-1 rounded">Square POS / Online</div>
+          </div>
+
+          <!-- Step 8 -->
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 relative">
+            <span class="w-7 h-7 rounded-full bg-emerald-400 text-neutral-950 font-black font-mono text-xs flex items-center justify-center mb-3">08</span>
+            <h4 class="text-sm font-bold text-white mb-1">Cierre de Ciclo 720°</h4>
+            <p class="text-xs text-neutral-400">El pago concilia en Fullbay y QuickBooks; la máquina queda liberada para nueva renta y el cliente recibe su PDF.</p>
+            <div class="mt-3 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">720° Loop Completed ✓</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Official Integrations Ecosystem Supported by Fullbay -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-neutral-900/90 border border-white/10 space-y-6">
+        <div class="border-b border-white/10 pb-4">
+          <span class="text-xs font-mono text-amber-400 uppercase tracking-wider font-bold">Mapa de Compatibilidad</span>
+          <h3 class="text-xl font-black text-white mt-1">Ecosistema Oficial de Integraciones de Fullbay Soportadas</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          
+          <div class="p-4 rounded-2xl bg-neutral-950 border border-white/5 space-y-2">
+            <span class="text-xs font-mono uppercase font-bold text-blue-400">Contabilidad &amp; Finanzas</span>
+            <h4 class="text-sm font-bold text-white">QuickBooks Online &amp; Desktop</h4>
+            <p class="text-xs text-neutral-400">Sincronización bidireccional automática de cuentas por cobrar, facturas, clientes e inventario con costo contable (COGS).</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-neutral-950 border border-white/5 space-y-2">
+            <span class="text-xs font-mono uppercase font-bold text-purple-400">Telemática &amp; GPS</span>
+            <h4 class="text-sm font-bold text-white">Samsara &amp; Geotab</h4>
+            <p class="text-xs text-neutral-400">Lectura continua de horómetros y códigos de falla del motor (DTCs), disparando mantenimientos preventivos automáticos.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-neutral-950 border border-white/5 space-y-2">
+            <span class="text-xs font-mono uppercase font-bold text-amber-400">Guías de Taller &amp; Tiempos</span>
+            <h4 class="text-sm font-bold text-white">MOTOR Heavy-Duty &amp; Mitchell 1</h4>
+            <p class="text-xs text-neutral-400">Tiempos estándar de mano de obra para cambio de inyectores, turbo, bombas hidráulicas y calibración de motores diésel.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-neutral-950 border border-white/5 space-y-2">
+            <span class="text-xs font-mono uppercase font-bold text-emerald-400">Comunicaciones &amp; Clientes</span>
+            <h4 class="text-sm font-bold text-white">Gmail / Google Workspace &amp; Twilio</h4>
+            <p class="text-xs text-neutral-400">Alertas automáticas por correo electrónico institucional y SMS para notificar al contratista el estado de su maquinaria.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-neutral-950 border border-white/5 space-y-2">
+            <span class="text-xs font-mono uppercase font-bold text-amber-400">Pasarela de Pagos &amp; POS</span>
+            <h4 class="text-sm font-bold text-white">Square POS, Terminal &amp; Online</h4>
+            <p class="text-xs text-neutral-400">Cobro de depósitos de garantía y facturas en mostrador o en línea, liquidando fondos directamente en la cuenta bancaria de TMD.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-neutral-950 border border-white/5 space-y-2">
+            <span class="text-xs font-mono uppercase font-bold text-cyan-400">Mensajería Local Dominicana</span>
+            <h4 class="text-sm font-bold text-white">WhatsApp Business Cloud API</h4>
+            <p class="text-xs text-neutral-400">Canal #1 de ventas en RD: envío de resúmenes ejecutivos, catálogos en PDF y enlaces de pago directamente al teléfono del cliente.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: CATÁLOGO DE UPGRADES & MÓDULOS EXTRAS PARA VENDER A TMD -->
+    <!-- ========================================================================= -->
+    <section id="tab-upsells" class="tab-pane hidden space-y-8">
+      
+      <div class="p-6 sm:p-8 rounded-3xl bg-neutral-900/80 border border-white/10 backdrop-blur-md">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono text-xs font-bold mb-3">
+          <span>CATÁLOGO DE SERVICIOS ADICIONALES</span> • UPSELLS COMERCIALES 2026
+        </div>
+        <h2 class="text-3xl font-black uppercase text-white tracking-tight">
+          Opciones y Módulos de Alto Valor que Podemos Vender a TMD
+        </h2>
+        <p class="text-neutral-300 text-sm max-w-3xl mt-2 leading-relaxed">
+          Más allá del sitio web y la conexión básica de Fullbay, TodoBuild puede ofrecer a TMD estos paquetes modulares de ingeniería para maximizar la facturación y la eficiencia de su sede en el Km 22.
+        </p>
+      </div>
+
+      <!-- Upsells Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Upsell A: Telematics Live Pack -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-purple-500/40 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md font-bold">MÓDULO A · TELEMATICS</span>
+              <span class="text-sm font-mono font-bold text-white">+$1,200 <span class="text-xs text-neutral-400">USD Setup</span></span>
+            </div>
+            <h3 class="text-lg font-black text-white">Puente Telemático en Vivo (Samsara / Geotab)</h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Conexión directa entre los GPS de la maquinaria en faena y la web de TMD. Los contratistas ven en su portal las horas de motor trabajadas por día, combustible restante y ubicación en mapa satelital.
+            </p>
+            <div class="text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5">
+              Tarifa mensual de soporte: +$80 USD / mes
+            </div>
+          </div>
+          <button onclick="alert('Módulo A seleccionado para la propuesta de TMD.')" class="mt-5 w-full py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600 border border-purple-500/30 text-purple-200 hover:text-white font-bold text-xs uppercase tracking-wider transition">
+            Agregar Módulo a la Propuesta
+          </button>
+        </div>
+
+        <!-- Upsell B: 3D Exploded Parts Viewer -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-amber-500/40 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md font-bold">MÓDULO B · 3D ENGINE</span>
+              <span class="text-sm font-mono font-bold text-white">+$1,500 <span class="text-xs text-neutral-400">USD Setup</span></span>
+            </div>
+            <h3 class="text-lg font-black text-white">Visor 3D Interactivo de Despiece de Repuestos</h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Esquemas 3D interactivos en WebGL de ensambles críticos de excavadoras JCB y cargadores LiuGong. El mecánico o cliente hace clic en el perno, buje o pistón en 3D para ordenar la pieza exacta en 1 toque.
+            </p>
+            <div class="text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5">
+              Sin costo mensual adicional de hosting (integrado en CDN)
+            </div>
+          </div>
+          <button onclick="alert('Módulo B seleccionado para la propuesta de TMD.')" class="mt-5 w-full py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500 border border-amber-500/30 text-amber-300 hover:text-neutral-950 font-bold text-xs uppercase tracking-wider transition">
+            Agregar Módulo a la Propuesta
+          </button>
+        </div>
+
+        <!-- Upsell C: Counter Kiosk at Km 22 -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-emerald-500/40 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-bold">MÓDULO C · HARDWARE</span>
+              <span class="text-sm font-mono font-bold text-white">+$850 <span class="text-xs text-neutral-400">USD Setup + Hardware</span></span>
+            </div>
+            <h3 class="text-lg font-black text-white">Kiosko Táctil de Mostrador Km 22 con Square</h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Terminal en tablet táctil con soporte antivandálico para el mostrador de repuestos en el Km 22. Los clientes que llegan buscan repuestos en pantalla, ven el stock y pagan directamente con tarjeta.
+            </p>
+            <div class="text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5">
+              Incluye configuración de Square Terminal y modo kiosko blindado
+            </div>
+          </div>
+          <button onclick="alert('Módulo C seleccionado para la propuesta de TMD.')" class="mt-5 w-full py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/30 text-emerald-300 hover:text-white font-bold text-xs uppercase tracking-wider transition">
+            Agregar Módulo a la Propuesta
+          </button>
+        </div>
+
+        <!-- Upsell D: WhatsApp AI Chatbot Agent -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-cyan-500/40 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-md font-bold">MÓDULO D · AI AGENT</span>
+              <span class="text-sm font-mono font-bold text-white">+$750 <span class="text-xs text-neutral-400">USD Setup</span></span>
+            </div>
+            <h3 class="text-lg font-black text-white">Agente WhatsApp AI de Cotización 24/7</h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Bot conversacional con Inteligencia Artificial conectado a Fullbay. Responde preguntas técnicas por WhatsApp a las 11 PM: <em>"¿Tienen una excavadora de 20 toneladas libre para mañana en Santiago?"</em> y cotiza al instante.
+            </p>
+            <div class="text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5">
+              Tarifa mensual de soporte &amp; tokens: +$50 USD / mes
+            </div>
+          </div>
+          <button onclick="alert('Módulo D seleccionado para la propuesta de TMD.')" class="mt-5 w-full py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600 border border-cyan-500/30 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition">
+            Agregar Módulo a la Propuesta
+          </button>
+        </div>
+
+        <!-- Upsell E: Headless Strapi CMS -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-blue-500/40 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md font-bold">MÓDULO E · CMS HEADLESS</span>
+              <span class="text-sm font-mono font-bold text-white">+$1,100 <span class="text-xs text-neutral-400">USD Setup</span></span>
+            </div>
+            <h3 class="text-lg font-black text-white">Strapi CMS para Revista &amp; Novedades TMD</h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Panel de administración autogestionable para el departamento de mercadeo de TMD. Permite publicar artículos de maquinaria, cobertura de ferias agrícolas y ofertas de temporada sin tocar código.
+            </p>
+            <div class="text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5">
+              Tarifa mensual de mantenimiento de servidor CMS: +$60 USD / mes
+            </div>
+          </div>
+          <button onclick="alert('Módulo E seleccionado para la propuesta de TMD.')" class="mt-5 w-full py-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600 border border-blue-500/30 text-blue-300 hover:text-white font-bold text-xs uppercase tracking-wider transition">
+            Agregar Módulo a la Propuesta
+          </button>
+        </div>
+
+        <!-- Upsell F: Automated DGII Tax Compliance -->
+        <div class="p-6 rounded-3xl bg-neutral-900 border border-white/10 flex flex-col justify-between hover:border-emerald-500/40 transition">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-bold">MÓDULO F · DGII FISCAL</span>
+              <span class="text-sm font-mono font-bold text-white">+$950 <span class="text-xs text-neutral-400">USD Setup</span></span>
+            </div>
+            <h3 class="text-lg font-black text-white">Generador Automático de NCF Dominicano (B01/B02)</h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Generación y validación automática de Comprobantes Fiscales ante la DGII para cada factura de Fullbay o pago en Square. Permite a los clientes ingresar su RNC en la web y descargar su factura fiscal al instante.
+            </p>
+            <div class="text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5">
+              Tarifa de soporte y actualización fiscal: +$45 USD / mes
+            </div>
+          </div>
+          <button onclick="alert('Módulo F seleccionado para la propuesta de TMD.')" class="mt-5 w-full py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/30 text-emerald-300 hover:text-white font-bold text-xs uppercase tracking-wider transition">
+            Agregar Módulo a la Propuesta
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PRINT PAGE FOOTER -->
+  <footer class="mt-12 py-8 border-t border-white/10 text-center text-xs text-neutral-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>TodoBuild Technologies Inc. · División de Flotas y Maquinaria Pesada</span>
+      <span>Confidencial · Desarrollado para Tecnomaquinarias Diesel S.R.L. (Km 22 Aut. Duarte)</span>
+    </div>
+  </footer>
+
+  <script>
+    let currentCurrency = 'USD';
+    const exchangeRate = 59.50;
+
+    function switchTab(tabId) {
+      // Hide all panes
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('block'));
+      
+      // Show selected pane
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('block');
+      }
+
+      // Reset button styles
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = 'tab-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 bg-neutral-900 text-neutral-400 hover:text-white border border-white/5';
+      });
+
+      // Highlight active button
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.className = 'tab-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 bg-amber-500 text-neutral-950 shadow-md';
+      }
+    }
+
+    function toggleCurrency() {
+      if (currentCurrency === 'USD') {
+        currentCurrency = 'DOP';
+        document.querySelectorAll('.price-usd').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.price-dop').forEach(el => el.classList.remove('hidden'));
+        document.getElementById('currency-label').innerText = 'Ver en Dólares (USD $)';
+      } else {
+        currentCurrency = 'USD';
+        document.querySelectorAll('.price-usd').forEach(el => el.classList.remove('hidden'));
+        document.querySelectorAll('.price-dop').forEach(el => el.classList.add('hidden'));
+        document.getElementById('currency-label').innerText = 'Ver en DOP (RD$ @ 59.50)';
+      }
+    }
+  </script>
+</body>
+</html>
