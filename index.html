@@ -57,29 +57,44 @@
         top: 0 !important;
       }
       
-      /* PURE SINGLE-LINE LUXURY HEADER (52px total height, zero scary clutter) */
-      #root div.fixed.top-0 > div:first-child {
-        display: none !important;
-        height: 0 !important;
-        max-height: 0 !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-      }
-      main,
-      main.min-h-\[80vh\],
-      main[class*="min-h-"] {
-        padding-top: 54px !important;
+      /* ─── TOP UTILITY BAR (Thin, prestigious, zero clutter) ─── */
+      @media (min-width: 768px) {
+        #root div.fixed.top-0 > div:first-child {
+          display: block !important;
+          height: 30px !important;
+          max-height: 30px !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          padding-top: 2px !important;
+          padding-bottom: 2px !important;
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+          background-color: #060910 !important;
+        }
+        main,
+        main.min-h-\[80vh\],
+        main[class*="min-h-"] {
+          padding-top: 84px !important;
+        }
       }
       @media (max-width: 767px) {
+        #root div.fixed.top-0 > div:first-child {
+          display: none !important;
+        }
+        main,
+        main.min-h-\[80vh\],
+        main[class*="min-h-"] {
+          padding-top: 54px !important;
+        }
         body {
           padding-bottom: 64px !important; /* Safety clearance for mobile bottom bar */
         }
       }
 
+      /* ─── MAIN HEADER (52px Single-Line Luxury Navbar) ─── */
       #root header,
       header[class*="relative bg-"] {
         height: 52px !important;
@@ -87,6 +102,31 @@
       #root header > div,
       header[class*="relative bg-"] > div {
         height: 52px !important;
+      }
+
+      /* ─── LUXURY REFINED NAVIGATION TABS ─── */
+      header nav button {
+        height: 32px !important;
+        padding-left: 9px !important;
+        padding-right: 9px !important;
+        font-size: 0.74rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.04em !important;
+        text-transform: uppercase !important;
+        border-radius: 6px !important;
+        transition: all 0.2s ease !important;
+      }
+      html.dark header nav button {
+        color: #cbd5e1 !important;
+      }
+      html.dark header nav button:hover {
+        color: #ffffff !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+      }
+      html.dark header nav button[class*="bg-amber"] {
+        color: #f59e0b !important;
+        background: rgba(245, 158, 11, 0.12) !important;
+        border: 1px solid rgba(245, 158, 11, 0.28) !important;
       }
 
       html {
@@ -562,30 +602,13 @@
         });
       }
 
-      // Ensure single line header and place theme toggle conveniently
-      function ensureSingleLineHeader() {
-        var topBar = document.querySelector('#root div.fixed.top-0 > div:first-child');
-        var headerRight = document.querySelector('header .hidden.sm\\:flex');
-        if (topBar && headerRight) {
-          var themeBtn = topBar.querySelector('button[aria-label="Cambiar tema"]');
-          if (themeBtn && !headerRight.querySelector('button[aria-label="Cambiar tema"]')) {
-            headerRight.insertBefore(themeBtn, headerRight.firstChild);
-          }
-        }
-      }
-
-      function handleDOMUpdates() {
-        enrichStaffSection();
-        ensureSingleLineHeader();
-      }
-
       // Scroll reveal observer
-      var observer = new MutationObserver(handleDOMUpdates);
+      var observer = new MutationObserver(enrichStaffSection);
       observer.observe(document.body, { childList: true, subtree: true });
       window.addEventListener('hashchange', function() {
-        setTimeout(handleDOMUpdates, 80);
+        setTimeout(enrichStaffSection, 80);
       });
-      document.addEventListener('DOMContentLoaded', handleDOMUpdates);
+      document.addEventListener('DOMContentLoaded', enrichStaffSection);
 
       // ─── TMD PRIVÉ NEWSLETTER MODAL LOGIC (FIRST VISIT ONLY) ───
       function initNewsletterModal() {
