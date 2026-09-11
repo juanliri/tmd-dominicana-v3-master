@@ -57,36 +57,26 @@
         top: 0 !important;
       }
       
-      /* ON MOBILE (<768px): Hide desktop address topbar completely */
+      /* PURE SINGLE-LINE LUXURY HEADER (52px total height, zero scary clutter) */
+      #root div.fixed.top-0 > div:first-child {
+        display: none !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+      }
+      main,
+      main.min-h-\[80vh\],
+      main[class*="min-h-"] {
+        padding-top: 54px !important;
+      }
       @media (max-width: 767px) {
-        #root div.fixed.top-0 > div:first-child {
-          display: none !important;
-        }
-        main,
-        main.min-h-\[80vh\],
-        main[class*="min-h-"] {
-          padding-top: 54px !important;
-        }
         body {
           padding-bottom: 64px !important; /* Safety clearance for mobile bottom bar */
-        }
-      }
-
-      /* ON DESKTOP (>=768px): Keep topbar single-line & pinned */
-      @media (min-width: 768px) {
-        #root div.fixed.top-0 > div:first-child {
-          max-height: 32px !important;
-          opacity: 1 !important;
-          padding-top: 3px !important;
-          padding-bottom: 3px !important;
-          display: block !important;
-          visibility: visible !important;
-          transition: none !important;
-        }
-        main,
-        main.min-h-\[80vh\],
-        main[class*="min-h-"] {
-          padding-top: 86px !important;
         }
       }
 
@@ -572,13 +562,30 @@
         });
       }
 
+      // Ensure single line header and place theme toggle conveniently
+      function ensureSingleLineHeader() {
+        var topBar = document.querySelector('#root div.fixed.top-0 > div:first-child');
+        var headerRight = document.querySelector('header .hidden.sm\\:flex');
+        if (topBar && headerRight) {
+          var themeBtn = topBar.querySelector('button[aria-label="Cambiar tema"]');
+          if (themeBtn && !headerRight.querySelector('button[aria-label="Cambiar tema"]')) {
+            headerRight.insertBefore(themeBtn, headerRight.firstChild);
+          }
+        }
+      }
+
+      function handleDOMUpdates() {
+        enrichStaffSection();
+        ensureSingleLineHeader();
+      }
+
       // Scroll reveal observer
-      var observer = new MutationObserver(enrichStaffSection);
+      var observer = new MutationObserver(handleDOMUpdates);
       observer.observe(document.body, { childList: true, subtree: true });
       window.addEventListener('hashchange', function() {
-        setTimeout(enrichStaffSection, 80);
+        setTimeout(handleDOMUpdates, 80);
       });
-      document.addEventListener('DOMContentLoaded', enrichStaffSection);
+      document.addEventListener('DOMContentLoaded', handleDOMUpdates);
 
       // ─── TMD PRIVÉ NEWSLETTER MODAL LOGIC (FIRST VISIT ONLY) ───
       function initNewsletterModal() {
