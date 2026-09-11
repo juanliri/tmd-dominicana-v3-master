@@ -46,7 +46,7 @@
     <!-- 1. SINGLE-LINE MENU, PINNED TOPBAR & HERO OPTIMIZATION            -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <style id="tmd-header-clearance-fix">
-      /* Top utility bar & main header: ALWAYS PINNED AND VISIBLE WITH NO FLICKER */
+      /* Top utility bar & main header: ULTRA-COMPACT, ALWAYS PINNED AND VISIBLE */
       #root > div > div.fixed.top-0,
       #root div.fixed.top-0 {
         transform: none !important;
@@ -57,34 +57,42 @@
         top: 0 !important;
       }
       #root div.fixed.top-0 > div:first-child {
-        max-height: 48px !important;
+        max-height: 32px !important;
         opacity: 1 !important;
-        padding-top: 6px !important;
-        padding-bottom: 6px !important;
+        padding-top: 3px !important;
+        padding-bottom: 3px !important;
         display: block !important;
         visibility: visible !important;
         transition: none !important;
       }
+      #root header,
+      header[class*="relative bg-"] {
+        height: 52px !important;
+      }
+      #root header > div,
+      header[class*="relative bg-"] > div {
+        height: 52px !important;
+      }
 
       html {
-        scroll-padding-top: 108px !important;
+        scroll-padding-top: 88px !important;
       }
       main,
       main.min-h-\[80vh\],
       main[class*="min-h-"] {
-        padding-top: 64px !important;
+        padding-top: 54px !important;
       }
       @media (min-width: 768px) {
         main,
         main.min-h-\[80vh\],
         main[class*="min-h-"] {
-          padding-top: 104px !important;
+          padding-top: 86px !important;
         }
       }
       #root main > div:first-child > div:first-child,
       #root main > div:first-child > section:first-child {
         margin-top: 0 !important;
-        padding-top: 0.5rem !important;
+        padding-top: 0.25rem !important;
       }
 
       /* Hero Machinery Showcase: Prevent photo and details clipping */
@@ -92,21 +100,21 @@
         min-height: auto !important;
       }
       #root section.relative.flex.flex-col .cursor-pointer.aspect-\[16\/11\] {
-        max-height: 420px;
+        max-height: 400px;
         margin-left: auto;
         margin-right: auto;
       }
       #root section.relative.flex.flex-col .cursor-pointer.aspect-\[16\/11\] img {
-        max-height: 360px;
+        max-height: 340px;
         object-fit: contain;
       }
     </style>
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <!-- 2. HIGH-FIDELITY LIGHT THEME STYLING                              -->
+    <!-- 2. HIGH-FIDELITY THEME PALETTE SYSTEM (48 LAWS OF POWER & PSYCH)  -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <style id="tmd-light-theme-contrast-only">
-      /* Target ONLY when html does NOT have class "dark" */
+    <style id="tmd-theme-palette-master">
+      /* ─── LIGHT THEME ─── */
       html:not(.dark) {
         color-scheme: light;
       }
@@ -125,36 +133,55 @@
         color: #0f172a !important;
         background-color: #f1f5f9 !important;
       }
-
-      /* Fix base headings only in light mode */
-      html:not(.dark) h1,
-      html:not(.dark) h2,
-      html:not(.dark) h3,
-      html:not(.dark) h4 {
+      html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4 {
         color: #0f172a !important;
       }
-
-      /* Fix text readability only on light backgrounds in light mode */
+      html:not(.dark) p, html:not(.dark) li {
+        color: #475569 !important;
+      }
       html:not(.dark) :not([class*="bg-neutral-9"]):not([class*="bg-black"]):not([class*="bg-neutral-8"]) > .text-neutral-400,
       html:not(.dark) :not([class*="bg-neutral-9"]):not([class*="bg-black"]):not([class*="bg-neutral-8"]) > .text-neutral-500 {
         color: #475569 !important;
       }
 
-      /* Dark mode card contrast */
-      html.dark .bg-neutral-900,
-      html.dark .bg-neutral-950,
-      html.dark .bg-black {
+      /* ─── DARK THEME (OBSIDIAN & AUTHORITY) ─── */
+      html.dark {
+        color-scheme: dark;
+      }
+      html.dark body {
+        background-color: #070b12 !important;
+        color: #f8fafc !important;
+      }
+      /* Ensure pristine white titles & clean slate text (NO ALL-YELLOW FONTS) */
+      html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
         color: #ffffff !important;
       }
-      html.dark .bg-neutral-900 h1, html.dark .bg-neutral-900 h2, html.dark .bg-neutral-900 h3, html.dark .bg-neutral-900 h4,
-      html.dark .bg-neutral-950 h1, html.dark .bg-neutral-950 h2, html.dark .bg-neutral-950 h3, html.dark .bg-neutral-950 h4,
-      html.dark .bg-black h1, html.dark .bg-black h2, html.dark .bg-black h3, html.dark .bg-black h4 {
-        color: #ffffff !important;
-        font-weight: 800 !important;
+      html.dark p, html.dark li {
+        color: #cbd5e1 !important;
       }
-      html.dark .bg-neutral-900 span, html.dark .bg-neutral-950 span, html.dark .bg-black span {
-        color: #fbbf24 !important;
-        font-weight: 700 !important;
+      html.dark .text-neutral-300,
+      html.dark .text-neutral-200 {
+        color: #cbd5e1 !important;
+      }
+      html.dark .text-neutral-400 {
+        color: #94a3b8 !important;
+      }
+      html.dark .text-neutral-500 {
+        color: #64748b !important;
+      }
+
+      /* Amber reserved strictly for accents, badges, CTAs and prices */
+      .text-amber-400, .text-amber-300, .text-amber-500 {
+        color: #f59e0b !important;
+      }
+      .text-emerald-400, .text-emerald-300 {
+        color: #10b981 !important;
+      }
+      .text-cyan-400, .text-cyan-300 {
+        color: #38bdf8 !important;
+      }
+      .text-red-400, .text-red-500 {
+        color: #f87171 !important;
       }
     </style>
 
@@ -233,17 +260,17 @@
       <span style="background:#f59e0b; color:#0f172a; font-size:0.68rem; font-weight:900; padding:3px 8px; border-radius:12px; margin-left:4px;">VER</span>
     </div>
 
-    <!-- FULLSCREEN MODAL FOR EXECUTIVE DOSSIER -->
-    <div id="todobuild-exec-portal-modal" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(7,11,20,0.88); backdrop-filter:blur(10px); padding:20px; box-sizing:border-box;">
-      <div style="width:100%; height:100%; max-width:1160px; margin:0 auto; background:#070b14; border:1px solid rgba(245,158,11,0.4); border-radius:16px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,0.85);">
-        <div style="padding:12px 20px; background:#0d1527; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center;">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <span style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.4); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:9999px;">DOCUMENTACIÓN COMERCIAL TMD</span>
-            <span style="font-size:0.82rem; font-weight:800; color:#fff;">Dossier Ejecutivo 720°, Matriz de 3 Niveles y Contrato MSA</span>
+    <!-- FULLSCREEN MODAL FOR EXECUTIVE DOSSIER (ULTRA-COMPACT EXECUTIVE COCKPIT) -->
+    <div id="todobuild-exec-portal-modal" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(7,11,20,0.94); backdrop-filter:blur(10px); padding:6px; box-sizing:border-box;">
+      <div style="width:100%; height:100%; max-width:1440px; margin:0 auto; background:#070b14; border:1px solid rgba(245,158,11,0.4); border-radius:12px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,0.85);">
+        <div style="padding:6px 14px; background:#0d1527; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center; min-height:34px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.4); font-size:0.68rem; font-weight:800; padding:2px 8px; border-radius:9999px;">DOCUMENTACIÓN COMERCIAL TMD</span>
+            <span style="font-size:0.75rem; font-weight:800; color:#fff;">Dossier Ejecutivo 720°, Matriz de 3 Niveles, Upgrades & Acuerdo MSA</span>
           </div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <a href="/dossier.html" target="_blank" style="font-size:0.75rem; color:#38bdf8; text-decoration:none; font-weight:700;">↗ Abrir en Ventana Completa</a>
-            <button onclick="closeExecPortal()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:1.1rem; width:32px; height:32px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <a href="/dossier.html" target="_blank" style="font-size:0.72rem; color:#38bdf8; text-decoration:none; font-weight:700;">↗ Ventana Completa</a>
+            <button onclick="closeExecPortal()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:0.9rem; width:26px; height:26px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
           </div>
         </div>
         <iframe src="/dossier.html" style="width:100%; height:100%; border:none; background:#070b14;"></iframe>
