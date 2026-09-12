@@ -24,11 +24,11 @@
               darkgold: '#D97706',
               amber: '#EAB308',
               emerald: '#10B981',
-              cyan: '#06B6D4',
-              blue: '#3B82F6',
-              dark: '#070B12',
-              card: '#0F1626',
-              border: '#1E293B'
+              cyan: '#10b981',
+              blue: '#f59e0b',
+              dark: '#0a0a0a',
+              card: '#0a0a0c',
+              border: '#27272a'
             }
           }
         }
@@ -37,21 +37,21 @@
   </script>
   <style>
     :root {
-      --bg: #070b12;
-      --card: #0f1626;
+      --bg: #0a0a0c;
+      --card: #0a0a0c;
       --border: rgba(255, 255, 255, 0.08);
       --accent: #f59e0b;
     }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #070b12; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0a0a0c; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
 
     @media print {
       .no-print { display: none !important; }
       body { background: white !important; color: black !important; padding: 0 !important; font-size: 8.5pt !important; }
       .slide-content { display: block !important; page-break-after: always; min-height: 98vh; padding: 20px 0; }
-      .print-box { background: #f8fafc !important; border: 1px solid #cbd5e1 !important; color: #0f172a !important; }
+      .print-box { background: #fafafa !important; border: 1px solid #d4d4d8 !important; color: #141416 !important; }
     }
   </style>
 </head>
@@ -130,8 +130,8 @@
               <span class="text-sm font-black text-white mt-0.5 block">Alquiler de Maquinaria</span>
               <span class="text-[11px] text-neutral-400">Tarifas por día, semana y mes con depósito</span>
             </div>
-            <div class="p-3.5 rounded-2xl bg-black/50 border border-blue-500/30">
-              <span class="text-[10px] text-blue-400 font-mono font-bold uppercase block">PILAR 3 · POSVENTA PESADA</span>
+            <div class="p-3.5 rounded-2xl bg-black/50 border border-amber-500/30">
+              <span class="text-[10px] text-emerald-400 font-mono font-bold uppercase block">PILAR 3 · POSVENTA PESADA</span>
               <span class="text-sm font-black text-white mt-0.5 block">Repuestos &amp; Taller Km 22</span>
               <span class="text-[11px] text-neutral-400">Inventario almacén &amp; Órdenes Fullbay</span>
             </div>
@@ -257,8 +257,8 @@
           </div>
 
           <!-- Pilar 3 -->
-          <div class="p-5 rounded-2xl bg-neutral-950 border border-blue-500/30 space-y-3">
-            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono font-bold">
+          <div class="p-5 rounded-2xl bg-neutral-950 border border-amber-500/30 space-y-3">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-amber-500/10 text-emerald-400 text-xs font-mono font-bold">
               <span>⚙️</span> REPUESTOS &amp; TALLER KM 22
             </div>
             <h3 class="text-lg font-black text-white">Almacén Central &amp; Taller Pesado (Fullbay)</h3>
@@ -281,7 +281,7 @@
     <section id="slide-4" class="slide-content hidden">
       <div class="rounded-3xl bg-neutral-900 border border-neutral-800 shadow-2xl p-6 sm:p-10 space-y-6">
         <div class="border-b border-neutral-800 pb-4">
-          <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider font-bold">Integración Live Frontend</span>
+          <span class="text-xs font-mono text-amber-400 uppercase tracking-wider font-bold">Integración Live Frontend</span>
           <h2 class="text-2xl sm:text-3xl font-black uppercase text-white">Capacidades en Vivo que Habilita la API de Fullbay en la Web</h2>
           <p class="text-xs text-neutral-400 mt-1">Cómo la interfaz moderna de TMD potencia y humaniza los datos duros del ERP de taller Km 22.</p>
         </div>
@@ -303,7 +303,7 @@
             <div class="flex-1">
               <div class="flex items-center justify-between">
                 <h4 class="text-xs font-bold text-white">2. Inspección Digital DVI con Fotos Reales</h4>
-                <code class="text-[9px] font-mono text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">GET /dvi/{id}</code>
+                <code class="text-[9px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">GET /dvi/{id}</code>
               </div>
               <p class="text-[11px] text-neutral-300 mt-0.5">Fotos de fugas, desgaste de orugas y presión hidráulica tomadas en taller. Respaldo legal antes y después de cada alquiler.</p>
             </div>
@@ -336,7 +336,7 @@
             <div class="flex-1">
               <div class="flex items-center justify-between">
                 <h4 class="text-xs font-bold text-white">5. Portal VIP de Contratistas con Flotas</h4>
-                <code class="text-[9px] font-mono text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded">GET /customers/fleet</code>
+                <code class="text-[9px] font-mono text-emerald-400 bg-amber-500/10 px-1.5 py-0.5 rounded">GET /customers/fleet</code>
               </div>
               <p class="text-[11px] text-neutral-300 mt-0.5">Login exclusivo para constructoras (Estrella, Rizek, Malespin) con historial de servicios, horas de uso y facturas pendientes.</p>
             </div>
@@ -347,7 +347,7 @@
             <div class="flex-1">
               <div class="flex items-center justify-between">
                 <h4 class="text-xs font-bold text-white">6. Alertas de Mantenimiento Preventivo (PM)</h4>
-                <code class="text-[9px] font-mono text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded">GET /pm-schedules</code>
+                <code class="text-[9px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">GET /pm-schedules</code>
               </div>
               <p class="text-[11px] text-neutral-300 mt-0.5">Avisos automáticos a las 50h, 250h, 500h y 1,000h de faena, generando ventas preventivas recurrentes de kits de filtros.</p>
             </div>
@@ -501,7 +501,7 @@
             <div class="space-y-3">
               <div class="flex items-center justify-between">
                 <span class="text-[11px] font-mono uppercase font-bold text-neutral-400">TIER 3: ENTERPRISE</span>
-                <span class="text-[9px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded font-bold">OMNICANAL</span>
+                <span class="text-[9px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold">OMNICANAL</span>
               </div>
               <h3 class="text-lg font-black text-white">Omnicanal Multi-Sede &amp; CMS</h3>
               <div class="pt-1">
@@ -557,12 +557,12 @@
 
           <!-- Paso 2 -->
           <div class="p-5 rounded-2xl bg-neutral-950 border border-white/5 space-y-2 relative">
-            <span class="w-7 h-7 rounded-full bg-blue-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center">02</span>
+            <span class="w-7 h-7 rounded-full bg-amber-500 text-neutral-950 font-black font-mono text-xs flex items-center justify-center">02</span>
             <h4 class="text-sm font-bold text-white">Fase 2: Conexión Fullbay &amp; Pruebas</h4>
             <p class="text-xs text-neutral-300">
               Carga del catálogo completo con 44 equipos reales, ruteo a WhatsApp de ventas y enlace API de Órdenes de Trabajo y Repuestos.
             </p>
-            <div class="pt-2 text-[11px] font-mono text-blue-400">
+            <div class="pt-2 text-[11px] font-mono text-emerald-400">
               Tiempo estimado: 7 a 10 días laborables
             </div>
           </div>
@@ -581,7 +581,7 @@
         </div>
 
         <!-- Integrated Agreement Action Box -->
-        <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-blue-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider block">Acuerdo Master de Servicios (MSA) Listo</span>
             <span class="text-sm font-bold text-white">Inversión Fase 1: $1,250 USD • Anticipo al Iniciar: $625 USD</span>

@@ -1,0 +1,229 @@
+/**
+ * TMD TITAN ANIMATION & GLASS SURFACE SUITE — v5.0 CLEAN
+ * Pure obsidian dark theme. No color bloat. Black glass cards. Particle canvas behind everything.
+ */
+
+/* ─── 1. SMOOTH SCROLL ─── */
+html { scroll-behavior: smooth; }
+
+.tmd-parallax {
+  transform: translateY(calc(var(--scroll-y, 0px) * var(--parallax-speed, 0.12)));
+  will-change: transform;
+}
+
+/* ─── 2. SCROLL REVEAL ─── */
+.tmd-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.tmd-reveal.revealed { opacity: 1 !important; transform: translateY(0) !important; }
+
+.tmd-reveal-left  { opacity: 0; transform: translateX(-28px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.tmd-reveal-left.revealed  { opacity: 1 !important; transform: translateX(0) !important; }
+
+.tmd-reveal-right { opacity: 0; transform: translateX(28px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.tmd-reveal-right.revealed { opacity: 1 !important; transform: translateX(0) !important; }
+
+.tmd-reveal-scale { opacity: 0; transform: scale(0.93);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.tmd-reveal-scale.revealed { opacity: 1 !important; transform: scale(1) !important; }
+
+@keyframes tmdFadeInBlur {
+  from { opacity: 0; filter: blur(5px); transform: translateY(14px); }
+  to   { opacity: 1; filter: blur(0);   transform: translateY(0); }
+}
+.tmd-deep-reveal { opacity: 0; }
+.tmd-deep-reveal.revealed { animation: tmdFadeInBlur 0.9s cubic-bezier(0.16,1,0.3,1) forwards !important; }
+
+/* ─── 3. STAGGER CASCADE ─── */
+.tmd-stagger-parent > *:nth-child(1)  { transition-delay: 0.03s; }
+.tmd-stagger-parent > *:nth-child(2)  { transition-delay: 0.09s; }
+.tmd-stagger-parent > *:nth-child(3)  { transition-delay: 0.15s; }
+.tmd-stagger-parent > *:nth-child(4)  { transition-delay: 0.21s; }
+.tmd-stagger-parent > *:nth-child(5)  { transition-delay: 0.27s; }
+.tmd-stagger-parent > *:nth-child(6)  { transition-delay: 0.33s; }
+.tmd-stagger-parent > *:nth-child(7)  { transition-delay: 0.39s; }
+.tmd-stagger-parent > *:nth-child(8)  { transition-delay: 0.45s; }
+.tmd-stagger-parent > *:nth-child(9)  { transition-delay: 0.51s; }
+.tmd-stagger-parent > *:nth-child(10) { transition-delay: 0.57s; }
+.tmd-stagger-parent > *:nth-child(11) { transition-delay: 0.63s; }
+.tmd-stagger-parent > *:nth-child(12) { transition-delay: 0.69s; }
+
+/* ─── 4. PARTICLE CANVAS — ALWAYS BEHIND EVERYTHING ─── */
+#tmd-ambient-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 0;                   /* strictly below everything */
+  transition: opacity 0.9s ease, filter 0.9s ease;
+  will-change: opacity, filter;
+}
+
+/* Mode 1 — Micro-dust: general pages */
+#tmd-ambient-canvas.mode-dust {
+  opacity: 0.9;
+  filter: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* Mode 2 — Bokeh: hero / dealership */
+#tmd-ambient-canvas.mode-bokeh {
+  opacity: 1;
+  filter: blur(0.3px);
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* Mode 3 — Peripheral vignette: vehicle spec pages */
+#tmd-ambient-canvas.mode-vignette {
+  opacity: 0.9;
+  filter: none;
+  mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, rgba(0,0,0,0) 28%, rgba(0,0,0,1) 80%);
+  -webkit-mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, rgba(0,0,0,0) 28%, rgba(0,0,0,1) 80%);
+}
+
+/* ─── 5. GLASS CARD SYSTEM — Explicit utility classes only ─── */
+/* Use .tmd-glass-card or .tmd-solid-card on elements you want glassmorphism */
+
+/* Dark mode: pure obsidian frosted glass */
+html.dark .tmd-glass-card,
+html.dark .tmd-solid-card {
+  position: relative;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(14px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 20px 44px -10px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+html.dark .tmd-glass-card:hover,
+html.dark .tmd-solid-card:hover {
+  border-top-color: rgba(245, 158, 11, 0.40) !important;
+  border-color: rgba(245, 158, 11, 0.18) !important;
+  box-shadow:
+    0 26px 50px -10px rgba(0, 0, 0, 0.95),
+    0 0 22px rgba(245, 158, 11, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Light mode glass cards */
+html:not(.dark) .tmd-glass-card,
+html:not(.dark) .tmd-solid-card {
+  position: relative;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.90) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* White studio stage for vehicle photos — stays pure white */
+.tmd-white-studio-stage,
+html.dark .tmd-white-studio-stage {
+  background: #ffffff !important;
+  z-index: 6 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ─── 6. SHIMMER ─── */
+@keyframes tmdShimmerSweep {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.tmd-shimmer {
+  display: inline-block;
+  background: linear-gradient(
+    100deg,
+    currentColor 0%, currentColor 30%,
+    #f59e0b 48%, #fbbf24 52%,
+    currentColor 70%, currentColor 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: tmdShimmerSweep 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ─── 7. SCANLINE ─── */
+.tmd-scanline { position: relative; overflow: hidden; }
+.tmd-scanline::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 100%;
+  background: linear-gradient(180deg, rgba(245,158,11,0) 0%, rgba(245,158,11,0.07) 50%, rgba(245,158,11,0) 100%);
+  transform: translateY(-100%);
+  animation: tmdScanlineMove 4s ease-in-out infinite;
+  pointer-events: none; z-index: 20;
+}
+@keyframes tmdScanlineMove {
+  0%  { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+  100%{ transform: translateY(100%); }
+}
+
+/* ─── 8. HOVER LIFT & GLOW (explicit class only) ─── */
+.tmd-hover-lift {
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.35s ease;
+}
+.tmd-hover-lift:hover { transform: translateY(-5px); }
+
+html.dark .tmd-hover-lift:hover {
+  box-shadow: 0 22px 44px -10px rgba(0,0,0,0.95), 0 0 24px rgba(245,158,11,0.18) !important;
+  border-color: rgba(245,158,11,0.35) !important;
+}
+html:not(.dark) .tmd-hover-lift:hover {
+  box-shadow: 0 16px 32px -8px rgba(0,0,0,0.12), 0 0 18px rgba(245,158,11,0.12) !important;
+}
+
+/* ─── 9. BORDER PULSE (explicit class only) ─── */
+@keyframes tmdBorderGlowPulse {
+  0%,100% { box-shadow: 0 0 0 1px rgba(245,158,11,0.10), 0 8px 24px rgba(0,0,0,0.6); }
+  50%     { box-shadow: 0 0 0 2px rgba(245,158,11,0.28), 0 8px 32px rgba(0,0,0,0.7), 0 0 18px rgba(245,158,11,0.10); }
+}
+.tmd-pulse-border { animation: tmdBorderGlowPulse 3.5s ease-in-out infinite; }
+
+/* ─── 10. UTILITY BADGES ─── */
+.tmd-badge-glow {
+  background: rgba(245,158,11,0.10) !important;
+  border: 1px solid rgba(245,158,11,0.40) !important;
+  color: #f59e0b !important;
+  box-shadow: 0 0 12px rgba(245,158,11,0.15) !important;
+}
+.tmd-badge-emerald {
+  background: rgba(16,185,129,0.10) !important;
+  border: 1px solid rgba(16,185,129,0.35) !important;
+  color: #10b981 !important;
+}
+
+/* ─── 11. DIVIDERS ─── */
+.tmd-divider-amber {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,158,11,0.45), transparent);
+}
+
+/* ─── 12. REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .tmd-reveal, .tmd-reveal-left, .tmd-reveal-right, .tmd-reveal-scale, .tmd-deep-reveal {
+    opacity: 1 !important; transform: none !important;
+    filter: none !important; transition: none !important; animation: none !important;
+  }
+  .tmd-shimmer { animation: none !important; -webkit-text-fill-color: currentColor !important; }
+  .tmd-scanline::after { display: none !important; }
+  #tmd-ambient-canvas { display: none !important; }
+  .tmd-pulse-border { animation: none !important; }
+}

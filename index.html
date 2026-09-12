@@ -1,6 +1,25 @@
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth dark">
   <head>
+    <script>
+      // Synchronize with React state: tmd-theme in localStorage with smart auto-detect
+      (function() {
+        try {
+          var t = localStorage.getItem('tmd-theme');
+          if (t === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else if (t === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch(e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tecnomaquinarias Diesel (TMD) | Maquinaria Pesada, Repuestos y Servicio Técnico</title>
@@ -36,11 +55,14 @@
         }
       })();
     </script>
-    <link rel="preload" as="image" href="/assets/team_hd/eduardo_lopez_hd.jpg">
+        <link rel="preload" as="image" href="/assets/team_hd/eduardo_lopez_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/eduardo_e_lopez_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/jorge_torres_hd.jpg">
-    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=3.9.16"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=3.9.16">
+    <link rel="preload" as="image" href="/assets/team_hd/carmen_jaquez_hd.jpg">
+    <link rel="preload" as="image" href="/assets/team_hd/miguel_angel_cruz_hd.jpg">
+    <link rel="preload" as="image" href="/assets/team_hd/edwin_martinez_hd.jpg">
+    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=stage_1789233900"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=1789230245">
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <!-- 1. SINGLE-LINE MENU, PINNED TOPBAR & HERO OPTIMIZATION            -->
@@ -72,7 +94,29 @@
           white-space: nowrap !important;
           overflow: hidden !important;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-          background-color: #060910 !important;
+        }
+        html.dark #root div.fixed.top-0 > div:first-child {
+          background-color: #000000 !important;
+          background: #000000 !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        html:not(.dark) #root div.fixed.top-0 > div:first-child {
+          background-color: #f8fafc !important;
+          background: #f8fafc !important;
+          border-bottom: 1px solid #e2e8f0 !important;
+          color: #475569 !important;
+        }
+        html:not(.dark) #root div.fixed.top-0 > div:first-child span {
+          color: #334155 !important;
+        }
+        html:not(.dark) #root div.fixed.top-0 > div:first-child a {
+          color: #d97706 !important;
+        }
+        html:not(.dark) #root div.fixed.top-0 > div:first-child button {
+          color: #475569 !important;
+        }
+        html:not(.dark) #root div.fixed.top-0 > div:first-child button:hover {
+          color: #0f172a !important;
         }
         main,
         main.min-h-\[80vh\],
@@ -117,7 +161,7 @@
         transition: all 0.2s ease !important;
       }
       html.dark header nav button {
-        color: #cbd5e1 !important;
+        color: #d4d4d4 !important;
       }
       html.dark header nav button:hover {
         color: #ffffff !important;
@@ -128,6 +172,18 @@
         background: rgba(245, 158, 11, 0.12) !important;
         border: 1px solid rgba(245, 158, 11, 0.28) !important;
       }
+      html:not(.dark) header nav button {
+        color: #334155 !important;
+      }
+      html:not(.dark) header nav button:hover {
+        color: #0f172a !important;
+        background: #f1f5f9 !important;
+      }
+      html:not(.dark) header nav button[class*="bg-amber"] {
+        color: #b45309 !important;
+        background: #fef3c7 !important;
+        border: 1px solid #fde68a !important;
+      }
 
       html {
         scroll-padding-top: 88px !important;
@@ -137,7 +193,1670 @@
         margin-top: 0 !important;
         padding-top: 0.25rem !important;
       }
-    </style>
+    
+
+/* ══════════════════════════════════════════════════════════════════ */
+/* TMD CINEMATIC DRONE VIDEO HERO & INTERACTIVE EXECUTIVE SUITE      */
+/* MANUAL DUAL-THEME ENGINE: EXPLICIT LIGHT & DARK THEME MATRICES    */
+/* ══════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────────── */
+/* 1. STRUCTURAL SKELETON & COMMON GEOMETRY                           */
+/* ────────────────────────────────────────────────────────────────── */
+
+.tmd-drone-hero-container {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: -3rem;
+  margin-bottom: 2rem;
+  min-height: 520px;
+  height: 68vh;
+  max-height: 740px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.tmd-drone-hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%) scale(1.04);
+  object-fit: cover;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+  z-index: 1;
+}
+
+.tmd-drone-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: background 0.4s ease;
+}
+
+.tmd-drone-hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+}
+
+.tmd-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  margin-bottom: 1.25rem;
+  transition: all 0.25s ease;
+}
+
+.tmd-hero-pulse {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: tmd-pulse 1.8s infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+@keyframes tmd-pulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 15px #10b981; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.tmd-hero-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.08;
+  margin-bottom: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.tmd-hero-subtitle {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  max-width: 780px;
+  margin: 0 auto 1.75rem auto;
+  line-height: 1.55;
+  transition: color 0.3s ease;
+}
+
+.tmd-hero-stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.tmd-hero-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.tmd-hero-stat-chip:hover {
+  transform: translateY(-2px);
+}
+
+.tmd-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tmd-btn-amber-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  color: #000000 !important;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 12px 26px;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.tmd-btn-amber-glow:hover {
+  transform: translateY(-2px) scale(1.02);
+  color: #000000 !important;
+}
+
+.tmd-btn-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tmd-btn-glass:hover {
+  transform: translateY(-2px);
+}
+
+.tmd-video-controls {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+
+.tmd-vid-ctrl-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.82rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+/* ────────────────────────────────────────────────────────────────── */
+/* COMPACT EXECUTIVE DIRECTORY TOOLBAR & CONTROLS                     */
+/* ────────────────────────────────────────────────────────────────── */
+
+#tmd-interactive-staff-wrapper {
+  padding: 0.75rem 0 3rem 0;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.tmd-staff-compact-header {
+  max-width: 1240px;
+  margin: 0 auto 1.25rem auto;
+  padding: 0 1rem;
+}
+
+.tmd-staff-compact-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 0.85rem;
+}
+
+.tmd-staff-eyebrow-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.tmd-staff-title-mini {
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.tmd-view-toggle-mini {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 3px;
+  gap: 4px;
+}
+
+.tmd-vbtn-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tmd-staff-controls-compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tmd-dept-pills-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.tmd-dept-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tmd-staff-search-compact {
+  position: relative;
+  min-width: 220px;
+  max-width: 320px;
+  flex-grow: 1;
+}
+
+.tmd-sicon-compact {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+.tmd-sinput-compact {
+  width: 100%;
+  border-radius: 10px;
+  padding: 6px 12px 6px 32px;
+  font-size: 0.8rem;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* ────────────────────────────────────────────────────────────────── */
+/* GALLERY GRID & CARDS                                               */
+/* ────────────────────────────────────────────────────────────────── */
+
+.tmd-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tmd-exec-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tmd-exec-card:hover {
+  transform: translateY(-4px);
+}
+
+.tmd-card-photo-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+}
+
+.tmd-card-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.4s ease;
+}
+
+.tmd-exec-card:hover .tmd-card-photo {
+  transform: scale(1.04);
+}
+
+.tmd-card-photo-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.tmd-card-status-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+}
+
+.tmd-card-body {
+  padding: 0.85rem 0.95rem 0.45rem 0.95rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tmd-card-dept-tag {
+  font-size: 0.62rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.tmd-card-name {
+  font-size: 0.98rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+  line-height: 1.25;
+}
+
+.tmd-card-role {
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.tmd-card-specialties-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: auto;
+  margin-bottom: 0.6rem;
+}
+
+.tmd-card-spec-tag {
+  font-size: 0.62rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.tmd-card-footer-btn {
+  width: 100%;
+  padding: 7px 10px;
+  font-size: 0.70rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ────────────────────────────────────────────────────────────────── */
+/* ORGANIGRAM TREE SKELETON                                           */
+/* ────────────────────────────────────────────────────────────────── */
+
+.tmd-organigram-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.tmd-tree-tier {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.tmd-tier-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+}
+
+.tmd-tree-node-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.tmd-tree-node-card {
+  border-radius: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 240px;
+  max-width: 320px;
+  text-align: left;
+}
+
+.tmd-tree-node-card:hover {
+  transform: translateY(-3px);
+}
+
+.tmd-node-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.tmd-node-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tmd-node-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.tmd-node-role {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+.tmd-node-dept {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 4px;
+}
+
+.tmd-tree-connector-line {
+  width: 2px;
+  height: 26px;
+  margin: 0 auto 1.5rem auto;
+}
+
+/* ────────────────────────────────────────────────────────────────── */
+/* ULTRA-LUXURY EXECUTIVE POP-OUT DOSSIER MODAL                       */
+/* ────────────────────────────────────────────────────────────────── */
+
+#tmd-exec-dossier-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#tmd-exec-dossier-modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.tmd-modal-dialog {
+  border-radius: 24px;
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.96);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#tmd-exec-dossier-modal.active .tmd-modal-dialog {
+  transform: scale(1);
+}
+
+.tmd-modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.tmd-modal-close-btn:hover {
+  transform: rotate(90deg);
+}
+
+.tmd-modal-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  min-height: 480px;
+}
+
+@media (max-width: 768px) {
+  .tmd-modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tmd-modal-left-col {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.tmd-modal-portrait-wrapper {
+  position: relative;
+  width: 230px;
+  height: 280px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #f59e0b;
+  margin-bottom: 1.25rem;
+}
+
+.tmd-modal-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.tmd-modal-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.tmd-modal-status-dot {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.tmd-modal-location-text {
+  font-size: 0.75rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.tmd-modal-right-col {
+  padding: 2.25rem 2.25rem 2rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tmd-modal-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.tmd-modal-tier-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.tmd-modal-dept-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.tmd-modal-name {
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.tmd-modal-role {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.tmd-modal-section-heading {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 6px;
+}
+
+.tmd-modal-bio {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.tmd-modal-specialties-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.75rem;
+}
+
+.tmd-modal-spec-chip {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.tmd-modal-action-suite {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 1.25rem;
+}
+
+.tmd-modal-btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25d366;
+  color: #000000 !important;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.tmd-modal-btn-wa:hover {
+  background: #20ba59;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+}
+
+.tmd-modal-btn-mail,
+.tmd-modal-btn-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.tmd-modal-btn-mail:hover,
+.tmd-modal-btn-call:hover {
+  transform: translateY(-2px);
+}
+
+.tmd-modal-nav-bar {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.tmd-modal-nav-btn {
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.tmd-modal-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════ */
+/* 2. MANUAL DARK THEME STYLING MATRIX (html.dark)                   */
+
+/* ─── SOLID LUXURY CARD SURFACES (ZERO TRANSPARENT WIREFRAMES) ─── */
+html.dark .tmd-solid-card {
+  position: relative;
+  z-index: 5;
+  background-color: #141418 !important;
+  box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark [class*="aspect-[16/11]"],
+html.dark [class*="h-[360px]"][class*="rounded-2xl"],
+html.dark [class*="sm:h-[460px]"],
+html.dark [class*="min-h-[360px]"],
+html.dark .tmd-white-studio-stage {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.6) !important;
+  position: relative;
+  z-index: 6;
+}
+
+/* ══════════════════════════════════════════════════════════════════ */
+
+/* Hero Dark */
+html.dark .tmd-drone-hero-container {
+  background: #000000 !important;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25) !important;
+}
+
+html.dark .tmd-drone-hero-video {
+  filter: brightness(0.65) contrast(1.15) !important;
+  opacity: 1 !important;
+}
+
+html.dark .tmd-drone-hero-overlay {
+  background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 65%, #000000 100%),
+              linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 25%, rgba(0,0,0,0.5) 60%, #000000 100%) !important;
+}
+
+html.dark .tmd-hero-badge {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  color: #f59e0b !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2) !important;
+}
+
+html.dark .tmd-hero-title {
+  color: #ffffff !important;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9) !important;
+}
+
+html.dark .tmd-hero-title span {
+  background: linear-gradient(135deg, #ffffff 30%, #f59e0b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.dark .tmd-hero-subtitle {
+  color: #e5e5e5 !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8) !important;
+}
+
+html.dark .tmd-hero-stat-chip {
+  background: rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #f3f4f6 !important;
+}
+
+html.dark .tmd-hero-stat-chip:hover {
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+}
+
+html.dark .tmd-btn-glass {
+  background: rgba(0, 0, 0, 0.75) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+html.dark .tmd-btn-glass:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-vid-ctrl-btn {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+html.dark .tmd-vid-ctrl-btn:hover {
+  background: #f59e0b !important;
+  color: #000000 !important;
+  border-color: #f59e0b !important;
+}
+
+/* Directory Suite Dark */
+html.dark #tmd-interactive-staff-wrapper {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+html.dark .tmd-staff-eyebrow-mini {
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-staff-title-mini {
+  color: #ffffff !important;
+}
+
+html.dark .tmd-view-toggle-mini {
+  background: #0d0d0d !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .tmd-vbtn-mini {
+  color: #a3a3a3 !important;
+  background: transparent !important;
+}
+
+html.dark .tmd-vbtn-mini.active {
+  background: #f59e0b !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35) !important;
+}
+
+html.dark .tmd-dept-pill {
+  background: #0d0d0d !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #a3a3a3 !important;
+}
+
+html.dark .tmd-dept-pill:hover {
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  color: #ffffff !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+}
+
+html.dark .tmd-dept-pill.active {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2) !important;
+}
+
+html.dark .tmd-sinput-compact {
+  background: #0d0d0d !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+}
+
+html.dark .tmd-sinput-compact:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25) !important;
+}
+
+html.dark .tmd-sinput-compact::placeholder {
+  color: #737373 !important;
+}
+
+html.dark .tmd-sicon-compact {
+  color: #737373 !important;
+}
+
+html.dark .tmd-exec-card {
+  background: #080808 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .tmd-exec-card:hover {
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 158, 11, 0.2) !important;
+}
+
+html.dark .tmd-card-photo-wrapper {
+  background: #000000 !important;
+}
+
+html.dark .tmd-card-photo-gradient {
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.85) 85%, #080808 100%) !important;
+}
+
+html.dark .tmd-card-status-badge {
+  background: rgba(0, 0, 0, 0.75) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-card-body {
+  background: #080808 !important;
+}
+
+html.dark .tmd-card-dept-tag {
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-card-name {
+  color: #ffffff !important;
+}
+
+html.dark .tmd-card-role {
+  color: #d4d4d4 !important;
+}
+
+html.dark .tmd-card-spec-tag {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #d4d4d4 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .tmd-card-footer-btn {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: #e5e5e5 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .tmd-exec-card:hover .tmd-card-footer-btn {
+  background: #f59e0b !important;
+  color: #000000 !important;
+}
+
+/* Organigram Dark */
+html.dark .tmd-tree-tier {
+  color: #ffffff !important;
+}
+
+html.dark .tmd-tier-badge {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  color: #fcd34d !important;
+}
+
+html.dark .tmd-tree-node-card {
+  background: #0d0d0d !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+
+html.dark .tmd-tree-node-card:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15) !important;
+}
+
+html.dark .tmd-tree-node-card.president-node {
+  border-color: #f59e0b !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+}
+
+html.dark .tmd-tree-node-card .tmd-node-name {
+  color: #ffffff !important;
+}
+
+html.dark .tmd-tree-node-card .tmd-node-role {
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-tree-node-card .tmd-node-dept {
+  color: #a3a3a3 !important;
+}
+
+html.dark .tmd-tree-connector-line {
+  background: linear-gradient(180deg, #f59e0b, rgba(245, 158, 11, 0.2)) !important;
+}
+
+/* Modal Dark */
+html.dark .tmd-modal-dialog {
+  background: #050505 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  color: #ffffff !important;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 40px rgba(245, 158, 11, 0.2) !important;
+}
+
+html.dark .tmd-modal-left-col {
+  background: #000000 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .tmd-modal-portrait-wrapper {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 158, 11, 0.25) !important;
+}
+
+html.dark .tmd-modal-status-badge {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #34d399 !important;
+}
+
+html.dark .tmd-modal-location-text {
+  color: #a3a3a3 !important;
+}
+
+html.dark .tmd-modal-right-col {
+  background: #050505 !important;
+}
+
+html.dark .tmd-modal-tier-tag {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  color: #fcd34d !important;
+}
+
+html.dark .tmd-modal-dept-tag {
+  background: #171717 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #d4d4d4 !important;
+}
+
+html.dark .tmd-modal-name {
+  color: #ffffff !important;
+}
+
+html.dark .tmd-modal-role {
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-modal-section-heading {
+  color: #737373 !important;
+}
+
+html.dark .tmd-modal-bio {
+  color: #d4d4d4 !important;
+}
+
+html.dark .tmd-modal-spec-chip {
+  background: #141414 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .tmd-modal-action-suite {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .tmd-modal-btn-mail,
+html.dark .tmd-modal-btn-call {
+  background: #171717 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+html.dark .tmd-modal-btn-mail:hover,
+html.dark .tmd-modal-btn-call:hover {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+html.dark .tmd-modal-nav-bar {
+  background: #000000 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .tmd-modal-nav-btn {
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #d4d4d4 !important;
+}
+
+html.dark .tmd-modal-nav-btn:hover {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+}
+
+html.dark .tmd-modal-counter {
+  color: #737373 !important;
+}
+
+html.dark .tmd-modal-close-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+html.dark .tmd-modal-close-btn:hover {
+  background: #f59e0b !important;
+  color: #000000 !important;
+  border-color: #f59e0b !important;
+}
+
+html.dark #todobuild-exec-portal-trigger {
+  background: linear-gradient(135deg, #0a0a0a, #141414) !important;
+  border: 2px solid #f59e0b !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
+}
+
+html.dark #todobuild-exec-portal-trigger > div > div:first-child {
+  color: #ffffff !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════ */
+/* 3. MANUAL LIGHT THEME STYLING MATRIX (html:not(.dark))             */
+
+/* ─── SOLID CLEAN STUDIO CARD SURFACES (LIGHT THEME) ─── */
+html:not(.dark) .tmd-solid-card {
+  position: relative;
+  z-index: 5;
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════ */
+
+/* Hero Light - Crystal Clear Readability, Crisp Typography */
+html:not(.dark) .tmd-drone-hero-container {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-drone-hero-video {
+  filter: brightness(0.95) contrast(1.05) saturate(1.1) !important;
+  opacity: 0.38 !important;
+}
+
+html:not(.dark) .tmd-drone-hero-overlay {
+  background: radial-gradient(circle at center, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.92) 65%, #ffffff 100%),
+              linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.55) 30%, rgba(255,255,255,0.88) 75%, #ffffff 100%) !important;
+}
+
+html:not(.dark) .tmd-hero-badge {
+  background: #ffffff !important;
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  color: #b45309 !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.15) !important;
+}
+
+html:not(.dark) .tmd-hero-title {
+  color: #0f172a !important;
+  text-shadow: none !important;
+}
+
+html:not(.dark) .tmd-hero-title span {
+  background: linear-gradient(135deg, #0f172a 30%, #d97706 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html:not(.dark) .tmd-hero-subtitle {
+  color: #334155 !important;
+  text-shadow: none !important;
+  font-weight: 500 !important;
+}
+
+html:not(.dark) .tmd-hero-stat-chip {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+html:not(.dark) .tmd-hero-stat-chip:hover {
+  border-color: #f59e0b !important;
+  background: #fffbeb !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.15) !important;
+}
+
+html:not(.dark) .tmd-btn-amber-glow {
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.35) !important;
+}
+
+html:not(.dark) .tmd-btn-glass {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+}
+
+html:not(.dark) .tmd-btn-glass:hover {
+  background: #f8fafc !important;
+  border-color: #f59e0b !important;
+  color: #d97706 !important;
+}
+
+html:not(.dark) .tmd-vid-ctrl-btn {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+html:not(.dark) .tmd-vid-ctrl-btn:hover {
+  background: #f59e0b !important;
+  color: #000000 !important;
+  border-color: #f59e0b !important;
+}
+
+/* Directory Suite Light */
+html:not(.dark) #tmd-interactive-staff-wrapper {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-staff-eyebrow-mini {
+  color: #b45309 !important;
+}
+
+html:not(.dark) .tmd-staff-title-mini {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-view-toggle-mini {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+html:not(.dark) .tmd-vbtn-mini {
+  color: #475569 !important;
+  background: transparent !important;
+}
+
+html:not(.dark) .tmd-vbtn-mini.active {
+  background: #f59e0b !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3) !important;
+}
+
+html:not(.dark) .tmd-dept-pill {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+html:not(.dark) .tmd-dept-pill:hover {
+  border-color: #f59e0b !important;
+  color: #0f172a !important;
+  background: #fffbeb !important;
+}
+
+html:not(.dark) .tmd-dept-pill.active {
+  background: #fef3c7 !important;
+  border-color: #f59e0b !important;
+  color: #92400e !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25) !important;
+}
+
+html:not(.dark) .tmd-sinput-compact {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-sinput-compact:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2) !important;
+}
+
+html:not(.dark) .tmd-sinput-compact::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) .tmd-sicon-compact {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) .tmd-exec-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+}
+
+html:not(.dark) .tmd-exec-card:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 14px 34px rgba(245, 158, 11, 0.15) !important;
+}
+
+html:not(.dark) .tmd-card-photo-wrapper {
+  background: #f8fafc !important;
+}
+
+html:not(.dark) .tmd-card-photo-gradient {
+  background: linear-gradient(180deg, rgba(255,255,255,0) 50%, rgba(255,255,255,0.85) 85%, #ffffff 100%) !important;
+}
+
+html:not(.dark) .tmd-card-status-badge {
+  background: #ffffff !important;
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  color: #b45309 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+}
+
+html:not(.dark) .tmd-card-body {
+  background: #ffffff !important;
+}
+
+html:not(.dark) .tmd-card-dept-tag {
+  color: #b45309 !important;
+}
+
+html:not(.dark) .tmd-card-name {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-card-role {
+  color: #475569 !important;
+}
+
+html:not(.dark) .tmd-card-spec-tag {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-card-footer-btn {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-exec-card:hover .tmd-card-footer-btn {
+  background: #f59e0b !important;
+  color: #000000 !important;
+}
+
+/* Organigram Light */
+html:not(.dark) .tmd-tree-tier {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-tier-badge {
+  background: #fffbeb !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  color: #92400e !important;
+}
+
+html:not(.dark) .tmd-tree-node-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-tree-node-card:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12) !important;
+}
+
+html:not(.dark) .tmd-tree-node-card.president-node {
+  background: #fffbeb !important;
+  border: 2px solid #f59e0b !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-tree-node-card .tmd-node-name {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-tree-node-card .tmd-node-role {
+  color: #d97706 !important;
+}
+
+html:not(.dark) .tmd-tree-node-card .tmd-node-dept {
+  color: #64748b !important;
+}
+
+html:not(.dark) .tmd-tree-connector-line {
+  background: linear-gradient(180deg, #f59e0b, rgba(245, 158, 11, 0.2)) !important;
+}
+
+/* Modal Light */
+html:not(.dark) .tmd-modal-dialog {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25) !important;
+}
+
+html:not(.dark) .tmd-modal-left-col {
+  background: #f8fafc !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-modal-portrait-wrapper {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 20px rgba(245, 158, 11, 0.15) !important;
+}
+
+html:not(.dark) .tmd-modal-status-badge {
+  background: #ecfdf5 !important;
+  border: 1px solid #a7f3d0 !important;
+  color: #065f46 !important;
+}
+
+html:not(.dark) .tmd-modal-location-text {
+  color: #64748b !important;
+}
+
+html:not(.dark) .tmd-modal-right-col {
+  background: #ffffff !important;
+}
+
+html:not(.dark) .tmd-modal-tier-tag {
+  background: #fffbeb !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  color: #92400e !important;
+}
+
+html:not(.dark) .tmd-modal-dept-tag {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+html:not(.dark) .tmd-modal-name {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-modal-role {
+  color: #d97706 !important;
+}
+
+html:not(.dark) .tmd-modal-section-heading {
+  color: #64748b !important;
+}
+
+html:not(.dark) .tmd-modal-bio {
+  color: #334155 !important;
+}
+
+html:not(.dark) .tmd-modal-spec-chip {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark) .tmd-modal-action-suite {
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-modal-btn-mail,
+html:not(.dark) .tmd-modal-btn-call {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-modal-btn-mail:hover,
+html:not(.dark) .tmd-modal-btn-call:hover {
+  background: #f59e0b !important;
+  color: #000000 !important;
+  border-color: #f59e0b !important;
+}
+
+html:not(.dark) .tmd-modal-nav-bar {
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-modal-nav-btn {
+  border: 1px solid #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+html:not(.dark) .tmd-modal-nav-btn:hover {
+  border-color: #f59e0b !important;
+  color: #0f172a !important;
+  background: #e2e8f0 !important;
+}
+
+html:not(.dark) .tmd-modal-counter {
+  color: #64748b !important;
+}
+
+html:not(.dark) .tmd-modal-close-btn {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tmd-modal-close-btn:hover {
+  background: #f59e0b !important;
+  color: #000000 !important;
+}
+
+html:not(.dark) #todobuild-exec-portal-trigger {
+  background: #ffffff !important;
+  border: 2px solid #f59e0b !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+html:not(.dark) #todobuild-exec-portal-trigger > div > div:first-child {
+  color: #0f172a !important;
+}
+
+    
+/* ────────────────────────────────────────────────────────────────── */
+/* PARTNERS & OFFICIAL MANUFACTURERS MARQUEE (SLOWED TO 85s)          */
+/* ────────────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+#socios .animate-marquee,
+.animate-marquee {
+  animation: marquee 85s linear infinite !important;
+}
+
+#socios .animate-marquee:hover,
+.animate-marquee:hover {
+  animation-play-state: paused !important;
+}
+
+/* Dark Theme - Pure Obsidian #000000 & Golden Accents */
+html.dark #socios {
+  background-color: #000000 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark #socios .absolute.left-0 {
+  background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0) 100%) !important;
+}
+
+html.dark #socios .absolute.right-0 {
+  background: linear-gradient(270deg, #000000 0%, rgba(0, 0, 0, 0) 100%) !important;
+}
+
+html.dark #socios .group {
+  background-color: #080808 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark #socios .group:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(245, 158, 11, 0.2) !important;
+}
+
+/* Light Theme - Pure Crisp White #ffffff & Clean Slate Accents */
+html:not(.dark) #socios {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) #socios .absolute.left-0 {
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+html:not(.dark) #socios .absolute.right-0 {
+  background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+html:not(.dark) #socios .group {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) #socios .group:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.15) !important;
+}
+
+</style>
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <!-- LUXURY DESKTOP SCALING & MOBILE VIEWPORT PERFECTION               -->
@@ -218,95 +1937,410 @@
       }
     </style>
 
-    <!-- ══════════════════════════════════════════════════════════════════ -->
-    <!-- 2. HIGH-FIDELITY THEME PALETTE SYSTEM (48 LAWS OF POWER & PSYCH)  -->
+            <!-- ══════════════════════════════════════════════════════════════════ -->
+    <!-- 2. HIGH-FIDELITY THEME PALETTE SYSTEM (PURE OBSIDIAN & WARM NEUTRAL)-->
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <style id="tmd-theme-palette-master">
-      /* ─── LIGHT THEME ─── */
-      html:not(.dark) {
-        color-scheme: light;
-      }
-      html:not(.dark) body {
-        background-color: #f8fafc !important;
-        color: #0f172a !important;
-      }
-      html:not(.dark) header {
-        background-color: rgba(255, 255, 255, 0.96) !important;
-        border-bottom-color: #e2e8f0 !important;
-      }
-      html:not(.dark) header nav button {
-        color: #334155 !important;
-      }
-      html:not(.dark) header nav button:hover {
-        color: #0f172a !important;
-        background-color: #f1f5f9 !important;
-      }
-      html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4 {
-        color: #0f172a !important;
-      }
-      html:not(.dark) p, html:not(.dark) li {
-        color: #475569 !important;
-      }
-      html:not(.dark) :not([class*="bg-neutral-9"]):not([class*="bg-black"]):not([class*="bg-neutral-8"]) > .text-neutral-400,
-      html:not(.dark) :not([class*="bg-neutral-9"]):not([class*="bg-black"]):not([class*="bg-neutral-8"]) > .text-neutral-500 {
-        color: #475569 !important;
-      }
+      /* ==========================================================================
+         TMD TITAN DESIGN ENGINE — MASTER THEME ARCHITECTURE
+         100% Monochrome Charcoal/Obsidian Black | Amber Gold | Emerald | Zero Blues
+         Dynamic Cinematic Lighting & Industrial Blueprint Depth
+         ========================================================================== */
 
-      /* ─── DARK THEME (OBSIDIAN & AUTHORITY) ─── */
+      /* ─── DARK THEME: DYNAMIC OBSIDIAN BLACK LUXURY ─── */
       html.dark {
         color-scheme: dark;
       }
-      html.dark body {
-        background-color: #070b12 !important;
-        color: #f8fafc !important;
-      }
-      /* Ensure pristine white titles & clean slate text (NO ALL-YELLOW FONTS) */
-      html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
-        color: #ffffff !important;
-      }
-      html.dark p, html.dark li {
-        color: #cbd5e1 !important;
-      }
-      html.dark .text-neutral-300,
-      html.dark .text-neutral-200 {
-        color: #cbd5e1 !important;
-      }
-      html.dark .text-neutral-400 {
-        color: #94a3b8 !important;
-      }
-      html.dark .text-neutral-500 {
-        color: #64748b !important;
+
+      html.dark,
+      html.dark body,
+      html.dark #root,
+      html.dark [class*="min-h-screen"],
+      html.dark main {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        background-image: none !important;
+        color: #f4f4f5 !important;
       }
 
-      /* Amber reserved strictly for accents, badges, CTAs and prices */
+      /* Sections inside sub-pages (e.g. #nosotros, #empleo, #catalogo) — PURE PITCH BLACK */
+      html.dark section,
+      html.dark section[id="nosotros"],
+      html.dark section[id="empleo"],
+      html.dark section.bg-neutral-50,
+      html.dark section.bg-white,
+      html.dark section[class*="border-neutral-800"],
+      html.dark section[class*="border-b"],
+      html.dark div[class*="border-neutral-800"] {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+      }
+
+      /* Cards & Containers — PURE JET BLACK WITH MINIMALIST CRISP BORDERS */
+      html.dark [class*="bg-neutral-900"]:not(header):not(nav),
+      html.dark [class*="bg-neutral-950"]:not([class*="min-h-screen"]):not(body),
+      html.dark [class*="bg-slate-900"],
+      html.dark [class*="bg-slate-950"],
+      html.dark #equipo .grid > div {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+      }
+
+      html.dark #equipo .grid > div:hover {
+        border-color: rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px -4px rgba(245, 158, 11, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+      }
+
+      /* ══════════════════════════════════════════════════════════════════ */
+      /* PRODUCT STAGES & CARDS: CRISP WHITE STUDIO BACKGROUND              */
+      /* Ensures white-background machine photos blend seamlessly as a     */
+      /* complete studio showcase without awkward cutout borders or voids. */
+      /* ══════════════════════════════════════════════════════════════════ */
+      html.dark [class*="aspect-[16/11]"],
+      html.dark [class*="aspect-[16/10]"],
+      html.dark [class*="aspect-[4/3]"],
+      html.dark [class*="h-[360px]"][class*="rounded-2xl"],
+      html.dark [class*="sm:h-[460px]"][class*="rounded-2xl"],
+      html.dark [class*="min-h-[360px]"][class*="rounded-2xl"],
+      html:not(.dark) [class*="aspect-[16/11]"],
+      html:not(.dark) [class*="aspect-[16/10]"],
+      html:not(.dark) [class*="aspect-[4/3]"],
+      html:not(.dark) [class*="h-[360px]"][class*="rounded-2xl"],
+      html:not(.dark) [class*="sm:h-[460px]"][class*="rounded-2xl"],
+      html:not(.dark) [class*="min-h-[360px]"][class*="rounded-2xl"],
+      [class*="aspect-[16/11]"],
+      [class*="aspect-[16/10]"],
+      [class*="aspect-[4/3]"],
+      [class*="h-[360px]"][class*="rounded-2xl"],
+      [class*="sm:h-[460px]"][class*="rounded-2xl"],
+      [class*="min-h-[360px]"][class*="rounded-2xl"] {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+      }
+
+      /* Hover glow for product stage cards in dark mode */
+      html.dark [class*="aspect-[16/11]"]:hover,
+      html.dark [class*="h-[360px]"][class*="rounded-2xl"]:hover {
+        border-color: rgba(245, 158, 11, 0.6) !important;
+        box-shadow: 0 22px 48px -12px rgba(0, 0, 0, 0.55), 0 0 25px rgba(245, 158, 11, 0.2) !important;
+      }
+
+      /* Remove dark overlay gradients inside white stages */
+      [class*="h-[360px]"] > div[class*="pointer-events-none"],
+      [class*="sm:h-[460px]"] > div[class*="pointer-events-none"] {
+        display: none !important;
+      }
+
+      /* Machine photos render with 100% natural colors and never turn black */
+      img[src*="heroImage"],
+      img[src*="additionalImages"],
+      [class*="aspect-[16/11]"] img,
+      [class*="h-[360px]"] img,
+      [class*="sm:h-[460px]"] img,
+      [class*="min-h-[360px]"] img {
+        mix-blend-mode: normal !important;
+        filter: none !important;
+        opacity: 1 !important;
+      }
+
+      /* Product thumbnail buttons on white background */
+      html.dark button:has(img[src*="heroImage"]),
+      html.dark [class*="w-16"][class*="h-14"],
+      html.dark [class*="w-20"][class*="h-16"],
+      html.dark [class*="w-14"][class*="h-14"] {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+        border-color: #e2e8f0 !important;
+      }
+
+      /* Dark Mode Headings & Shimmer */
+      html.dark h1 {
+        background: linear-gradient(180deg, #FFFFFF 25%, #E4E4E7 70%, #A1A1AA 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #ffffff;
+        letter-spacing: -0.025em;
+        text-shadow: 0 0 35px rgba(255, 255, 255, 0.08);
+      }
+
+      html.dark h2,
+      html.dark h3,
+      html.dark h4,
+      html.dark h5,
+      html.dark h6 {
+        color: #ffffff !important;
+        letter-spacing: -0.015em;
+      }
+
+      html.dark p,
+      html.dark li {
+        color: #d4d4d8 !important; /* Zinc 300 - crisp and luminous */
+      }
+
+      html.dark .text-neutral-400,
+      html.dark .text-slate-400 {
+        color: #a1a1aa !important; /* Zinc 400 */
+      }
+
+      html.dark .text-neutral-500,
+      html.dark .text-slate-500 {
+        color: #71717a !important; /* Zinc 500 */
+      }
+
+      /* Dark Mode Fixed Header — PURE SOLID JET BLACK */
+      html.dark header,
+      html.dark nav,
+      html.dark header.dark,
+      html.dark #root header {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+      }
+
+      html.dark header nav button {
+        color: #d4d4d8 !important;
+      }
+
+      html.dark header nav button:hover {
+        color: #ffffff !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+      }
+
+      html.dark header nav button[class*="bg-amber"] {
+        color: #f59e0b !important;
+        background: rgba(245, 158, 11, 0.15) !important;
+        border: 1px solid rgba(245, 158, 11, 0.35) !important;
+      }
+
+      /* ─── LIGHT THEME: WARM LUXURY OFF-WHITE CANVAS (ZERO NAVY / BLUE) ─── */
+      html:not(.dark) {
+        color-scheme: light;
+      }
+
+      html:not(.dark) body,
+      html:not(.dark) #root,
+      html:not(.dark) [class*="min-h-screen"],
+      html:not(.dark) main {
+        background-color: #f8f9fa !important;
+        background-image:
+          radial-gradient(ellipse 85% 50% at 50% -5%, rgba(245, 158, 11, 0.04) 0%, transparent 65%),
+          radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px) !important;
+        background-size: 100% 100%, 32px 32px !important;
+        background-position: 0 0, 0 0 !important;
+        background-attachment: fixed, fixed !important;
+        color: #171717 !important;
+      }
+
+      html:not(.dark) header,
+      html:not(.dark) #root header {
+        background-color: rgba(255, 255, 255, 0.98) !important;
+        border-bottom: 1px solid #e5e5e5 !important;
+        backdrop-filter: blur(14px) !important;
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.04) !important;
+      }
+
+      html:not(.dark) header nav button {
+        color: #404040 !important;
+      }
+
+      html:not(.dark) header nav button:hover {
+        color: #171717 !important;
+        background-color: #f5f5f5 !important;
+      }
+
+      html:not(.dark) header nav button[class*="bg-amber"] {
+        background-color: #fef3c7 !important;
+        color: #92400e !important;
+        border: 1px solid #fde68a !important;
+      }
+
+      html:not(.dark) h1,
+      html:not(.dark) h2,
+      html:not(.dark) h3,
+      html:not(.dark) h4,
+      html:not(.dark) h5,
+      html:not(.dark) h6 {
+        color: #171717 !important; /* Pure charcoal black, zero navy */
+        letter-spacing: -0.015em;
+      }
+
+      html:not(.dark) p,
+      html:not(.dark) li,
+      html:not(.dark) span:not([class*="text-amber"]):not([class*="text-emerald"]):not([class*="bg-"]):not([class*="badge"]) {
+        color: #525252 !important; /* Pure neutral-600 */
+      }
+      /* Kill all blue tones in light theme - convert to charcoal/amber */
+      html:not(.dark) [class*="text-blue"],
+      html:not(.dark) [class*="text-sky"],
+      html:not(.dark) [class*="text-indigo"],
+      html:not(.dark) [class*="text-cyan"],
+      html:not(.dark) [class*="text-violet"] {
+        color: #525252 !important;
+      }
+      html:not(.dark) [class*="bg-blue"],
+      html:not(.dark) [class*="bg-sky"],
+      html:not(.dark) [class*="bg-indigo"],
+      html:not(.dark) [class*="bg-cyan"] {
+        background-color: #f1f5f9 !important;
+      }
+
+      html:not(.dark) .text-neutral-400,
+      html:not(.dark) .text-neutral-500,
+      html:not(.dark) .text-slate-400,
+      html:not(.dark) .text-slate-500 {
+        color: #737373 !important;
+      }
+
+      html:not(.dark) [class*="bg-white"],
+      html:not(.dark) [class*="bg-slate-50"],
+      html:not(.dark) [class*="bg-neutral-50"] {
+        background-color: #ffffff !important;
+        border-color: #e2e8f0 !important;
+      }
+
+      /* Floating Executive Portal Trigger Light Mode */
+      html:not(.dark) #todobuild-exec-portal-trigger {
+        background: #ffffff !important;
+        border: 2px solid #f59e0b !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;
+      }
+      html:not(.dark) #todobuild-exec-portal-trigger div {
+        color: #0f172a !important;
+      }
+      html:not(.dark) #todobuild-exec-portal-trigger .exec-trigger-sub {
+        color: #d97706 !important;
+      }
+
+      /* Light Theme Protection: Ensure boxes and cards convert from neutral-900/950/black to white/slate-50 */
+      html:not(.dark) div[class*="bg-neutral-900"]:not([class*="badge"]):not(pre):not(code):not(button):not([class*="tmd-"]):not([class*="bg-amber"]),
+      html:not(.dark) div[class*="bg-neutral-950"]:not([class*="badge"]):not(pre):not(code):not(button):not([class*="tmd-"]):not([class*="bg-amber"]),
+      html:not(.dark) div[class*="bg-black/"]:not([class*="badge"]):not(video):not([class*="tmd-"]):not([class*="backdrop-blur"]) {
+        background-color: #ffffff !important;
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) div[class*="bg-neutral-900"] h4,
+      html:not(.dark) div[class*="bg-neutral-900"] h5,
+      html:not(.dark) div[class*="bg-neutral-900"] h6,
+      html:not(.dark) div[class*="bg-neutral-950"] h4,
+      html:not(.dark) div[class*="bg-neutral-950"] h5,
+      html:not(.dark) div[class*="bg-neutral-950"] h6 {
+        color: #0f172a !important;
+      }
+      html:not(.dark) div[class*="bg-neutral-900"] p,
+      html:not(.dark) div[class*="bg-neutral-950"] p {
+        color: #475569 !important;
+      }
+
+      /* ─── COMMON ELEMENTS (THEME ADAPTIVE) ─── */
+      /* Top utility bar */
+      html.dark #root div.fixed.top-0 > div:first-child {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+      }
+      html:not(.dark) #root div.fixed.top-0 > div:first-child {
+        background-color: #f8fafc !important;
+        background: #f8fafc !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+        color: #475569 !important;
+      }
+      html:not(.dark) #root div.fixed.top-0 > div:first-child span {
+        color: #334155 !important;
+      }
+      html:not(.dark) #root div.fixed.top-0 > div:first-child a {
+        color: #d97706 !important;
+      }
+      html:not(.dark) #root div.fixed.top-0 > div:first-child button {
+        color: #475569 !important;
+      }
+
+      /* Footer — DUAL THEME LUXURY */
+      html.dark footer,
+      html.dark #root footer {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      }
+      html.dark footer h1, html.dark footer h2, html.dark footer h3, html.dark footer h4,
+      html.dark #root footer h1, html.dark #root footer h2, html.dark #root footer h3, html.dark #root footer h4 {
+        color: #ffffff !important;
+      }
+      html.dark footer a,
+      html.dark #root footer a {
+        color: #d4d4d8 !important;
+      }
+      html.dark footer a:hover,
+      html.dark #root footer a:hover {
+        color: #f59e0b !important;
+      }
+      html.dark footer p, html.dark footer span,
+      html.dark #root footer p, html.dark #root footer span {
+        color: #a1a1aa !important;
+      }
+
+      /* Light Theme Footer */
+      html:not(.dark) footer,
+      html:not(.dark) #root footer {
+        background-color: #f8fafc !important;
+        background: #f8fafc !important;
+        border-top: 1px solid #e2e8f0 !important;
+        color: #1e293b !important;
+      }
+      html:not(.dark) footer h1, html:not(.dark) footer h2, html:not(.dark) footer h3, html:not(.dark) footer h4,
+      html:not(.dark) #root footer h1, html:not(.dark) #root footer h2, html:not(.dark) #root footer h3, html:not(.dark) #root footer h4 {
+        color: #0f172a !important;
+      }
+      html:not(.dark) footer a,
+      html:not(.dark) #root footer a {
+        color: #475569 !important;
+      }
+      html:not(.dark) footer a:hover,
+      html:not(.dark) #root footer a:hover {
+        color: #d97706 !important;
+      }
+      html:not(.dark) footer p, html:not(.dark) footer span,
+      html:not(.dark) #root footer p, html:not(.dark) #root footer span {
+        color: #475569 !important;
+      }
+      html:not(.dark) footer [class*="border-neutral-800"],
+      html:not(.dark) footer [class*="border-white"] {
+        border-color: #e2e8f0 !important;
+      }
+      html:not(.dark) footer button[class*="bg-neutral-900"],
+      html:not(.dark) footer a[class*="bg-neutral-900"] {
+        background-color: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        color: #d97706 !important;
+      }
+
+      /* Brand Accents (Strict Amber, Emerald, Red — Zero Blues) */
       .text-amber-400, .text-amber-300, .text-amber-500 {
         color: #f59e0b !important;
       }
-      .text-emerald-400, .text-emerald-300 {
+      .text-emerald-400, .text-emerald-300, .text-emerald-500 {
         color: #10b981 !important;
       }
-      .text-cyan-400, .text-cyan-300 {
-        color: #38bdf8 !important;
-      }
       .text-red-400, .text-red-500 {
-        color: #f87171 !important;
+        color: #ef4444 !important;
+      }
+      .brand-cyan-text {
+        color: #f59e0b !important;
       }
     </style>
-
-    <!-- ══════════════════════════════════════════════════════════════════ -->
-    <!-- 3. TMD GENUINE INTERACTION & STAFF ENHANCEMENT ENGINE             -->
-    <!-- ══════════════════════════════════════════════════════════════════ -->
     <style id="tmd-staff-interactive-styling">
-      /* Smooth Card Elevation Hover */
-      .group,
-      [class*="rounded-3xl"],
-      #equipo .grid > div {
+      /* Smooth Card Elevation Hover (Cards only, never layout containers) */
+      .tmd-exec-card {
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease !important;
         cursor: pointer;
       }
-      .group:hover,
-      #equipo .grid > div:hover {
-        transform: translateY(-8px) !important;
+      .tmd-exec-card:hover {
+        transform: translateY(-5px) !important;
       }
       html.dark #equipo .grid > div:hover {
         box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(245, 158, 11, 0.2) !important;
@@ -352,36 +2386,104 @@
       }
 
     </style>
-  </head>
+    <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260912_glass_v5_clean" />
+
+</head>
   <body class="bg-neutral-50 text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100 transition-colors duration-200">
     <div id="root"></div>
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <!-- 4. TODOBUILD EXECUTIVE BUYING PORTAL FLOATING TRIGGER & MODAL    -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <div id="todobuild-exec-portal-trigger" style="position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; align-items:center; gap:10px; background:linear-gradient(135deg, #070b14, #141f36); border:2px solid #f59e0b; padding:10px 18px; border-radius:9999px; box-shadow:0 10px 30px rgba(0,0,0,0.6); cursor:pointer; font-family:'Inter', sans-serif; transition:transform 0.2s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'" onclick="openExecPortal()">
-      <span style="font-size:1.15rem;">💼</span>
-      <div style="text-align:left;">
-        <div style="font-size:0.75rem; font-weight:800; color:#fff; letter-spacing:0.02em;">PORTAL EJECUTIVO TODOBUILD</div>
-        <div class="exec-trigger-sub" style="font-size:0.65rem; color:#f59e0b; font-weight:700;">Plan de Modernización 720°, 3 Niveles y Acuerdo MSA</div>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- EXEC PORTAL: Hidden floating icon (near footer) + PIN gate    -->
+    <!-- Shows only when: user scrolls near footer OR hovers the icon  -->
+    <!-- PIN: 0909                                                       -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Floating pin icon (always present but tiny/hidden until near footer) -->
+    <div id="tmd-exec-portal-pin-icon" title="Portal Ejecutivo TMD" onclick="tmdShowPortalPINPrompt()" style="
+      position:fixed; bottom:24px; right:20px; z-index:99990;
+      width:44px; height:44px; border-radius:50%;
+      background:linear-gradient(135deg,#0a0a0a,#1a1a1a);
+      border:2px solid #f59e0b;
+      box-shadow:0 4px 18px rgba(0,0,0,0.7), 0 0 0 0 rgba(245,158,11,0);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:1.15rem;
+      opacity:0; transform:scale(0.7) translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+      pointer-events:none;
+    ">💼</div>
+
+    <!-- PIN Prompt Modal -->
+    <div id="tmd-exec-portal-pin-modal" style="
+      display:none; position:fixed; inset:0; z-index:100002;
+      background:rgba(0,0,0,0.92); backdrop-filter:blur(14px);
+      align-items:center; justify-content:center; padding:24px; box-sizing:border-box;
+    ">
+      <div style="
+        width:100%; max-width:340px;
+        background:linear-gradient(145deg,#111,#181818);
+        border:1px solid rgba(245,158,11,0.5);
+        border-radius:20px; padding:32px 28px;
+        box-shadow:0 30px 70px rgba(0,0,0,0.9), 0 0 30px rgba(245,158,11,0.12);
+        text-align:center; font-family:'Inter',sans-serif; color:#fff;
+        position:relative;
+      ">
+        <button onclick="document.getElementById('tmd-exec-portal-pin-modal').style.display='none';" style="
+          position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;
+          background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+          color:#a3a3a3;font-size:0.9rem;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;
+        ">✕</button>
+        <div style="font-size:1.8rem; margin-bottom:10px;">🔐</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">ACCESO RESTRINGIDO</div>
+        <h3 style="font-size:1.15rem;font-weight:900;margin:0 0 6px;color:#fff;">Portal Ejecutivo TMD</h3>
+        <p style="font-size:0.8rem;color:#a3a3a3;margin:0 0 20px;">Ingrese el PIN de acceso para continuar</p>
+        <input id="tmd-portal-pin-input" type="password" maxlength="4" placeholder="• • • •"
+          style="
+            width:100%; box-sizing:border-box;
+            background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2);
+            border-radius:12px; padding:12px 16px; color:#fff;
+            font-size:1.5rem; font-weight:900; text-align:center; letter-spacing:0.4em;
+            outline:none; transition:border-color 0.2s;
+          "
+          onfocus="this.style.borderColor='#f59e0b'"
+          onblur="this.style.borderColor='rgba(255,255,255,0.2)'"
+          oninput="if(this.value.length===4){tmdCheckPortalPIN(this.value);}"
+        />
+        <div id="tmd-portal-pin-error" style="
+          display:none; color:#ef4444; font-size:0.75rem;
+          font-weight:700; margin-top:8px;
+        ">PIN incorrecto. Intente de nuevo.</div>
+        <button onclick="tmdCheckPortalPIN(document.getElementById('tmd-portal-pin-input').value)" style="
+          margin-top:16px; width:100%; padding:12px;
+          background:linear-gradient(135deg,#f59e0b,#d97706);
+          border:none; border-radius:12px; color:#0a0a0a;
+          font-size:0.88rem; font-weight:900; text-transform:uppercase;
+          letter-spacing:0.04em; cursor:pointer;
+          box-shadow:0 6px 20px rgba(245,158,11,0.35);
+        ">INGRESAR →</button>
       </div>
-      <span style="background:#f59e0b; color:#0f172a; font-size:0.68rem; font-weight:900; padding:3px 8px; border-radius:12px; margin-left:4px;">VER</span>
     </div>
 
+    <!-- Old trigger preserved as hidden for Portal VIP nav interception -->
+    <div id="todobuild-exec-portal-trigger" style="display:none;position:fixed;bottom:-9999px;right:-9999px;z-index:-1;"></div>
+
     <!-- FULLSCREEN MODAL FOR EXECUTIVE DOSSIER (ULTRA-COMPACT EXECUTIVE COCKPIT) -->
-    <div id="todobuild-exec-portal-modal" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(7,11,20,0.94); backdrop-filter:blur(10px); padding:6px; box-sizing:border-box;">
-      <div style="width:100%; height:100%; max-width:1440px; margin:0 auto; background:#070b14; border:1px solid rgba(245,158,11,0.4); border-radius:12px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,0.85);">
-        <div style="padding:6px 14px; background:#0d1527; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center; min-height:34px;">
+    <div id="todobuild-exec-portal-modal" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.96); backdrop-filter:blur(10px); padding:6px; box-sizing:border-box;">
+      <div style="width:100%; height:100%; max-width:1440px; margin:0 auto; background:#0a0a0a; border:1px solid rgba(245,158,11,0.4); border-radius:12px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,0.85);">
+        <div style="padding:6px 14px; background:#141414; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center; min-height:34px;">
           <div style="display:flex; align-items:center; gap:8px;">
             <span style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.4); font-size:0.68rem; font-weight:800; padding:2px 8px; border-radius:9999px;">DOCUMENTACIÓN COMERCIAL TMD</span>
             <span style="font-size:0.75rem; font-weight:800; color:#fff;">Dossier Ejecutivo 720°, Matriz de 3 Niveles, Upgrades & Acuerdo MSA</span>
           </div>
           <div style="display:flex; align-items:center; gap:10px;">
-            <a href="/dossier.html" target="_blank" style="font-size:0.72rem; color:#38bdf8; text-decoration:none; font-weight:700;">↗ Ventana Completa</a>
+            <a href="/dossier.html" target="_blank" style="font-size:0.72rem; color:#f59e0b; text-decoration:none; font-weight:700;">↗ Ventana Completa</a>
             <button onclick="closeExecPortal()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:0.9rem; width:26px; height:26px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
           </div>
         </div>
-        <iframe src="/dossier.html" style="width:100%; height:100%; border:none; background:#070b14;"></iframe>
+        <iframe id="todobuild-exec-portal-iframe" src="/dossier.html?v=obsidian_gold_2026" style="width:100%; height:100%; border:none; background:#0a0a0c;"></iframe>
       </div>
     </div>
 
@@ -389,7 +2491,7 @@
     <!-- 5. INTRIGUING STAFF INTERACTIVITY & REGIONAL CREDENTIAL MODAL     -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <div id="tmd-staff-detail-modal" style="display:none; position:fixed; inset:0; z-index:100001; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:16px;">
-      <div style="width:100%; max-width:480px; background:#0f172a; border:1px solid rgba(245,158,11,0.5); border-radius:24px; padding:28px 24px; box-shadow:0 25px 50px rgba(0,0,0,0.8); text-align:center; position:relative; color:#fff;">
+      <div style="width:100%; max-width:480px; background:#171717; border:1px solid rgba(245,158,11,0.5); border-radius:24px; padding:28px 24px; box-shadow:0 25px 50px rgba(0,0,0,0.8); text-align:center; position:relative; color:#fff;">
         <button onclick="closeStaffModal()" style="position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.1); border:none; color:#fff; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center;">✕</button>
         <div id="staff-modal-avatar" style="width:110px; height:110px; margin:0 auto 16px; border-radius:50%; padding:3px; background:linear-gradient(135deg, #f59e0b, #d97706); box-shadow:0 10px 25px rgba(245,158,11,0.3); overflow:hidden;">
           <img id="staff-modal-img" src="" style="width:100%; height:100%; object-fit:cover; border-radius:50%; background:#fff;" />
@@ -397,9 +2499,9 @@
         <div id="staff-modal-badge" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:800; color:#f59e0b; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); padding:3px 12px; border-radius:9999px; margin-bottom:10px;"></div>
         <h3 id="staff-modal-name" style="font-size:1.25rem; font-weight:800; color:#fff; margin-bottom:4px;"></h3>
         <p id="staff-modal-role" style="font-size:0.82rem; color:#f59e0b; font-weight:700; margin-bottom:14px;"></p>
-        <p id="staff-modal-bio" style="font-size:0.8rem; color:#cbd5e1; line-height:1.55; margin-bottom:20px; background:rgba(255,255,255,0.04); padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);"></p>
+        <p id="staff-modal-bio" style="font-size:0.8rem; color:#d4d4d4; line-height:1.55; margin-bottom:20px; background:rgba(255,255,255,0.04); padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);"></p>
         <div style="display:flex; gap:10px; justify-content:center;">
-          <a href="#/machinery" onclick="closeStaffModal()" style="padding:10px 20px; background:#f59e0b; color:#0f172a; font-weight:800; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; border-radius:9999px; text-decoration:none; transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">Cotizar con Asesor</a>
+          <a href="#/machinery" onclick="closeStaffModal()" style="padding:10px 20px; background:#f59e0b; color:#171717; font-weight:800; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; border-radius:9999px; text-decoration:none; transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">Cotizar con Asesor</a>
           <button onclick="closeStaffModal()" style="padding:10px 18px; background:rgba(255,255,255,0.1); color:#fff; font-weight:700; font-size:0.75rem; border:1px solid rgba(255,255,255,0.2); border-radius:9999px; cursor:pointer;">Cerrar</button>
         </div>
       </div>
@@ -408,55 +2510,265 @@
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <!-- 6. TMD PRIVÉ — FIRST ENTRY LUXURY POP-OUT MODAL                   -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <div id="tmd-luxury-newsletter-modal" style="display:none; position:fixed; inset:0; z-index:100005; background:rgba(4,7,14,0.88); backdrop-filter:blur(14px); align-items:center; justify-content:center; padding:16px; box-sizing:border-box;">
-      <div style="width:100%; max-width:540px; background:linear-gradient(145deg, #090e17 0%, #0e1726 100%); border:1px solid rgba(245,158,11,0.5); border-radius:24px; padding:32px 28px; box-shadow:0 30px 70px rgba(0,0,0,0.9), 0 0 35px rgba(245,158,11,0.15); position:relative; color:#fff; font-family:'Inter', sans-serif;">
-        <button onclick="closeNewsletterModal()" style="position:absolute; top:18px; right:18px; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s ease;" onmouseover="this.style.color='#fff'; this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.color='#94a3b8'; this.style.background='rgba(255,255,255,0.08)'">✕</button>
-        
-        <div style="text-align:center; margin-bottom:20px;">
-          <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.35); padding:4px 14px; border-radius:9999px; margin-bottom:14px;">
-            <span style="width:6px; height:6px; border-radius:50%; background:#f59e0b; box-shadow:0 0 8px #f59e0b;"></span>
-            <span style="font-family:'JetBrains Mono', monospace; font-size:0.68rem; font-weight:800; color:#f59e0b; letter-spacing:0.1em; text-transform:uppercase;">CLUB TMD PRIVÉ • ACCESO EXCLUSIVO</span>
+    <div id="tmd-luxury-newsletter-modal" style="display:none; position:fixed; inset:0; z-index:100005; background:rgba(0,0,0,0.97); backdrop-filter:blur(18px); align-items:stretch; justify-content:center; padding:0; box-sizing:border-box; overflow-y:auto;">
+      <!-- MAGAZINE LAYOUT: 2 columns on desktop -->
+      <div style="
+        width:100%; max-width:1100px; margin:auto;
+        display:grid; grid-template-columns:1fr 1fr;
+        min-height:100vh; box-shadow:0 0 120px rgba(0,0,0,0.95);
+        font-family:'Inter',sans-serif;
+      ">
+        <!-- LEFT PANEL: Magazine Cover -->
+        <div style="
+          background:linear-gradient(160deg,#0a0a0a 0%,#111 60%,#181818 100%);
+          padding:48px 40px; display:flex; flex-direction:column;
+          justify-content:space-between; position:relative; overflow:hidden;
+          border-right:1px solid rgba(245,158,11,0.2);
+        ">
+          <!-- Background texture -->
+          <div style="
+            position:absolute; inset:0;
+            background:repeating-linear-gradient(45deg,rgba(245,158,11,0.015) 0px,rgba(245,158,11,0.015) 1px,transparent 1px,transparent 60px);
+            pointer-events:none;
+          "></div>
+
+          <!-- Close button -->
+          <button onclick="closeNewsletterModal()" style="
+            position:absolute; top:18px; right:18px;
+            width:34px; height:34px; border-radius:50%;
+            background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+            color:#a3a3a3; font-size:1rem; cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            z-index:10; transition:all 0.2s;
+          " onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.color='#a3a3a3';this.style.background='rgba(255,255,255,0.08)'">✕</button>
+
+          <div>
+            <!-- Issue badge -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:28px;">
+              <div style="width:32px;height:2px;background:#f59e0b;"></div>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:800;color:#f59e0b;letter-spacing:0.14em;text-transform:uppercase;">TMD PRIVÉ · EDICIÓN SEPT. 2026</span>
+            </div>
+
+            <!-- Magazine masthead -->
+            <div style="margin-bottom:24px;">
+              <div style="font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;">REVISTA INDUSTRIAL TMD</div>
+              <h1 style="font-size:clamp(2.2rem,4vw,3.2rem);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin:0 0 16px;">
+                FLOTA<br>
+                <span style="background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">CERO<br>KILÓMETROS</span>
+              </h1>
+              <p style="font-size:0.9rem;color:#a3a3a3;line-height:1.6;max-width:340px;margin:0;">
+                Lotes OEM JCB recién llegados, subastas exclusivas y tarifas preferenciales para contratistas MOPC — solo para suscriptores Privé.
+              </p>
+            </div>
+
+            <!-- Feature headlines (magazine style) -->
+            <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;margin-top:20px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:800;color:#737373;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">EN ESTA EDICIÓN</div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <span style="font-size:1rem;flex-shrink:0;">🏗️</span>
+                  <div>
+                    <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">Nuevas Excavadoras JCB 220X — Puerto Haina</div>
+                    <div style="font-size:0.7rem;color:#737373;">Acceso previo para flotas de 3+ unidades</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <span style="font-size:1rem;flex-shrink:0;">🚜</span>
+                  <div>
+                    <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">LS Tractor MT7 — Serie Cibao 2026</div>
+                    <div style="font-size:0.7rem;color:#737373;">Tractores 4WD de alta potencia para agroproductores</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <span style="font-size:1rem;flex-shrink:0;">⚙️</span>
+                  <div>
+                    <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">Lote Repuestos OEM — Filtros & Diferenciales</div>
+                    <div style="font-size:0.7rem;color:#737373;">Inventario crítico disponible hoy en Km 22</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <span style="font-size:1rem;flex-shrink:0;">📋</span>
+                  <div>
+                    <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">Licitaciones MOPC Sept.–Dic. 2026</div>
+                    <div style="font-size:0.7rem;color:#737373;">Tarifas corporativas preferenciales pre-negociadas</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <h2 style="font-size:1.55rem; font-weight:900; line-height:1.2; color:#ffffff; letter-spacing:-0.02em; margin:0 0 8px;">Privilegios de Flota 0 Km & Boletín de Subastas</h2>
-          <p style="font-size:0.84rem; color:#94a3b8; line-height:1.5; margin:0 auto; max-width:440px;">
-            Acceso anticipado a lotes OEM JCB recién arribados al puerto, subastas exclusivas de maquinaria pesada y tarifas preferenciales para licitaciones MOPC en República Dominicana.
-          </p>
+
+          <!-- Footer brand stamp -->
+          <div style="display:flex;align-items:center;gap:12px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);margin-top:24px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);display:flex;align-items:center;justify-content:center;font-size:1rem;">🏭</div>
+            <div>
+              <div style="font-size:0.75rem;font-weight:800;color:#fff;">TECNOMAQUINARIAS DIESEL S.R.L.</div>
+              <div style="font-size:0.65rem;color:#737373;">Km 22 Autopista Duarte • Santo Domingo, RD</div>
+            </div>
+          </div>
         </div>
 
-        <form id="tmd-newsletter-form" onsubmit="handleNewsletterSubmit(event)" style="display:flex; flex-direction:column; gap:12px;">
-          <div>
-            <label style="display:block; font-size:0.72rem; font-weight:700; color:#cbd5e1; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:5px;">Correo Corporativo o WhatsApp Comercial</label>
-            <input type="text" id="tmd-newsletter-input" required placeholder="ejemplo@constructora.com o (809) 000-0000" style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:12px 14px; color:#fff; font-size:0.88rem; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'" />
+        <!-- RIGHT PANEL: Subscription Form -->
+        <div style="
+          background:linear-gradient(160deg,#0e0e0e,#141414);
+          padding:48px 40px; display:flex; flex-direction:column; justify-content:center;
+        ">
+          <!-- Form header -->
+          <div style="margin-bottom:28px;">
+            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);padding:4px 12px;border-radius:9999px;margin-bottom:14px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:#f59e0b;box-shadow:0 0 6px #f59e0b;"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;">CLUB PRIVÉ • ACCESO EXCLUSIVO</span>
+            </div>
+            <h2 style="font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1.15;margin:0 0 8px;">Suscripción Corporativa</h2>
+            <p style="font-size:0.82rem;color:#a3a3a3;line-height:1.55;margin:0;">Reciba las listas de arribo directo a su correo o WhatsApp antes que nadie.</p>
           </div>
-          <div>
-            <label style="display:block; font-size:0.72rem; font-weight:700; color:#cbd5e1; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:5px;">Línea de Mayor Interés</label>
-            <select id="tmd-newsletter-interest" style="width:100%; box-sizing:border-box; background:#0f172a; border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:11px 14px; color:#fff; font-size:0.84rem; outline:none; cursor:pointer;">
-              <option value="construccion">Maquinaria de Construcción (JCB, LiuGong)</option>
-              <option value="agricola">Línea Agrícola & Tractores (LS Tractor, Yanmar)</option>
-              <option value="repuestos">Lotes de Repuestos Genuinos & Filtros OEM</option>
-              <option value="renta">Renta Corporativa de Flota Pesada</option>
-            </select>
+
+          <form id="tmd-newsletter-form" onsubmit="handleNewsletterSubmit(event)" style="display:flex;flex-direction:column;gap:14px;">
+            <div>
+              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;">Correo o WhatsApp Comercial</label>
+              <input type="text" id="tmd-newsletter-input" required placeholder="correo@empresa.com ó (809) 000-0000" style="
+                width:100%;box-sizing:border-box;
+                background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px;padding:11px 14px;color:#fff;font-size:0.86rem;
+                outline:none;transition:border-color 0.2s;
+              " onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'" />
+            </div>
+            <div>
+              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;">Línea de Mayor Interés</label>
+              <select id="tmd-newsletter-interest" style="
+                width:100%;box-sizing:border-box;
+                background:#0e0e0e;border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px;padding:11px 14px;color:#fff;font-size:0.84rem;
+                outline:none;cursor:pointer;
+              ">
+                <option value="construccion">🏗️ Maquinaria de Construcción (JCB, LiuGong)</option>
+                <option value="agricola">🌾 Línea Agrícola & Tractores (LS Tractor, Yanmar)</option>
+                <option value="repuestos">🔧 Lotes de Repuestos Genuinos & Filtros OEM</option>
+                <option value="renta">🔑 Renta Corporativa de Flota Pesada</option>
+                <option value="licitaciones">📋 Licitaciones & Proyectos Gubernamentales</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;">Nombre de la Empresa (opcional)</label>
+              <input type="text" placeholder="Constructora XYZ S.R.L." style="
+                width:100%;box-sizing:border-box;
+                background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);
+                border-radius:10px;padding:11px 14px;color:#fff;font-size:0.86rem;
+                outline:none;transition:border-color 0.2s;
+              " onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'" />
+            </div>
+            <button type="submit" style="
+              margin-top:4px;width:100%;padding:13px;
+              background:linear-gradient(135deg,#f59e0b,#d97706);
+              border:none;border-radius:12px;color:#0a0a0a;
+              font-size:0.88rem;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;
+              cursor:pointer;box-shadow:0 8px 24px rgba(245,158,11,0.35);
+              transition:transform 0.2s,box-shadow 0.2s;
+            " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 30px rgba(245,158,11,0.45)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 24px rgba(245,158,11,0.35)'">
+              SOLICITAR ACCESO PRIVÉ →
+            </button>
+          </form>
+
+          <div id="tmd-newsletter-success" style="display:none;text-align:center;padding:20px 0;">
+            <div style="font-size:2.2rem;margin-bottom:10px;">✅</div>
+            <h3 style="font-size:1.15rem;font-weight:900;color:#10b981;margin:0 0 6px;">¡Acceso Corporativo Activado!</h3>
+            <p style="font-size:0.82rem;color:#a3a3a3;line-height:1.5;">Su membresía ha sido registrada. Nuestro director de flota le remitirá las listas de arribo 0 Km directamente a su contacto.</p>
           </div>
-          <button type="submit" style="margin-top:6px; width:100%; padding:13px; background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border:none; border-radius:12px; color:#070b14; font-size:0.88rem; font-weight:900; text-transform:uppercase; letter-spacing:0.04em; cursor:pointer; box-shadow:0 8px 25px rgba(245,158,11,0.35); transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(245,158,11,0.45)'" onmouseout="this.style.transform='none'; this.style.boxShadow='0 8px 25px rgba(245,158,11,0.35)'">
-            SOLICITAR ACCESO PRIVÉ
-          </button>
-        </form>
 
-        <div id="tmd-newsletter-success" style="display:none; text-align:center; padding:16px 0;">
-          <div style="font-size:2rem; margin-bottom:8px;">✅</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:#10b981; margin-bottom:4px;">¡Acceso Corporativo Activado!</h3>
-          <p style="font-size:0.82rem; color:#94a3b8;">Su membresía ha sido registrada. Nuestro director de flota le remitirá las listas de arribo 0 Km directamente.</p>
-        </div>
+          <!-- Trust row -->
+          <div style="
+            display:flex;flex-wrap:wrap;gap:12px;
+            margin-top:24px;padding-top:18px;
+            border-top:1px solid rgba(255,255,255,0.06);
+            font-size:0.7rem;color:#737373;
+          ">
+            <span>🔒 Cero spam · Solo oportunidades industriales</span>
+            <span>🤝 +200 contratistas suscritos</span>
+            <span>📦 Datos 100% confidenciales</span>
+          </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.08); font-size:0.72rem; color:#64748b;">
-          <span>🔒 Cero spam. Solo oportunidades industriales verificadas.</span>
-          <button onclick="closeNewsletterModal()" style="background:none; border:none; color:#94a3b8; text-decoration:underline; font-size:0.72rem; cursor:pointer; padding:0;">Continuar al sitio</button>
+          <button onclick="closeNewsletterModal()" style="
+            margin-top:14px;background:none;border:none;
+            color:#525252;text-decoration:underline;
+            font-size:0.72rem;cursor:pointer;text-align:left;
+          ">Continuar al sitio sin suscribirse</button>
         </div>
       </div>
     </div>
 
+    <style>
+    /* Responsive: stack on mobile */
+    @media (max-width:767px) {
+      #tmd-luxury-newsletter-modal > div {
+        grid-template-columns: 1fr !important;
+        min-height:auto !important;
+      }
+      #tmd-luxury-newsletter-modal > div > div:first-child {
+        padding: 32px 24px !important;
+        min-height: auto !important;
+      }
+    }
+    </style>
+
     <script>
+      // ─── EXECUTIVE PORTAL PIN GATE ───────────────────────────────────
+      var _TMD_PORTAL_PIN = '0909';
+      var _tmdPortalFooterVisible = false;
+
+      function tmdShowPortalPINPrompt() {
+        var pm = document.getElementById('tmd-exec-portal-pin-modal');
+        if (pm) {
+          pm.style.display = 'flex';
+          var inp = document.getElementById('tmd-portal-pin-input');
+          if (inp) { inp.value = ''; inp.focus(); }
+          var err = document.getElementById('tmd-portal-pin-error');
+          if (err) err.style.display = 'none';
+        }
+      }
+
+      function tmdCheckPortalPIN(val) {
+        var err = document.getElementById('tmd-portal-pin-error');
+        if (val === _TMD_PORTAL_PIN) {
+          document.getElementById('tmd-exec-portal-pin-modal').style.display = 'none';
+          openExecPortal();
+        } else {
+          if (err) { err.style.display = 'block'; }
+          var inp = document.getElementById('tmd-portal-pin-input');
+          if (inp) { inp.value = ''; inp.focus(); }
+        }
+      }
+
+      // Floating icon appears when user is near footer (bottom 20% of page)
+      function tmdCheckFooterProximity() {
+        var scrolled   = window.scrollY + window.innerHeight;
+        var docHeight  = document.documentElement.scrollHeight;
+        var threshold  = docHeight * 0.80; // show when 80% scrolled
+        var icon       = document.getElementById('tmd-exec-portal-pin-icon');
+        if (!icon) return;
+        var nearFooter = scrolled >= threshold;
+        if (nearFooter !== _tmdPortalFooterVisible) {
+          _tmdPortalFooterVisible = nearFooter;
+          if (nearFooter) {
+            icon.style.opacity = '1';
+            icon.style.transform = 'scale(1) translateY(0)';
+            icon.style.pointerEvents = 'auto';
+            icon.style.boxShadow = '0 4px 18px rgba(0,0,0,0.7), 0 0 0 6px rgba(245,158,11,0.15)';
+          } else {
+            icon.style.opacity = '0';
+            icon.style.transform = 'scale(0.7) translateY(12px)';
+            icon.style.pointerEvents = 'none';
+            icon.style.boxShadow = '0 4px 18px rgba(0,0,0,0.7)';
+          }
+        }
+      }
+      window.addEventListener('scroll', tmdCheckFooterProximity, { passive:true });
+      window.addEventListener('resize', tmdCheckFooterProximity, { passive:true });
+      setTimeout(tmdCheckFooterProximity, 400);
+
       function openExecPortal() {
+        var iframe = document.getElementById('todobuild-exec-portal-iframe');
+        if (iframe) {
+          iframe.src = '/dossier.html?v=obsidian_gold_' + Date.now();
+        }
         document.getElementById('todobuild-exec-portal-modal').style.display = 'block';
       }
       function closeExecPortal() {
@@ -648,5 +2960,1015 @@
         window.addEventListener('load', initNewsletterModal);
       }
     </script>
-  </body>
+  
+<script id="tmd-interactive-staff-and-hero">
+(function() {
+  const TMD_EXECUTIVES = [{"id": "eduardo-lopez", "name": "Eduardo Lopez", "role": "Presidente & Gerente General", "tier": "president", "tierLabel": "Nivel I: Presidencia & Dirección General", "department": "Dirección General & Presidencia", "location": "Sede Central Km 22 Autopista Duarte", "status": "Activo • Despacho Presidencial", "photoUrl": "/assets/team_hd/eduardo_lopez_hd.jpg", "bio": "Fundador y líder visionario de Tecnomaquinarias Diesel S.R.L. desde su constitución en el año 2002. Con más de dos décadas al frente de la compañía, ha forjado alianzas estratégicas internacionales con los mayores fabricantes de maquinaria pesada y agrícola, consolidando a TMD como el socio de infraestructura de referencia en la República Dominicana.", "specialties": ["Gobernanza Corporativa", "Alianzas Internacionales", "Inversión en Maquinaria", "Representación de Marcas", "Desarrollo Estratégico"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "eduardo-e-lopez", "name": "Eduardo E. Lopez", "role": "Gerente de Mercadeo & Expansión Digital", "tier": "manager", "tierLabel": "Nivel II: Comité Ejecutivo de Dirección", "department": "División Maquinaria & Comercial", "location": "Sede Central Km 22 / Santo Domingo", "status": "Activo • Mercadeo Corporativo", "photoUrl": "/assets/team_hd/eduardo_e_lopez_hd.jpg", "bio": "Lidera la estrategia de transformación digital, posicionamiento de marca e inteligencia de mercado para TMD. Dirige las iniciativas de comercio digital, relaciones públicas institucionales y canales de captación para contratistas civiles, consorcios mineros y empresas agroindustriales a nivel nacional.", "specialties": ["Estrategia Digital B2B", "Inteligencia de Mercado", "Canales de Adquisición", "Marketing de Maquinaria", "Relaciones Corporativas"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "jorge-torres", "name": "Jorge Torres", "role": "Gerente de Ventas Construcción y Agrícola", "tier": "manager", "tierLabel": "Nivel II: Comité Ejecutivo de Dirección", "department": "División Maquinaria & Comercial", "location": "Sede Central Km 22", "status": "Activo • Ventas Flotas Nuevas & Usadas", "photoUrl": "/assets/team_hd/jorge_torres_hd.jpg", "bio": "Especialista técnico-comercial con amplia trayectoria en asesoramiento de flota pesada. Encabeza el equipo de consultores comerciales para el suministro de excavadoras, retroexcavadoras, rodillos compactadores y tractores de alta potencia, garantizando la configuración exacta para cada proyecto de obra civil o agrícola.", "specialties": ["Maquinaria Pesada JCB", "Flotas para Movimiento de Tierra", "Licitaciones Privadas", "Tractores Agrícolas 4WD", "Asesoría Técnica en Obra"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "carmen-jaquez", "name": "Carmen Jaquez", "role": "Gerente de Créditos & Cobros / Contabilidad", "tier": "manager", "tierLabel": "Nivel II: Comité Ejecutivo de Dirección", "department": "Finanzas & Talento Humano", "location": "Sede Central Km 22", "status": "Activo • Finanzas & Crédito Corporativo", "photoUrl": "/assets/team_hd/carmen_jaquez_hd.jpg", "bio": "Custodia la solidez financiera de la empresa y estructura facilidades crediticias a la medida para los clientes de TMD. Coordina líneas de crédito y leasing en alianza con los principales bancos del país para viabilizar la modernización de flotas de contratistas medianos y grandes.", "specialties": ["Estructuración Crediticia", "Leasing de Maquinaria", "Financiamiento de Flotas", "Control Contable", "Gestión de Riesgo"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "miguel-angel-cruz", "name": "Miguel Angel Cruz", "role": "Gerente Administrativo Central", "tier": "manager", "tierLabel": "Nivel II: Comité Ejecutivo de Dirección", "department": "Finanzas & Talento Humano", "location": "Sede Central Km 22", "status": "Activo • Administración & Compras", "photoUrl": "/assets/team_hd/miguel_angel_cruz_hd.jpg", "bio": "Supervisa la operativa administrativa integral de TMD, la cadena logística portuaria y aduanal de importación de maquinaria y repuestos genuinos. Asegura que los inventarios críticos estén disponibles en tiempo récord para responder a la demanda operativa nacional.", "specialties": ["Logística Portuaria & Aduanal", "Importación de Repuestos", "Cadena de Suministro", "Compras Corporativas", "Gestión de Almacenes"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "edwin-martinez", "name": "Edwin Martinez", "role": "Gerente de Servicios & Campo 24/7", "tier": "operations", "tierLabel": "Nivel III: Operaciones Técnicas & Taller Km 22", "department": "Operaciones & Taller Km 22", "location": "Sede Central Km 22 / Unidades Móviles", "status": "Operativo • Respuesta Rápida 24/7", "photoUrl": "/assets/team_hd/edwin_martinez_hd.jpg", "bio": "Comanda el despliegue de las unidades móviles de asistencia técnica 24/7 en todo el territorio dominicano. Con formación avanzada en diagnóstico electrónico e hidráulico, coordina brigadas de emergencia para atender paradas no programadas en proyectos mineros, canteras y autopistas.", "specialties": ["Servicio de Campo 24/7", "Diagnóstico Electrónico", "Mantenimiento Preventivo", "Sistemas Hidráulicos", "Flota de Camiones Taller"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "blasina-fabian", "name": "Blasina Fabian", "role": "Gerente de Recursos Humanos & Certificación", "tier": "operations", "tierLabel": "Nivel III: Operaciones Técnicas & Taller Km 22", "department": "Finanzas & Talento Humano", "location": "Sede Central Km 22", "status": "Activo • Talento & Certificación Técnica", "photoUrl": "/assets/team_hd/blasina_fabian_hd.jpg", "bio": "Dirige la captación, capacitación continua y certificación técnica del personal de TMD. Implementa rigurosos protocolos de seguridad ocupacional y programas de actualización técnica en coordinación con fabricantes para mantener al equipo en los más altos estándares mundiales.", "specialties": ["Certificación Técnica", "Seguridad y Salud en el Trabajo", "Desarrollo Organizacional", "Normas Industriales", "Capacitación en Maquinaria"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "elvys-alcantara", "name": "Elvys Alcantara", "role": "Gerente de Taller Central Km 22", "tier": "operations", "tierLabel": "Nivel III: Operaciones Técnicas & Taller Km 22", "department": "Operaciones & Taller Km 22", "location": "Taller Central Km 22 (Área de Overhaul)", "status": "Operativo • Taller de Reconstrucción", "photoUrl": "/assets/team_hd/elvys_alcantara_hd.jpg", "bio": "Máxima autoridad en el taller de mantenimiento mayor y reconstrucción (overhaul) de Km 22, con más de 5,000 m² de infraestructura. Especialista en rectificación de motores diésel de alta cilindrada, bancos de calibración hidráulica y restauración completa de trenes de rodaje.", "specialties": ["Overhaul Mayor Diésel", "Reconstrucción Hidráulica", "Bancos de Prueba", "Tornería Pesada", "Garantía de Reparación"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "julio-aguasvivas", "name": "Julio Aguasvivas", "role": "Consultor de Ventas Senior (Maquinaria Pesada)", "tier": "sales", "tierLabel": "Nivel IV: Fuerza Comercial Regional", "department": "Fuerza Comercial Regional", "location": "Santo Domingo / Cobertura Nacional", "status": "Activo • Asesoría Técnica en Proyectos", "photoUrl": "/assets/team_hd/julio_aguasvivas_hd.jpg", "bio": "Consultor senior con vasta experiencia en cotización y asesoría de equipos pesados para proyectos de minería, presas y puertos. Especialista en cálculo de rendimiento por m³ y selección de configuraciones óptimas en excavadoras de 20 a 50 toneladas.", "specialties": ["Excavadoras y Retroexcavadoras", "Renta Operativa de Flotas", "Cálculo de Rendimiento en Obra", "Minería y Canteras", "Atención Corporativa"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "brito-fuentes", "name": "Brito Fuentes", "role": "Ejecutivo Comercial - Zona Norte / Cibao", "tier": "sales", "tierLabel": "Nivel IV: Fuerza Comercial Regional", "department": "Fuerza Comercial Regional", "location": "Santiago de los Caballeros / Región Norte", "status": "Activo • Cobertura Cibao y Costa Norte", "photoUrl": "/assets/team_hd/brito_fuentes_hd.jpg", "bio": "Representante comercial de TMD para la vibrante región Norte del país. Atiende a contratistas viales, desarrolladores inmobiliarios en Santiago y productores agropecuarios en La Vega, Moca y San Francisco de Macorís con visitas técnicas directas a obra.", "specialties": ["Región Norte / Santiago", "Maquinaria Agrícola Cibao", "Equipos Viales", "Atención Personalizada en Sitio", "Flotas de Mantenimiento"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "leonardo-encarnacion", "name": "Leonardo Encarnacion", "role": "Ejecutivo Comercial - Zona Sur / Este", "tier": "sales", "tierLabel": "Nivel IV: Fuerza Comercial Regional", "department": "Fuerza Comercial Regional", "location": "Punta Cana / Bávaro / San Cristóbal", "status": "Activo • Cobertura Este y Sur", "photoUrl": "/assets/team_hd/leonardo_encarnacion_hd.jpg", "bio": "Especialista en proyectos de expansión turística, construcción hotelera y vial en el corredor Este (Punta Cana, Miches, La Romana) e infraestructura portuaria e industrial en la región Sur (Haina, San Cristóbal, Baní).", "specialties": ["Proyectos Turísticos Este", "Rodillos Compactadores", "Miniexcavación Urbana", "Infraestructura Sur", "Soluciones Llave en Mano"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}, {"id": "perkin-soriano", "name": "Perkin Soriano", "role": "Especialista Técnico en Línea Agrícola & Tractores", "tier": "sales", "tierLabel": "Nivel IV: Fuerza Comercial Regional", "department": "Fuerza Comercial Regional", "location": "Zonas Agropecuarias Nacionales", "status": "Activo • Mecanización del Campo", "photoUrl": "/assets/team_hd/perkin_soriano_hd.jpg", "bio": "Experto en mecanización agrícola e implementos de labranza de precisión. Asesora a asociaciones ganaderas, ingenios azucareros y productores arroceros en la selección de tractores 4WD e implementos adecuados para maximizar la productividad por hectárea.", "specialties": ["Tractores de Alta Potencia", "Implementos Agrícolas", "Mecanización de Arroz y Caña", "Capacitación a Operadores", "Servicio Técnico en Finca"], "phone": "(809) 826-2222", "email": "contacto@tmd.com.do", "whatsapp": "18098262222"}];
+  let currentView = 'gallery';
+  let currentDept = 'all';
+  let searchQuery = '';
+  let activeModalIndex = -1;
+
+  function getFilteredExecutives() {
+    return TMD_EXECUTIVES.filter(function(item) {
+      // Department filter
+      let matchDept = true;
+      if (currentDept === 'direccion') {
+        matchDept = item.tier === 'president';
+      } else if (currentDept === 'comercial') {
+        matchDept = item.department.includes('Comercial') || item.department.includes('Maquinaria');
+      } else if (currentDept === 'operaciones') {
+        matchDept = item.department.includes('Operaciones') || item.department.includes('Taller') || item.role.includes('Servicios') || item.role.includes('Taller');
+      } else if (currentDept === 'finanzas') {
+        matchDept = item.department.includes('Finanzas') || item.department.includes('Humano') || item.role.includes('Administrativo');
+      } else if (currentDept === 'regional') {
+        matchDept = item.tier === 'sales';
+      }
+
+      // Search query filter
+      let matchSearch = true;
+      if (searchQuery.trim() !== '') {
+        const q = searchQuery.toLowerCase();
+        const str = (item.name + ' ' + item.role + ' ' + item.department + ' ' + item.location + ' ' + item.specialties.join(' ')).toLowerCase();
+        matchSearch = str.includes(q);
+      }
+
+      return matchDept && matchSearch;
+    });
+  }
+
+  // ──────────────────────────────────────────────────────────────────
+  // 1. CINEMATIC DRONE VIDEO HERO MOUNTING
+  // ──────────────────────────────────────────────────────────────────
+  function mountVideoHero() {
+    // Check if hero already mounted
+    if (document.getElementById('tmd-drone-hero-section')) return true;
+
+    // Verify this is the about page
+    const isAboutPage = window.location.hash.includes('about') || 
+                         window.location.hash.includes('empresa') || 
+                         window.location.hash.includes('nosotros') ||
+                         document.getElementById('equipo') !== null;
+    if (!isAboutPage) return false;
+
+    const h1Elem = document.querySelector('#root h1');
+    if (!h1Elem) return false;
+
+    const aboutWrapper = h1Elem.closest('.space-y-24') || h1Elem.parentElement.parentElement;
+    if (!aboutWrapper) return false;
+
+    // The text block that was there
+    const originalTextHeader = h1Elem.closest('div.text-center');
+
+    const heroDiv = document.createElement('div');
+    heroDiv.id = 'tmd-drone-hero-section';
+    heroDiv.className = 'tmd-drone-hero-container';
+    heroDiv.innerHTML = `
+      <video id="tmd-about-drone-video" class="tmd-drone-hero-video" autoplay muted loop playsinline poster="/assets/video/tmd_hero_poster.jpg">
+        <source src="/assets/video/tmd_hero_drone_hd.mp4" type="video/mp4">
+      </video>
+      <div class="tmd-drone-hero-overlay"></div>
+      
+      <div class="tmd-drone-hero-content">
+        <div class="tmd-hero-badge">
+          <span class="tmd-hero-pulse"></span>
+          SEDE CENTRAL KM 22 AUTOPISTA DUARTE • DESDE 2002
+        </div>
+        <h1 class="tmd-hero-title">
+          TECNOMAQUINARIAS <span>DIESEL</span>
+        </h1>
+        <p class="tmd-hero-subtitle">
+          Maquinarias pesadas, agrícolas y servicios de alta ingeniería que mantienen tus proyectos en marcha en toda la República Dominicana.
+        </p>
+
+        <div class="tmd-hero-stats-row">
+          <div class="tmd-hero-stat-chip">
+            <span style="color:#f59e0b; font-weight:800;">✓</span>
+            <span>+20 Años de Liderazgo</span>
+          </div>
+          <div class="tmd-hero-stat-chip">
+            <span style="color:#f59e0b; font-weight:800;">📍</span>
+            <span>5,000 m² Sede Km 22</span>
+          </div>
+          <div class="tmd-hero-stat-chip">
+            <span style="color:#f59e0b; font-weight:800;">⚙️</span>
+            <span>Taller & Overhaul 24/7</span>
+          </div>
+          <div class="tmd-hero-stat-chip">
+            <span style="color:#f59e0b; font-weight:800;">👥</span>
+            <span>12 Especialistas Ejecutivos</span>
+          </div>
+        </div>
+
+        <div class="tmd-hero-actions">
+          <a href="#equipo" class="tmd-btn-amber-glow" onclick="document.getElementById('equipo')?.scrollIntoView({behavior:'smooth'}); return false;">
+            <span>Explorar Estructura & Equipo</span>
+            <span style="font-size:1.1rem;">↓</span>
+          </a>
+          <button class="tmd-btn-glass" onclick="window.tmdToggleQuoteModal ? window.tmdToggleQuoteModal() : (document.querySelector('button[data-quote-trigger]')?.click() || document.getElementById('todobuild-exec-portal-trigger')?.click())">
+            <span>Cotizar Flota & Maquinaria</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tmd-video-controls">
+        <button id="tmd-hero-mute-btn" class="tmd-vid-ctrl-btn" title="Activar / Desactivar Sonido" onclick="window.tmdToggleVideoSound()">
+          🔊
+        </button>
+        <button id="tmd-hero-play-btn" class="tmd-vid-ctrl-btn" title="Pausar / Reproducir" onclick="window.tmdToggleVideoPlay()">
+          ⏸
+        </button>
+      </div>
+    `;
+
+    if (originalTextHeader) {
+      originalTextHeader.replaceWith(heroDiv);
+    } else {
+      aboutWrapper.insertBefore(heroDiv, aboutWrapper.firstChild);
+    }
+
+    return true;
+  }
+
+  window.tmdToggleVideoSound = function() {
+    const v = document.getElementById('tmd-about-drone-video');
+    const btn = document.getElementById('tmd-hero-mute-btn');
+    if (!v || !btn) return;
+    v.muted = !v.muted;
+    btn.innerHTML = v.muted ? '🔇' : '🔊';
+  };
+
+  window.tmdToggleVideoPlay = function() {
+    const v = document.getElementById('tmd-about-drone-video');
+    const btn = document.getElementById('tmd-hero-play-btn');
+    if (!v || !btn) return;
+    if (v.paused) {
+      v.play();
+      btn.innerHTML = '⏸';
+    } else {
+      v.pause();
+      btn.innerHTML = '▶';
+    }
+  };
+
+  // ──────────────────────────────────────────────────────────────────
+  // 2. INTERACTIVE STAFF & COMPANY STRUCTURE MOUNTING
+  // ──────────────────────────────────────────────────────────────────
+  function mountStaffSection() {
+    const equipoElem = document.getElementById('equipo');
+    if (!equipoElem) return false;
+
+    // Check if already enhanced
+    if (equipoElem.getAttribute('data-tmd-enhanced') === 'true') return true;
+
+    equipoElem.setAttribute('data-tmd-enhanced', 'true');
+    equipoElem.innerHTML = `
+      <div id="tmd-interactive-staff-wrapper">
+        <!-- Compact Sleek Header -->
+        <div class="tmd-staff-compact-header">
+          <div class="tmd-staff-compact-top">
+            <div>
+              <div class="tmd-staff-eyebrow-mini">
+                <span class="tmd-hero-pulse"></span>
+                GOBERNANZA CORPORATIVA • 12 ESPECIALISTAS
+              </div>
+              <h2 class="tmd-staff-title-mini">DIRECTORIO EJECUTIVO TMD</h2>
+            </div>
+
+            <!-- Compact View Toggle -->
+            <div class="tmd-view-toggle-mini">
+              <button id="tmd-btn-view-gallery" class="tmd-vbtn-mini active" onclick="window.tmdSetStaffView('gallery')">
+                <span>⊞</span> Galería
+              </button>
+              <button id="tmd-btn-view-organigram" class="tmd-vbtn-mini" onclick="window.tmdSetStaffView('organigram')">
+                <span>☊</span> Organigrama
+              </button>
+            </div>
+          </div>
+
+          <!-- Unified Controls Row (Pills + Compact Search) -->
+          <div class="tmd-staff-controls-compact">
+            <div class="tmd-dept-pills-compact" id="tmd-dept-pills-container">
+              <button class="tmd-dept-pill active" data-dept="all" onclick="window.tmdSetDeptFilter('all')">Todos (12)</button>
+              <button class="tmd-dept-pill" data-dept="direccion" onclick="window.tmdSetDeptFilter('direccion')">Presidencia</button>
+              <button class="tmd-dept-pill" data-dept="comercial" onclick="window.tmdSetDeptFilter('comercial')">Comercial</button>
+              <button class="tmd-dept-pill" data-dept="operaciones" onclick="window.tmdSetDeptFilter('operaciones')">Operaciones & Taller</button>
+              <button class="tmd-dept-pill" data-dept="finanzas" onclick="window.tmdSetDeptFilter('finanzas')">Finanzas & RH</button>
+              <button class="tmd-dept-pill" data-dept="regional" onclick="window.tmdSetDeptFilter('regional')">Fuerza Regional</button>
+            </div>
+
+            <div class="tmd-staff-search-compact">
+              <span class="tmd-sicon-compact">🔍</span>
+              <input type="text" id="tmd-staff-search-input" class="tmd-sinput-compact" placeholder="Buscar especialista..." oninput="window.tmdHandleSearch(this.value)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Content Container -->
+        <div id="tmd-staff-display-mount" class="tmd-staff-content-container"></div>
+      </div>
+    `;
+
+    renderStaffContent();
+    return true;
+  }
+
+  // ──────────────────────────────────────────────────────────────────
+  // 3. RENDER GALLERY / ORGANIGRAM CONTENT
+  // ──────────────────────────────────────────────────────────────────
+  function renderStaffContent() {
+    const mount = document.getElementById('tmd-staff-display-mount') || document.getElementById('tmd-staff-dynamic-content');
+    if (!mount) return;
+
+    const filtered = getFilteredExecutives();
+
+    if (filtered.length === 0) {
+      mount.innerHTML = `
+        <div style="text-align:center; padding:4rem 1rem; color:#a3a3a3;">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">🔍</div>
+          <h3 style="font-size:1.25rem; font-weight:800; color:#fff; margin-bottom:0.5rem;">No se encontraron ejecutivos</h3>
+          <p style="font-size:0.88rem; max-width:400px; margin:0 auto 1.5rem auto;">No hay resultados que coincidan con la búsqueda "${searchQuery}".</p>
+          <button class="tmd-btn-glass" onclick="window.tmdResetFilters()">Restablecer Filtros</button>
+        </div>
+      `;
+      return;
+    }
+
+    if (currentView === 'gallery') {
+      renderGalleryView(mount, filtered);
+    } else {
+      renderOrganigramView(mount, filtered);
+    }
+  }
+
+  function renderGalleryView(mount, items) {
+    let html = '<div class="tmd-gallery-grid">';
+    items.forEach(function(item) {
+      const specBadges = item.specialties.slice(0, 3).map(function(s) {
+        return `<span class="tmd-card-spec-tag">${s}</span>`;
+      }).join('');
+
+      html += `
+        <div class="tmd-exec-card" onclick="window.tmdOpenExecutiveModal('${item.id}')">
+          <div class="tmd-card-photo-wrapper">
+            <img src="${item.photoUrl}" alt="${item.name}" class="tmd-card-photo" loading="lazy">
+            <div class="tmd-card-photo-gradient"></div>
+            <div class="tmd-card-status-badge">
+              <span class="tmd-hero-pulse" style="width:6px; height:6px;"></span>
+              <span>${item.status.split('•')[0].trim()}</span>
+            </div>
+            <div class="tmd-card-dept-tag">${item.department.split('&')[0].trim()}</div>
+          </div>
+          <div class="tmd-card-body">
+            <h4 class="tmd-card-name">${item.name}</h4>
+            <div class="tmd-card-role">${item.role}</div>
+            <div class="tmd-card-specialties-row">
+              ${specBadges}
+            </div>
+            <div class="tmd-card-footer-btn">
+              <span>Ver Expediente & Contacto</span>
+              <span style="font-size:1rem;">→</span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+    mount.innerHTML = html;
+  }
+
+  function renderOrganigramView(mount, items) {
+    // Group into 4 tiers
+    const tier1 = items.filter(i => i.tier === 'president');
+    const tier2 = items.filter(i => i.tier === 'manager');
+    const tier3 = items.filter(i => i.tier === 'operations');
+    const tier4 = items.filter(i => i.tier === 'sales');
+
+    function renderNode(item, isPres) {
+      return `
+        <div class="tmd-tree-node-card ${isPres ? 'president-node' : ''}" onclick="window.tmdOpenExecutiveModal('${item.id}')">
+          <img src="${item.photoUrl}" alt="${item.name}" class="tmd-node-avatar">
+          <div class="tmd-node-info">
+            <div class="tmd-node-name">${item.name}</div>
+            <div class="tmd-node-role">${item.role}</div>
+            <div class="tmd-node-dept">${item.department}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    let html = '<div class="tmd-organigram-container">';
+
+    // Tier 1
+    if (tier1.length > 0) {
+      html += `
+        <div class="tmd-tree-tier">
+          <div class="tmd-tier-badge">👑 Nivel I • Presidencia & Dirección General</div>
+          <div class="tmd-tree-node-row">
+            ${tier1.map(i => renderNode(i, true)).join('')}
+          </div>
+        </div>
+        <div class="tmd-tree-connector-line"></div>
+      `;
+    }
+
+    // Tier 2
+    if (tier2.length > 0) {
+      html += `
+        <div class="tmd-tree-tier">
+          <div class="tmd-tier-badge">🏛️ Nivel II • Comité Ejecutivo & Gerencias Funcionales</div>
+          <div class="tmd-tree-node-row">
+            ${tier2.map(i => renderNode(i, false)).join('')}
+          </div>
+        </div>
+        <div class="tmd-tree-connector-line"></div>
+      `;
+    }
+
+    // Tier 3
+    if (tier3.length > 0) {
+      html += `
+        <div class="tmd-tree-tier">
+          <div class="tmd-tier-badge">⚙️ Nivel III • Operaciones Técnicas, Taller Km 22 & Campo</div>
+          <div class="tmd-tree-node-row">
+            ${tier3.map(i => renderNode(i, false)).join('')}
+          </div>
+        </div>
+        <div class="tmd-tree-connector-line"></div>
+      `;
+    }
+
+    // Tier 4
+    if (tier4.length > 0) {
+      html += `
+        <div class="tmd-tree-tier">
+          <div class="tmd-tier-badge">🌐 Nivel IV • Consultores Técnicos & Cobertura Regional</div>
+          <div class="tmd-tree-node-row">
+            ${tier4.map(i => renderNode(i, false)).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    html += '</div>';
+    mount.innerHTML = html;
+  }
+
+  // ──────────────────────────────────────────────────────────────────
+  // 4. INTERACTIVE CONTROLS HANDLERS
+  // ──────────────────────────────────────────────────────────────────
+  window.tmdSetStaffView = function(view) {
+    currentView = view;
+    document.getElementById('tmd-btn-view-gallery')?.classList.toggle('active', view === 'gallery');
+    document.getElementById('tmd-btn-view-organigram')?.classList.toggle('active', view === 'organigram');
+    renderStaffContent();
+  };
+
+  window.tmdSetDeptFilter = function(dept) {
+    currentDept = dept;
+    const pills = document.querySelectorAll('#tmd-dept-pills-container .tmd-dept-pill');
+    pills.forEach(p => p.classList.toggle('active', p.getAttribute('data-dept') === dept));
+    renderStaffContent();
+  };
+
+  window.tmdHandleSearch = function(val) {
+    searchQuery = val;
+    renderStaffContent();
+  };
+
+  window.tmdResetFilters = function() {
+    currentDept = 'all';
+    searchQuery = '';
+    const input = document.getElementById('tmd-staff-search-input');
+    if (input) input.value = '';
+    const pills = document.querySelectorAll('#tmd-dept-pills-container .tmd-dept-pill');
+    pills.forEach(p => p.classList.toggle('active', p.getAttribute('data-dept') === 'all'));
+    renderStaffContent();
+  };
+
+  // ──────────────────────────────────────────────────────────────────
+  // 5. ULTRA-LUXURY EXECUTIVE POP-OUT DOSSIER MODAL
+  // ──────────────────────────────────────────────────────────────────
+  function ensureModalElement() {
+    let modal = document.getElementById('tmd-exec-dossier-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'tmd-exec-dossier-modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      document.body.appendChild(modal);
+
+      // Close on backdrop click
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          window.tmdCloseExecutiveModal();
+        }
+      });
+
+      // Keyboard navigation
+      window.addEventListener('keydown', function(e) {
+        const m = document.getElementById('tmd-exec-dossier-modal');
+        if (!m || !m.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+          window.tmdCloseExecutiveModal();
+        } else if (e.key === 'ArrowLeft') {
+          window.tmdNavigateModal(-1);
+        } else if (e.key === 'ArrowRight') {
+          window.tmdNavigateModal(1);
+        }
+      });
+    }
+    return modal;
+  }
+
+  window.tmdOpenExecutiveModal = function(idOrIndex) {
+    let idx = -1;
+    if (typeof idOrIndex === 'number') {
+      idx = idOrIndex;
+    } else {
+      idx = TMD_EXECUTIVES.findIndex(i => i.id === idOrIndex);
+    }
+    if (idx === -1) return;
+
+    activeModalIndex = idx;
+    const exec = TMD_EXECUTIVES[idx];
+    const modal = ensureModalElement();
+
+    const specPills = exec.specialties.map(function(s) {
+      return `<div class="tmd-modal-spec-chip">⚙️ ${s}</div>`;
+    }).join('');
+
+    const waMessage = encodeURIComponent(`Hola, me comunico desde la plataforma oficial de TMD. Deseo coordinar con ${exec.name} (${exec.role}) respecto a maquinaria pesada y requerimientos de flota.`);
+
+    modal.innerHTML = `
+      <div class="tmd-modal-dialog">
+        <button class="tmd-modal-close-btn" onclick="window.tmdCloseExecutiveModal()" title="Cerrar (Esc)">✕</button>
+        
+        <div class="tmd-modal-grid">
+          <!-- Left Column: Portrait & Live Status -->
+          <div class="tmd-modal-left-col">
+            <div class="tmd-modal-portrait-wrapper">
+              <img src="${exec.photoUrl}" alt="${exec.name}" class="tmd-modal-portrait-img">
+            </div>
+            <div class="tmd-modal-status-badge">
+              <span class="tmd-modal-status-dot"></span>
+              <span>${exec.status}</span>
+            </div>
+            <div class="tmd-modal-location-text">
+              📍 ${exec.location}
+            </div>
+          </div>
+
+          <!-- Right Column: Executive Profile & Communication -->
+          <div class="tmd-modal-right-col">
+            <div>
+              <div class="tmd-modal-badge-row">
+                <span class="tmd-modal-tier-tag">${exec.tierLabel.split('•')[0].trim()}</span>
+                <span class="tmd-modal-dept-tag">${exec.department}</span>
+              </div>
+
+              <h3 class="tmd-modal-name">${exec.name}</h3>
+              <div class="tmd-modal-role">${exec.role}</div>
+
+              <div class="tmd-modal-section-heading">Perfil Profesional & Trayectoria</div>
+              <p class="tmd-modal-bio">${exec.bio}</p>
+
+              <div class="tmd-modal-section-heading">Especialidades & Alcance Técnico</div>
+              <div class="tmd-modal-specialties-row">
+                ${specPills}
+              </div>
+            </div>
+
+            <!-- Direct Action Suite -->
+            <div class="tmd-modal-action-suite">
+              <a href="https://wa.me/${exec.whatsapp}?text=${waMessage}" target="_blank" rel="noopener noreferrer" class="tmd-modal-btn-wa">
+                <span style="font-size:1.1rem;">💬</span>
+                <span>WhatsApp Directo</span>
+              </a>
+              <a href="mailto:${exec.email}?subject=Atenci%C3%B3n%20para%20${encodeURIComponent(exec.name)}%20-%20TMD%20Dominicana" class="tmd-modal-btn-mail">
+                <span>✉️ Correo Corporativo</span>
+              </a>
+              <a href="tel:${exec.phone.replace(/[^0-9]/g, '')}" class="tmd-modal-btn-call">
+                <span>📞 Llamada Central</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation Footer -->
+        <div class="tmd-modal-nav-bar">
+          <button class="tmd-modal-nav-btn" onclick="window.tmdNavigateModal(-1)">
+            <span>←</span> Anterior
+          </button>
+          <div class="tmd-modal-counter">
+            [ ${idx + 1} de ${TMD_EXECUTIVES.length} ]
+          </div>
+          <button class="tmd-modal-nav-btn" onclick="window.tmdNavigateModal(1)">
+            Siguiente <span>→</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.tmdCloseExecutiveModal = function() {
+    const modal = document.getElementById('tmd-exec-dossier-modal');
+    if (modal) {
+      modal.classList.remove('active');
+    }
+    document.body.style.overflow = '';
+  };
+
+  window.tmdNavigateModal = function(direction) {
+    if (activeModalIndex === -1) return;
+    let nextIndex = activeModalIndex + direction;
+    if (nextIndex < 0) nextIndex = TMD_EXECUTIVES.length - 1;
+    if (nextIndex >= TMD_EXECUTIVES.length) nextIndex = 0;
+    window.tmdOpenExecutiveModal(nextIndex);
+  };
+
+  // ──────────────────────────────────────────────────────────────────
+  // 6. CONTINUOUS LIFECYCLE & MUTATION OBSERVER
+  // ──────────────────────────────────────────────────────────────────
+  function checkAndMount() {
+    const isAbout = window.location.hash.includes('about') || 
+                    window.location.hash.includes('empresa') || 
+                    window.location.hash.includes('nosotros') ||
+                    document.getElementById('equipo') !== null;
+    if (isAbout) {
+      mountVideoHero();
+      mountStaffSection();
+    }
+  }
+
+  // DOM ready check
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    checkAndMount();
+  } else {
+    window.addEventListener('DOMContentLoaded', checkAndMount);
+  }
+
+  window.addEventListener('load', checkAndMount);
+  window.addEventListener('hashchange', function() {
+    setTimeout(checkAndMount, 80);
+    setTimeout(checkAndMount, 300);
+  });
+
+  // Persistent MutationObserver to catch React page changes instantly
+  const observer = new MutationObserver(function() {
+    checkAndMount();
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Polling watchdog every 400ms
+  setInterval(checkAndMount, 400);
+
+  // ──────────────────────────────────────────────────────────────────
+  // 7. MEGA MENU DIRECT PRODUCT NAVIGATION DELEGATOR
+  // ──────────────────────────────────────────────────────────────────
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('button, div[class*="group p-2.5 rounded-2xl"]');
+    if (!target) return;
+
+    const text = target.textContent || '';
+    let targetSlug = null;
+
+    if (text.includes('Excavadoras Hidráulicas') || text.includes('Excavadoras Hidr')) {
+      targetSlug = 'excavadoras-jcb';
+    } else if (text.includes('Retroexcavadoras 4x4')) {
+      targetSlug = 'retroexcavadora-jcb';
+    } else if (text.includes('Minicargadores Compactos')) {
+      targetSlug = 'minicargadores-jcb';
+    } else if (text.includes('Tractores Agrícolas 4WD') || text.includes('Tractores Agr')) {
+      targetSlug = 'tractores-agricolas-ls';
+    } else if (text.includes('Montacargas Industriales')) {
+      targetSlug = 'montacargas-liugong';
+    } else if (text.includes('Compactación & Rodillos') || text.includes('Compactaci')) {
+      targetSlug = 'compactador-jcb';
+    } else if (text.includes('Ver Flota de Renta')) {
+      targetSlug = 'retroexcavadora-jcb';
+    } else if (text.includes('Ver Catálogo Venta 0 Km')) {
+      targetSlug = 'excavadoras-jcb';
+    } else if (text.includes('Construcción (18)')) {
+      targetSlug = 'excavadoras-jcb';
+    } else if (text.includes('Agrícolas (21)')) {
+      targetSlug = 'tractores-agricolas-ls';
+    } else if (text.includes('Industriales (4)')) {
+      targetSlug = 'montacargas-liugong';
+    }
+
+    if (targetSlug) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.hash = '#/vehicle/' + targetSlug;
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Close mega menu dropdown
+      const nav = document.querySelector('nav') || document.querySelector('header');
+      if (nav) {
+        nav.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+      }
+      document.querySelectorAll('[role="dialog"], .backdrop-blur-2xl').forEach(el => {
+        if (el.parentElement && el.parentElement.tagName === 'NAV') el.style.display = 'none';
+      });
+    }
+  }, true);
+
+
+})();
+
+</script>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- TMD AI CHAT SUPPORT DESK — Full-site AI assistant                  -->
+    <!-- Knowledge: all products, services, routes, team, pricing, links    -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <div id="tmd-ai-chat-btn" title="Asistente Virtual TMD" onclick="tmdToggleChat()" style="
+      position:fixed; bottom:80px; right:20px; z-index:99985;
+      width:52px; height:52px; border-radius:50%;
+      background:linear-gradient(135deg,#f59e0b,#d97706);
+      box-shadow:0 6px 22px rgba(245,158,11,0.45);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:1.3rem;
+      transition:transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s;
+      animation: tmd-chat-pulse 3s ease-in-out infinite;
+    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+      🤖
+    </div>
+    <div id="tmd-ai-chat-badge" style="
+      position:fixed; bottom:130px; right:14px; z-index:99986;
+      background:linear-gradient(135deg,#0a0a0a,#141414);
+      border:1px solid rgba(245,158,11,0.4); border-radius:12px;
+      padding:6px 12px; font-size:0.7rem; font-weight:700; color:#f59e0b;
+      white-space:nowrap; pointer-events:none;
+      box-shadow:0 4px 14px rgba(0,0,0,0.6);
+      animation: tmd-badge-fade 5s ease-in-out forwards;
+    ">💬 ¿En qué le ayudamos?</div>
+
+    <div id="tmd-ai-chat-panel" style="
+      display:none; position:fixed;
+      bottom:142px; right:16px; z-index:99990;
+      width:360px; max-width:calc(100vw - 32px);
+      height:520px; max-height:calc(100vh - 180px);
+      background:linear-gradient(160deg,#0c0c0c,#141414);
+      border:1px solid rgba(245,158,11,0.35);
+      border-radius:20px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.8), 0 0 30px rgba(245,158,11,0.08);
+      display:none; flex-direction:column;
+      font-family:'Inter',sans-serif; overflow:hidden;
+    ">
+      <!-- Chat Header -->
+      <div style="
+        padding:14px 16px; background:#111;
+        border-bottom:1px solid rgba(255,255,255,0.08);
+        display:flex; align-items:center; justify-content:space-between;
+        flex-shrink:0;
+      ">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="
+            width:36px;height:36px;border-radius:50%;
+            background:linear-gradient(135deg,#f59e0b,#d97706);
+            display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+          ">🤖</div>
+          <div>
+            <div style="font-size:0.8rem;font-weight:800;color:#fff;">Asistente Virtual TMD</div>
+            <div style="font-size:0.65rem;color:#10b981;display:flex;align-items:center;gap:4px;">
+              <span style="width:5px;height:5px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;display:inline-block;"></span>
+              En línea · TMD Km 22
+            </div>
+          </div>
+        </div>
+        <button onclick="tmdMinimizeChat()" title="Minimizar (mantiene la conversación)" style="
+          width:28px;height:28px;border-radius:50%;
+          background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+          color:#a3a3a3;font-size:0.9rem;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;
+          transition:background 0.2s;
+        " onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">—</button>
+      </div>
+
+      <!-- Chat Messages -->
+      <div id="tmd-chat-messages" style="
+        flex:1; overflow-y:auto; padding:16px; display:flex;
+        flex-direction:column; gap:10px;
+        scrollbar-width:thin; scrollbar-color:rgba(245,158,11,0.2) transparent;
+      ">
+        <!-- Welcome message -->
+        <div class="tmd-chat-msg tmd-chat-bot" style="
+          background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+          border-radius:12px 12px 12px 4px; padding:10px 13px;
+          font-size:0.82rem;color:#e5e5e5;line-height:1.5; max-width:85%;
+        ">
+          ¡Hola! Soy el asistente virtual de <strong style="color:#f59e0b;">Tecnomaquinarias Diesel</strong>. Puedo ayudarle con:<br><br>
+          🏗️ Maquinaria disponible y precios<br>
+          🔧 Servicio técnico y repuestos<br>
+          📋 Cotizaciones y renta de flota<br>
+          📍 Cómo llegar a Km 22<br><br>
+          ¿Qué necesita hoy?
+        </div>
+
+        <!-- Quick action chips -->
+        <div id="tmd-chat-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+          <button onclick="tmdChatQuickAsk('¿Qué excavadoras JCB tienen disponibles?')" style="
+            padding:5px 11px;background:rgba(245,158,11,0.1);
+            border:1px solid rgba(245,158,11,0.3);border-radius:20px;
+            color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
+          ">Excavadoras JCB</button>
+          <button onclick="tmdChatQuickAsk('¿Cuáles son los precios de renta de maquinaria?')" style="
+            padding:5px 11px;background:rgba(245,158,11,0.1);
+            border:1px solid rgba(245,158,11,0.3);border-radius:20px;
+            color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
+          ">Renta de Flota</button>
+          <button onclick="tmdChatQuickAsk('Necesito tractores agrícolas LS Tractor')" style="
+            padding:5px 11px;background:rgba(245,158,11,0.1);
+            border:1px solid rgba(245,158,11,0.3);border-radius:20px;
+            color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
+          ">Tractores Agrícolas</button>
+          <button onclick="tmdChatQuickAsk('¿Cómo llego a TMD Km 22?')" style="
+            padding:5px 11px;background:rgba(245,158,11,0.1);
+            border:1px solid rgba(245,158,11,0.3);border-radius:20px;
+            color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
+          ">Cómo llegar</button>
+          <button onclick="tmdChatQuickAsk('Quiero cotizar repuestos genuinos OEM')" style="
+            padding:5px 11px;background:rgba(245,158,11,0.1);
+            border:1px solid rgba(245,158,11,0.3);border-radius:20px;
+            color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
+          ">Repuestos OEM</button>
+          <button onclick="tmdChatQuickAsk('¿Tienen servicio técnico 24 horas?')" style="
+            padding:5px 11px;background:rgba(245,158,11,0.1);
+            border:1px solid rgba(245,158,11,0.3);border-radius:20px;
+            color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
+          ">Servicio 24/7</button>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div style="
+        padding:12px 14px; background:#0e0e0e;
+        border-top:1px solid rgba(255,255,255,0.06); flex-shrink:0;
+        display:flex; gap:8px; align-items:center;
+      ">
+        <input id="tmd-chat-input" type="text"
+          placeholder="Escribe tu consulta aquí..."
+          onkeydown="if(event.key==='Enter'){tmdChatSend();}"
+          style="
+            flex:1; background:rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.1); border-radius:10px;
+            padding:9px 13px; color:#fff; font-size:0.82rem;
+            outline:none; transition:border-color 0.2s;
+          "
+          onfocus="this.style.borderColor='#f59e0b'"
+          onblur="this.style.borderColor='rgba(255,255,255,0.1)'"
+        />
+        <button onclick="tmdChatSend()" style="
+          width:38px;height:38px;border-radius:10px;
+          background:linear-gradient(135deg,#f59e0b,#d97706);
+          border:none;cursor:pointer;font-size:1rem;
+          display:flex;align-items:center;justify-content:center;
+          transition:transform 0.2s;flex-shrink:0;
+        " onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">→</button>
+      </div>
+    </div>
+
+    <style>
+    @keyframes tmd-chat-pulse {
+      0%,100% { box-shadow:0 6px 22px rgba(245,158,11,0.45); }
+      50%      { box-shadow:0 6px 28px rgba(245,158,11,0.65), 0 0 0 8px rgba(245,158,11,0.08); }
+    }
+    @keyframes tmd-badge-fade {
+      0%,70%  { opacity:1; transform:translateY(0); }
+      100%    { opacity:0; transform:translateY(-6px); pointer-events:none; }
+    }
+    #tmd-ai-chat-panel[style*="flex"] { display:flex !important; }
+    </style>
+
+    <script>
+    (function(){
+      var _chatOpen = false;
+
+      // ── TMD Knowledge Base ───────────────────────────────────────────
+      var KB = [
+        { k:['excavadora','jcb 220','220x','220lc','hidráulica','excavadoras'],
+          r:'🏗️ <strong>Excavadoras JCB disponibles:</strong><br>• JCB 220X (21.5t) — Excavadora estrella<br>• JCB 131X — Compacta urbana<br>• JCB 305T — Miniexcavadora<br><br>Para cotizar: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a> o visite <a href="#/vehicle/excavadoras-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver catálogo →</a>'},
+        { k:['retroexcavadora','3cx','4cx','jcb 3cx'],
+          r:'🔄 <strong>Retroexcavadoras JCB 4x4:</strong><br>• JCB 3CX — El más vendido de RD<br>• JCB 4CX — Máxima versatilidad<br><br>Disponibles en venta y renta. <a href="#/vehicle/retroexcavadora-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver detalles →</a>'},
+        { k:['tractor','ls tractor','yanmar','agrícola','agricola','campo'],
+          r:'🌾 <strong>Línea Agrícola TMD:</strong><br>• LS Tractor MT7 — 4WD alta potencia<br>• LS Tractor MT3 — Compacto versátil<br>• Yanmar — Mini tractores precisión<br><br>Cobertura Cibao & Sur. <a href="#/vehicle/tractores-agricolas-ls" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver tractores →</a>'},
+        { k:['repuesto','filtro','oem','original','pieza'],
+          r:'🔧 <strong>Repuestos Genuinos OEM:</strong><br>Importados directamente de fábrica para JCB, LiuGong, LS Tractor y Yanmar.<br><br>Inventario en Km 22: filtros, aceites, sellos, transmisiones.<br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a>'},
+        { k:['renta','alquiler','arrendamiento','rent'],
+          r:'🔑 <strong>Renta Corporativa de Flota:</strong><br>• Excavadoras JCB desde $950/día<br>• Retroexcavadoras desde $450/día<br>• Rodillos compactadores disponibles<br><br>Operador certificado incluido. Contrato mínimo 5 días. Llame: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+        { k:['servicio','técnico','tecnico','mantenimiento','taller','24'],
+          r:'⚙️ <strong>Servicio Técnico 24/7:</strong><br>• Unidades móviles en todo el territorio<br>• Diagnóstico electrónico LiveLink JCB<br>• Overhaul completo en Km 22<br>• Respuesta en campo en menos de 4h<br><br>Emergencias: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+        { k:['precio','costo','cuánto','cuanto','cotización','cotizacion','presupuesto'],
+          r:'💰 <strong>Solicitar Cotización:</strong><br>Los precios varían según modelo, configuración y términos de pago.<br><br>Para una cotización personalizada:<br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>💬 <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">WhatsApp directo →</a>'},
+        { k:['km 22','kmm22','dirección','ubicación','ubicacion','llegar','donde'],
+          r:'📍 <strong>Sede Central TMD:</strong><br>Km 22 Autopista Duarte, Santo Domingo, RD<br><br>Horario: Lunes–Viernes 8am–6pm · Sábados 8am–2pm<br><br><a href="https://maps.google.com/?q=Tecnomaquinarias+Diesel+Km+22+Duarte" target="_blank" style="color:#f59e0b;">Ver en Google Maps →</a>'},
+        { k:['liugong','montacargas','industrial'],
+          r:'🏭 <strong>Montacargas LiuGong:</strong><br>Disponibles en capacidades de 3t a 10t para uso industrial, portuario y logístico.<br><br><a href="#/vehicle/montacargas-liugong" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver catálogo →</a>'},
+        { k:['minicargador','skid','bobcat','compacto'],
+          r:'⚡ <strong>Minicargadores JCB:</strong><br>Serie 1CX y 3CX compactos para espacios reducidos, demolición y excavación urbana.<br><br><a href="#/vehicle/minicargadores-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver minicargadores →</a>'},
+        { k:['compactador','rodillo','compactacion','pavimento'],
+          r:'🔄 <strong>Compactación & Rodillos JCB:</strong><br>Rodillos de simple y doble tambor para pavimentación y terreno.<br><br><a href="#/vehicle/compactador-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver rodillos →</a>'},
+        { k:['whatsapp','contacto','email','correo','teléfono','telefono'],
+          r:'📞 <strong>Contacto Directo TMD:</strong><br>• Teléfono: <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>• WhatsApp: <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">(809) 826-2222 →</a><br>• Correo: <a href="mailto:contacto@tmd.com.do" style="color:#f59e0b;">contacto@tmd.com.do</a>'},
+        { k:['equipo','ejecutivo','gerente','personal','staff'],
+          r:'👥 <strong>Equipo Ejecutivo TMD:</strong><br>Contamos con 12 especialistas regionales listos para atenderle.<br><br><a href="#/about" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver equipo completo →</a>'},
+        { k:['mopc','licitacion','licitación','gobierno','obra pública'],
+          r:'🏛️ <strong>Licitaciones & MOPC:</strong><br>TMD cuenta con historial de suministro a obras públicas dominicanas. Ofrecemos tarifas preferenciales y financiamiento para contratistas calificados.<br><br>Contacte: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+        { k:['garantía','garantia','warranty'],
+          r:'🛡️ <strong>Garantía TMD:</strong><br>Todas las unidades nuevas incluyen garantía oficial del fabricante. Servicio autorizado disponible en Km 22.<br><br>Consulte términos: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+      ];
+
+      function tmdChatMatch(query) {
+        var q = query.toLowerCase();
+        for (var i = 0; i < KB.length; i++) {
+          for (var j = 0; j < KB[i].k.length; j++) {
+            if (q.includes(KB[i].k[j])) return KB[i].r;
+          }
+        }
+        return null;
+      }
+
+      // ── Chat: minimize panel (keep conversation, don't destroy) ──────
+      window.tmdMinimizeChat = function() {
+        _chatOpen = false;
+        var panel = document.getElementById('tmd-ai-chat-panel');
+        if (!panel) return;
+        // Slide-down then hide
+        panel.style.transition = 'opacity 0.22s ease, transform 0.28s cubic-bezier(0.4,0,1,1)';
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(20px) scale(0.97)';
+        setTimeout(function() {
+          panel.style.display = 'none';
+          panel.style.opacity = '';
+          panel.style.transform = '';
+          panel.style.transition = '';
+        }, 280);
+        // Show the 🤖 button with a pulse to indicate conversation is waiting
+        var btn = document.getElementById('tmd-ai-chat-btn');
+        if (btn) {
+          btn.style.boxShadow = '0 6px 22px rgba(245,158,11,0.45), 0 0 0 6px rgba(245,158,11,0.18)';
+          setTimeout(function(){
+            btn.style.boxShadow = '0 6px 22px rgba(245,158,11,0.45)';
+          }, 1200);
+        }
+      };
+
+      // ── Chat: open/expand panel ─────────────────────────────────────────
+      window.tmdOpenChat = function() {
+        _chatOpen = true;
+        var panel = document.getElementById('tmd-ai-chat-panel');
+        if (!panel) return;
+        panel.style.display = 'flex';
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(20px) scale(0.97)';
+        panel.style.transition = 'opacity 0.25s ease, transform 0.32s cubic-bezier(0.16,1,0.3,1)';
+        // Trigger reflow then animate in
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){
+            panel.style.opacity = '1';
+            panel.style.transform = 'translateY(0) scale(1)';
+          });
+        });
+        setTimeout(function(){
+          panel.style.transition = '';
+          var input = document.getElementById('tmd-chat-input');
+          if (input) input.focus();
+        }, 320);
+        // Hide badge
+        var badge = document.getElementById('tmd-ai-chat-badge');
+        if (badge) badge.style.display = 'none';
+      };
+
+      // ── Chat: toggle (FAB button press) ─────────────────────────────────
+      window.tmdToggleChat = function() {
+        if (_chatOpen) {
+          window.tmdMinimizeChat();
+        } else {
+          window.tmdOpenChat();
+        }
+      };
+
+      // ── Auto-minimize chat while user scrolls (reopens on stop) ─────────
+      var _chatScrollTimer = null;
+      var _chatWasOpenBeforeScroll = false;
+      var _lastScrollYChat = window.scrollY;
+      window.addEventListener('scroll', function() {
+        var delta = Math.abs(window.scrollY - _lastScrollYChat);
+        _lastScrollYChat = window.scrollY;
+        if (delta < 4) return; // ignore tiny micro-scrolls
+        if (_chatOpen) {
+          _chatWasOpenBeforeScroll = true;
+          // Slide panel down slightly while scrolling (don't fully close)
+          var panel = document.getElementById('tmd-ai-chat-panel');
+          if (panel) {
+            panel.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+            panel.style.opacity = '0.35';
+            panel.style.transform = 'translateY(10px) scale(0.98)';
+          }
+        }
+        // Clear and reset the restore timer
+        clearTimeout(_chatScrollTimer);
+        _chatScrollTimer = setTimeout(function() {
+          if (_chatWasOpenBeforeScroll && _chatOpen) {
+            // Restore after scroll stops
+            var panel = document.getElementById('tmd-ai-chat-panel');
+            if (panel) {
+              panel.style.transition = 'opacity 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1)';
+              panel.style.opacity = '1';
+              panel.style.transform = 'translateY(0) scale(1)';
+              setTimeout(function(){ panel.style.transition = ''; }, 300);
+            }
+            _chatWasOpenBeforeScroll = false;
+          }
+        }, 400); // 400ms after scroll stops → restore
+      }, { passive: true });
+
+      window.tmdChatSend = function() {
+        var input = document.getElementById('tmd-chat-input');
+        var messages = document.getElementById('tmd-chat-messages');
+        if (!input || !messages) return;
+        var val = input.value.trim();
+        if (!val) return;
+        input.value = '';
+
+        // Remove chips after first interaction
+        var chips = document.getElementById('tmd-chat-chips');
+        if (chips) chips.style.display = 'none';
+
+        // User message
+        var userMsg = document.createElement('div');
+        userMsg.style.cssText = 'background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);border-radius:12px 12px 4px 12px;padding:10px 13px;font-size:0.82rem;color:#fff;line-height:1.5;max-width:85%;align-self:flex-end;margin-left:auto;';
+        userMsg.textContent = val;
+        messages.appendChild(userMsg);
+
+        // Typing indicator
+        var typingMsg = document.createElement('div');
+        typingMsg.id = 'tmd-typing';
+        typingMsg.style.cssText = 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 12px 4px;padding:10px 13px;font-size:0.82rem;color:#737373;max-width:85%;';
+        typingMsg.innerHTML = '⏳ Consultando base de datos...';
+        messages.appendChild(typingMsg);
+        messages.scrollTop = messages.scrollHeight;
+
+        setTimeout(function() {
+          var typing = document.getElementById('tmd-typing');
+          if (typing) typing.remove();
+          var response = tmdChatMatch(val) ||
+            '¿Necesita información específica? Nuestro equipo puede asistirle directamente:<br><br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>💬 <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">WhatsApp →</a>';
+          var botMsg = document.createElement('div');
+          botMsg.style.cssText = 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 12px 4px;padding:10px 13px;font-size:0.82rem;color:#e5e5e5;line-height:1.55;max-width:85%;';
+          botMsg.innerHTML = response;
+          messages.appendChild(botMsg);
+          messages.scrollTop = messages.scrollHeight;
+        }, 600 + Math.random() * 400);
+      };
+
+      window.tmdChatQuickAsk = function(question) {
+        var input = document.getElementById('tmd-chat-input');
+        if (input) { input.value = question; }
+        window.tmdChatSend();
+      };
+
+      // ── Portal VIP interception → PIN prompt ─────────────────────────
+      document.addEventListener('click', function(e) {
+        var target = e.target.closest('button, a');
+        if (target && target.innerText && target.innerText.includes('Portal VIP')) {
+          e.preventDefault(); e.stopPropagation();
+          window.tmdShowPortalPINPrompt();
+        }
+      }, true);
+
+      // ── NAV: Close dropdowns/drawer on any nav item selection ────────────
+      // React SPA nav: intercept link/button clicks inside nav/header and
+      // simulate an Escape key + toggle-off so dropdowns & mobile drawers close.
+      document.addEventListener('click', function(e) {
+        var navItem = e.target.closest('nav a, nav button, header a, header button, [role="menuitem"]');
+        if (!navItem) return;
+        // Skip the theme toggle and the chat/portal FABs
+        var id = (navItem.id || '');
+        if (id.includes('chat') || id.includes('portal') || id.includes('theme') || id.includes('exec')) return;
+        // Fire Escape to close any open dropdown that React listens to
+        setTimeout(function() {
+          document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+          document.body.click(); // close any backdrop/overlay
+          // Also try to close mobile drawer if present
+          var mobileClose = document.querySelector('[data-mobile-close], [aria-label="Close menu"], [aria-label="Cerrar menú"]');
+          if (mobileClose) mobileClose.click();
+          // Look for any open dropdown panel and close it
+          var dropdowns = document.querySelectorAll('[data-dropdown-open="true"], [class*="dropdown"][class*="open"], [class*="mega-menu"][style*="display: block"]');
+          dropdowns.forEach(function(d) { d.style.display = 'none'; });
+          // Force React state close by clicking outside the nav
+          var overlay = document.querySelector('[class*="overlay"][class*="nav"], [class*="nav-overlay"]');
+          if (overlay) overlay.click();
+        }, 60);
+      }, false);
+
+    })();
+    </script>
+    <script src="/assets/tmd_animation_engine.js?v=20260912_glass_v5_clean"></script>
+</body>
 </html>
