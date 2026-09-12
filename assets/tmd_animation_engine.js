@@ -161,6 +161,15 @@
     canvas.id = 'tmd-ambient-canvas';
     canvas.className = 'mode-dust';
     document.body.prepend(canvas); // Prepend to guarantee it sits under content
+
+    // Guard: re-prepend canvas if React removes it from body
+    const bodyObserver = new MutationObserver(() => {
+      if (!document.getElementById('tmd-ambient-canvas')) {
+        document.body.prepend(canvas);
+        console.log('[TMD Engine] Canvas re-attached after DOM update');
+      }
+    });
+    bodyObserver.observe(document.body, { childList: true });
     ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
@@ -182,8 +191,8 @@
         targetR: Math.random() * 0.8 + 0.7,
         dx: (Math.random() - 0.5) * 0.30,
         dy: -(Math.random() * 0.45 + 0.15),   // drift upward
-        alpha: Math.random() * 0.25 + 0.35,   // VISIBLE: 0.35–0.60 base
-        targetAlpha: Math.random() * 0.25 + 0.35,
+        alpha: Math.random() * 0.30 + 0.45,   // VISIBLE: 0.45–0.75 base BOOSTED
+        targetAlpha: Math.random() * 0.30 + 0.45,
         isBokeh: isBokeh,
         pulseSpeed: Math.random() * 0.025 + 0.012,
         pulseVal: Math.random() * Math.PI
@@ -215,7 +224,7 @@
           canvas.width * 0.12, canvas.height * 0.18, 5,
           canvas.width * 0.12, canvas.height * 0.18, canvas.width * 0.45
         );
-        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${0.18 + pulse * 0.10})`);
+        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${0.28 + pulse * 0.14})`);
         gradLeft.addColorStop(0.5, `rgba(245, 158, 11, ${0.06 + pulse * 0.04})`);
         gradLeft.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradLeft;
@@ -226,7 +235,7 @@
           canvas.width * 0.88, canvas.height * 0.22, 5,
           canvas.width * 0.88, canvas.height * 0.22, canvas.width * 0.42
         );
-        gradRight.addColorStop(0, `rgba(217, 119, 6, ${0.14 + pulse2 * 0.09})`);
+        gradRight.addColorStop(0, `rgba(217, 119, 6, ${0.24 + pulse2 * 0.12})`);
         gradRight.addColorStop(0.5, `rgba(245, 158, 11, ${0.05 + pulse2 * 0.03})`);
         gradRight.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradRight;
@@ -319,7 +328,7 @@
       if (mode === 'dust') {
         // Micro-dust: clearly visible golden motes behind cards
         p.targetR    = Math.random() * 0.7 + 0.7;  // 0.7px–1.4px
-        p.targetAlpha = Math.random() * 0.28 + 0.32; // 0.32–0.60 VISIBLE
+        p.targetAlpha = Math.random() * 0.30 + 0.45; // 0.45–0.75 BOOSTED
       } else if (mode === 'bokeh') {
         // Cinematic bokeh: large luminous glowing orbs
         if (p.isBokeh) {

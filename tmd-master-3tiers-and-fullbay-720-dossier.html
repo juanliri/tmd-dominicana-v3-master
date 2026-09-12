@@ -953,13 +953,8 @@
         </button>
 
         <!-- Print PDF Controls -->
-        <button onclick="printCurrentTab()" title="Imprime la sección activa formateada para carta 8.5x11" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black text-[11px] uppercase tracking-wider transition shadow flex items-center gap-1">
-          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          <span>PDF</span>
-        </button>
-        <button onclick="printAllTabs()" title="Imprime el Propuesta Ejecutiva Completo" class="px-2 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-amber-500/40 text-amber-400 text-[11px] font-mono font-bold transition flex items-center gap-1">
-          <span>📑 Todo</span>
-        </button>
+        <button onclick="printCurrentTab()" title="Impresión deshabilitada por seguridad" class="px-2.5 py-1.5 rounded-lg bg-neutral-800/60 text-neutral-500 cursor-not-allowed text-xs font-mono flex items-center gap-1.5 opacity-60">🔒 Impresión Bloqueada</button>
+        <button onclick="printAllTabs()" title="Impresión deshabilitada por seguridad" class="px-2.5 py-1.5 rounded-lg bg-neutral-800/60 text-neutral-500 cursor-not-allowed text-xs font-mono flex items-center gap-1.5 opacity-60">🔒 PDF Bloqueado</button>
       </div>
 
     </div>
@@ -3259,8 +3254,94 @@
     });
   
 
-    /* ─── PITCH DECK SCRIPT LOGIC ─── */
     
+    /* ─── PITCH DECK SCRIPT LOGIC (SLIDE NAVIGATION) ─── */
+    let currentSlide = 1;
+    const totalSlides = 7;
+    let deckCurrency = 'USD';
+
+    function showSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      for (let i = 1; i <= totalSlides; i++) {
+        const el = document.getElementById(`slide-${i}`);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('block');
+        }
+      }
+      const activeEl = document.getElementById(`slide-${n}`);
+      if (activeEl) {
+        activeEl.classList.remove('hidden');
+        activeEl.classList.add('block');
+      }
+      const indicator = document.getElementById('slide-indicator');
+      if (indicator) {
+        indicator.innerText = `Slide ${n} / 7`;
+      }
+      const numSpan = document.getElementById('slide-number');
+      if (numSpan) {
+        numSpan.innerText = n;
+      }
+      currentSlide = n;
+
+      const deckWrapper = document.getElementById('tab-pitch') || document.getElementById('deck-slides-wrapper') || activeEl;
+      if (deckWrapper) {
+        deckWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      } else {
+        showSlide(1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      } else {
+        showSlide(totalSlides);
+      }
+    }
+
+    function goToSlide(n) {
+      showSlide(n);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      // Only navigate if pitch tab is active
+      const pitchTab = document.getElementById('tab-pitch');
+      if (pitchTab && !pitchTab.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+      }
+    });
+
+    /* ─── SECURITY: PRINTING PERMANENTLY DISABLED ─── */
+    window.print = function() {
+      alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+      return false;
+    };
+    function printCurrentTab() {
+      alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+      return false;
+    }
+    function printAllTabs() {
+      alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+      return false;
+    }
+    window.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+        return false;
+      }
+    }, true);
+
     tailwind.config = {
       darkMode: 'class',
       theme: {

@@ -818,5 +818,21 @@
       document.getElementById('rowRetainer').innerHTML = '$' + data.retainerUsd + '.00 USD / mes <span style="font-size:0.75rem; color:var(--accent-green);">(RD$ ' + data.retainerDop.toLocaleString() + '/mes)</span>';
     }
   </script>
+
+<script>
+window.print = function() {
+  alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+  return false;
+};
+window.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
+    e.preventDefault();
+    e.stopPropagation();
+    alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+    return false;
+  }
+}, true);
+</script>
+
 </body>
 </html>

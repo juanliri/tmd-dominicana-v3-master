@@ -1,17 +1,54 @@
 /**
- * TMD TITAN ANIMATION & GLASS SURFACE SUITE — v5.0 CLEAN
- * Pure obsidian dark theme. No color bloat. Black glass cards. Particle canvas behind everything.
+ * TMD TITAN ANIMATION & GLASS SURFACE SUITE — v7.0 OBSIDIAN GOLD
+ * Rewritten from todobuild.store with TMD Amber/Gold colors
+ * Dark mode enforced. Particle canvas always behind content.
  */
 
-/* ─── 1. SMOOTH SCROLL ─── */
-html { scroll-behavior: smooth; }
+/* ─── 0. DARK THEME FOUNDATION ─── */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  background-color: #040404;
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #040404;
+}
 
+/* Dark body — radial ambient mesh like todobuild.store but AMBER */
+html.dark body,
+body {
+  background-color: transparent !important;
+  background-image:
+    radial-gradient(rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(245, 158, 11, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 95% 25%, rgba(217, 119, 6, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 5% 50%, rgba(180, 83, 9, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #060401 0%, #020200 100%);
+  background-size: 28px 28px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  color: #fafafa;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(245, 158, 11, 0.35);
+  color: #000000;
+}
+
+/* ─── 1. SMOOTH SCROLL ─── */
 .tmd-parallax {
   transform: translateY(calc(var(--scroll-y, 0px) * var(--parallax-speed, 0.12)));
   will-change: transform;
 }
 
-/* ─── 2. SCROLL REVEAL ─── */
+/* ─── 2. SCROLL REVEAL (matching todobuild.store variants) ─── */
 .tmd-reveal {
   opacity: 0;
   transform: translateY(26px);
@@ -54,111 +91,310 @@ html { scroll-behavior: smooth; }
 .tmd-stagger-parent > *:nth-child(11) { transition-delay: 0.63s; }
 .tmd-stagger-parent > *:nth-child(12) { transition-delay: 0.69s; }
 
-/* ─── 4. PARTICLE CANVAS — ALWAYS BEHIND EVERYTHING ─── */
+/* ─── 4. PARTICLE CANVAS — ALWAYS BEHIND ─── */
 #tmd-ambient-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  pointer-events: none;
-  z-index: 0;                   /* strictly below everything */
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  width: 100vw !important; height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  display: block !important;
+  opacity: 1 !important;
   transition: opacity 0.9s ease, filter 0.9s ease;
   will-change: opacity, filter;
 }
 
-/* Mode 1 — Micro-dust: general pages */
-#tmd-ambient-canvas.mode-dust {
-  opacity: 0.9;
-  filter: none;
-  mask-image: none;
-  -webkit-mask-image: none;
-}
-
-/* Mode 2 — Bokeh: hero / dealership */
-#tmd-ambient-canvas.mode-bokeh {
-  opacity: 1;
-  filter: blur(0.3px);
-  mask-image: none;
-  -webkit-mask-image: none;
-}
-
-/* Mode 3 — Peripheral vignette: vehicle spec pages */
+/* Particle canvas modes */
+#tmd-ambient-canvas.mode-dust  { opacity: 0.95; filter: none; }
+#tmd-ambient-canvas.mode-bokeh { opacity: 1; filter: blur(0.3px); }
 #tmd-ambient-canvas.mode-vignette {
   opacity: 0.9;
-  filter: none;
   mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, rgba(0,0,0,0) 28%, rgba(0,0,0,1) 80%);
   -webkit-mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, rgba(0,0,0,0) 28%, rgba(0,0,0,1) 80%);
 }
 
-/* ─── 5. GLASS CARD SYSTEM — Explicit utility classes only ─── */
-/* Use .tmd-glass-card or .tmd-solid-card on elements you want glassmorphism */
+/* Force all page content above the canvas */
+body > *:not(#tmd-ambient-canvas) {
+  position: relative;
+  z-index: 1;
+}
+#root {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
 
-/* Dark mode: pure obsidian frosted glass */
-html.dark .tmd-glass-card,
-html.dark .tmd-solid-card {
+/* ─── 5. LIQUID OBSIDIAN GLASS SYSTEM (from todobuild.store) ─── */
+/* Adapted with TMD amber accent instead of blue */
+
+.tmd-glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(15,10,4,0.70) 35%, rgba(8,5,2,0.85) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.15), 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.tmd-glass-strong {
+  background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(20,14,4,0.82) 30%, rgba(10,7,2,0.95) 100%);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.22), 0 16px 40px rgba(0,0,0,0.7);
+}
+
+.tmd-glass-pill {
+  background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.20);
+}
+
+.tmd-glass-amber {
+  background: linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(24,18,4,0.75) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(245,158,11,0.30);
+  box-shadow: inset 0 1px 1px 0 rgba(251,191,36,0.25), 0 0 25px rgba(245,158,11,0.15);
+}
+
+/* ─── 6. DIAMOND CARD (todobuild.store diamond-card, amber flavor) ─── */
+.tmd-diamond-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(16,10,3,0.76) 28%, rgba(8,5,1,0.92) 100%);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255,255,255,0.22),
+    inset 0 0 24px 0 rgba(255,255,255,0.02),
+    0 20px 40px -12px rgba(0,0,0,0.90);
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.tmd-diamond-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 30%, rgba(245,158,11,0.70) 50%, rgba(255,255,255,0.35) 70%, transparent 100%);
+  opacity: 0.7;
+  transition: opacity 0.35s ease;
+}
+.tmd-diamond-card:hover {
+  border-color: rgba(245,158,11,0.50);
+  transform: translateY(-5px);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255,255,255,0.40),
+    0 28px 56px -12px rgba(0,0,0,0.98),
+    0 0 45px rgba(245,158,11,0.22);
+}
+.tmd-diamond-card:hover::before { opacity: 1; }
+
+/* ─── 7. GLASS CARD (legacy compat) ─── */
+.tmd-glass-card,
+.tmd-solid-card {
   position: relative;
   z-index: 5;
-  background: rgba(0, 0, 0, 0.85) !important;
-  backdrop-filter: blur(14px) saturate(1.2) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(1.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
-  box-shadow:
-    0 20px 44px -10px rgba(0, 0, 0, 0.9),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(16px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.3) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-top: 1px solid rgba(255,255,255,0.14) !important;
+  box-shadow: 0 20px 44px -10px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+}
+.tmd-glass-card:hover,
+.tmd-solid-card:hover {
+  border-top-color: rgba(245,158,11,0.45) !important;
+  border-color: rgba(245,158,11,0.18) !important;
+  box-shadow: 0 26px 50px -10px rgba(0,0,0,0.95), 0 0 22px rgba(245,158,11,0.14), inset 0 1px 0 rgba(255,255,255,0.10) !important;
 }
 
-html.dark .tmd-glass-card:hover,
-html.dark .tmd-solid-card:hover {
-  border-top-color: rgba(245, 158, 11, 0.40) !important;
-  border-color: rgba(245, 158, 11, 0.18) !important;
-  box-shadow:
-    0 26px 50px -10px rgba(0, 0, 0, 0.95),
-    0 0 22px rgba(245, 158, 11, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+/* ─── 8. GLOW SHADOWS ─── */
+.tmd-shadow-glow {
+  box-shadow: 0 0 30px rgba(245,158,11,0.35), 0 10px 30px rgba(0,0,0,0.6);
+}
+.tmd-shadow-glow-sm {
+  box-shadow: 0 0 15px rgba(245,158,11,0.25), 0 5px 15px rgba(0,0,0,0.5);
 }
 
-/* Light mode glass cards */
-html:not(.dark) .tmd-glass-card,
-html:not(.dark) .tmd-solid-card {
-  position: relative;
-  z-index: 5;
-  background: rgba(255, 255, 255, 0.90) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.7) !important;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08) !important;
+/* ─── 9. ANIMATIONS (matching todobuild.store keyframes) ─── */
+@keyframes tmd-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
 }
-
-/* White studio stage for vehicle photos — stays pure white */
-.tmd-white-studio-stage,
-html.dark .tmd-white-studio-stage {
-  background: #ffffff !important;
-  z-index: 6 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+@keyframes tmd-float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-14px) rotate(1deg); }
 }
-
-/* ─── 6. SHIMMER ─── */
+@keyframes tmd-pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+@keyframes tmd-pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(245,158,11,0.40)); }
+  50%       { filter: drop-shadow(0 0 32px rgba(245,158,11,0.85)); }
+}
+@keyframes tmd-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes tmd-reveal-up {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes tmdPageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 @keyframes tmdShimmerSweep {
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
 }
-.tmd-shimmer {
-  display: inline-block;
-  background: linear-gradient(
-    100deg,
-    currentColor 0%, currentColor 30%,
-    #f59e0b 48%, #fbbf24 52%,
-    currentColor 70%, currentColor 100%
-  );
-  background-size: 200% 100%;
+@keyframes tmdScanlineMove {
+  0%  { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+  100%{ transform: translateY(100%); }
+}
+@keyframes tmdBorderGlowPulse {
+  0%,100% { box-shadow: 0 0 0 1px rgba(245,158,11,0.12), 0 8px 24px rgba(0,0,0,0.6); }
+  50%     { box-shadow: 0 0 0 2px rgba(245,158,11,0.30), 0 8px 32px rgba(0,0,0,0.7), 0 0 18px rgba(245,158,11,0.12); }
+}
+@keyframes tmdGlowRing {
+  0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.35), 0 4px 20px rgba(245,158,11,0.25); }
+  50%     { box-shadow: 0 0 0 6px rgba(245,158,11,0.12), 0 8px 30px rgba(245,158,11,0.35); }
+}
+@keyframes border-beam {
+  100% { offset-distance: 100%; }
+}
+@keyframes laser-sweep {
+  0% { transform: translateX(-100%); }
+  50%, 100% { transform: translateX(200%); }
+}
+@keyframes tmd-badge-fade {
+  0%,70%  { opacity:1; transform:translateY(0); }
+  100%    { opacity:0; transform:translateY(-6px); pointer-events:none; }
+}
+
+.animate-tmd-float        { animation: tmd-float 5s ease-in-out infinite; }
+.animate-tmd-float-slow   { animation: tmd-float-slow 8s ease-in-out infinite; }
+.animate-tmd-pulse-subtle { animation: tmd-pulse-subtle 4s ease-in-out infinite; }
+.animate-tmd-pulse-glow   { animation: tmd-pulse-glow 3s ease-in-out infinite; }
+.animate-tmd-shimmer      { animation: tmd-shimmer 3s linear infinite; }
+.animate-tmd-reveal-up    { animation: tmd-reveal-up 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-border-beam      { animation: border-beam var(--duration, 12s) infinite linear; }
+.tmd-page-enter           { animation: tmdPageIn 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+.tmd-glow-ring            { animation: tmdGlowRing 3s ease-in-out infinite; }
+.tmd-pulse-border         { animation: tmdBorderGlowPulse 3.5s ease-in-out infinite; }
+
+/* ─── 10. SHIMMER TEXT (amber) ─── */
+.tmd-shimmer, .text-shimmer-amber {
+  background: linear-gradient(90deg, #d97706 0%, #fbbf24 30%, #f59e0b 60%, #d97706 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: tmd-shimmer 4s linear infinite;
+}
+.tmd-text-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 40%, #d97706 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: tmdShimmerSweep 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-/* ─── 7. SCANLINE ─── */
+/* ─── 11. BEAM EFFECTS (from todobuild.store, amber version) ─── */
+.tmd-beam-gold {
+  position: relative;
+}
+.tmd-beam-gold::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fde047, #f59e0b, #fde047, transparent);
+  filter: drop-shadow(0 0 8px rgba(245,158,11,0.9));
+}
+
+/* ─── 12. SECTION HORIZON BEAM (todobuild.store section-horizon-beam) ─── */
+.tmd-section-horizon {
+  position: relative;
+}
+.tmd-section-horizon::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 5%; right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245,158,11,0.4) 30%, rgba(245,158,11,0.8) 50%, rgba(245,158,11,0.4) 70%, transparent 100%);
+  filter: drop-shadow(0 0 4px rgba(245,158,11,0.6));
+}
+
+/* ─── 13. LASER SWEEP (todobuild.store laser-sweep-line, amber) ─── */
+.tmd-laser-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.tmd-laser-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(245,158,11,0.7), transparent);
+  animation: laser-sweep 4s ease-in-out infinite;
+}
+
+/* ─── 14. BUTTONS (magnetic + gradient) ─── */
+.tmd-btn-gradient {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 20px rgba(245,158,11,0.35);
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  color: #000;
+  font-weight: 700;
+}
+.tmd-btn-gradient:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: 0 8px 30px rgba(245,158,11,0.50), 0 0 0 4px rgba(245,158,11,0.12);
+  transform: translateY(-2px);
+}
+.tmd-btn-magnetic {
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease;
+}
+.tmd-btn-magnetic:hover  { transform: translateY(-2px) scale(1.015); }
+.tmd-btn-magnetic:active { transform: translateY(1px) scale(0.985); }
+.tmd-btn-amber-glow {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000;
+  font-weight: 800;
+  border: none;
+  box-shadow: 0 0 20px rgba(245,158,11,0.40), 0 4px 16px rgba(0,0,0,0.4);
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.tmd-btn-amber-glow:hover {
+  box-shadow: 0 0 40px rgba(245,158,11,0.65), 0 8px 24px rgba(0,0,0,0.5);
+  transform: translateY(-3px) scale(1.02);
+}
+.tmd-btn-glass {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  transition: all 0.25s ease;
+}
+.tmd-btn-glass:hover {
+  background: rgba(245,158,11,0.12);
+  border-color: rgba(245,158,11,0.40);
+  box-shadow: 0 0 20px rgba(245,158,11,0.15);
+}
+
+/* ─── 15. HOVER LIFT ─── */
+.tmd-hover-lift {
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.35s ease;
+}
+.tmd-hover-lift:hover { transform: translateY(-5px); }
+.tmd-hover-lift:hover { box-shadow: 0 22px 44px -10px rgba(0,0,0,0.95), 0 0 24px rgba(245,158,11,0.20) !important; }
+
+/* ─── 16. SCANLINE ─── */
 .tmd-scanline { position: relative; overflow: hidden; }
 .tmd-scanline::after {
   content: '';
@@ -168,36 +404,56 @@ html.dark .tmd-white-studio-stage {
   animation: tmdScanlineMove 4s ease-in-out infinite;
   pointer-events: none; z-index: 20;
 }
-@keyframes tmdScanlineMove {
-  0%  { transform: translateY(-100%); }
-  50% { transform: translateY(100%); }
-  100%{ transform: translateY(100%); }
+
+/* ─── 17. HERO MESH GRADIENT (amber variant of todobuild bg-hero-mesh) ─── */
+.tmd-hero-mesh {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 20%, rgba(245,158,11,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 40%, rgba(217,119,6,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 30% at 15% 70%, rgba(180,83,9,0.07) 0%, transparent 50%),
+    transparent;
 }
 
-/* ─── 8. HOVER LIFT & GLOW (explicit class only) ─── */
-.tmd-hover-lift {
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
-              box-shadow 0.35s cubic-bezier(0.16,1,0.3,1),
-              border-color 0.35s ease;
-}
-.tmd-hover-lift:hover { transform: translateY(-5px); }
-
-html.dark .tmd-hover-lift:hover {
-  box-shadow: 0 22px 44px -10px rgba(0,0,0,0.95), 0 0 24px rgba(245,158,11,0.18) !important;
-  border-color: rgba(245,158,11,0.35) !important;
-}
-html:not(.dark) .tmd-hover-lift:hover {
-  box-shadow: 0 16px 32px -8px rgba(0,0,0,0.12), 0 0 18px rgba(245,158,11,0.12) !important;
+/* ─── 18. TITANIUM GRID (technical blueprint) ─── */
+.tmd-titanium-grid {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(245,158,11,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245,158,11,0.04) 1px, transparent 1px);
 }
 
-/* ─── 9. BORDER PULSE (explicit class only) ─── */
-@keyframes tmdBorderGlowPulse {
-  0%,100% { box-shadow: 0 0 0 1px rgba(245,158,11,0.10), 0 8px 24px rgba(0,0,0,0.6); }
-  50%     { box-shadow: 0 0 0 2px rgba(245,158,11,0.28), 0 8px 32px rgba(0,0,0,0.7), 0 0 18px rgba(245,158,11,0.10); }
+/* ─── 19. SCROLL PROGRESS BAR ─── */
+#tmd-scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 99999;
+  pointer-events: none;
+  background: transparent;
 }
-.tmd-pulse-border { animation: tmdBorderGlowPulse 3.5s ease-in-out infinite; }
+#tmd-scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #d97706 0%, #f59e0b 40%, #fbbf24 70%, #d97706 100%);
+  box-shadow: 0 0 12px rgba(245,158,11,0.80);
+  transition: width 0.08s ease-out;
+  width: 0%;
+}
 
-/* ─── 10. UTILITY BADGES ─── */
+/* ─── 20. STATUS BEACON ─── */
+.tmd-status-beacon {
+  position: relative;
+}
+.tmd-status-beacon::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: inherit;
+  opacity: 0.75;
+  animation: ping 2s cubic-bezier(0,0,0.2,1) infinite;
+}
+
+/* ─── 21. BADGE + DIVIDERS ─── */
 .tmd-badge-glow {
   background: rgba(245,158,11,0.10) !important;
   border: 1px solid rgba(245,158,11,0.40) !important;
@@ -209,21 +465,142 @@ html:not(.dark) .tmd-hover-lift:hover {
   border: 1px solid rgba(16,185,129,0.35) !important;
   color: #10b981 !important;
 }
-
-/* ─── 11. DIVIDERS ─── */
 .tmd-divider-amber {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(245,158,11,0.45), transparent);
 }
+.tmd-line-accent::before {
+  content: '';
+  display: block;
+  width: 48px; height: 3px;
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
 
-/* ─── 12. REDUCED MOTION ─── */
+/* ─── 22. STAT HIGHLIGHT ─── */
+.tmd-stat-highlight {
+  font-feature-settings: "tnum";
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 60%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(245,158,11,0.40));
+}
+
+/* ─── 23. SCROLLBAR ─── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #040404; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  border-radius: 9999px;
+  border: 1.5px solid #040404;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+}
+
+/* ─── 24. WHITE STUDIO STAGE ─── */
+.tmd-white-studio-stage,
+html.dark .tmd-white-studio-stage {
+  background: #ffffff !important;
+  z-index: 6 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ─── 25. SPOTLIGHT CARD HOVER EFFECT (todobuild SpotlightCard) ─── */
+.tmd-spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1);
+  will-change: transform;
+}
+.tmd-spotlight-card::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(550px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(245,158,11,0.12), transparent 65%);
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+.tmd-spotlight-card:hover::after { opacity: 1; }
+
+/* ─── 26. BORDER BEAM (todobuild BorderBeam, amber) ─── */
+.tmd-border-beam-wrap {
+  --size: 200px;
+  --duration: 12s;
+  --anchor: 90%;
+  --border-width: 1.5px;
+  --color-from: #f59e0b;
+  --color-to: #d97706;
+  --delay: 0s;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: calc(var(--border-width)*1) solid transparent;
+  mask-clip: padding-box, border-box;
+  mask-composite: intersect;
+  mask: linear-gradient(transparent,transparent), linear-gradient(white,white);
+  -webkit-mask-clip: padding-box, border-box;
+  -webkit-mask-composite: intersect;
+  -webkit-mask: linear-gradient(transparent,transparent), linear-gradient(white,white);
+}
+.tmd-border-beam-wrap::after {
+  content: '';
+  position: absolute;
+  aspect-ratio: 1;
+  width: calc(var(--size)*1);
+  animation: border-beam var(--duration) infinite linear;
+  animation-delay: var(--delay);
+  background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
+  offset-anchor: calc(var(--anchor)*1) 50%;
+  offset-path: rect(0 auto auto 0 round calc(var(--size)*1));
+}
+
+/* ─── 27. ATMOSPHERIC OVERLAY ─── */
+.tmd-atmospheric-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ─── 28. TRANSPARENT PAGE LAYERS ─── */
+/* Ensure React pages show the canvas behind them */
+html.dark .min-h-screen:not(#root):not(nav):not(header) {
+  background-color: transparent !important;
+}
+html.dark [class*="bg-neutral-950"]:not(button):not(input):not(nav):not(header):not(#tmd-ai-chat-panel):not([id*="portal"]):not([id*="modal"]) {
+  background-color: rgba(4,2,1,0.78) !important;
+}
+html.dark [class*="bg-neutral-900"]:not(button):not(input):not(nav):not(header):not(#tmd-ai-chat-panel):not([id*="portal"]):not([id*="modal"]) {
+  background-color: rgba(10,6,2,0.72) !important;
+}
+/* Navbars and panels keep glass */
+html.dark nav,
+html.dark header,
+html.dark #tmd-ai-chat-panel,
+html.dark [id*="modal"],
+html.dark [id*="portal"] {
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+}
+
+/* ─── 29. REDUCED MOTION ─── */
 @media (prefers-reduced-motion: reduce) {
   .tmd-reveal, .tmd-reveal-left, .tmd-reveal-right, .tmd-reveal-scale, .tmd-deep-reveal {
     opacity: 1 !important; transform: none !important;
     filter: none !important; transition: none !important; animation: none !important;
   }
-  .tmd-shimmer { animation: none !important; -webkit-text-fill-color: currentColor !important; }
-  .tmd-scanline::after { display: none !important; }
+  .tmd-shimmer, .text-shimmer-amber { animation: none !important; -webkit-text-fill-color: currentColor !important; }
+  .tmd-scanline::after, .tmd-laser-sweep::after { display: none !important; }
   #tmd-ambient-canvas { display: none !important; }
-  .tmd-pulse-border { animation: none !important; }
+  .tmd-pulse-border, .tmd-glow-ring { animation: none !important; }
 }
