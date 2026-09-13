@@ -184,7 +184,7 @@
     <link rel="preload" as="image" href="/assets/team_hd/brito_fuentes_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/leonardo_encarnacion_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/perkin_soriano_hd.jpg">
-    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260913_dark_theme_restore_v15"></script>
+    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260913_video_midpage_v16"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=1789230245">
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
@@ -3054,7 +3054,7 @@ html:not(.dark) #socios .group:hover {
     }
 
     </style>
-        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_dark_theme_restore_v15" />
+        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_video_midpage_v16" />
 
 </head>
   <body class="text-neutral-900 antialiased dark:text-neutral-100 transition-colors duration-200" style="background:transparent;">
@@ -3102,7 +3102,7 @@ html:not(.dark) #socios .group:hover {
         <div style="font-size:1.8rem; margin-bottom:10px;">🔐</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">ACCESO RESTRINGIDO</div>
         <h3 style="font-size:1.15rem;font-weight:900;margin:0 0 6px;color:#fff;">Portal Ejecutivo TMD</h3>
-        <p style="font-size:0.8rem;color:#a3a3a3;margin:0 0 20px;">Ingrese el PIN de acceso para continuar <span style="display:inline-block;margin-left:4px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.72rem;font-family:monospace;font-weight:700;padding:1px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);">(PIN: 0909)</span></p>
+        <p style="font-size:0.8rem;color:#a3a3a3;margin:0 0 20px;">Ingrese su PIN confidencial de 4 dígitos para desbloquear la sesión corporativa.</p>
         <input id="tmd-portal-pin-input" type="password" maxlength="4" placeholder="• • • •"
           style="
             width:100%; box-sizing:border-box;
@@ -3823,94 +3823,78 @@ html:not(.dark) #socios .group:hover {
 
     if (!isHome) {
       if (existing) existing.remove();
-      updateNavbarTransparency();
       return false;
     }
 
-    // Keep navbar styling updated
-    updateNavbarTransparency();
-
     if (existing) return true;
 
-    // Find the toast section or first element in root to insert before content
-    const firstSection = document.querySelector('#root section');
-    if (!firstSection) return false;
+    // Mid-page placement: after machinery catalog (section index 1 in #root)
+    const allSections = document.querySelectorAll('#root section');
+    if (!allSections || allSections.length === 0) return false;
+
+    // Place after first catalog section so top is 100% transactional
+    const targetSection = allSections.length >= 2 ? allSections[1] : allSections[0];
 
     const videoSection = document.createElement('section');
     videoSection.id = 'tmd-home-marketing-video-section';
-    videoSection.className = 'w-full h-screen min-h-[500px] max-h-[1080px] relative z-10 overflow-hidden bg-black m-0 p-0';
+    videoSection.className = 'w-full py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10';
     videoSection.innerHTML = `
-      <div class="relative w-full h-full overflow-hidden bg-black">
+      <div class="relative w-full h-[380px] sm:h-[480px] rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-neutral-950">
         <!-- Video Container with HD footage -->
         <video id="tmd-home-drone-video" class="w-full h-full object-cover" autoplay muted loop playsinline poster="/assets/video/tmd_hero_poster.jpg">
           <source src="/assets/video/tmd_hero_drone_hd.mp4" type="video/mp4">
         </video>
         
-        <!-- Top & Bottom Gradient Scrims for Maximum Text Readability -->
-        <div class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/90 via-black/45 to-transparent pointer-events-none z-10"></div>
-        <div class="absolute inset-x-0 bottom-0 h-64 sm:h-72 bg-gradient-to-t from-black/95 via-black/60 to-transparent pointer-events-none z-10"></div>
-        <div class="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none z-10"></div>
+        <!-- Ambient Cinematic Scrims -->
+        <div class="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/85 via-black/40 to-transparent pointer-events-none z-10"></div>
+        <div class="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/95 via-black/60 to-transparent pointer-events-none z-10"></div>
 
-        <!-- Bottom Cinematic Intro Content -->
-        <div class="absolute bottom-5 sm:bottom-8 lg:bottom-12 inset-x-4 sm:inset-x-8 z-20">
-          <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-4 sm:gap-6">
-            <div class="max-w-3xl space-y-2">
-              <div class="flex flex-wrap items-center gap-2">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/25 text-amber-400 font-mono text-[9px] sm:text-[10px] uppercase font-black tracking-widest border border-amber-500/40 shadow-md">
-                  DISTRIBUIDOR OFICIAL AUTORIZADO RD
-                </div>
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/80 text-neutral-300 font-mono text-[9px] sm:text-[10px] uppercase font-bold tracking-wider border border-white/20 shadow-md">
-                  <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                  <span>SEDE CENTRAL & PATIO KM 22 • VIDEO OFICIAL</span>
-                </div>
-              </div>
-              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-none" style="font-family: var(--font-heading, sans-serif); text-shadow: 0 4px 28px rgba(0,0,0,0.95);">
-                TECNOMAQUINARIAS <span style="color: #f59e0b; text-shadow: 0 0 30px rgba(245, 158, 11, 0.6);">DIESEL</span>
-              </h1>
-              <p class="text-xs sm:text-sm text-neutral-100 max-w-2xl leading-relaxed font-medium drop-shadow-xl">
-                Sede Central y Patio de Pruebas en Autopista Duarte Km. 22, La Guáyiga, Santo Domingo Oeste. Maquinaria pesada JCB, montacargas LiuGong, tractores LS y taller central de overhaul 350 BAR.
-              </p>
-              <div class="flex flex-wrap items-center gap-3 pt-2">
-                <button onclick="window.location.hash='#/vehicles'" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider transition shadow-2xl flex items-center gap-2 hover:scale-105 cursor-pointer">
-                  <span>🚜 Explorar Flota en Stock</span>
-                </button>
-                <button onclick="window.location.hash='#/about'" class="px-6 py-3 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 border border-white/25 text-white font-bold text-xs uppercase tracking-wider transition backdrop-blur-md flex items-center gap-2 hover:scale-105 cursor-pointer">
-                  <span>🏢 Conocer Sede Km 22</span>
-                </button>
-              </div>
+        <!-- Top Badges -->
+        <div class="absolute top-4 sm:top-5 left-4 sm:left-6 z-20 flex flex-wrap items-center gap-2">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 font-mono text-[9px] sm:text-[10px] uppercase font-extrabold tracking-widest border border-amber-500/40 backdrop-blur-md">
+            SEDE CENTRAL & PATIO KM 22
+          </div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 text-emerald-400 font-mono text-[9px] sm:text-[10px] uppercase font-bold tracking-wider border border-emerald-500/40 backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>STOCK FÍSICO VERIFICADO EN RD</span>
+          </div>
+        </div>
+
+        <!-- Audio Controls -->
+        <div class="absolute top-4 sm:top-5 right-4 sm:right-6 z-20 flex items-center gap-2">
+          <button id="tmd-home-mute-btn" class="px-3 py-1.5 rounded-full bg-black/75 hover:bg-amber-500 hover:text-black border border-amber-500/40 text-amber-400 text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer backdrop-blur-md" onclick="window.tmdToggleHomeVideoSound()" title="Audio">
+            <span id="tmd-home-mute-icon">🔊</span>
+            <span id="tmd-home-mute-txt">Audio</span>
+          </button>
+        </div>
+
+        <!-- Bottom Caption & Quick Action -->
+        <div class="absolute bottom-4 sm:bottom-6 inset-x-4 sm:inset-x-6 z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+          <div class="max-w-2xl">
+            <div class="text-[10px] sm:text-xs font-mono text-amber-400 uppercase tracking-widest font-extrabold mb-1">
+              INFRAESTRUCTURA PROPIA • SIN INTERMEDIARIOS
             </div>
-
-            <!-- Quick Controls & Smooth Scroll -->
-            <div class="flex items-center gap-3">
-              <div class="flex items-center gap-2 bg-black/70 backdrop-blur-md p-1 rounded-full border border-white/20 shadow-xl">
-                <button id="tmd-home-mute-btn" class="px-3 py-1.5 rounded-full bg-black/80 hover:bg-amber-500 hover:text-black border border-amber-500/40 text-amber-400 hover:border-amber-400 text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer" onclick="window.tmdToggleHomeVideoSound()" title="Activar / Silenciar Sonido">
-                  <span id="tmd-home-mute-icon">🔊</span>
-                  <span id="tmd-home-mute-txt">Audio</span>
-                </button>
-                <button id="tmd-home-play-btn" class="p-1.5 rounded-full bg-black/80 hover:bg-amber-500 hover:text-black border border-white/25 hover:border-amber-400 text-white text-xs font-mono font-bold transition cursor-pointer" onclick="window.tmdToggleHomeVideoPlay()" title="Pausar / Reproducir">
-                  <span id="tmd-home-play-icon">⏸</span>
-                </button>
-              </div>
-
-              <!-- Smooth Scroll Down to Catalog/Content -->
-              <button onclick="window.scrollBy({ top: window.innerHeight - 80, behavior: 'smooth' })" class="hidden sm:flex flex-col items-center gap-1 text-neutral-300 hover:text-amber-400 transition cursor-pointer group" title="Deslizar hacia abajo">
-                <span class="text-[10px] font-mono uppercase tracking-widest text-neutral-200 font-bold group-hover:text-amber-400 drop-shadow">Catálogo</span>
-                <span class="w-8 h-8 rounded-full border border-white/30 group-hover:border-amber-400 flex items-center justify-center animate-bounce bg-black/60 backdrop-blur-sm text-white group-hover:text-amber-400 text-xs shadow-xl">
-                  ↓
-                </span>
-              </button>
-            </div>
+            <h3 class="text-lg sm:text-2xl font-black text-white uppercase tracking-tight leading-tight drop-shadow-lg">
+              Más de 5,000 m² de Taller, PDI y Patio de Maniobras
+            </h3>
+            <p class="text-xs sm:text-sm text-neutral-200 mt-1 leading-relaxed max-w-xl drop-shadow">
+              Visite nuestras instalaciones en Autopista Duarte Km 22 para inspeccionar su excavadora, tractor o montacargas antes de formalizar la proforma o entrega.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="window.location.hash='#/about'" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-2 cursor-pointer">
+              <span>Ver Instalaciones Sede Km 22 →</span>
+            </button>
           </div>
         </div>
       </div>
     </section>
     `;
 
-    // Insert directly after the first section (before main content)
-    if (firstSection.nextSibling) {
-      firstSection.parentNode.insertBefore(videoSection, firstSection.nextSibling);
+    if (targetSection.nextSibling) {
+      targetSection.parentNode.insertBefore(videoSection, targetSection.nextSibling);
     } else {
-      firstSection.parentNode.appendChild(videoSection);
+      targetSection.parentNode.appendChild(videoSection);
     }
     return true;
   }
@@ -4932,7 +4916,7 @@ html:not(.dark) #socios .group:hover {
 
     })();
     </script>
-    <script src="/assets/tmd_animation_engine.js?v=20260913_dark_theme_restore_v15"></script>
+    <script src="/assets/tmd_animation_engine.js?v=20260913_video_midpage_v16"></script>
 
     <script>
     /* ─── PRINTING PERMANENTLY DISABLED ─── */
