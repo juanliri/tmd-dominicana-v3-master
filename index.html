@@ -3428,53 +3428,47 @@ html:not(.dark) #socios .group:hover {
   // 1B. CINEMATIC VIDEO MARKETING INTRO (HOME PAGE SHOWCASE)
   // ──────────────────────────────────────────────────────────────────
   // ──────────────────────────────────────────────────────────────────
-  // 1B. CINEMATIC VIDEO MARKETING INTRO (HOME PAGE SHOWCASE - OPTION 1 FULLSCREEN)
+  // 1B. CINEMATIC VIDEO MARKETING INTRO & LUXURY GLASS NAVBAR
   // ──────────────────────────────────────────────────────────────────
   function updateNavbarTransparency() {
-    const isHome = window.location.hash === '' || 
-                   window.location.hash === '#/' || 
-                   window.location.hash === '#/home' ||
-                   window.location.hash === '#';
-
     const navWrapper = document.querySelector('#root .fixed.top-0');
     if (!navWrapper) return;
     const topBar = navWrapper.querySelector('div:first-child');
+    const topBarInner = topBar ? topBar.querySelector('div') : null;
     const header = navWrapper.querySelector('header');
+    const headerInner = header ? header.querySelector('div') : null;
 
-    if (isHome && window.scrollY < 60) {
-      navWrapper.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 75%, transparent 100%)';
-      if (topBar) {
-        topBar.style.backgroundColor = 'transparent';
-        topBar.style.borderBottomColor = 'transparent';
-      }
-      if (header) {
-        header.style.backgroundColor = 'transparent';
-        header.style.borderBottomColor = 'transparent';
-        header.style.backdropFilter = 'none';
-        header.style.webkitBackdropFilter = 'none';
-        header.style.boxShadow = 'none';
-        header.style.transition = 'all 0.3s ease';
-      }
-    } else {
-      navWrapper.style.background = '';
-      if (topBar) {
-        topBar.style.backgroundColor = '';
-        topBar.style.borderBottomColor = '';
-      }
-      if (header) {
-        header.style.backgroundColor = '';
-        header.style.borderBottomColor = '';
-        header.style.backdropFilter = '';
-        header.style.webkitBackdropFilter = '';
-        header.style.boxShadow = '';
-        header.style.transition = 'all 0.3s ease';
-      }
+    // Fix right-side sticking on standard desktop/laptop viewports (1280px-1366px)
+    if (topBarInner) {
+      topBarInner.style.paddingLeft = 'clamp(1rem, 2.5vw, 2rem)';
+      topBarInner.style.paddingRight = 'clamp(1.5rem, 3.5vw, 3rem)';
+    }
+    if (headerInner) {
+      headerInner.style.paddingLeft = 'clamp(1rem, 2.5vw, 2rem)';
+      headerInner.style.paddingRight = 'clamp(1.5rem, 3.5vw, 3rem)';
+    }
+
+    // Cohesive premium dark glassmorphism: seamless with megamenu, clear visibility over video
+    if (topBar) {
+      topBar.style.backgroundColor = 'rgba(8, 8, 8, 0.88)';
+      topBar.style.backdropFilter = 'blur(16px)';
+      topBar.style.webkitBackdropFilter = 'blur(16px)';
+      topBar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.06)';
+    }
+    if (header) {
+      header.style.backgroundColor = 'rgba(10, 10, 10, 0.86)';
+      header.style.backdropFilter = 'blur(22px)';
+      header.style.webkitBackdropFilter = 'blur(22px)';
+      header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+      header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.55)';
+      header.style.transition = 'all 0.25s ease';
     }
   }
 
-  // Bind scroll and route listeners for navbar transparency
+  // Bind scroll, resize and route listeners for navbar styling
   if (!window._tmdNavTransparencyBound) {
     window.addEventListener('scroll', updateNavbarTransparency, { passive: true });
+    window.addEventListener('resize', updateNavbarTransparency, { passive: true });
     window.addEventListener('hashchange', updateNavbarTransparency);
     window._tmdNavTransparencyBound = true;
   }
@@ -3493,7 +3487,7 @@ html:not(.dark) #socios .group:hover {
       return false;
     }
 
-    // Keep navbar transparency updated
+    // Keep navbar styling updated
     updateNavbarTransparency();
 
     if (existing) return true;
@@ -3516,30 +3510,19 @@ html:not(.dark) #socios .group:hover {
         <div class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/90 via-black/45 to-transparent pointer-events-none z-10"></div>
         <div class="absolute inset-x-0 bottom-0 h-64 sm:h-72 bg-gradient-to-t from-black/95 via-black/60 to-transparent pointer-events-none z-10"></div>
         <div class="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none z-10"></div>
-        
-        <!-- Top Badge & Quick Controls Bar -->
-        <div class="absolute top-28 sm:top-32 inset-x-4 sm:inset-x-8 max-w-7xl mx-auto flex items-center justify-between z-20 pointer-events-none">
-          <div class="pointer-events-auto inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-black/80 border border-amber-500/50 backdrop-blur-md text-[10px] sm:text-[11px] font-mono font-bold text-amber-400 uppercase tracking-wider shadow-2xl">
-            <span class="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-            <span>SEDE CENTRAL & PATIO KM 22 • VIDEO OFICIAL TMD</span>
-          </div>
-          <div class="pointer-events-auto flex items-center gap-2">
-            <button id="tmd-home-mute-btn" class="px-3.5 py-1.5 rounded-full bg-black/85 hover:bg-amber-500 hover:text-black border border-amber-500/40 text-amber-400 hover:border-amber-400 text-xs font-mono font-bold transition backdrop-blur-md flex items-center gap-1.5 shadow-2xl cursor-pointer" onclick="window.tmdToggleHomeVideoSound()" title="Activar / Silenciar Sonido">
-              <span id="tmd-home-mute-icon">🔊</span>
-              <span id="tmd-home-mute-txt">Activar Audio</span>
-            </button>
-            <button id="tmd-home-play-btn" class="p-2 rounded-full bg-black/85 hover:bg-amber-500 hover:text-black border border-white/25 hover:border-amber-400 text-white text-xs font-mono font-bold transition backdrop-blur-md shadow-2xl cursor-pointer" onclick="window.tmdToggleHomeVideoPlay()" title="Pausar / Reproducir">
-              <span id="tmd-home-play-icon">⏸</span>
-            </button>
-          </div>
-        </div>
 
         <!-- Bottom Cinematic Intro Content -->
         <div class="absolute bottom-5 sm:bottom-8 lg:bottom-12 inset-x-4 sm:inset-x-8 z-20">
           <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-4 sm:gap-6">
             <div class="max-w-3xl space-y-2">
-              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-500/25 text-amber-400 font-mono text-[9px] sm:text-[10px] uppercase font-black tracking-widest border border-amber-500/40 shadow-md">
-                DISTRIBUIDOR OFICIAL AUTORIZADO RD
+              <div class="flex flex-wrap items-center gap-2">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/25 text-amber-400 font-mono text-[9px] sm:text-[10px] uppercase font-black tracking-widest border border-amber-500/40 shadow-md">
+                  DISTRIBUIDOR OFICIAL AUTORIZADO RD
+                </div>
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/80 text-neutral-300 font-mono text-[9px] sm:text-[10px] uppercase font-bold tracking-wider border border-white/20 shadow-md">
+                  <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                  <span>SEDE CENTRAL & PATIO KM 22 • VIDEO OFICIAL</span>
+                </div>
               </div>
               <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-none" style="font-family: var(--font-heading, sans-serif); text-shadow: 0 4px 28px rgba(0,0,0,0.95);">
                 TECNOMAQUINARIAS <span style="color: #f59e0b; text-shadow: 0 0 30px rgba(245, 158, 11, 0.6);">DIESEL</span>
@@ -3557,13 +3540,26 @@ html:not(.dark) #socios .group:hover {
               </div>
             </div>
 
-            <!-- Smooth Scroll Down to Catalog/Content -->
-            <button onclick="window.scrollBy({ top: window.innerHeight - 80, behavior: 'smooth' })" class="hidden sm:flex flex-col items-center gap-1.5 text-neutral-300 hover:text-amber-400 transition cursor-pointer group" title="Deslizar hacia abajo">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-neutral-200 font-bold group-hover:text-amber-400 drop-shadow">Ver Catálogo</span>
-              <span class="w-8 h-8 rounded-full border border-white/30 group-hover:border-amber-400 flex items-center justify-center animate-bounce bg-black/60 backdrop-blur-sm text-white group-hover:text-amber-400 text-xs shadow-xl">
-                ↓
-              </span>
-            </button>
+            <!-- Quick Controls & Smooth Scroll -->
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-2 bg-black/70 backdrop-blur-md p-1 rounded-full border border-white/20 shadow-xl">
+                <button id="tmd-home-mute-btn" class="px-3 py-1.5 rounded-full bg-black/80 hover:bg-amber-500 hover:text-black border border-amber-500/40 text-amber-400 hover:border-amber-400 text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer" onclick="window.tmdToggleHomeVideoSound()" title="Activar / Silenciar Sonido">
+                  <span id="tmd-home-mute-icon">🔊</span>
+                  <span id="tmd-home-mute-txt">Audio</span>
+                </button>
+                <button id="tmd-home-play-btn" class="p-1.5 rounded-full bg-black/80 hover:bg-amber-500 hover:text-black border border-white/25 hover:border-amber-400 text-white text-xs font-mono font-bold transition cursor-pointer" onclick="window.tmdToggleHomeVideoPlay()" title="Pausar / Reproducir">
+                  <span id="tmd-home-play-icon">⏸</span>
+                </button>
+              </div>
+
+              <!-- Smooth Scroll Down to Catalog/Content -->
+              <button onclick="window.scrollBy({ top: window.innerHeight - 80, behavior: 'smooth' })" class="hidden sm:flex flex-col items-center gap-1 text-neutral-300 hover:text-amber-400 transition cursor-pointer group" title="Deslizar hacia abajo">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-neutral-200 font-bold group-hover:text-amber-400 drop-shadow">Catálogo</span>
+                <span class="w-8 h-8 rounded-full border border-white/30 group-hover:border-amber-400 flex items-center justify-center animate-bounce bg-black/60 backdrop-blur-sm text-white group-hover:text-amber-400 text-xs shadow-xl">
+                  ↓
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
