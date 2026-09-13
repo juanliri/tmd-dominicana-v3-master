@@ -104,25 +104,22 @@ body {
   will-change: opacity, filter;
 }
 
-/* Particle canvas modes: full-screen ambient visibility with distinctive mode atmospheres */
+/* Particle canvas modes: delicate ambient background, zero distraction */
 #tmd-ambient-canvas {
-  opacity: 1 !important;
-  transition: opacity 0.8s ease, filter 0.8s ease;
+  opacity: 0.85 !important;
+  filter: none !important;
+  transition: opacity 0.8s ease;
 }
-#tmd-ambient-canvas.mode-dust {
-  filter: none;
-  mask-image: none !important;
-  -webkit-mask-image: none !important;
-}
+#tmd-ambient-canvas.mode-dust,
 #tmd-ambient-canvas.mode-bokeh {
-  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.40));
+  filter: none !important;
   mask-image: none !important;
   -webkit-mask-image: none !important;
 }
 #tmd-ambient-canvas.mode-vignette {
-  filter: none;
-  mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,0.40) 30%, rgba(0,0,0,1) 90%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,0.40) 30%, rgba(0,0,0,1) 90%);
+  filter: none !important;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,0.50) 30%, rgba(0,0,0,1) 90%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,0.50) 30%, rgba(0,0,0,1) 90%);
 }
 
 /* Force page content above canvas, but exclude fixed modals and chat floating widgets */
