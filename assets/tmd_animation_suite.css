@@ -609,11 +609,100 @@ html.dark .tmd-diamond-card {
   -webkit-backdrop-filter: blur(12px) !important;
 }
 
+/* ─── 28A. DARK THEME: VEHICLE DETAILS & CATALOG SUBPAGES ─── */
+html.dark [class*="min-h-screen"],
+html.dark div[class*="min-h-screen"],
+html.dark div[class*="bg-slate-50"]:not(.product-stage-white):not(.tmd-product-white-stage):not([class*="h-[360px]"]):not([class*="sm:h-[460px]"]):not([class*="select-none"]) {
+  background-color: #050507 !important;
+  color: #f4f4f5 !important;
+}
+
+/* Vehicle Detail Top Sticky Breadcrumbs Bar */
+html.dark div.sticky.top-16,
+html.dark [class*="sticky"][class*="top-16"] {
+  background-color: rgba(6, 6, 9, 0.96) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f4f4f5 !important;
+}
+html.dark div.sticky.top-16 span.text-neutral-400,
+html.dark div.sticky.top-16 button.text-neutral-400 {
+  color: #a1a1aa !important;
+}
+
+/* Vehicle Detail Columns: Studio Showcase & Commercial Command Center */
+html.dark .lg\:col-span-7 > div.rounded-3xl,
+html.dark .lg\:col-span-5.rounded-3xl,
+html.dark div[class*="lg:col-span-5"][class*="rounded-3xl"],
+html.dark div[class*="rounded-3xl"][class*="dark:bg-neutral-950"] {
+  background-color: #0a0a0d !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f4f4f5 !important;
+}
+html.dark div[class*="lg:col-span-5"] h1,
+html.dark div[class*="lg:col-span-5"] h1.text-slate-900 {
+  background: linear-gradient(180deg, #FFFFFF 25%, #E4E4E7 70%, #A1A1AA 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #ffffff !important;
+}
+html.dark div[class*="lg:col-span-5"] p.text-slate-600 {
+  color: #d4d4d8 !important;
+}
+
+/* Vehicle Detail Cards: Modality Selector, Terms Box, Value Pills, Specs */
+html.dark div[class*="lg:col-span-5"] div[class*="rounded-2xl"],
+html.dark div[class*="lg:col-span-7"] div[class*="grid-cols-3"] > div {
+  background-color: #0e0e14 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f4f4f5 !important;
+}
+
+/* Vehicle Detail Tabs: Ficha Técnica Specs Matrix, Applications, Warranty */
+html.dark div.max-w-4xl.bg-white,
+html.dark div[class*="max-w-4xl"][class*="dark:bg-neutral-950"],
+html.dark div[class*="max-w-4xl"] div[class*="rounded-2xl"] {
+  background-color: #0a0a0d !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f4f4f5 !important;
+}
+html.dark div.max-w-4xl div.p-5[class*="bg-slate-50"] {
+  background-color: #0e0e14 !important;
+}
+
+/* ─── DARK THEME: TELEMETRY TERMINAL V4.2 ─── */
+html.dark div.rounded-3xl[class*="dark:border-amber-500/30"],
+html.dark div.rounded-3xl[class*="dark:bg-neutral-950"] {
+  background-color: #050507 !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px -5px rgba(245, 158, 11, 0.12) !important;
+}
+html.dark div.rounded-3xl[class*="dark:border-amber-500/30"] > div:first-child,
+html.dark div.rounded-3xl[class*="dark:bg-neutral-950"] > div:first-child {
+  background-color: #0c0c12 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+html.dark div.rounded-3xl[class*="dark:border-amber-500/30"] div.p-4.rounded-2xl,
+html.dark div.rounded-3xl[class*="dark:border-amber-500/30"] div.p-5.rounded-2xl,
+html.dark div.rounded-3xl[class*="dark:bg-neutral-950"] div.p-4.rounded-2xl,
+html.dark div.rounded-3xl[class*="dark:bg-neutral-950"] div.p-5.rounded-2xl {
+  background-color: #0d0d14 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+html.dark div.rounded-3xl[class*="dark:border-amber-500/30"] .lg\:col-span-5 > div,
+html.dark div.rounded-3xl[class*="dark:bg-neutral-950"] .lg\:col-span-5 > div {
+  background-color: #08080c !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
 /* ─── 28B. WHITE STUDIO PRODUCT STAGES (FOR MACHINE PHOTOS ONLY) ─── */
 .product-stage-white,
-.tmd-product-white-stage {
+.tmd-product-white-stage,
+html.dark div[class*="h-[360px]"][class*="rounded-2xl"],
+html.dark div[class*="sm:h-[460px]"][class*="rounded-2xl"],
+html.dark div[class*="select-none"][class*="rounded-2xl"]:has(img) {
   background-color: #ffffff !important;
   background: #ffffff !important;
+  border-color: #e2e8f0 !important;
 }
 
 /* Ensure related products and machine photos never have dark multiply blend */
