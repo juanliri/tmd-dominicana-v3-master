@@ -2129,18 +2129,19 @@ html:not(.dark) #todobuild-exec-portal-trigger > div > div:first-child {
   animation-play-state: paused !important;
 }
 
-/* Dark Theme - Pure Obsidian #000000 & Golden Accents */
+/* Dark Theme - Pure Obsidian Transparency & Golden Accents */
 html.dark #socios {
-  background-color: #000000 !important;
+  background-color: transparent !important;
+  background: transparent !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark #socios .absolute.left-0 {
-  background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0) 100%) !important;
+  background: linear-gradient(90deg, rgba(4, 4, 4, 0.7) 0%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
 html.dark #socios .absolute.right-0 {
-  background: linear-gradient(270deg, #000000 0%, rgba(0, 0, 0, 0) 100%) !important;
+  background: linear-gradient(270deg, rgba(4, 4, 4, 0.7) 0%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
 html.dark #socios .group {
@@ -2198,13 +2199,35 @@ html:not(.dark) #socios .group:hover {
         background-color: transparent !important;
       }
 
-      /* Adaptable expansive containers: scale up smoothly on wide screens without narrow 1280px boxing */
-      .max-w-7xl,
+      /* Expansive edge-to-edge header and top utility bar */
       header > div,
-      footer > div,
-      section > div:not(.tmd-full-bleed):not([class*="overflow-hidden"]) {
-        max-width: min(94vw, 1560px) !important;
+      header .max-w-7xl,
+      div.fixed.top-0 > div > div {
+        max-width: 100% !important;
         width: 100% !important;
+        padding-left: clamp(1.25rem, 3vw, 3.5rem) !important;
+        padding-right: clamp(1.25rem, 3vw, 3.5rem) !important;
+      }
+
+      /* Expansive fluid wide footer */
+      footer > div,
+      footer .max-w-7xl {
+        max-width: min(97vw, 1820px) !important;
+        width: 100% !important;
+        padding-left: clamp(1.5rem, 3.5vw, 4.5rem) !important;
+        padding-right: clamp(1.5rem, 3.5vw, 4.5rem) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      /* Adaptable expansive containers for sections */
+      section > div:not(.tmd-full-bleed):not([class*="overflow-hidden"]),
+      main .max-w-7xl,
+      div.max-w-7xl:not(header *):not(footer *) {
+        max-width: min(97vw, 1780px) !important;
+        width: 100% !important;
+        padding-left: clamp(1.25rem, 3vw, 3.5rem) !important;
+        padding-right: clamp(1.25rem, 3vw, 3.5rem) !important;
         margin-left: auto !important;
         margin-right: auto !important;
       }
@@ -2738,11 +2761,11 @@ html:not(.dark) #socios .group:hover {
         color: #475569 !important;
       }
 
-      /* Footer — DUAL THEME LUXURY */
+      /* Footer — DUAL THEME LUXURY (Transparent so particles shine through) */
       html.dark footer,
       html.dark #root footer {
-        background-color: #000000 !important;
-        background: #000000 !important;
+        background-color: transparent !important;
+        background: transparent !important;
         border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
       }
       html.dark footer h1, html.dark footer h2, html.dark footer h3, html.dark footer h4,
