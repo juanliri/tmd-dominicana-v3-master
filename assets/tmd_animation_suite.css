@@ -97,7 +97,7 @@ body {
   top: 0 !important; left: 0 !important;
   width: 100vw !important; height: 100vh !important;
   pointer-events: none !important;
-  z-index: 40 !important;
+  z-index: 0 !important;
   display: block !important;
   opacity: 0.95 !important;
   transition: opacity 0.9s ease, filter 0.9s ease;
@@ -674,7 +674,7 @@ html.dark [id*="portal"] {
   width: 100vw !important;
   height: 100vh !important;
   pointer-events: none !important;
-  z-index: 40 !important;
+  z-index: 0 !important;
   display: block !important;
   opacity: 0.95 !important;
 }
@@ -845,3 +845,50 @@ html.dark [id*="portal"] {
 .animate-pulse-glow { animation: tmd-pulse-glow 3s ease-in-out infinite !important; }
 .animate-shimmer { animation: tmd-shimmer 3s linear infinite !important; }
 .animate-reveal-up { animation: tmd-reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards !important; }
+
+/* ══════════════════════════════════════════════════════════════════════ */
+/* ELIMINATE ALL SECTION BOXING, VERTICAL OUTLINES & GRID FRAMES          */
+/* ══════════════════════════════════════════════════════════════════════ */
+section,
+main > div,
+#root section,
+#root main,
+[id="socios"],
+[id="empleo"],
+[id="nosotros"],
+[id="equipo"],
+.max-w-7xl,
+.border-y,
+.border-x,
+.border-l,
+.border-r {
+  border-left: none !important;
+  border-right: none !important;
+  border-inline: none !important;
+  outline: none !important;
+}
+
+section[class*="border-"],
+div[class*="border-y"],
+section.border-y,
+section.border-b,
+section.border-t,
+div.border-y,
+div.border-x,
+#socios,
+#empleo,
+#equipo {
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Ensure body direct content sits safely in front of background canvas */
+body > *:not(#tmd-ambient-canvas):not([id*="modal"]):not([role="dialog"]) {
+  position: relative !important;
+  z-index: 1 !important;
+}

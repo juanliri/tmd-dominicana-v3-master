@@ -230,7 +230,7 @@
         box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.25), 0 0 30px rgba(245, 158, 11, 0.12) !important;
       }
 
-      /* ─── ATMOSPHERIC PARTICLE CANVAS FIX ─── */
+      /* ─── ATMOSPHERIC PARTICLE CANVAS (ALWAYS BEHIND CONTENT) ─── */
       #tmd-ambient-canvas {
         position: fixed !important;
         top: 0 !important;
@@ -238,18 +238,52 @@
         width: 100vw !important;
         height: 100vh !important;
         pointer-events: none !important;
-        z-index: 40 !important;
-        opacity: 0.95 !important;
+        z-index: 0 !important;
+        opacity: 0.85 !important;
         display: block !important;
       }
 
-      /* ─── ELIMINATE HARSH SECTION OUTLINES & BLUE ACCENTS ─── */
+      /* ─── ELIMINATE HARSH SECTION OUTLINES & BOXING ─── */
       .bg-blueprint-grid,
       .bg-titanium-grid,
       .tmd-titanium-grid {
         background-image: none !important;
       }
-      section, div {
+      section, div, main {
+        outline: none !important;
+      }
+      /* Prevent any vertical border or box outline on sections */
+      section,
+      main > div,
+      #root section,
+      #root main,
+      [id="socios"],
+      [id="empleo"],
+      [id="nosotros"],
+      [id="equipo"],
+      [id="contacto"],
+      .max-w-7xl {
+        border-left: none !important;
+        border-right: none !important;
+        border-inline: none !important;
+        outline: none !important;
+      }
+      section[class*="border-y"],
+      section[class*="border-b"],
+      section[class*="border-t"],
+      section.border-y,
+      section.border-b,
+      section.border-t,
+      div.border-y,
+      div.border-x,
+      #socios,
+      #empleo {
+        border-top: none !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border: none !important;
+        box-shadow: none !important;
         outline: none !important;
       }
       html.dark .border-blue-500,
@@ -2036,28 +2070,45 @@ html:not(.dark) #socios .group:hover {
         color: #f4f4f5 !important;
       }
 
-      /* Sections inside sub-pages (e.g. #nosotros, #empleo, #catalogo) — PURE PITCH BLACK */
+      /* Sections inside sub-pages — SEAMLESS FLUID OBSIDIAN (NO VERTICAL OUTLINES OR BOXING) */
       html.dark section,
       html.dark section[id="nosotros"],
       html.dark section[id="empleo"],
+      html.dark section[id="socios"],
       html.dark section.bg-neutral-50,
       html.dark section.bg-white,
       html.dark section[class*="border-neutral-800"],
       html.dark section[class*="border-b"],
-      html.dark div[class*="border-neutral-800"] {
+      html.dark section[class*="border-y"],
+      html.dark div[class*="border-neutral-800"]:not([class*="rounded-2xl"]):not([class*="rounded-xl"]) {
         background-color: #000000 !important;
         background: #000000 !important;
-        border-color: rgba(255, 255, 255, 0.08) !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-inline: none !important;
+        border-top: none !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        outline: none !important;
+        box-shadow: none !important;
       }
 
-      /* Cards & Containers — PURE JET BLACK WITH MINIMALIST CRISP BORDERS */
-      html.dark [class*="bg-neutral-900"]:not(header):not(nav),
-      html.dark [class*="bg-neutral-950"]:not([class*="min-h-screen"]):not(body),
-      html.dark [class*="bg-slate-900"],
-      html.dark [class*="bg-slate-950"],
+      /* Structural wrappers and grids must never have side borders or outlines */
+      html.dark div[class*="max-w-7xl"],
+      html.dark main,
+      html.dark #root > div,
+      html.dark footer {
+        border-left: none !important;
+        border-right: none !important;
+        border-inline: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      /* Specific Cards & Modules — PURE JET BLACK WITH CRISP BORDERS */
+      html.dark .tmd-spotlight-card:not(section):not(footer):not(main),
       html.dark #equipo .grid > div {
-        background-color: #000000 !important;
-        background: #000000 !important;
+        background-color: #050507 !important;
+        background: #050507 !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
       }
@@ -2460,28 +2511,7 @@ html:not(.dark) #socios .group:hover {
 
     </style>
     <style>
-    /* ─── PARTICLE CANVAS VISIBILITY FIX ─── */
-    /* Body is transparent; canvas is fixed behind everything */
-    body {
-      background: transparent !important;
-    }
-    html.dark body {
-      background: transparent !important;
-    }
-    /* The page-level background color goes on #root, NOT body */
-    #root {
-      background-color: transparent !important;
-      position: relative;
-      z-index: 1;
-    }
-    /* Solid black background rendered by html element (behind canvas) */
-    html.dark {
-      background-color: #0a0a0a;
-    }
-    html:not(.dark) {
-      background-color: #f5f5f4;
-    }
-    /* Ensure canvas is always rendered */
+    /* ─── PARTICLE CANVAS: LOADS SUBTLY IN BACKGROUND, HIDDEN BEHIND CONTENT ─── */
     #tmd-ambient-canvas {
       position: fixed !important;
       top: 0 !important;
@@ -2489,28 +2519,31 @@ html:not(.dark) #socios .group:hover {
       width: 100vw !important;
       height: 100vh !important;
       pointer-events: none !important;
-      z-index: 40 !important;
+      z-index: 0 !important;
       display: block !important;
-      opacity: 1 !important;
+      opacity: 0.8 !important;
     }
-    /* All page sections must have transparent OR semi-transparent backgrounds */
-    /* to allow the particle canvas to show through */
+    /* Page-level content stays in front of the background canvas */
+    #root {
+      position: relative;
+      z-index: 1;
+    }
+    html.dark {
+      background-color: #0a0a0a;
+    }
+    html:not(.dark) {
+      background-color: #f5f5f4;
+    }
+    /* Sections have solid dark obsidian surfaces that sit in front of the canvas */
     html.dark section,
-    html.dark main,
-    html.dark .min-h-screen,
-    html.dark [class*="bg-neutral-950"],
-    html.dark [class*="bg-neutral-900"] {
-      background-color: transparent !important;
+    html.dark main {
+      position: relative !important;
+      z-index: 1 !important;
+      border-left: none !important;
+      border-right: none !important;
+      border-inline: none !important;
+      outline: none !important;
     }
-    /* Section backgrounds become glass instead of solid */
-    html.dark [class*="bg-neutral-900"]:not(button):not(input):not(nav):not(header):not(#tmd-ai-chat-panel):not([id*="portal"]):not([id*="modal"]) {
-      background-color: rgba(10, 10, 10, 0.82) !important;
-      backdrop-filter: blur(2px) !important;
-    }
-    html.dark [class*="bg-neutral-950"]:not(button):not(input):not(nav):not(header):not(#tmd-ai-chat-panel):not([id*="portal"]):not([id*="modal"]) {
-      background-color: rgba(5, 5, 5, 0.80) !important;
-    }
-    /* Preserve opaque backgrounds where needed (navbar, modals, panels) */
     html.dark header,
     html.dark nav,
     html.dark #tmd-ai-chat-panel,
@@ -2518,26 +2551,7 @@ html:not(.dark) #socios .group:hover {
     html.dark [id*="modal"] {
       backdrop-filter: blur(20px) saturate(1.4) !important;
       -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
-    }
-    
-    /* ─── FORCE TRANSPARENT BACKGROUNDS (Let particle canvas shine through) ─── */
-    /* All Tailwind dark bg classes become semi-transparent in dark mode */
-    html.dark .bg-neutral-950,
-    html.dark .bg-neutral-900,
-    html.dark .dark\:bg-neutral-950,
-    html.dark .dark\:bg-neutral-900,
-    html.dark .dark\:bg-neutral-800 {
-      background-color: transparent !important;
-    }
-    /* Page-level min-h-screen wrappers */
-    html.dark .min-h-screen {
-      background-color: transparent !important;
-    }
-    /* Light bg neutrals also transparent (html bg handles the color) */
-    html:not(.dark) .bg-neutral-50,
-    html:not(.dark) .bg-slate-50,
-    html:not(.dark) .bg-white {
-      background-color: transparent !important;
+      z-index: 50;
     }
     /* Preserve backgrounds for cards, panels, navs */
     html.dark nav .bg-neutral-900,
@@ -2687,25 +2701,28 @@ html:not(.dark) #socios .group:hover {
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <!-- 6. TMD PRIVÉ — FIRST ENTRY LUXURY POP-OUT MODAL                   -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <div id="tmd-luxury-newsletter-modal" style="display:none; position:fixed; inset:0; z-index:100005; background:rgba(0,0,0,0.97); backdrop-filter:blur(18px); align-items:stretch; justify-content:center; padding:0; box-sizing:border-box; overflow-y:auto;">
-      <!-- MAGAZINE LAYOUT: 2 columns on desktop -->
+    <div id="tmd-luxury-newsletter-modal" style="display:none; position:fixed; inset:0; z-index:100005; background:radial-gradient(ellipse at center, rgba(14, 11, 7, 0.90) 0%, rgba(5, 5, 5, 0.98) 100%), url('/assets/video/tmd_hero_poster.jpg') center/cover no-repeat fixed; backdrop-filter:blur(24px) saturate(1.2); -webkit-backdrop-filter:blur(24px) saturate(1.2); align-items:center; justify-content:center; padding:24px 16px; box-sizing:border-box; overflow-y:auto;">
+      <!-- MAGAZINE LAYOUT: 2 columns on desktop with full container styling -->
       <div style="
-        width:100%; max-width:1100px; margin:auto;
-        display:grid; grid-template-columns:1fr 1fr;
-        min-height:100vh; box-shadow:0 0 120px rgba(0,0,0,0.95);
+        width:100%; max-width:1150px; margin:auto;
+        display:grid; grid-template-columns:1.05fr 0.95fr;
+        min-height:650px; border-radius:28px; overflow:hidden;
+        border:1px solid rgba(245,158,11,0.35);
+        box-shadow:0 30px 100px rgba(0,0,0,0.95), 0 0 60px rgba(245,158,11,0.18);
         font-family:'Inter',sans-serif;
+        background:#0a0a0c;
       ">
-        <!-- LEFT PANEL: Magazine Cover -->
+        <!-- LEFT PANEL: Luxury Magazine Cover with Heavy Machinery Photo -->
         <div style="
-          background:linear-gradient(160deg,#0a0a0a 0%,#111 60%,#181818 100%);
+          background:linear-gradient(180deg, rgba(8,8,8,0.70) 0%, rgba(16,12,6,0.82) 45%, rgba(6,6,6,0.96) 100%), url('https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
           padding:48px 40px; display:flex; flex-direction:column;
           justify-content:space-between; position:relative; overflow:hidden;
-          border-right:1px solid rgba(245,158,11,0.2);
+          border-right:1px solid rgba(245,158,11,0.25);
         ">
-          <!-- Background texture -->
+          <!-- Ambient gold shimmer overlay -->
           <div style="
             position:absolute; inset:0;
-            background:repeating-linear-gradient(45deg,rgba(245,158,11,0.015) 0px,rgba(245,158,11,0.015) 1px,transparent 1px,transparent 60px);
+            background:radial-gradient(circle at 20% 15%, rgba(245,158,11,0.12) 0%, transparent 60%);
             pointer-events:none;
           "></div>
 
@@ -2723,51 +2740,51 @@ html:not(.dark) #socios .group:hover {
             <!-- Issue badge -->
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:28px;">
               <div style="width:32px;height:2px;background:#f59e0b;"></div>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:800;color:#f59e0b;letter-spacing:0.14em;text-transform:uppercase;">TMD PRIVÉ · EDICIÓN SEPT. 2026</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:800;color:#f59e0b;letter-spacing:0.14em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,0.8);">TMD PRIVÉ · EDICIÓN SEPT. 2026</span>
             </div>
 
             <!-- Magazine masthead -->
             <div style="margin-bottom:24px;">
-              <div style="font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;">REVISTA INDUSTRIAL TMD</div>
-              <h1 style="font-size:clamp(2.2rem,4vw,3.2rem);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin:0 0 16px;">
+              <div style="font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px;text-shadow:0 2px 6px rgba(0,0,0,0.8);">REVISTA INDUSTRIAL TMD</div>
+              <h1 style="font-size:clamp(2.2rem,4vw,3.2rem);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin:0 0 16px;text-shadow:0 4px 16px rgba(0,0,0,0.9);">
                 FLOTA<br>
-                <span style="background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">CERO<br>KILÓMETROS</span>
+                <span style="background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(245,158,11,0.4));">CERO<br>KILÓMETROS</span>
               </h1>
-              <p style="font-size:0.9rem;color:#a3a3a3;line-height:1.6;max-width:340px;margin:0;">
+              <p style="font-size:0.9rem;color:#d4d4d8;line-height:1.6;max-width:360px;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.9);">
                 Lotes OEM JCB recién llegados, subastas exclusivas y tarifas preferenciales para contratistas MOPC — solo para suscriptores Privé.
               </p>
             </div>
 
-            <!-- Feature headlines (magazine style) -->
-            <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;margin-top:20px;">
-              <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:800;color:#737373;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">EN ESTA EDICIÓN</div>
+            <!-- Feature headlines (magazine style in frosted glass cards) -->
+            <div style="border-top:1px solid rgba(255,255,255,0.12);padding-top:20px;margin-top:20px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:800;color:#d4d4d8;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">EN ESTA EDICIÓN</div>
               <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <span style="font-size:1rem;flex-shrink:0;">🏗️</span>
+                <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(14,14,18,0.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:10px 14px;">
+                  <span style="font-size:1.1rem;flex-shrink:0;">🏗️</span>
                   <div>
                     <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">Nuevas Excavadoras JCB 220X — Puerto Haina</div>
-                    <div style="font-size:0.7rem;color:#737373;">Acceso previo para flotas de 3+ unidades</div>
+                    <div style="font-size:0.7rem;color:#a3a3a3;">Acceso previo para flotas de 3+ unidades</div>
                   </div>
                 </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <span style="font-size:1rem;flex-shrink:0;">🚜</span>
+                <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(14,14,18,0.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:10px 14px;">
+                  <span style="font-size:1.1rem;flex-shrink:0;">🚜</span>
                   <div>
                     <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">LS Tractor MT7 — Serie Cibao 2026</div>
-                    <div style="font-size:0.7rem;color:#737373;">Tractores 4WD de alta potencia para agroproductores</div>
+                    <div style="font-size:0.7rem;color:#a3a3a3;">Tractores 4WD de alta potencia para agroproductores</div>
                   </div>
                 </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <span style="font-size:1rem;flex-shrink:0;">⚙️</span>
+                <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(14,14,18,0.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:10px 14px;">
+                  <span style="font-size:1.1rem;flex-shrink:0;">⚙️</span>
                   <div>
                     <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">Lote Repuestos OEM — Filtros & Diferenciales</div>
-                    <div style="font-size:0.7rem;color:#737373;">Inventario crítico disponible hoy en Km 22</div>
+                    <div style="font-size:0.7rem;color:#a3a3a3;">Inventario crítico disponible hoy en Km 22</div>
                   </div>
                 </div>
-                <div style="display:flex;gap:10px;align-items:flex-start;">
-                  <span style="font-size:1rem;flex-shrink:0;">📋</span>
+                <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(14,14,18,0.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.09);border-radius:12px;padding:10px 14px;">
+                  <span style="font-size:1.1rem;flex-shrink:0;">📋</span>
                   <div>
                     <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-bottom:2px;">Licitaciones MOPC Sept.–Dic. 2026</div>
-                    <div style="font-size:0.7rem;color:#737373;">Tarifas corporativas preferenciales pre-negociadas</div>
+                    <div style="font-size:0.7rem;color:#a3a3a3;">Tarifas corporativas preferenciales pre-negociadas</div>
                   </div>
                 </div>
               </div>
@@ -2775,47 +2792,50 @@ html:not(.dark) #socios .group:hover {
           </div>
 
           <!-- Footer brand stamp -->
-          <div style="display:flex;align-items:center;gap:12px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);margin-top:24px;">
-            <div style="width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);display:flex;align-items:center;justify-content:center;font-size:1rem;">🏭</div>
+          <div style="display:flex;align-items:center;gap:12px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);margin-top:24px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.45);display:flex;align-items:center;justify-content:center;font-size:1rem;">🏭</div>
             <div>
               <div style="font-size:0.75rem;font-weight:800;color:#fff;">TECNOMAQUINARIAS DIESEL S.R.L.</div>
-              <div style="font-size:0.65rem;color:#737373;">Km 22 Autopista Duarte • Santo Domingo, RD</div>
+              <div style="font-size:0.65rem;color:#a3a3a3;">Km 22 Autopista Duarte • Santo Domingo, RD</div>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT PANEL: Subscription Form -->
+        <!-- RIGHT PANEL: Subscription Form with Industrial Machinery Accent -->
         <div style="
-          background:linear-gradient(160deg,#0e0e0e,#141414);
-          padding:48px 40px; display:flex; flex-direction:column; justify-content:center;
+          background:linear-gradient(160deg, rgba(12,10,8,0.88) 0%, rgba(8,8,10,0.94) 100%), url('/assets/video/tmd_hero_poster.jpg') center/cover no-repeat;
+          backdrop-filter:blur(24px);
+          -webkit-backdrop-filter:blur(24px);
+          padding:48px 44px; display:flex; flex-direction:column; justify-content:center;
+          position:relative;
         ">
           <!-- Form header -->
           <div style="margin-bottom:28px;">
-            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);padding:4px 12px;border-radius:9999px;margin-bottom:14px;">
-              <span style="width:5px;height:5px;border-radius:50%;background:#f59e0b;box-shadow:0 0 6px #f59e0b;"></span>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;">CLUB PRIVÉ • ACCESO EXCLUSIVO</span>
+            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);padding:5px 14px;border-radius:9999px;margin-bottom:14px;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;">CLUB PRIVÉ • ACCESO EXCLUSIVO</span>
             </div>
-            <h2 style="font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1.15;margin:0 0 8px;">Suscripción Corporativa</h2>
-            <p style="font-size:0.82rem;color:#a3a3a3;line-height:1.55;margin:0;">Reciba las listas de arribo directo a su correo o WhatsApp antes que nadie.</p>
+            <h2 style="font-size:1.7rem;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1.15;margin:0 0 8px;">Suscripción Corporativa</h2>
+            <p style="font-size:0.84rem;color:#a3a3a3;line-height:1.55;margin:0;">Reciba las listas de arribo directo a su correo o WhatsApp antes que nadie.</p>
           </div>
 
-          <form id="tmd-newsletter-form" onsubmit="handleNewsletterSubmit(event)" style="display:flex;flex-direction:column;gap:14px;">
+          <form id="tmd-newsletter-form" onsubmit="handleNewsletterSubmit(event)" style="display:flex;flex-direction:column;gap:16px;">
             <div>
-              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;">Correo o WhatsApp Comercial</label>
+              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Correo o WhatsApp Comercial</label>
               <input type="text" id="tmd-newsletter-input" required placeholder="correo@empresa.com ó (809) 000-0000" style="
                 width:100%;box-sizing:border-box;
-                background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px;padding:11px 14px;color:#fff;font-size:0.86rem;
-                outline:none;transition:border-color 0.2s;
-              " onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'" />
+                background:rgba(0,0,0,0.65);border:1px solid rgba(245,158,11,0.28);
+                border-radius:12px;padding:12px 16px;color:#fff;font-size:0.86rem;
+                outline:none;transition:all 0.2s;box-shadow:inset 0 2px 6px rgba(0,0,0,0.5);
+              " onfocus="this.style.borderColor='#f59e0b';this.style.boxShadow='0 0 12px rgba(245,158,11,0.25)';" onblur="this.style.borderColor='rgba(245,158,11,0.28)';this.style.boxShadow='inset 0 2px 6px rgba(0,0,0,0.5)';" />
             </div>
             <div>
-              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;">Línea de Mayor Interés</label>
+              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Línea de Mayor Interés</label>
               <select id="tmd-newsletter-interest" style="
                 width:100%;box-sizing:border-box;
-                background:#0e0e0e;border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px;padding:11px 14px;color:#fff;font-size:0.84rem;
-                outline:none;cursor:pointer;
+                background:#0a0a0d;border:1px solid rgba(245,158,11,0.28);
+                border-radius:12px;padding:12px 16px;color:#fff;font-size:0.84rem;
+                outline:none;cursor:pointer;box-shadow:inset 0 2px 6px rgba(0,0,0,0.5);
               ">
                 <option value="construccion">🏗️ Maquinaria de Construcción (JCB, LiuGong)</option>
                 <option value="agricola">🌾 Línea Agrícola & Tractores (LS Tractor, Yanmar)</option>
@@ -2825,22 +2845,22 @@ html:not(.dark) #socios .group:hover {
               </select>
             </div>
             <div>
-              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px;">Nombre de la Empresa (opcional)</label>
+              <label style="display:block;font-size:0.7rem;font-weight:700;color:#d4d4d4;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;">Nombre de la Empresa (opcional)</label>
               <input type="text" placeholder="Constructora XYZ S.R.L." style="
                 width:100%;box-sizing:border-box;
-                background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);
-                border-radius:10px;padding:11px 14px;color:#fff;font-size:0.86rem;
-                outline:none;transition:border-color 0.2s;
-              " onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'" />
+                background:rgba(0,0,0,0.65);border:1px solid rgba(245,158,11,0.28);
+                border-radius:12px;padding:12px 16px;color:#fff;font-size:0.86rem;
+                outline:none;transition:all 0.2s;box-shadow:inset 0 2px 6px rgba(0,0,0,0.5);
+              " onfocus="this.style.borderColor='#f59e0b';this.style.boxShadow='0 0 12px rgba(245,158,11,0.25)';" onblur="this.style.borderColor='rgba(245,158,11,0.28)';this.style.boxShadow='inset 0 2px 6px rgba(0,0,0,0.5)';" />
             </div>
             <button type="submit" style="
-              margin-top:4px;width:100%;padding:13px;
+              margin-top:6px;width:100%;padding:14px;
               background:linear-gradient(135deg,#f59e0b,#d97706);
-              border:none;border-radius:12px;color:#0a0a0a;
-              font-size:0.88rem;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;
-              cursor:pointer;box-shadow:0 8px 24px rgba(245,158,11,0.35);
-              transition:transform 0.2s,box-shadow 0.2s;
-            " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 30px rgba(245,158,11,0.45)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 24px rgba(245,158,11,0.35)'">
+              border:none;border-radius:14px;color:#0a0a0a;
+              font-size:0.9rem;font-weight:900;text-transform:uppercase;letter-spacing:0.04em;
+              cursor:pointer;box-shadow:0 8px 24px rgba(245,158,11,0.4);
+              transition:all 0.2s;
+            " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 30px rgba(245,158,11,0.55)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 24px rgba(245,158,11,0.4)'">
               SOLICITAR ACCESO PRIVÉ →
             </button>
           </form>
@@ -2855,7 +2875,7 @@ html:not(.dark) #socios .group:hover {
           <div style="
             display:flex;flex-wrap:wrap;gap:12px;
             margin-top:24px;padding-top:18px;
-            border-top:1px solid rgba(255,255,255,0.06);
+            border-top:1px solid rgba(255,255,255,0.08);
             font-size:0.7rem;color:#737373;
           ">
             <span>🔒 Cero spam · Solo oportunidades industriales</span>
@@ -2865,7 +2885,7 @@ html:not(.dark) #socios .group:hover {
 
           <button onclick="closeNewsletterModal()" style="
             margin-top:14px;background:none;border:none;
-            color:#525252;text-decoration:underline;
+            color:#737373;text-decoration:underline;
             font-size:0.72rem;cursor:pointer;text-align:left;
           ">Continuar al sitio sin suscribirse</button>
         </div>
@@ -2875,13 +2895,22 @@ html:not(.dark) #socios .group:hover {
     <style>
     /* Responsive: stack on mobile */
     @media (max-width:767px) {
+      #tmd-luxury-newsletter-modal {
+        padding: 12px !important;
+      }
       #tmd-luxury-newsletter-modal > div {
         grid-template-columns: 1fr !important;
-        min-height:auto !important;
+        min-height: auto !important;
+        border-radius: 20px !important;
       }
       #tmd-luxury-newsletter-modal > div > div:first-child {
         padding: 32px 24px !important;
         min-height: auto !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(245,158,11,0.25) !important;
+      }
+      #tmd-luxury-newsletter-modal > div > div:last-child {
+        padding: 32px 24px !important;
       }
     }
     </style>
@@ -3099,9 +3128,16 @@ html:not(.dark) #socios .group:hover {
       });
       document.addEventListener('DOMContentLoaded', enrichStaffSection);
 
-      // ─── TMD PRIVÉ NEWSLETTER MODAL LOGIC (ON-DEMAND ONLY) ───
+      // ─── TMD PRIVÉ NEWSLETTER MODAL LOGIC ───
+      function openNewsletterModal() {
+        var m = document.getElementById('tmd-luxury-newsletter-modal');
+        if (m) m.style.display = 'flex';
+      }
+      window.openNewsletterModal = openNewsletterModal;
+      window.tmdOpenNewsletterModal = openNewsletterModal;
+
       function initNewsletterModal() {
-        // Kept for on-demand calls; no auto-pop interruption
+        // Kept for on-demand calls
       }
       function closeNewsletterModal() {
         var m = document.getElementById('tmd-luxury-newsletter-modal');
