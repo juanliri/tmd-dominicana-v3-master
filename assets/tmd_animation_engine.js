@@ -164,10 +164,10 @@
     canvas.style.width = '100vw';
     canvas.style.height = '100vh';
     canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '1';
+    canvas.style.zIndex = '40';
     canvas.style.display = 'block';
     canvas.style.opacity = '0.95';
-    document.body.prepend(canvas); // Prepend to guarantee it sits under content
+    document.body.prepend(canvas); // Prepend to body
 
     // Guard: re-prepend canvas if React removes it from body
     const bodyObserver = new MutationObserver(() => {
@@ -187,21 +187,21 @@
     window.addEventListener('resize', resizeCanvas, { passive: true });
 
     particles = [];
-    // 62 particles across depth layers — enough to be clearly visible
-    const count = Math.min(Math.floor(window.innerWidth / 20), 62);
+    // 75 particles across depth layers — clearly luminous & floating
+    const count = Math.min(Math.floor(window.innerWidth / 18), 75);
     for (let i = 0; i < count; i++) {
       const isBokeh = i % 4 === 0; // 25% are soft bokeh blooms
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: Math.random() * 0.8 + 0.7,         // 0.7–1.5px dust base
-        targetR: Math.random() * 0.8 + 0.7,
-        dx: (Math.random() - 0.5) * 0.30,
-        dy: -(Math.random() * 0.45 + 0.15),   // drift upward
-        alpha: Math.random() * 0.30 + 0.45,   // VISIBLE: 0.45–0.75 base BOOSTED
-        targetAlpha: Math.random() * 0.30 + 0.45,
+        r: isBokeh ? (Math.random() * 1.5 + 3.0) : (Math.random() * 1.2 + 1.6), // 1.6–4.5px base
+        targetR: isBokeh ? (Math.random() * 1.5 + 3.0) : (Math.random() * 1.2 + 1.6),
+        dx: (Math.random() - 0.5) * 0.35,
+        dy: -(Math.random() * 0.55 + 0.20),   // drift upward
+        alpha: Math.random() * 0.25 + 0.65,   // VISIBLE: 0.65–0.90 base
+        targetAlpha: Math.random() * 0.25 + 0.65,
         isBokeh: isBokeh,
-        pulseSpeed: Math.random() * 0.025 + 0.012,
+        pulseSpeed: Math.random() * 0.025 + 0.015,
         pulseVal: Math.random() * Math.PI
       });
     }
@@ -260,16 +260,16 @@
       }
 
       // ── CONSTELLATION NET (todobuild.store signature effect) ──
-      const MAXD = 130;
+      const MAXD = 145;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAXD) {
-            const lineAlpha = (1 - dist / MAXD) * 0.18;
+            const lineAlpha = (1 - dist / MAXD) * 0.32;
             ctx.strokeStyle = `rgba(${particleRgb}, ${lineAlpha})`;
-            ctx.lineWidth = 0.55;
+            ctx.lineWidth = 0.85;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -300,27 +300,20 @@
         }
         if (p.y > canvas.height + 15) p.y = -15;
 
-        const currentAlpha = p.alpha * (0.8 + 0.25 * Math.sin(p.pulseVal));
+        const currentAlpha = p.alpha * (0.85 + 0.25 * Math.sin(p.pulseVal));
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(0.2, p.r), 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, Math.max(0.5, p.r), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${particleRgb}, ${currentAlpha})`;
 
-        if (currentMode === 'bokeh' && p.isBokeh) {
-          // Bokeh blooms: large glowing halos
+        if (p.isBokeh) {
+          // Large glowing halo
           ctx.shadowColor = `rgba(${particleRgb}, 0.95)`;
-          ctx.shadowBlur = 22;
-        } else if (currentMode === 'bokeh') {
-          // Regular bokeh particles: medium glow
-          ctx.shadowColor = `rgba(${particleRgb}, 0.55)`;
-          ctx.shadowBlur = 8;
-        } else if (currentMode === 'dust') {
-          // Micro-dust: subtle sparkle
-          ctx.shadowColor = `rgba(${particleRgb}, 0.40)`;
-          ctx.shadowBlur = 3;
+          ctx.shadowBlur = 18;
         } else {
-          ctx.shadowColor = 'transparent';
-          ctx.shadowBlur = 0;
+          // Crisp luminous golden ember
+          ctx.shadowColor = `rgba(${particleRgb}, 0.80)`;
+          ctx.shadowBlur = 7;
         }
 
         ctx.fill();

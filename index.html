@@ -238,7 +238,7 @@
         width: 100vw !important;
         height: 100vh !important;
         pointer-events: none !important;
-        z-index: 1 !important;
+        z-index: 40 !important;
         opacity: 0.95 !important;
         display: block !important;
       }
@@ -2024,13 +2024,14 @@ html:not(.dark) #socios .group:hover {
       }
 
       html.dark,
-      html.dark body,
-      html.dark #root,
-      html.dark [class*="min-h-screen"],
-      html.dark main {
+      html.dark body {
         background-color: #000000 !important;
         background: #000000 !important;
-        background-image: none !important;
+        color: #f4f4f5 !important;
+      }
+      html.dark #root {
+        background-color: transparent !important;
+        background: transparent !important;
         color: #f4f4f5 !important;
       }
 
@@ -2487,7 +2488,7 @@ html:not(.dark) #socios .group:hover {
       width: 100vw !important;
       height: 100vh !important;
       pointer-events: none !important;
-      z-index: 0 !important;
+      z-index: 40 !important;
       display: block !important;
       opacity: 1 !important;
     }
@@ -2669,7 +2670,7 @@ html:not(.dark) #socios .group:hover {
       <div style="width:100%; max-width:480px; background:#171717; border:1px solid rgba(245,158,11,0.5); border-radius:24px; padding:28px 24px; box-shadow:0 25px 50px rgba(0,0,0,0.8); text-align:center; position:relative; color:#fff;">
         <button onclick="closeStaffModal()" style="position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.1); border:none; color:#fff; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center;">✕</button>
         <div id="staff-modal-avatar" style="width:110px; height:110px; margin:0 auto 16px; border-radius:50%; padding:3px; background:linear-gradient(135deg, #f59e0b, #d97706); box-shadow:0 10px 25px rgba(245,158,11,0.3); overflow:hidden;">
-          <img id="staff-modal-img" src="" style="width:100%; height:100%; object-fit:cover; border-radius:50%; background:#fff;" />
+          <img id="staff-modal-img" src="/assets/team_hd/eduardo_lopez_hd.jpg" alt="Especialista TMD" style="width:100%; height:100%; object-fit:cover; border-radius:50%; background:#fff;" />
         </div>
         <div id="staff-modal-badge" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:800; color:#f59e0b; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); padding:3px 12px; border-radius:9999px; margin-bottom:10px;"></div>
         <h3 id="staff-modal-name" style="font-size:1.25rem; font-weight:800; color:#fff; margin-bottom:4px;"></h3>
@@ -3097,14 +3098,9 @@ html:not(.dark) #socios .group:hover {
       });
       document.addEventListener('DOMContentLoaded', enrichStaffSection);
 
-      // ─── TMD PRIVÉ NEWSLETTER MODAL LOGIC (FIRST VISIT ONLY) ───
+      // ─── TMD PRIVÉ NEWSLETTER MODAL LOGIC (ON-DEMAND ONLY) ───
       function initNewsletterModal() {
-        if (!localStorage.getItem('tmd_newsletter_seen')) {
-          setTimeout(function() {
-            var m = document.getElementById('tmd-luxury-newsletter-modal');
-            if (m) m.style.display = 'flex';
-          }, 1400);
-        }
+        // Kept for on-demand calls; no auto-pop interruption
       }
       function closeNewsletterModal() {
         var m = document.getElementById('tmd-luxury-newsletter-modal');
@@ -3236,8 +3232,8 @@ html:not(.dark) #socios .group:hover {
         </div>
 
         <div class="tmd-hero-actions">
-          <a href="#equipo" class="tmd-btn-amber-glow" onclick="document.getElementById('equipo')?.scrollIntoView({behavior:'smooth'}); return false;">
-            <span>Explorar Estructura & Equipo</span>
+          <a href="#/about#equipo" class="tmd-btn-amber-glow" onclick="if(!window.location.hash.includes('about')){window.location.hash='#/about'; setTimeout(function(){document.getElementById('equipo')?.scrollIntoView({behavior:'smooth'});}, 350);} else { document.getElementById('equipo')?.scrollIntoView({behavior:'smooth'}); } return false;">
+            <span>Explorar Estructura & Equipo (12)</span>
             <span style="font-size:1.1rem;">↓</span>
           </a>
           <button class="tmd-btn-glass" onclick="window.tmdToggleQuoteModal ? window.tmdToggleQuoteModal() : (document.querySelector('button[data-quote-trigger]')?.click() || document.getElementById('todobuild-exec-portal-trigger')?.click())">
@@ -3667,6 +3663,76 @@ html:not(.dark) #socios .group:hover {
   };
 
   // ──────────────────────────────────────────────────────────────────
+  // 5B. SERVICE PAGE TECHNICAL LEADERSHIP SHOWCASE
+  // ──────────────────────────────────────────────────────────────────
+  function mountServiceTechnicalLeadership() {
+    const isService = window.location.hash.includes('service') || window.location.hash.includes('servicio');
+    if (!isService) return;
+
+    if (document.getElementById('tmd-service-leadership-strip')) return;
+
+    const headings = Array.from(document.querySelectorAll('h3'));
+    const tecHeading = headings.find(h => h.textContent.includes('Técnicos Certificados'));
+    if (!tecHeading) return;
+
+    const parentContainer = tecHeading.closest('div.max-w-7xl') || tecHeading.parentElement.parentElement;
+    if (!parentContainer) return;
+
+    const strip = document.createElement('div');
+    strip.id = 'tmd-service-leadership-strip';
+    strip.style.cssText = 'margin-top: 48px; padding-top: 36px; border-top: 1px solid rgba(245,158,11,0.2);';
+    strip.innerHTML = `
+      <div style="text-align: center; margin-bottom: 24px;">
+        <span style="font-family: monospace; font-size: 0.72rem; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; display: block; margin-bottom: 6px;">Liderazgo Técnico • Taller & Campo Km 22</span>
+        <h4 style="font-size: 1.4rem; font-weight: 900; color: #fff; text-transform: uppercase; margin: 0;">Especialistas a Cargo de Servicio Técnico</h4>
+        <p style="font-size: 0.82rem; color: #a3a3a3; margin-top: 6px; max-width: 620px; margin-left: auto; margin-right: auto;">Acceda al expediente y contacto directo de los directores y jefes de taller responsables del mantenimiento mayor y la cobertura nacional.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto;">
+        <div class="tmd-exec-card" onclick="window.tmdOpenExecutiveModal('edwin-martinez')" style="cursor: pointer; background: rgba(18,18,22,0.85); border: 1px solid rgba(245,158,11,0.3); border-radius: 18px; padding: 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s ease;">
+          <img src="/assets/team_hd/edwin_martinez_hd.jpg" alt="Edwin Martinez" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; flex-shrink: 0; background: #000;">
+          <div>
+            <div style="font-size: 0.62rem; font-family: monospace; color: #f59e0b; font-weight: 800; text-transform: uppercase;">Servicio 24/7</div>
+            <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Edwin Martinez</div>
+            <div style="font-size: 0.72rem; color: #a3a3a3;">Gerente de Servicios & Campo</div>
+          </div>
+        </div>
+        <div class="tmd-exec-card" onclick="window.tmdOpenExecutiveModal('elvys-alcantara')" style="cursor: pointer; background: rgba(18,18,22,0.85); border: 1px solid rgba(245,158,11,0.3); border-radius: 18px; padding: 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s ease;">
+          <img src="/assets/team_hd/elvys_alcantara_hd.jpg" alt="Elvys Alcantara" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; flex-shrink: 0; background: #000;">
+          <div>
+            <div style="font-size: 0.62rem; font-family: monospace; color: #f59e0b; font-weight: 800; text-transform: uppercase;">Overhaul Km 22</div>
+            <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Elvys Alcantara</div>
+            <div style="font-size: 0.72rem; color: #a3a3a3;">Gerente de Taller Central</div>
+          </div>
+        </div>
+        <div class="tmd-exec-card" onclick="window.tmdOpenExecutiveModal('blasina-fabian')" style="cursor: pointer; background: rgba(18,18,22,0.85); border: 1px solid rgba(245,158,11,0.3); border-radius: 18px; padding: 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s ease;">
+          <img src="/assets/team_hd/blasina_fabian_hd.jpg" alt="Blasina Fabian" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; flex-shrink: 0; background: #000;">
+          <div>
+            <div style="font-size: 0.62rem; font-family: monospace; color: #f59e0b; font-weight: 800; text-transform: uppercase;">Certificación Técnica</div>
+            <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Blasina Fabian</div>
+            <div style="font-size: 0.72rem; color: #a3a3a3;">Gerente de RRHH & Certificación</div>
+          </div>
+        </div>
+        <div class="tmd-exec-card" onclick="window.tmdOpenExecutiveModal('jorge-torres')" style="cursor: pointer; background: rgba(18,18,22,0.85); border: 1px solid rgba(245,158,11,0.3); border-radius: 18px; padding: 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s ease;">
+          <img src="/assets/team_hd/jorge_torres_hd.jpg" alt="Jorge Torres" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; flex-shrink: 0; background: #000;">
+          <div>
+            <div style="font-size: 0.62rem; font-family: monospace; color: #f59e0b; font-weight: 800; text-transform: uppercase;">División Maquinaria</div>
+            <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Jorge Torres</div>
+            <div style="font-size: 0.72rem; color: #a3a3a3;">Gerente de Ventas Construcción & Agrícola</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 22px;">
+        <a href="#/about#equipo" onclick="window.location.hash='#/about'; setTimeout(function(){document.getElementById('equipo')?.scrollIntoView({behavior:'smooth'});}, 350); return false;" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 800; color: #f59e0b; text-decoration: none; padding: 10px 22px; border-radius: 9999px; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); transition: all 0.2s ease;">
+          <span>Explorar Directorio Completo de 12 Especialistas & Directivos TMD</span>
+          <span>→</span>
+        </a>
+      </div>
+    `;
+
+    parentContainer.appendChild(strip);
+  }
+
+  // ──────────────────────────────────────────────────────────────────
   // 6. CONTINUOUS LIFECYCLE & MUTATION OBSERVER
   // ──────────────────────────────────────────────────────────────────
   function checkAndMount() {
@@ -3678,6 +3744,7 @@ html:not(.dark) #socios .group:hover {
       mountVideoHero();
       mountStaffSection();
     }
+    mountServiceTechnicalLeadership();
   }
 
   // DOM ready check
