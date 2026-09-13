@@ -65,9 +65,7 @@
       '.tmd-exec-card',
       '.tmd-tree-node-card',
       '#socios',
-      'article',
-      '[class*="rounded-2xl"]:not(button):not(header):not(nav):not(input):not(#root)',
-      '[class*="rounded-3xl"]:not(header):not(nav)'
+      'article'
     ].join(',');
 
     const elements = document.querySelectorAll(selector);
@@ -160,6 +158,15 @@
     canvas = document.createElement('canvas');
     canvas.id = 'tmd-ambient-canvas';
     canvas.className = 'mode-dust';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '1';
+    canvas.style.display = 'block';
+    canvas.style.opacity = '0.95';
     document.body.prepend(canvas); // Prepend to guarantee it sits under content
 
     // Guard: re-prepend canvas if React removes it from body

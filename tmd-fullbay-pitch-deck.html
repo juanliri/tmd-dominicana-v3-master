@@ -620,6 +620,12 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    
+    window.nextSlide = nextSlide;
+    window.prevSlide = prevSlide;
+    window.goToSlide = goToSlide;
+    window.showSlide = showSlide;
+
     function nextSlide() {
       if (currentSlide < totalSlides) {
         showSlide(currentSlide + 1);

@@ -1,7 +1,7 @@
 .vercel
 *.bak
+*.bak*
+*.py
 .DS_Store
 Thumbs.db
 *.log
-
-.vercel
