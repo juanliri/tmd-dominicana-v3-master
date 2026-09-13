@@ -519,24 +519,39 @@ html.dark .tmd-white-studio-stage {
 }
 
 /* ─── 25. SPOTLIGHT CARD HOVER EFFECT (todobuild SpotlightCard) ─── */
+.spotlight-card,
 .tmd-spotlight-card {
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1);
-  will-change: transform;
 }
+.spotlight-card::after,
 .tmd-spotlight-card::after {
   content: '';
   pointer-events: none;
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
   opacity: 0;
-  background: radial-gradient(550px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(245,158,11,0.12), transparent 65%);
-  transition: opacity 0.3s ease;
-  z-index: 10;
+  background: radial-gradient(
+    340px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(245, 158, 11, 0.24) 0%,
+    rgba(245, 158, 11, 0.08) 40%,
+    rgba(245, 158, 11, 0.02) 65%,
+    transparent 80%
+  );
+  transition: opacity 0.25s ease;
+  z-index: 5;
 }
+.spotlight-card:hover::after,
 .tmd-spotlight-card:hover::after { opacity: 1; }
+
+/* Never show spotlight glare over pure white product showcase stages */
+.product-stage-white::after,
+[class*="aspect-"]::after,
+[class*="h-44"]::after,
+.h-44::after {
+  display: none !important;
+}
 
 /* ─── 26. BORDER BEAM (todobuild BorderBeam, amber) ─── */
 .tmd-border-beam-wrap {
@@ -881,28 +896,6 @@ html.dark [id*="portal"] {
 .tmd-spotlight-card {
   position: relative;
   overflow: hidden;
-  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
-  will-change: transform;
-}
-.spotlight-card::after,
-.tmd-spotlight-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: radial-gradient(
-    550px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
-    rgba(245, 158, 11, 0.16),
-    transparent 65%
-  );
-  z-index: 10;
-}
-.spotlight-card:hover::after,
-.tmd-spotlight-card:hover::after {
-  opacity: 1;
 }
 
 /* ── Animations (todobuild.store exact aliases) ── */

@@ -493,7 +493,7 @@
   console.log('[TMD Titan Engine] 3-Mode Adaptive Atmospheric & Surface Suite active.');
 
   /* ══════════════════════════════════════════════════════════════════ */
-  /* 6. TODOBUILD SPOTLIGHT CARD & 3D TILT ENGINE                       */
+  /* 6. TODOBUILD SPOTLIGHT CARD GLOW TRACKER (1:1 Instant Tracking)   */
   /* ══════════════════════════════════════════════════════════════════ */
   function initSpotlightCards() {
     const cardSelectors = [
@@ -503,8 +503,8 @@
       '.tmd-diamond-card',
       '.tmd-glass-card',
       'article',
-      '[class*="rounded-2xl"]:not(button):not(header):not(nav):not(input):not(#root):not([class*="aspect-"]):not([class*="bg-white"]):not([class*="h-[360px]"]):not([class*="min-h-"]):not(.product-stage-white)',
-      '[class*="rounded-3xl"]:not(header):not(nav):not(#root):not([class*="aspect-"]):not([class*="bg-white"])'
+      '[class*="rounded-2xl"]:not(button):not(header):not(nav):not(input):not(#root):not([class*="aspect-"]):not([class*="bg-white"]):not([class*="h-[360px]"]):not([class*="min-h-"]):not([class*="h-44"]):not(.h-44):not(.product-stage-white)',
+      '[class*="rounded-3xl"]:not(header):not(nav):not(#root):not([class*="aspect-"]):not([class*="bg-white"]):not([class*="h-44"]):not(.h-44)'
     ];
 
     const cards = document.querySelectorAll(cardSelectors.join(','));
@@ -513,24 +513,34 @@
       card.dataset.spotlightBound = 'true';
       card.classList.add('tmd-spotlight-card');
 
+      // Clear any legacy perspective transform
+      if (card.style.transform && card.style.transform.includes('perspective')) {
+        card.style.transform = '';
+      }
+
+      let rect = null;
+      let lastScrollY = window.scrollY;
+
+      card.addEventListener('mouseenter', () => {
+        rect = card.getBoundingClientRect();
+        lastScrollY = window.scrollY;
+      }, { passive: true });
+
       card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
+        if (!rect || window.scrollY !== lastScrollY) {
+          rect = card.getBoundingClientRect();
+          lastScrollY = window.scrollY;
+        }
+        // Direct 1:1 instantaneous cursor position without reflow thrashing or 3D transform lag
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         card.style.setProperty('--spotlight-x', `${x}px`);
         card.style.setProperty('--spotlight-y', `${y}px`);
-
-        // Subtle 3D perspective tilt (max 3 degrees)
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -3;
-        const rotateY = ((x - centerX) / centerX) * 3;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-2px)`;
-      });
+      }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-      });
+        rect = null;
+      }, { passive: true });
     });
   }
 
