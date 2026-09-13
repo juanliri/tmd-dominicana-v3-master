@@ -1163,8 +1163,8 @@ ancho: - Demanda`},{label:"TR &#8211; 30",value:"760 mm - 150 mm - Estándar"},{
                 className: "p-4 rounded-2xl bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 hover:border-amber-500 cursor-pointer transition shadow-sm group flex flex-col justify-between",
                 children: [
                   f.jsx("div", {
-                    className: "h-44 rounded-xl bg-white p-3 flex items-center justify-center overflow-hidden mb-3 border border-slate-100 dark:border-neutral-800/80 shadow-sm",
-                    children: f.jsx("img", { src: rel.heroImage, alt: rel.name, className: "max-h-full max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition duration-300" })
+                    className: "h-44 rounded-xl bg-white product-stage-white p-3 flex items-center justify-center overflow-hidden mb-3 border border-slate-100 dark:border-neutral-800/80 shadow-sm",
+                    children: f.jsx("img", { src: rel.heroImage, alt: rel.name, className: "max-h-full max-w-full object-contain mix-blend-normal group-hover:scale-105 transition duration-300" })
                   }),
                   f.jsxs("div", {
                     children: [

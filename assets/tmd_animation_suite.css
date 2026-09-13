@@ -596,15 +596,59 @@ html.dark section {
   background: transparent !important;
 }
 
-/* Specific cards, modals, and spotlight widgets get subtle translucent dark glass */
+/* Specific cards, modals, and spotlight widgets get subtle translucent dark glass (excluding white product stages) */
 html.dark .tmd-glass,
 html.dark .tmd-diamond-card,
-html.dark .tmd-spotlight-card,
-html.dark div.rounded-3xl.border,
-html.dark div.rounded-2xl.border {
+html.dark .tmd-spotlight-card:not([class*="bg-white"]):not(.product-stage-white):not([class*="aspect-"]):not([class*="h-[360px]"]):not([class*="h-44"]):not(.h-44),
+html.dark div.rounded-3xl.border:not([class*="bg-white"]):not([class*="dark:bg-white"]):not(.product-stage-white):not([class*="aspect-"]):not([class*="h-[360px]"]):not([class*="h-44"]):not(.h-44),
+html.dark div.rounded-2xl.border:not([class*="bg-white"]):not([class*="dark:bg-white"]):not(.product-stage-white):not([class*="aspect-"]):not([class*="h-[360px]"]):not([class*="h-44"]):not(.h-44) {
   background-color: rgba(10, 8, 4, 0.72) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* ─── 28B. WHITE STUDIO PRODUCT STAGES & RELATED PRODUCTS (CRISP 100% PURE WHITE) ─── */
+html.dark [class*="aspect-[16/11]"],
+html.dark [class*="aspect-[16/10]"],
+html.dark [class*="aspect-[4/3]"],
+html.dark [class*="h-[360px]"],
+html.dark [class*="sm:h-[460px]"],
+html.dark [class*="min-h-[360px]"],
+html.dark [class*="h-44"],
+html.dark .h-44,
+html.dark .product-stage-white,
+html.dark .tmd-product-white-stage,
+html.dark div[class*="h-44"][class*="bg-white"],
+[class*="aspect-[16/11]"],
+[class*="aspect-[16/10]"],
+[class*="aspect-[4/3]"],
+[class*="h-[360px]"],
+[class*="sm:h-[460px]"],
+[class*="min-h-[360px]"],
+[class*="h-44"],
+.h-44,
+.product-stage-white,
+.tmd-product-white-stage {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Ensure related products and machine photos never have dark multiply blend */
+[class*="aspect-[16/11]"] img,
+[class*="aspect-[16/10]"] img,
+[class*="aspect-[4/3]"] img,
+[class*="h-[360px]"] img,
+[class*="sm:h-[460px]"] img,
+[class*="min-h-[360px]"] img,
+[class*="h-44"] img,
+.h-44 img,
+.product-stage-white img,
+img[src*="heroImage"] {
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  filter: contrast(1.04) brightness(0.98) saturate(0.94) sepia(0.02) !important;
 }
 /* Navbars and panels keep glass */
 html.dark nav,
