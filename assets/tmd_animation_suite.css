@@ -574,16 +574,30 @@ html.dark .tmd-white-studio-stage {
   z-index: 2;
 }
 
-/* ─── 28. TRANSPARENT PAGE LAYERS ─── */
-/* Ensure React pages show the canvas behind them */
-html.dark .min-h-screen:not(#root):not(nav):not(header) {
+/* ─── 28. TRANSPARENT PAGE LAYERS (PARTICLES ALWAYS VISIBLE) ─── */
+html.dark .min-h-screen,
+html.dark #root,
+html.dark #root > div,
+html.dark [class*="min-h-screen"],
+html.dark div.bg-slate-50,
+html.dark div.dark\:bg-neutral-950,
+html.dark .absolute.inset-0.bg-neutral-950,
+html.dark main,
+html.dark footer,
+html.dark section {
   background-color: transparent !important;
+  background: transparent !important;
 }
-html.dark [class*="bg-neutral-950"]:not(button):not(input):not(nav):not(header):not(#tmd-ai-chat-panel):not([id*="portal"]):not([id*="modal"]) {
-  background-color: rgba(4,2,1,0.78) !important;
-}
-html.dark [class*="bg-neutral-900"]:not(button):not(input):not(nav):not(header):not(#tmd-ai-chat-panel):not([id*="portal"]):not([id*="modal"]) {
-  background-color: rgba(10,6,2,0.72) !important;
+
+/* Specific cards, modals, and spotlight widgets get subtle translucent dark glass */
+html.dark .tmd-glass,
+html.dark .tmd-diamond-card,
+html.dark .tmd-spotlight-card,
+html.dark div.rounded-3xl.border,
+html.dark div.rounded-2xl.border {
+  background-color: rgba(10, 8, 4, 0.72) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 /* Navbars and panels keep glass */
 html.dark nav,
