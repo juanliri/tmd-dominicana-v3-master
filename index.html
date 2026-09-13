@@ -4147,79 +4147,141 @@ html:not(.dark) #socios .group:hover {
 </script>
 
     <!-- ═══════════════════════════════════════════════════════════════════ -->
-    <!-- TMD AI CHAT SUPPORT DESK — Full-site AI assistant                  -->
-    <!-- Knowledge: all products, services, routes, team, pricing, links    -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
-    <div id="tmd-ai-chat-btn" title="Asistente Virtual TMD" onclick="tmdToggleChat()" style="
-      position:fixed; bottom:80px; right:20px; z-index:99985;
-      width:52px; height:52px; border-radius:50%;
-      background:linear-gradient(135deg,#f59e0b,#d97706);
-      box-shadow:0 6px 22px rgba(245,158,11,0.45);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; font-size:1.3rem;
-      transition:transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s;
-      animation: tmd-chat-pulse 3s ease-in-out infinite;
-    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-      🤖
-    </div>
-    <div id="tmd-ai-chat-badge" style="
-      position:fixed; bottom:130px; right:14px; z-index:99986;
-      background:linear-gradient(135deg,#0a0a0a,#141414);
-      border:1px solid rgba(245,158,11,0.4); border-radius:12px;
-      padding:6px 12px; font-size:0.7rem; font-weight:700; color:#f59e0b;
-      white-space:nowrap; pointer-events:none;
-      box-shadow:0 4px 14px rgba(0,0,0,0.6);
-      animation: tmd-badge-fade 5s ease-in-out forwards;
-    ">💬 ¿En qué le ayudamos?</div>
+    <!-- TMD INGENIERÍA & ASESORÍA TÉCNICA — Soporte Directo Sede Km 22      -->
+    <!-- Mesa Técnica Especializada: Flota, Repuestos, Servicios y Logística -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <style id="tmd-chat-support-desk-styles">
+      #tmd-ai-chat-btn {
+        position: fixed !important;
+        bottom: 24px !important;
+        right: 24px !important;
+        z-index: 999998 !important;
+        width: 54px !important;
+        height: 54px !important;
+        border-radius: 16px !important;
+        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+        box-shadow: 0 8px 26px rgba(245, 158, 11, 0.42), 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s !important;
+      }
+      #tmd-ai-chat-btn:hover {
+        transform: scale(1.08) translateY(-2px) !important;
+        box-shadow: 0 12px 32px rgba(245, 158, 11, 0.55), 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+      }
+      #tmd-ai-chat-badge {
+        position: fixed !important;
+        bottom: 86px !important;
+        right: 18px !important;
+        z-index: 999997 !important;
+        background: rgba(14, 14, 18, 0.95) !important;
+        border: 1px solid rgba(245, 158, 11, 0.45) !important;
+        border-radius: 12px !important;
+        padding: 6px 13px !important;
+        font-size: 0.72rem !important;
+        font-weight: 800 !important;
+        color: #f59e0b !important;
+        white-space: nowrap !important;
+        pointer-events: none !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7) !important;
+        backdrop-filter: blur(16px) !important;
+        animation: tmd-badge-fade 6s ease-in-out forwards !important;
+      }
+      #tmd-ai-chat-panel {
+        position: fixed !important;
+        bottom: 88px !important;
+        right: 22px !important;
+        z-index: 999999 !important;
+        width: 380px !important;
+        max-width: calc(100vw - 32px) !important;
+        height: 530px !important;
+        max-height: calc(100vh - 120px) !important;
+        background: rgba(14, 14, 18, 0.98) !important;
+        backdrop-filter: blur(24px) saturate(1.8) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(1.8) !important;
+        border: 1px solid rgba(245, 158, 11, 0.35) !important;
+        border-radius: 22px !important;
+        box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(245, 158, 11, 0.12) !important;
+        display: none;
+        flex-direction: column !important;
+        font-family: 'Inter', sans-serif !important;
+        overflow: hidden !important;
+      }
+      @media (max-width: 767px) {
+        #tmd-ai-chat-btn {
+          bottom: 74px !important;
+          right: 16px !important;
+        }
+        #tmd-ai-chat-badge {
+          bottom: 132px !important;
+          right: 14px !important;
+        }
+        #tmd-ai-chat-panel {
+          bottom: 136px !important;
+          right: 12px !important;
+          max-height: calc(100vh - 160px) !important;
+        }
+      }
+      @keyframes tmd-badge-fade {
+        0%, 75% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+      }
+    </style>
 
-    <div id="tmd-ai-chat-panel" style="
-      display:none; position:fixed;
-      bottom:142px; right:16px; z-index:99990;
-      width:360px; max-width:calc(100vw - 32px);
-      height:520px; max-height:calc(100vh - 180px);
-      background:linear-gradient(160deg,#0c0c0c,#141414);
-      border:1px solid rgba(245,158,11,0.35);
-      border-radius:20px;
-      box-shadow:0 24px 60px rgba(0,0,0,0.8), 0 0 30px rgba(245,158,11,0.08);
-      display:none; flex-direction:column;
-      font-family:'Inter',sans-serif; overflow:hidden;
-    ">
+    <div id="tmd-ai-chat-btn" title="Mesa Técnica & Asesoría TMD Km 22" onclick="tmdToggleChat()">
+      <svg style="width:24px;height:24px;color:#0a0a0a;" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+      </svg>
+      <span style="position:absolute;top:2px;right:2px;width:10px;height:10px;background:#10b981;border:2px solid #000;border-radius:50%;box-shadow:0 0 6px #10b981;"></span>
+    </div>
+
+    <div id="tmd-ai-chat-badge">
+      <span style="width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;display:inline-block;margin-right:6px;"></span>
+      Mesa Técnica TMD · Km 22
+    </div>
+
+    <div id="tmd-ai-chat-panel">
       <!-- Chat Header -->
       <div style="
-        padding:14px 16px; background:#111;
+        padding:14px 18px; background:rgba(18,18,22,0.98);
         border-bottom:1px solid rgba(255,255,255,0.08);
         display:flex; align-items:center; justify-content:space-between;
         flex-shrink:0;
       ">
-        <div style="display:flex;align-items:center;gap:10px;">
+        <div style="display:flex;align-items:center;gap:12px;">
           <div style="
-            width:36px;height:36px;border-radius:50%;
+            width:38px;height:38px;border-radius:10px;
             background:linear-gradient(135deg,#f59e0b,#d97706);
-            display:flex;align-items:center;justify-content:center;font-size:1.1rem;
-          ">🤖</div>
+            display:flex;align-items:center;justify-content:center;
+            font-weight:900;font-size:0.8rem;color:#000;letter-spacing:0.04em;
+            box-shadow:0 2px 10px rgba(245,158,11,0.3);
+          ">TMD</div>
           <div>
-            <div style="font-size:0.8rem;font-weight:800;color:#fff;">Asistente Virtual TMD</div>
-            <div style="font-size:0.65rem;color:#10b981;display:flex;align-items:center;gap:4px;">
-              <span style="width:5px;height:5px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;display:inline-block;"></span>
-              En línea · TMD Km 22
+            <div style="font-size:0.84rem;font-weight:800;color:#fff;letter-spacing:-0.01em;">Ingeniería & Asesoría Técnica</div>
+            <div style="font-size:0.68rem;color:#10b981;font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;display:inline-block;"></span>
+              En línea · Taller Central Km 22
             </div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="tmdMinimizeChat()" title="Minimizar (mantiene la conversación)" style="
-            width:28px;height:28px;border-radius:50%;
-            background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+          <button onclick="tmdMinimizeChat()" title="Minimizar" style="
+            width:28px;height:28px;border-radius:8px;
+            background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
             color:#a3a3a3;font-size:0.9rem;cursor:pointer;
             display:flex;align-items:center;justify-content:center;
-            transition:background 0.2s;
-          " onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">—</button>
-          <button onclick="tmdCloseChat()" title="Cerrar chat" style="
-            width:28px;height:28px;border-radius:50%;
-            background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+            transition:all 0.2s;
+          " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">—</button>
+          <button onclick="tmdCloseChat()" title="Cerrar" style="
+            width:28px;height:28px;border-radius:8px;
+            background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
             color:#f87171;font-size:0.85rem;font-weight:700;cursor:pointer;
             display:flex;align-items:center;justify-content:center;
-            transition:background 0.2s;
-          " onmouseover="this.style.background='rgba(239,68,68,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">✕</button>
+            transition:all 0.2s;
+          " onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">✕</button>
         </div>
       </div>
 
@@ -4230,17 +4292,18 @@ html:not(.dark) #socios .group:hover {
         scrollbar-width:thin; scrollbar-color:rgba(245,158,11,0.2) transparent;
       ">
         <!-- Welcome message -->
-        <div class="tmd-chat-msg tmd-chat-bot" style="
+        <div class="tmd-chat-msg" style="
           background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
-          border-radius:12px 12px 12px 4px; padding:10px 13px;
-          font-size:0.82rem;color:#e5e5e5;line-height:1.5; max-width:85%;
+          border-radius:14px 14px 14px 4px; padding:12px 14px;
+          font-size:0.82rem;color:#e5e5e5;line-height:1.55; max-width:88%;
         ">
-          ¡Hola! Soy el asistente virtual de <strong style="color:#f59e0b;">Tecnomaquinarias Diesel</strong>. Puedo ayudarle con:<br><br>
-          🏗️ Maquinaria disponible y precios<br>
-          🔧 Servicio técnico y repuestos<br>
-          📋 Cotizaciones y renta de flota<br>
-          📍 Cómo llegar a Km 22<br><br>
-          ¿Qué necesita hoy?
+          Bienvenido al centro de <strong style="color:#f59e0b;">Asesoría Técnica y Flota de Tecnomaquinarias Diesel</strong>.<br><br>
+          Estamos a su disposición para coordinar:<br>
+          • Especificaciones técnicas y disponibilidad en patio (Km 22).<br>
+          • Renta corporativa de excavadoras JCB, compactadores y tractores.<br>
+          • Cotizaciones directas de venta 0 Km y planes de adquisición.<br>
+          • Diagnóstico LiveLink, taller central y despacho de repuestos OEM.<br><br>
+          <span style="color:#a3a3a3;font-size:0.75rem;font-weight:600;">Seleccione una opción o ingrese su consulta:</span>
         </div>
 
         <!-- Quick action chips -->
@@ -4264,7 +4327,7 @@ html:not(.dark) #socios .group:hover {
             padding:5px 11px;background:rgba(245,158,11,0.1);
             border:1px solid rgba(245,158,11,0.3);border-radius:20px;
             color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
-          ">Cómo llegar</button>
+          ">Sede Km 22</button>
           <button onclick="tmdChatQuickAsk('Quiero cotizar repuestos genuinos OEM')" style="
             padding:5px 11px;background:rgba(245,158,11,0.1);
             border:1px solid rgba(245,158,11,0.3);border-radius:20px;
@@ -4274,7 +4337,7 @@ html:not(.dark) #socios .group:hover {
             padding:5px 11px;background:rgba(245,158,11,0.1);
             border:1px solid rgba(245,158,11,0.3);border-radius:20px;
             color:#f59e0b;font-size:0.7rem;font-weight:700;cursor:pointer;
-          ">Servicio 24/7</button>
+          ">Soporte 24/7</button>
         </div>
       </div>
 
@@ -4285,7 +4348,7 @@ html:not(.dark) #socios .group:hover {
         display:flex; gap:8px; align-items:center;
       ">
         <input id="tmd-chat-input" type="text"
-          placeholder="Escribe tu consulta aquí..."
+          placeholder="Consulte disponibilidad, repuestos o soporte..."
           onkeydown="if(event.key==='Enter'){tmdChatSend();}"
           style="
             flex:1; background:rgba(255,255,255,0.05);
@@ -4306,53 +4369,42 @@ html:not(.dark) #socios .group:hover {
       </div>
     </div>
 
-    <style>
-    @keyframes tmd-chat-pulse {
-      0%,100% { box-shadow:0 6px 22px rgba(245,158,11,0.45); }
-      50%      { box-shadow:0 6px 28px rgba(245,158,11,0.65), 0 0 0 8px rgba(245,158,11,0.08); }
-    }
-    @keyframes tmd-badge-fade {
-      0%,70%  { opacity:1; transform:translateY(0); }
-      100%    { opacity:0; transform:translateY(-6px); pointer-events:none; }
-    }
-    </style>
-
     <script>
     (function(){
       var _chatOpen = false;
 
-      // ── TMD Knowledge Base ───────────────────────────────────────────
+      // ── TMD Technical Knowledge Base ──────────────────────────────────
       var KB = [
         { k:['excavadora','jcb 220','220x','220lc','hidráulica','excavadoras'],
-          r:'🏗️ <strong>Excavadoras JCB disponibles:</strong><br>• JCB 220X (21.5t) — Excavadora estrella<br>• JCB 131X — Compacta urbana<br>• JCB 305T — Miniexcavadora<br><br>Para cotizar: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a> o visite <a href="#/vehicle/excavadoras-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver catálogo →</a>'},
+          r:'🏗️ <strong>Excavadoras JCB Disponibles:</strong><br>• JCB 220X (21.5t) — Excavadora estrella<br>• JCB 131X — Compacta urbana<br>• JCB 305T — Miniexcavadora<br><br>Para cotizar de inmediato: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a> o consulte <a href="#/vehicle/excavadoras-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ficha Técnica JCB →</a>'},
         { k:['retroexcavadora','3cx','4cx','jcb 3cx'],
-          r:'🔄 <strong>Retroexcavadoras JCB 4x4:</strong><br>• JCB 3CX — El más vendido de RD<br>• JCB 4CX — Máxima versatilidad<br><br>Disponibles en venta y renta. <a href="#/vehicle/retroexcavadora-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver detalles →</a>'},
+          r:'🔄 <strong>Retroexcavadoras JCB 4x4:</strong><br>• JCB 3CX — El equipo más confiable en obras de RD<br>• JCB 4CX — Tracción integral 4x4 y máxima potencia<br><br>Disponibles en venta 0 Km y alquiler. <a href="#/vehicle/retroexcavadora-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver detalles de equipo →</a>'},
         { k:['tractor','ls tractor','yanmar','agrícola','agricola','campo'],
-          r:'🌾 <strong>Línea Agrícola TMD:</strong><br>• LS Tractor MT7 — 4WD alta potencia<br>• LS Tractor MT3 — Compacto versátil<br>• Yanmar — Mini tractores precisión<br><br>Cobertura Cibao & Sur. <a href="#/vehicle/tractores-agricolas-ls" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver tractores →</a>'},
+          r:'🌾 <strong>Línea Agrícola Especializada:</strong><br>• LS Tractor MT7 — 4WD alta potencia y torque<br>• LS Tractor MT3 — Maniobrabilidad en cultivos<br>• Yanmar — Alta eficiencia en laboreo de precisión<br><br>Soporte técnico y repuestos garantizados. <a href="#/vehicle/tractores-agricolas-ls" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver catálogo agrícola →</a>'},
         { k:['repuesto','filtro','oem','original','pieza'],
-          r:'🔧 <strong>Repuestos Genuinos OEM:</strong><br>Importados directamente de fábrica para JCB, LiuGong, LS Tractor y Yanmar.<br><br>Inventario en Km 22: filtros, aceites, sellos, transmisiones.<br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a>'},
+          r:'🔧 <strong>Repuestos Genuinos OEM:</strong><br>Importados directamente de fabricante para JCB, LiuGong, LS Tractor y Yanmar.<br><br>Inventario continuo en Km 22: filtros, aceites, sellos, orugas y kits hidráulicos.<br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a>'},
         { k:['renta','alquiler','arrendamiento','rent'],
-          r:'🔑 <strong>Renta Corporativa de Flota:</strong><br>• Excavadoras JCB desde $950/día<br>• Retroexcavadoras desde $450/día<br>• Rodillos compactadores disponibles<br><br>Operador certificado incluido. Contrato mínimo 5 días. Llame: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+          r:'🔑 <strong>Renta Corporativa de Flota:</strong><br>• Excavadoras JCB desde $950/día<br>• Retroexcavadoras desde $450/día<br>• Rodillos compactadores y motoniveladoras<br><br>Incluye telemetría LiveLink y operador certificado opcional. Contrato mínimo 5 días. Llame: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
         { k:['servicio','técnico','tecnico','mantenimiento','taller','24'],
-          r:'⚙️ <strong>Servicio Técnico 24/7:</strong><br>• Unidades móviles en todo el territorio<br>• Diagnóstico electrónico LiveLink JCB<br>• Overhaul completo en Km 22<br>• Respuesta en campo en menos de 4h<br><br>Emergencias: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+          r:'⚙️ <strong>Servicio Técnico & Taller Central:</strong><br>• Unidades móviles de asistencia en faena a nivel nacional<br>• Diagnóstico electrónico oficial LiveLink JCB<br>• Overhaul mayor y banco hidráulico en Km 22<br>• Tiempo promedio de respuesta en campo menor a 4h<br><br>Línea técnica directa: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
         { k:['precio','costo','cuánto','cuanto','cotización','cotizacion','presupuesto'],
-          r:'💰 <strong>Solicitar Cotización:</strong><br>Los precios varían según modelo, configuración y términos de pago.<br><br>Para una cotización personalizada:<br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>💬 <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">WhatsApp directo →</a>'},
+          r:'💰 <strong>Cotizaciones & Planes Comerciales:</strong><br>Tarifas optimizadas según volumen de faena, tipo de contrato (renta o compra) y términos de financiamiento.<br><br>Para preparar su propuesta técnico-económica formal:<br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>💬 <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">WhatsApp Directo Km 22 →</a>'},
         { k:['km 22','kmm22','dirección','ubicación','ubicacion','llegar','donde'],
-          r:'📍 <strong>Sede Central TMD:</strong><br>Km 22 Autopista Duarte, Santo Domingo, RD<br><br>Horario: Lunes–Viernes 8am–6pm · Sábados 8am–2pm<br><br><a href="https://maps.google.com/?q=Tecnomaquinarias+Diesel+Km+22+Duarte" target="_blank" style="color:#f59e0b;">Ver en Google Maps →</a>'},
+          r:'📍 <strong>Sede Central y Patio Logístico TMD:</strong><br>Km 22 Autopista Duarte, Santo Domingo Oeste, RD<br><br>Horario de atención: Lunes a Viernes 8:00 AM – 6:00 PM · Sábados 8:00 AM – 2:00 PM<br><br><a href="https://maps.google.com/?q=Tecnomaquinarias+Diesel+Km+22+Duarte" target="_blank" style="color:#f59e0b;">Abrir ubicación en Google Maps →</a>'},
         { k:['liugong','montacargas','industrial'],
-          r:'🏭 <strong>Montacargas LiuGong:</strong><br>Disponibles en capacidades de 3t a 10t para uso industrial, portuario y logístico.<br><br><a href="#/vehicle/montacargas-liugong" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver catálogo →</a>'},
+          r:'🏭 <strong>Montacargas Industriales LiuGong:</strong><br>Capacidades de 2.5T a 10T en diésel y dual gas, para operaciones logísticas de alta exigencia.<br><br><a href="#/vehicle/montacargas-liugong" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver modelos disponibles →</a>'},
         { k:['minicargador','skid','bobcat','compacto'],
-          r:'⚡ <strong>Minicargadores JCB:</strong><br>Serie 1CX y 3CX compactos para espacios reducidos, demolición y excavación urbana.<br><br><a href="#/vehicle/minicargadores-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver minicargadores →</a>'},
+          r:'⚡ <strong>Minicargadores Compactos JCB:</strong><br>Monobrazo PowerBoom de alta seguridad y visión periférica para urbanizaciones y espacios reducidos.<br><br><a href="#/vehicle/minicargadores-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver minicargadores →</a>'},
         { k:['compactador','rodillo','compactacion','pavimento'],
-          r:'🔄 <strong>Compactación & Rodillos JCB:</strong><br>Rodillos de simple y doble tambor para pavimentación y terreno.<br><br><a href="#/vehicle/compactador-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver rodillos →</a>'},
+          r:'🔄 <strong>Compactación & Pavimentación:</strong><br>Rodillos vibratorios tándem y placas vibratorias de ingeniería suiza Ammann.<br><br><a href="#/vehicle/compactador-jcb" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver catálogo de compactación →</a>'},
         { k:['whatsapp','contacto','email','correo','teléfono','telefono'],
-          r:'📞 <strong>Contacto Directo TMD:</strong><br>• Teléfono: <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>• WhatsApp: <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">(809) 826-2222 →</a><br>• Correo: <a href="mailto:contacto@tmd.com.do" style="color:#f59e0b;">contacto@tmd.com.do</a>'},
+          r:'📞 <strong>Canales Oficiales TMD:</strong><br>• Central Telefónica: <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>• WhatsApp Técnico: <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">(809) 826-2222 →</a><br>• Soporte por Correo: <a href="mailto:contacto@tmd.com.do" style="color:#f59e0b;">contacto@tmd.com.do</a>'},
         { k:['equipo','ejecutivo','gerente','personal','staff'],
-          r:'👥 <strong>Equipo Ejecutivo TMD:</strong><br>Contamos con 12 especialistas regionales listos para atenderle.<br><br><a href="#/about" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver equipo completo →</a>'},
+          r:'👥 <strong>Mesa Ejecutiva & Directores Técnicos:</strong><br>Nuestro directorio técnico de especialistas está listo para coordinar sus requerimientos.<br><br><a href="#/about" onclick="tmdToggleChat()" style="color:#f59e0b;">Ver equipo profesional →</a>'},
         { k:['mopc','licitacion','licitación','gobierno','obra pública'],
-          r:'🏛️ <strong>Licitaciones & MOPC:</strong><br>TMD cuenta con historial de suministro a obras públicas dominicanas. Ofrecemos tarifas preferenciales y financiamiento para contratistas calificados.<br><br>Contacte: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+          r:'🏛️ <strong>Licitaciones Estatales & MOPC:</strong><br>TMD suministra maquinaria certificada con cumplimiento técnico para contratistas y programas de infraestructura nacional.<br><br>Contacto corporativo: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
         { k:['garantía','garantia','warranty'],
-          r:'🛡️ <strong>Garantía TMD:</strong><br>Todas las unidades nuevas incluyen garantía oficial del fabricante. Servicio autorizado disponible en Km 22.<br><br>Consulte términos: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
+          r:'🛡️ <strong>Garantía Oficial de Fábrica:</strong><br>Cada máquina nueva adquirida cuenta con respaldo directo del fabricante y soporte técnico autorizado en Santo Domingo.<br><br>Consulte términos: <a href="tel:18098262222" style="color:#f59e0b;">📞 (809) 826-2222</a>'},
       ];
 
       function tmdChatMatch(query) {
@@ -4368,11 +4420,6 @@ html:not(.dark) #socios .group:hover {
       // ── Chat: close and minimize handlers ─────────────────────────────
       window.tmdCloseChat = function() {
         _chatOpen = false;
-        _chatWasOpenBeforeScroll = false;
-        if (_chatScrollTimer) {
-          clearTimeout(_chatScrollTimer);
-          _chatScrollTimer = null;
-        }
         var panel = document.getElementById('tmd-ai-chat-panel');
         if (!panel) return;
         panel.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
@@ -4390,11 +4437,6 @@ html:not(.dark) #socios .group:hover {
       // ── Chat: open/expand panel ─────────────────────────────────────────
       window.tmdOpenChat = function() {
         _chatOpen = true;
-        _chatWasOpenBeforeScroll = false;
-        if (_chatScrollTimer) {
-          clearTimeout(_chatScrollTimer);
-          _chatScrollTimer = null;
-        }
         var panel = document.getElementById('tmd-ai-chat-panel');
         if (!panel) return;
         panel.style.display = 'flex';
@@ -4425,19 +4467,6 @@ html:not(.dark) #socios .group:hover {
         }
       };
 
-      // ── Auto-minimize chat when user scrolls (does not pop back up) ─────
-      var _chatScrollTimer = null;
-      var _chatWasOpenBeforeScroll = false;
-      var _lastScrollYChat = window.scrollY;
-      window.addEventListener('scroll', function() {
-        var delta = Math.abs(window.scrollY - _lastScrollYChat);
-        _lastScrollYChat = window.scrollY;
-        if (delta < 15) return;
-        if (_chatOpen) {
-          window.tmdCloseChat();
-        }
-      }, { passive: true });
-
       window.tmdChatSend = function() {
         var input = document.getElementById('tmd-chat-input');
         var messages = document.getElementById('tmd-chat-messages');
@@ -4460,7 +4489,7 @@ html:not(.dark) #socios .group:hover {
         var typingMsg = document.createElement('div');
         typingMsg.id = 'tmd-typing';
         typingMsg.style.cssText = 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 12px 4px;padding:10px 13px;font-size:0.82rem;color:#737373;max-width:85%;';
-        typingMsg.innerHTML = '⏳ Consultando base de datos...';
+        typingMsg.innerHTML = 'Consultando especificaciones de ingeniería y flota...';
         messages.appendChild(typingMsg);
         messages.scrollTop = messages.scrollHeight;
 
@@ -4468,13 +4497,13 @@ html:not(.dark) #socios .group:hover {
           var typing = document.getElementById('tmd-typing');
           if (typing) typing.remove();
           var response = tmdChatMatch(val) ||
-            '¿Necesita información específica? Nuestro equipo puede asistirle directamente:<br><br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>💬 <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">WhatsApp →</a>';
+            'Para brindarle asesoría técnica directa o cotizaciones sobre medida para su proyecto:<br><br>📞 <a href="tel:18098262222" style="color:#f59e0b;">(809) 826-2222</a><br>💬 <a href="https://wa.me/18098262222" target="_blank" style="color:#25d366;">Asesor Técnico WhatsApp →</a>';
           var botMsg = document.createElement('div');
           botMsg.style.cssText = 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 12px 4px;padding:10px 13px;font-size:0.82rem;color:#e5e5e5;line-height:1.55;max-width:85%;';
           botMsg.innerHTML = response;
           messages.appendChild(botMsg);
           messages.scrollTop = messages.scrollHeight;
-        }, 600 + Math.random() * 400);
+        }, 500 + Math.random() * 300);
       };
 
       window.tmdChatQuickAsk = function(question) {
@@ -4492,30 +4521,46 @@ html:not(.dark) #socios .group:hover {
         }
       }, true);
 
-      // ── NAV: Close dropdowns/drawer on any nav item selection ────────────
-      // React SPA nav: intercept link/button clicks inside nav/header and
-      // simulate an Escape key + toggle-off so dropdowns & mobile drawers close.
+      // ── MEGAMENU & NAVBAR AUTO-HIDE ON ANY INTERACTION ────────────────
       document.addEventListener('click', function(e) {
-        var navItem = e.target.closest('nav a, nav button, header a, header button, [role="menuitem"]');
-        if (!navItem) return;
-        // Skip the theme toggle and the chat/portal FABs
-        var id = (navItem.id || '');
-        if (id.includes('chat') || id.includes('portal') || id.includes('theme') || id.includes('exec')) return;
-        // Fire Escape to close any open dropdown that React listens to
-        setTimeout(function() {
-          document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-          document.body.click(); // close any backdrop/overlay
-          // Also try to close mobile drawer if present
-          var mobileClose = document.querySelector('[data-mobile-close], [aria-label="Close menu"], [aria-label="Cerrar menú"]');
-          if (mobileClose) mobileClose.click();
-          // Look for any open dropdown panel and close it
-          var dropdowns = document.querySelectorAll('[data-dropdown-open="true"], [class*="dropdown"][class*="open"], [class*="mega-menu"][style*="display: block"]');
-          dropdowns.forEach(function(d) { d.style.display = 'none'; });
-          // Force React state close by clicking outside the nav
-          var overlay = document.querySelector('[class*="overlay"][class*="nav"], [class*="nav-overlay"]');
-          if (overlay) overlay.click();
-        }, 60);
-      }, false);
+        // 1. If clicking inside the megamenu on a link, button, or card:
+        var insideMegamenu = e.target.closest('header div.absolute.top-full, header .absolute.top-full');
+        if (insideMegamenu) {
+          var clickable = e.target.closest('a, button, [role="button"], [onclick], .cursor-pointer');
+          if (clickable) {
+            if (typeof window.tmdCloseNavMenu === 'function') {
+              window.tmdCloseNavMenu();
+            }
+          }
+          return;
+        }
+
+        // 2. If clicking on the main header nav buttons (Inicio, Maquinaria, etc.), allow React
+        var inNavButtons = e.target.closest('header nav button');
+        if (inNavButtons) {
+          return;
+        }
+
+        // 3. If clicking anywhere outside header:
+        var inHeader = e.target.closest('header');
+        if (!inHeader) {
+          if (typeof window.tmdCloseNavMenu === 'function') {
+            window.tmdCloseNavMenu();
+          }
+        }
+      }, true);
+
+      // Close megamenu and chat on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (typeof window.tmdCloseNavMenu === 'function') {
+            window.tmdCloseNavMenu();
+          }
+          if (_chatOpen) {
+            window.tmdCloseChat();
+          }
+        }
+      });
 
     })();
     </script>
