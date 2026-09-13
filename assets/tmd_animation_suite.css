@@ -888,7 +888,7 @@ div.border-x,
 }
 
 /* Ensure body direct content sits safely in front of background canvas */
-body > *:not(#tmd-ambient-canvas):not([id*="modal"]):not([role="dialog"]):not([id*="chat"]):not([id*="tmd-ai"]) {
+body > *:not(#tmd-ambient-canvas):not([id*="modal"]):not([role="dialog"]):not([id*="chat"]):not([id*="tmd-ai"]):not([id*="sticky"]):not(#tmd-mobile-sticky-bar) {
   position: relative !important;
   z-index: 1 !important;
 }
