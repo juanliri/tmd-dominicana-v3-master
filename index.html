@@ -2105,7 +2105,7 @@ html:not(.dark) #socios .group:hover {
       }
 
       /* Specific Cards & Modules — PURE JET BLACK WITH CRISP BORDERS */
-      html.dark .tmd-spotlight-card:not(section):not(footer):not(main),
+      html.dark .tmd-spotlight-card:not(section):not(footer):not(main):not([class*="aspect-"]):not([class*="bg-white"]):not(.product-stage-white):not([class*="h-[360px]"]):not([class*="min-h-"]),
       html.dark #equipo .grid > div {
         background-color: #050507 !important;
         background: #050507 !important;
@@ -2129,12 +2129,11 @@ html:not(.dark) #socios .group:hover {
       html.dark [class*="h-[360px]"][class*="rounded-2xl"],
       html.dark [class*="sm:h-[460px]"][class*="rounded-2xl"],
       html.dark [class*="min-h-[360px]"][class*="rounded-2xl"],
-      html:not(.dark) [class*="aspect-[16/11]"],
-      html:not(.dark) [class*="aspect-[16/10]"],
-      html:not(.dark) [class*="aspect-[4/3]"],
-      html:not(.dark) [class*="h-[360px]"][class*="rounded-2xl"],
-      html:not(.dark) [class*="sm:h-[460px]"][class*="rounded-2xl"],
-      html:not(.dark) [class*="min-h-[360px]"][class*="rounded-2xl"],
+      html.dark div[class*="aspect-"][class*="rounded-2xl"],
+      html.dark div[class*="aspect-"][class*="bg-white"],
+      html.dark .tmd-spotlight-card[class*="aspect-"],
+      html.dark .tmd-spotlight-card[class*="bg-white"],
+      .product-stage-white,
       [class*="aspect-[16/11]"],
       [class*="aspect-[16/10]"],
       [class*="aspect-[4/3]"],
@@ -2160,16 +2159,121 @@ html:not(.dark) #socios .group:hover {
         display: none !important;
       }
 
-      /* Machine photos render with 100% natural colors and never turn black */
-      img[src*="heroImage"],
-      img[src*="additionalImages"],
+      /* ══════════════════════════════════════════════════════════════════ */
+      /* ANTI-AI CAMERA SHOOT FILM SCIENCE (ANALOG SENSOR / 35MM LENS LUT)   */
+      /* Strips synthetic AI plastic sheen, adjusts hyper-saturated dyes,  */
+      /* injects subtle optical 35mm sensor grain, and soft lens vignette. */
+      /* ══════════════════════════════════════════════════════════════════ */
+      .tmd-camera-graded,
       [class*="aspect-[16/11]"] img,
+      [class*="aspect-[16/10]"] img,
+      [class*="aspect-[4/3]"] img,
       [class*="h-[360px]"] img,
       [class*="sm:h-[460px]"] img,
-      [class*="min-h-[360px]"] img {
+      [class*="min-h-[360px]"] img,
+      img[src*="heroImage"],
+      img[src*="additionalImages"],
+      #equipo img {
         mix-blend-mode: normal !important;
-        filter: none !important;
         opacity: 1 !important;
+        /* Optical film grade: removes blown-out AI highlights, naturalizes synthetic neon pigments, adds warm Dominican daylight balance */
+        filter: contrast(1.05) brightness(0.975) saturate(0.92) sepia(0.025) !important;
+        transition: filter 0.3s ease, transform 0.5s ease-out !important;
+      }
+
+      /* When hovering over vehicle card, camera lens opens up smoothly */
+      .group:hover [class*="aspect-[16/11]"] img,
+      .group:hover [class*="h-[360px]"] img {
+        filter: contrast(1.06) brightness(0.985) saturate(0.95) sepia(0.015) !important;
+      }
+
+      /* 35mm Camera Film Grain & Optical Vignette Overlay on Photo Stages */
+      [class*="aspect-[16/11]"]::after,
+      [class*="aspect-[16/10]"]::after,
+      [class*="aspect-[4/3]"]::after,
+      [class*="h-[360px]"][class*="rounded-2xl"]::after,
+      [class*="min-h-[360px]"][class*="rounded-2xl"]::after {
+        content: "" !important;
+        position: absolute !important;
+        inset: 0 !important;
+        pointer-events: none !important;
+        border-radius: inherit !important;
+        /* Subtle optical vignette (f/2.8 lens falloff) + ultra-fine sensor noise */
+        background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.035) 100%),
+                    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E") !important;
+        mix-blend-mode: multiply !important;
+        opacity: 0.9 !important;
+        z-index: 3 !important;
+      }
+
+      /* ══════════════════════════════════════════════════════════════════ */
+      /* COMPACT PRODUCT CARDS + LUXURIOUS EXPAND-ON-HOVER                   */
+      /* ══════════════════════════════════════════════════════════════════ */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group {
+        padding: 18px 20px !important;
+        border-radius: 22px !important;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.28s ease,
+                    z-index 0.1s ease !important;
+        position: relative;
+        will-change: transform, box-shadow;
+      }
+
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group:hover {
+        transform: translateY(-8px) scale(1.028) !important;
+        box-shadow: 0 28px 70px -10px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+        border-color: rgba(245, 158, 11, 0.8) !important;
+        z-index: 30 !important;
+      }
+
+      /* Compact card header */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group .mb-4 {
+        margin-bottom: 8px !important;
+      }
+
+      /* Compact card title */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group h3 {
+        font-size: 1.15rem !important;
+        line-height: 1.25 !important;
+        margin: 2px 0 4px 0 !important;
+      }
+
+      /* Compact image stage container */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group [class*="aspect-[16/11]"] {
+        margin-top: 10px !important;
+        margin-bottom: 12px !important;
+        padding: 12px 16px !important;
+        max-height: 195px !important;
+        border-radius: 14px !important;
+      }
+
+      /* Compact specs row */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group .grid.grid-cols-2.gap-2\.5 {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+        margin-bottom: 8px !important;
+        gap: 6px !important;
+      }
+
+      /* Compact pricing boxes */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group .space-y-2 > div {
+        padding: 8px 12px !important;
+        border-radius: 12px !important;
+      }
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group .space-y-2 {
+        gap: 6px !important;
+      }
+
+      /* Compact action buttons */
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group .grid.grid-cols-2.gap-2.pt-3 {
+        padding-top: 8px !important;
+        gap: 6px !important;
+      }
+      .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 > div.group .grid.grid-cols-2.gap-2.pt-3 button {
+        padding: 9px 10px !important;
+        border-radius: 12px !important;
+        font-size: 11px !important;
       }
 
       /* Product thumbnail buttons on white background */
