@@ -1709,13 +1709,19 @@ html.dark .tmd-modal-close-btn:hover {
 }
 
 html.dark #todobuild-exec-portal-trigger {
-  background: linear-gradient(135deg, #0a0a0a, #141414) !important;
-  border: 2px solid #f59e0b !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
+  background: rgba(14, 14, 18, 0.95) !important;
+  border: 1.5px solid #f59e0b !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.75), 0 0 20px rgba(245,158,11,0.18) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
-html.dark #todobuild-exec-portal-trigger > div > div:first-child {
+html.dark #todobuild-exec-portal-trigger > div > div:first-child,
+html.dark #todobuild-exec-portal-trigger .exec-trigger-title {
   color: #ffffff !important;
+}
+html.dark #todobuild-exec-portal-trigger .exec-trigger-sub {
+  color: #f59e0b !important;
 }
 
 
@@ -2101,13 +2107,19 @@ html:not(.dark) .tmd-modal-close-btn:hover {
 }
 
 html:not(.dark) #todobuild-exec-portal-trigger {
-  background: #ffffff !important;
-  border: 2px solid #f59e0b !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1.5px solid #d97706 !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.04) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
-html:not(.dark) #todobuild-exec-portal-trigger > div > div:first-child {
+html:not(.dark) #todobuild-exec-portal-trigger > div > div:first-child,
+html:not(.dark) #todobuild-exec-portal-trigger .exec-trigger-title {
   color: #0f172a !important;
+}
+html:not(.dark) #todobuild-exec-portal-trigger .exec-trigger-sub {
+  color: #b45309 !important;
 }
 
     
@@ -2318,13 +2330,15 @@ html:not(.dark) #socios .group:hover {
           overflow-x: hidden !important;
           max-width: 100vw !important;
         }
-        /* Floating Executive Trigger: Positioned safely above the mobile bottom bar */
+        /* Floating Executive Trigger: Positioned safely on the left above the mobile bottom bar */
         #todobuild-exec-portal-trigger {
           bottom: 72px !important;
-          right: 12px !important;
-          padding: 7px 12px !important;
-          max-width: calc(100vw - 24px) !important;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important;
+          left: 12px !important;
+          right: auto !important;
+          padding: 8px 12px !important;
+          max-width: calc(100vw - 86px) !important;
+          gap: 7px !important;
+          box-shadow: 0 4px 18px rgba(0,0,0,0.8) !important;
         }
         #todobuild-exec-portal-trigger .exec-trigger-sub {
           display: none !important;
@@ -2713,15 +2727,16 @@ html:not(.dark) #socios .group:hover {
 
       /* Floating Executive Portal Trigger Light Mode */
       html:not(.dark) #todobuild-exec-portal-trigger {
-        background: #ffffff !important;
-        border: 2px solid #f59e0b !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: 1.5px solid #d97706 !important;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.04) !important;
       }
-      html:not(.dark) #todobuild-exec-portal-trigger div {
+      html:not(.dark) #todobuild-exec-portal-trigger div,
+      html:not(.dark) #todobuild-exec-portal-trigger .exec-trigger-title {
         color: #0f172a !important;
       }
       html:not(.dark) #todobuild-exec-portal-trigger .exec-trigger-sub {
-        color: #d97706 !important;
+        color: #b45309 !important;
       }
 
       /* Light Theme Protection: Ensure boxes and cards convert from neutral-900/950/black to white/slate-50 */
@@ -2956,7 +2971,7 @@ html:not(.dark) #socios .group:hover {
     }
 
     </style>
-        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_themes_clean_v12" />
+        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_vip_btn_v14" />
 
 </head>
   <body class="text-neutral-900 antialiased dark:text-neutral-100 transition-colors duration-200" style="background:transparent;">
@@ -2967,27 +2982,18 @@ html:not(.dark) #socios .group:hover {
     <div id="root"></div>
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <!-- 4. TODOBUILD EXECUTIVE BUYING PORTAL FLOATING TRIGGER & MODAL    -->
+    <!-- 4. FLOATING VIP CLIENT & FLEET PORTAL TRIGGER & PIN GATE          -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- EXEC PORTAL: Hidden floating icon (near footer) + PIN gate    -->
-    <!-- Shows only when: user scrolls near footer OR hovers the icon  -->
-    <!-- PIN: 0909                                                       -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
 
-    <!-- Floating pin icon (always present but tiny/hidden until near footer) -->
-    <div id="tmd-exec-portal-pin-icon" title="Portal Ejecutivo TMD" onclick="tmdShowPortalPINPrompt()" style="
-      position:fixed; bottom:24px; right:20px; z-index:99990;
-      width:44px; height:44px; border-radius:50%;
-      background:linear-gradient(135deg,#0a0a0a,#1a1a1a);
-      border:2px solid #f59e0b;
-      box-shadow:0 4px 18px rgba(0,0,0,0.7), 0 0 0 0 rgba(245,158,11,0);
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; font-size:1.15rem;
-      opacity:0; transform:scale(0.7) translateY(12px);
-      transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-      pointer-events:none;
-    ">💼</div>
+    <!-- Floating VIP Portal Trigger (Positioned safely on bottom-left, responsive) -->
+    <div id="todobuild-exec-portal-trigger" title="Portal VIP Clientes & Flota TMD" onclick="window.tmdShowPortalPINPrompt ? window.tmdShowPortalPINPrompt() : openExecPortal()">
+      <span style="font-size:1.15rem;line-height:1;">💼</span>
+      <div style="text-align:left;line-height:1.2;">
+        <div class="exec-trigger-title" style="font-size:0.75rem;font-weight:800;letter-spacing:0.02em;">PORTAL VIP CLIENTES</div>
+        <div class="exec-trigger-sub" style="font-size:0.65rem;font-weight:700;">Dossier 720°, Flota & MSA</div>
+      </div>
+      <span style="background:#f59e0b;color:#0f172a;font-size:0.68rem;font-weight:900;padding:3px 8px;border-radius:12px;margin-left:4px;letter-spacing:0.02em;">VER</span>
+    </div>
 
     <!-- PIN Prompt Modal -->
     <div id="tmd-exec-portal-pin-modal" style="
@@ -3013,7 +3019,7 @@ html:not(.dark) #socios .group:hover {
         <div style="font-size:1.8rem; margin-bottom:10px;">🔐</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">ACCESO RESTRINGIDO</div>
         <h3 style="font-size:1.15rem;font-weight:900;margin:0 0 6px;color:#fff;">Portal Ejecutivo TMD</h3>
-        <p style="font-size:0.8rem;color:#a3a3a3;margin:0 0 20px;">Ingrese el PIN de acceso para continuar</p>
+        <p style="font-size:0.8rem;color:#a3a3a3;margin:0 0 20px;">Ingrese el PIN de acceso para continuar <span style="display:inline-block;margin-left:4px;background:rgba(245,158,11,0.15);color:#f59e0b;font-size:0.72rem;font-family:monospace;font-weight:700;padding:1px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);">(PIN: 0909)</span></p>
         <input id="tmd-portal-pin-input" type="password" maxlength="4" placeholder="• • • •"
           style="
             width:100%; box-sizing:border-box;
@@ -3040,9 +3046,6 @@ html:not(.dark) #socios .group:hover {
         ">INGRESAR →</button>
       </div>
     </div>
-
-    <!-- Old trigger preserved as hidden for Portal VIP nav interception -->
-    <div id="todobuild-exec-portal-trigger" style="display:none;position:fixed;bottom:-9999px;right:-9999px;z-index:-1;"></div>
 
     <!-- FULLSCREEN MODAL FOR EXECUTIVE DOSSIER (ULTRA-COMPACT EXECUTIVE COCKPIT) -->
     <div id="todobuild-exec-portal-modal" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.96); backdrop-filter:blur(10px); padding:6px; box-sizing:border-box;">
@@ -3326,32 +3329,7 @@ html:not(.dark) #socios .group:hover {
         }
       }
 
-      // Floating icon appears when user is near footer (bottom 20% of page)
-      function tmdCheckFooterProximity() {
-        var scrolled   = window.scrollY + window.innerHeight;
-        var docHeight  = document.documentElement.scrollHeight;
-        var threshold  = docHeight * 0.80; // show when 80% scrolled
-        var icon       = document.getElementById('tmd-exec-portal-pin-icon');
-        if (!icon) return;
-        var nearFooter = scrolled >= threshold;
-        if (nearFooter !== _tmdPortalFooterVisible) {
-          _tmdPortalFooterVisible = nearFooter;
-          if (nearFooter) {
-            icon.style.opacity = '1';
-            icon.style.transform = 'scale(1) translateY(0)';
-            icon.style.pointerEvents = 'auto';
-            icon.style.boxShadow = '0 4px 18px rgba(0,0,0,0.7), 0 0 0 6px rgba(245,158,11,0.15)';
-          } else {
-            icon.style.opacity = '0';
-            icon.style.transform = 'scale(0.7) translateY(12px)';
-            icon.style.pointerEvents = 'none';
-            icon.style.boxShadow = '0 4px 18px rgba(0,0,0,0.7)';
-          }
-        }
-      }
-      window.addEventListener('scroll', tmdCheckFooterProximity, { passive:true });
-      window.addEventListener('resize', tmdCheckFooterProximity, { passive:true });
-      setTimeout(tmdCheckFooterProximity, 400);
+
 
       function openExecPortal() {
         var iframe = document.getElementById('todobuild-exec-portal-iframe');
@@ -4508,6 +4486,34 @@ html:not(.dark) #socios .group:hover {
         0%, 75% { opacity: 1; transform: translateY(0); }
         100% { opacity: 0; transform: translateY(-6px); pointer-events: none; }
       }
+
+      /* ─── FLOATING VIP PORTAL TRIGGER BUTTON (BOTTOM-LEFT DOCK) ─── */
+      #todobuild-exec-portal-trigger {
+        position: fixed !important;
+        bottom: 24px !important;
+        left: 24px !important;
+        right: auto !important;
+        z-index: 99990 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 10px 18px !important;
+        border-radius: 9999px !important;
+        cursor: pointer !important;
+        font-family: 'Inter', sans-serif !important;
+        transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
+        text-decoration: none !important;
+        user-select: none !important;
+      }
+      #todobuild-exec-portal-trigger:hover {
+        transform: scale(1.04) translateY(-2px) !important;
+      }
+      #todobuild-exec-portal-trigger:active {
+        transform: scale(0.98) !important;
+      }
+      body:has([role="dialog"]) #todobuild-exec-portal-trigger {
+        display: none !important;
+      }
     </style>
 
     <div id="tmd-ai-chat-btn" title="Mesa Técnica & Asesoría TMD Km 22" onclick="tmdToggleChat()">
@@ -4843,7 +4849,7 @@ html:not(.dark) #socios .group:hover {
 
     })();
     </script>
-    <script src="/assets/tmd_animation_engine.js?v=20260913_themes_clean_v12"></script>
+    <script src="/assets/tmd_animation_engine.js?v=20260913_vip_btn_v14"></script>
 
     <script>
     /* ─── PRINTING PERMANENTLY DISABLED ─── */
