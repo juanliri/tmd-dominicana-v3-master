@@ -2183,44 +2183,62 @@ html:not(.dark) #socios .group:hover {
     <!-- LUXURY DESKTOP SCALING & MOBILE VIEWPORT PERFECTION               -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <style id="tmd-luxury-and-mobile-engine">
-      /* ─── DESKTOP LUXURY BALANCE (Prevents "zoomed in / ordinary" look) ─── */
+      /* ─── FULL-WIDTH & ADAPTABLE RESPONSIVE SECTIONS (100% SCALE) ─── */
+      section,
+      html.dark section,
+      #root section,
+      #root > div > section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        background: transparent !important;
+        background-color: transparent !important;
+      }
+      /* Inner content containers stay centered and adaptable across all desktop resolutions */
+      section > div:not(.tmd-full-bleed),
+      section > form,
+      section > article {
+        max-width: 80rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+      }
+
+      /* ─── NATURAL 100% SCALE DESKTOP (No artificial 90% shrinkage) ─── */
       @media (min-width: 1024px) {
-        /* Headline: Sleek, authoritative, tight executive scale (36px instead of bloated 48px+) */
         #root section.relative.flex.flex-col h1,
         #root section h1 {
-          font-size: 2.25rem !important;
-          line-height: 1.15 !important;
+          font-size: 3rem !important;
+          line-height: 1.1 !important;
           letter-spacing: -0.025em !important;
           font-weight: 900 !important;
-          margin-bottom: 0.75rem !important;
+          margin-bottom: 1rem !important;
         }
-        /* Subtitle */
         #root section.relative.flex.flex-col h1 + p,
         #root section.relative.flex.flex-col h1 ~ p.text-amber-400,
         #root section.relative.flex.flex-col h1 ~ p.text-amber-500 {
-          font-size: 1.05rem !important;
-          margin-bottom: 0.75rem !important;
+          font-size: 1.15rem !important;
+          margin-bottom: 1rem !important;
         }
-        /* Machinery Card: Sleek luxury automotive proportions */
         #root section.relative.flex.flex-col .cursor-pointer.aspect-\[16\/11\] {
-          max-height: 310px !important;
-          max-width: 470px !important;
+          max-height: 380px !important;
+          max-width: 580px !important;
           margin: 0 auto !important;
-          border-radius: 1.25rem !important;
-          box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7) !important;
+          border-radius: 1.5rem !important;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
         }
         #root section.relative.flex.flex-col .cursor-pointer.aspect-\[16\/11\] img {
-          max-height: 260px !important;
-          padding: 0.75rem !important;
+          max-height: 320px !important;
+          padding: 1rem !important;
           object-fit: contain !important;
         }
-        /* Spec grid: compact luxury cockpit look */
         #root section.relative.flex.flex-col .grid.grid-cols-2.sm\:grid-cols-4 > div {
-          padding: 0.65rem 0.85rem !important;
+          padding: 0.85rem 1rem !important;
         }
         #root section.relative.flex.flex-col .grid.grid-cols-2.sm\:grid-cols-4 .text-xl,
         #root section.relative.flex.flex-col .grid.grid-cols-2.sm\:grid-cols-4 .text-2xl {
-          font-size: 1.25rem !important;
+          font-size: 1.5rem !important;
         }
       }
 
@@ -2275,17 +2293,20 @@ html:not(.dark) #socios .group:hover {
 
       html.dark,
       html.dark body {
-        background-color: #000000 !important;
-        background: #000000 !important;
+        background-color: #040404 !important;
         color: #f4f4f5 !important;
       }
-      html.dark #root {
+      html.dark #root,
+      html.dark #root > div,
+      html.dark #root > div.min-h-screen,
+      #root,
+      #root > div {
         background-color: transparent !important;
         background: transparent !important;
         color: #f4f4f5 !important;
       }
 
-      /* Sections inside sub-pages — SEAMLESS FLUID OBSIDIAN (NO VERTICAL OUTLINES OR BOXING) */
+      /* Sections across all pages — FULL-WIDTH FLUID TRANSPARENT (PARTICLES VISIBLE EVERYWHERE) */
       html.dark section,
       html.dark section[id="nosotros"],
       html.dark section[id="empleo"],
@@ -2296,8 +2317,8 @@ html:not(.dark) #socios .group:hover {
       html.dark section[class*="border-b"],
       html.dark section[class*="border-y"],
       html.dark div[class*="border-neutral-800"]:not([class*="rounded-2xl"]):not([class*="rounded-xl"]) {
-        background-color: #000000 !important;
-        background: #000000 !important;
+        background-color: transparent !important;
+        background: transparent !important;
         border-left: none !important;
         border-right: none !important;
         border-inline: none !important;

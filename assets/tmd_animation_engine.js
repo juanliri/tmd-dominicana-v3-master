@@ -187,17 +187,17 @@
     window.addEventListener('resize', resizeCanvas, { passive: true });
 
     particles = [];
-    // 75 particles across depth layers — clearly luminous & floating
-    const count = Math.min(Math.floor(window.innerWidth / 18), 75);
+    // 90-100 particles across depth layers — clearly luminous & floating
+    const count = Math.min(Math.floor(window.innerWidth / 14), 100);
     for (let i = 0; i < count; i++) {
       const isBokeh = i % 4 === 0; // 25% are soft bokeh blooms
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: isBokeh ? (Math.random() * 1.5 + 3.0) : (Math.random() * 1.2 + 1.6), // 1.6–4.5px base
-        targetR: isBokeh ? (Math.random() * 1.5 + 3.0) : (Math.random() * 1.2 + 1.6),
-        dx: (Math.random() - 0.5) * 0.35,
-        dy: -(Math.random() * 0.55 + 0.20),   // drift upward
+        r: isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.2 + 1.8), // 1.8–4.7px base
+        targetR: isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.2 + 1.8),
+        dx: (Math.random() - 0.5) * 0.4,
+        dy: -(Math.random() * 0.55 + 0.25),   // drift upward
         alpha: Math.random() * 0.25 + 0.65,   // VISIBLE: 0.65–0.90 base
         targetAlpha: Math.random() * 0.25 + 0.65,
         isBokeh: isBokeh,
@@ -260,16 +260,16 @@
       }
 
       // ── CONSTELLATION NET (todobuild.store signature effect) ──
-      const MAXD = 145;
+      const MAXD = 160;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAXD) {
-            const lineAlpha = (1 - dist / MAXD) * 0.32;
+            const lineAlpha = (1 - dist / MAXD) * 0.48;
             ctx.strokeStyle = `rgba(${particleRgb}, ${lineAlpha})`;
-            ctx.lineWidth = 0.85;
+            ctx.lineWidth = 1.1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -308,12 +308,12 @@
 
         if (p.isBokeh) {
           // Large glowing halo
-          ctx.shadowColor = `rgba(${particleRgb}, 0.95)`;
-          ctx.shadowBlur = 18;
+          ctx.shadowColor = `rgba(${particleRgb}, 1.0)`;
+          ctx.shadowBlur = 24;
         } else {
           // Crisp luminous golden ember
-          ctx.shadowColor = `rgba(${particleRgb}, 0.80)`;
-          ctx.shadowBlur = 7;
+          ctx.shadowColor = `rgba(${particleRgb}, 0.95)`;
+          ctx.shadowBlur = 12;
         }
 
         ctx.fill();
@@ -345,22 +345,22 @@
     // Recalibrate target particle parameters based on active mode
     particles.forEach((p) => {
       if (mode === 'dust') {
-        // Micro-dust: clearly visible golden motes behind cards
-        p.targetR    = Math.random() * 0.7 + 0.7;  // 0.7px–1.4px
-        p.targetAlpha = Math.random() * 0.30 + 0.45; // 0.45–0.75 BOOSTED
+        // Micro-dust: luminous golden embers across the entire screen
+        p.targetR    = p.isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.0 + 1.8);  // 1.8px–4.7px
+        p.targetAlpha = Math.random() * 0.25 + 0.65; // 0.65–0.90
       } else if (mode === 'bokeh') {
         // Cinematic bokeh: large luminous glowing orbs
         if (p.isBokeh) {
-          p.targetR    = Math.random() * 2.0 + 3.0;  // 3.0px–5.0px — clearly visible
-          p.targetAlpha = Math.random() * 0.20 + 0.50; // 0.50–0.70 — BRIGHT
+          p.targetR    = Math.random() * 2.0 + 3.8;  // 3.8px–5.8px
+          p.targetAlpha = Math.random() * 0.20 + 0.75; // 0.75–0.95 — Luminous
         } else {
-          p.targetR    = Math.random() * 0.8 + 1.0;  // 1.0px–1.8px
-          p.targetAlpha = Math.random() * 0.20 + 0.38; // 0.38–0.58
+          p.targetR    = Math.random() * 1.0 + 2.0;  // 2.0px–3.0px
+          p.targetAlpha = Math.random() * 0.20 + 0.60; // 0.60–0.80
         }
       } else if (mode === 'vignette') {
-        // Peripheral vignette: vivid but center cleared by CSS mask
-        p.targetR    = Math.random() * 0.8 + 0.8;  // 0.8px–1.6px
-        p.targetAlpha = Math.random() * 0.25 + 0.35; // 0.35–0.60 in gutters
+        // Vignette: fully visible across all sections
+        p.targetR    = p.isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.0 + 1.8);
+        p.targetAlpha = Math.random() * 0.25 + 0.65;
       }
     });
   }
