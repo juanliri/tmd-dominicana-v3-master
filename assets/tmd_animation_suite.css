@@ -113,8 +113,8 @@ body {
   -webkit-mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, rgba(0,0,0,0) 28%, rgba(0,0,0,1) 80%);
 }
 
-/* Force all page content above the canvas */
-body > *:not(#tmd-ambient-canvas) {
+/* Force page content above canvas, but exclude fixed modals */
+body > *:not(#tmd-ambient-canvas):not([id*="modal"]):not([role="dialog"]) {
   position: relative;
   z-index: 1;
 }
