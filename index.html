@@ -3425,6 +3425,122 @@ html:not(.dark) #socios .group:hover {
   };
 
   // ──────────────────────────────────────────────────────────────────
+  // 1B. CINEMATIC VIDEO MARKETING INTRO (HOME PAGE SHOWCASE)
+  // ──────────────────────────────────────────────────────────────────
+  function mountHomeVideoShowcase() {
+    const isHome = window.location.hash === '' || 
+                   window.location.hash === '#/' || 
+                   window.location.hash === '#/home' ||
+                   window.location.hash === '#';
+    
+    const existing = document.getElementById('tmd-home-marketing-video-section');
+
+    if (!isHome) {
+      if (existing) existing.remove();
+      return false;
+    }
+
+    if (existing) return true;
+
+    // Find the first main section (the hero carousel)
+    const firstSection = document.querySelector('#root section');
+    if (!firstSection) return false;
+
+    const videoSection = document.createElement('section');
+    videoSection.id = 'tmd-home-marketing-video-section';
+    videoSection.className = 'py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10';
+    videoSection.innerHTML = `
+      <div class="relative rounded-3xl overflow-hidden border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.85)] bg-neutral-950 group">
+        <!-- Video Container with HD footage -->
+        <div class="relative w-full aspect-video sm:aspect-[21/9] min-h-[340px] overflow-hidden bg-black">
+          <video id="tmd-home-drone-video" class="w-full h-full object-cover" autoplay muted loop playsinline poster="/assets/video/tmd_hero_poster.jpg">
+            <source src="/assets/video/tmd_hero_drone_hd.mp4" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-black/30 pointer-events-none"></div>
+          <div class="absolute inset-0 bg-radial from-transparent via-transparent to-black/60 pointer-events-none"></div>
+          
+          <!-- Top Badge & Quick Controls Bar -->
+          <div class="absolute top-4 sm:top-6 inset-x-4 sm:inset-x-8 flex items-center justify-between z-20">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/75 border border-amber-500/40 backdrop-blur-md text-[11px] font-mono font-bold text-amber-400 uppercase tracking-wider shadow-lg">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+              <span>SEDE CENTRAL & PATIO KM 22 • VIDEO OFICIAL TMD</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="tmd-home-mute-btn" class="px-3.5 py-1.5 rounded-full bg-black/80 hover:bg-amber-500 hover:text-black border border-white/20 hover:border-amber-400 text-white text-xs font-mono font-bold transition backdrop-blur-md flex items-center gap-1.5 shadow-lg" onclick="window.tmdToggleHomeVideoSound()" title="Activar / Silenciar Sonido">
+                <span id="tmd-home-mute-icon">🔊</span>
+                <span id="tmd-home-mute-txt">Activar Audio</span>
+              </button>
+              <button id="tmd-home-play-btn" class="p-2 rounded-full bg-black/80 hover:bg-amber-500 hover:text-black border border-white/20 hover:border-amber-400 text-white text-xs font-mono font-bold transition backdrop-blur-md shadow-lg" onclick="window.tmdToggleHomeVideoPlay()" title="Pausar / Reproducir">
+                <span id="tmd-home-play-icon">⏸</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Cinematic Intro Content -->
+          <div class="absolute bottom-4 sm:bottom-8 inset-x-4 sm:inset-x-8 z-20 space-y-3">
+            <div class="max-w-3xl">
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-400 font-mono text-[10px] uppercase font-black tracking-widest border border-amber-500/30 mb-2">
+                DISTRIBUIDOR OFICIAL AUTORIZADO RD
+              </div>
+              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase leading-none" style="font-family: var(--font-heading, sans-serif); text-shadow: 0 4px 20px rgba(0,0,0,0.8);">
+                TECNOMAQUINARIAS <span class="text-amber-500">DIESEL</span>
+              </h2>
+              <p class="text-xs sm:text-sm text-neutral-200 mt-2 max-w-2xl leading-relaxed font-medium drop-shadow-md">
+                Sede Central y Patio de Pruebas en Autopista Duarte Km. 22, La Guáyiga, Santo Domingo Oeste. Maquinaria pesada JCB, montacargas LiuGong, tractores LS y taller central de overhaul 350 BAR.
+              </p>
+              <div class="flex flex-wrap items-center gap-3 pt-3">
+                <button onclick="window.location.hash='#/vehicles'" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider transition shadow-xl flex items-center gap-2">
+                  <span>🚜 Explorar Flota en Stock</span>
+                </button>
+                <button onclick="window.location.hash='#/about'" class="px-5 py-2.5 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 border border-white/20 text-white font-bold text-xs uppercase tracking-wider transition backdrop-blur-md flex items-center gap-2">
+                  <span>🏢 Conocer Sede Km 22</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    `;
+
+    // Insert directly after the first section
+    if (firstSection.nextSibling) {
+      firstSection.parentNode.insertBefore(videoSection, firstSection.nextSibling);
+    } else {
+      firstSection.parentNode.appendChild(videoSection);
+    }
+    return true;
+  }
+
+  window.tmdToggleHomeVideoSound = function() {
+    const v = document.getElementById('tmd-home-drone-video');
+    const txt = document.getElementById('tmd-home-mute-txt');
+    const icon = document.getElementById('tmd-home-mute-icon');
+    if (!v) return;
+    v.muted = !v.muted;
+    if (v.muted) {
+      if (txt) txt.textContent = 'Activar Audio';
+      if (icon) icon.textContent = '🔊';
+    } else {
+      if (txt) txt.textContent = 'Silenciar';
+      if (icon) icon.textContent = '🔇';
+    }
+  };
+
+  window.tmdToggleHomeVideoPlay = function() {
+    const v = document.getElementById('tmd-home-drone-video');
+    const icon = document.getElementById('tmd-home-play-icon');
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      if (icon) icon.textContent = '⏸';
+    } else {
+      v.pause();
+      if (icon) icon.textContent = '▶';
+    }
+  };
+
+  // ──────────────────────────────────────────────────────────────────
   // 2. INTERACTIVE STAFF & COMPANY STRUCTURE MOUNTING
   // ──────────────────────────────────────────────────────────────────
   function mountStaffSection() {
@@ -3877,6 +3993,8 @@ html:not(.dark) #socios .group:hover {
   // 6. CONTINUOUS LIFECYCLE & MUTATION OBSERVER
   // ──────────────────────────────────────────────────────────────────
   function checkAndMount() {
+    mountHomeVideoShowcase();
+
     const isAbout = window.location.hash.includes('about') || 
                     window.location.hash.includes('empresa') || 
                     window.location.hash.includes('nosotros') ||
