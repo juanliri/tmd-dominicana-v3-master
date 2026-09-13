@@ -252,6 +252,25 @@
         ctx.fillRect(canvas.width * 0.15, canvas.height * 0.5, canvas.width * 0.7, canvas.height * 0.5);
       }
 
+      // ── CONSTELLATION NET (todobuild.store signature effect) ──
+      const MAXD = 130;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MAXD) {
+            const lineAlpha = (1 - dist / MAXD) * 0.18;
+            ctx.strokeStyle = `rgba(${particleRgb}, ${lineAlpha})`;
+            ctx.lineWidth = 0.55;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
       // Render individual particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -436,4 +455,56 @@
   });
 
   console.log('[TMD Titan Engine] 3-Mode Adaptive Atmospheric & Surface Suite active.');
+
+  /* ══════════════════════════════════════════════════════════════════ */
+  /* 6. TODOBUILD SPOTLIGHT CARD & 3D TILT ENGINE                       */
+  /* ══════════════════════════════════════════════════════════════════ */
+  function initSpotlightCards() {
+    const cardSelectors = [
+      '.spotlight-card',
+      '.tmd-spotlight-card',
+      '.diamond-card',
+      '.tmd-diamond-card',
+      '.tmd-glass-card',
+      'article',
+      '[class*="rounded-2xl"]:not(button):not(header):not(nav):not(input):not(#root)',
+      '[class*="rounded-3xl"]:not(header):not(nav):not(#root)'
+    ];
+
+    const cards = document.querySelectorAll(cardSelectors.join(','));
+    cards.forEach(card => {
+      if (card.dataset.spotlightBound) return;
+      card.dataset.spotlightBound = 'true';
+      card.classList.add('tmd-spotlight-card');
+
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--spotlight-x', `${x}px`);
+        card.style.setProperty('--spotlight-y', `${y}px`);
+
+        // Subtle 3D perspective tilt (max 3 degrees)
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -3;
+        const rotateY = ((x - centerX) / centerX) * 3;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-2px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+  }
+
+  // Bind spotlights immediately and on DOM changes
+  document.addEventListener('DOMContentLoaded', initSpotlightCards);
+  setTimeout(initSpotlightCards, 500);
+  setTimeout(initSpotlightCards, 1500);
+  const spotObserver = new MutationObserver(() => {
+    initSpotlightCards();
+  });
+  spotObserver.observe(document.body, { childList: true, subtree: true });
+
 })();
