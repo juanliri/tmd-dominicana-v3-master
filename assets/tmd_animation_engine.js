@@ -502,9 +502,7 @@
       '.diamond-card',
       '.tmd-diamond-card',
       '.tmd-glass-card',
-      'article',
-      '[class*="rounded-2xl"]:not(button):not(header):not(nav):not(input):not(#root):not([class*="aspect-"]):not([class*="bg-white"]):not([class*="h-[360px]"]):not([class*="min-h-"]):not([class*="h-44"]):not(.h-44):not(.product-stage-white)',
-      '[class*="rounded-3xl"]:not(header):not(nav):not(#root):not([class*="aspect-"]):not([class*="bg-white"]):not([class*="h-44"]):not(.h-44)'
+      'article'
     ];
 
     const cards = document.querySelectorAll(cardSelectors.join(','));

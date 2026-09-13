@@ -547,9 +547,7 @@ html.dark .tmd-white-studio-stage {
 
 /* Never show spotlight glare over pure white product showcase stages */
 .product-stage-white::after,
-[class*="aspect-"]::after,
-[class*="h-44"]::after,
-.h-44::after {
+.tmd-product-white-stage::after {
   display: none !important;
 }
 
@@ -596,58 +594,26 @@ html.dark .tmd-white-studio-stage {
   z-index: 2;
 }
 
-/* ─── 28. TRANSPARENT PAGE LAYERS (PARTICLES ALWAYS VISIBLE) ─── */
-html.dark .min-h-screen,
+/* ─── 28. TRANSPARENT PAGE ROOT (ALLOWS AMBIENT PARTICLES BEHIND CONTENT) ─── */
+html.dark body,
 html.dark #root,
-html.dark #root > div,
-html.dark [class*="min-h-screen"],
-html.dark div.bg-slate-50,
-html.dark div.dark\:bg-neutral-950,
-html.dark .absolute.inset-0.bg-neutral-950,
-html.dark main,
-html.dark footer,
-html.dark section {
+html.dark main {
   background-color: transparent !important;
-  background: transparent !important;
 }
 
-/* Specific cards, modals, and spotlight widgets get subtle translucent dark glass (excluding white product stages) */
+/* Specific glass utility cards */
 html.dark .tmd-glass,
-html.dark .tmd-diamond-card,
-html.dark .tmd-spotlight-card:not([class*="bg-white"]):not(.product-stage-white):not([class*="aspect-"]):not([class*="h-[360px]"]):not([class*="h-44"]):not(.h-44),
-html.dark div.rounded-3xl.border:not([class*="bg-white"]):not([class*="dark:bg-white"]):not(.product-stage-white):not([class*="aspect-"]):not([class*="h-[360px]"]):not([class*="h-44"]):not(.h-44),
-html.dark div.rounded-2xl.border:not([class*="bg-white"]):not([class*="dark:bg-white"]):not(.product-stage-white):not([class*="aspect-"]):not([class*="h-[360px]"]):not([class*="h-44"]):not(.h-44) {
+html.dark .tmd-diamond-card {
   background-color: rgba(10, 8, 4, 0.72) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
 }
 
-/* ─── 28B. WHITE STUDIO PRODUCT STAGES & RELATED PRODUCTS (CRISP 100% PURE WHITE) ─── */
-html.dark [class*="aspect-[16/11]"],
-html.dark [class*="aspect-[16/10]"],
-html.dark [class*="aspect-[4/3]"],
-html.dark [class*="h-[360px]"],
-html.dark [class*="sm:h-[460px]"],
-html.dark [class*="min-h-[360px]"],
-html.dark [class*="h-44"],
-html.dark .h-44,
-html.dark .product-stage-white,
-html.dark .tmd-product-white-stage,
-html.dark div[class*="h-44"][class*="bg-white"],
-[class*="aspect-[16/11]"],
-[class*="aspect-[16/10]"],
-[class*="aspect-[4/3]"],
-[class*="h-[360px]"],
-[class*="sm:h-[460px]"],
-[class*="min-h-[360px]"],
-[class*="h-44"],
-.h-44,
+/* ─── 28B. WHITE STUDIO PRODUCT STAGES (FOR MACHINE PHOTOS ONLY) ─── */
 .product-stage-white,
 .tmd-product-white-stage {
   background-color: #ffffff !important;
   background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
 }
 
 /* Ensure related products and machine photos never have dark multiply blend */

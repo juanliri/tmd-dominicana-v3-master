@@ -2410,8 +2410,7 @@ html:not(.dark) #socios .group:hover {
         box-shadow: none !important;
       }
 
-      /* Specific Cards & Modules — PURE JET BLACK WITH CRISP BORDERS */
-      html.dark .tmd-spotlight-card:not(section):not(footer):not(main):not([class*="aspect-"]):not([class*="bg-white"]):not(.product-stage-white):not([class*="h-[360px]"]):not([class*="min-h-"]):not([class*="h-44"]):not(.h-44),
+      /* Specific Cards & Modules — equipo portraits in dark mode */
       html.dark #equipo .grid > div {
         background-color: #050507 !important;
         background: #050507 !important;
@@ -2426,55 +2425,16 @@ html:not(.dark) #socios .group:hover {
 
       /* ══════════════════════════════════════════════════════════════════ */
       /* PRODUCT STAGES & CARDS: CRISP WHITE STUDIO BACKGROUND              */
-      /* Ensures white-background machine photos blend seamlessly as a     */
-      /* complete studio showcase without awkward cutout borders or voids. */
+      /* Applied STRICTLY to dedicated machine photo boxes                 */
       /* ══════════════════════════════════════════════════════════════════ */
-      html.dark [class*="aspect-[16/11]"],
-      html.dark [class*="aspect-[16/10]"],
-      html.dark [class*="aspect-[4/3]"],
-      html.dark [class*="h-[360px]"][class*="rounded-2xl"],
-      html.dark [class*="sm:h-[460px]"][class*="rounded-2xl"],
-      html.dark [class*="min-h-[360px]"][class*="rounded-2xl"],
-      html.dark [class*="h-44"],
-      html.dark .h-44,
-      html.dark div[class*="aspect-"][class*="rounded-2xl"],
-      html.dark div[class*="aspect-"][class*="bg-white"],
-      html.dark div[class*="h-44"][class*="bg-white"],
-      html.dark .tmd-spotlight-card[class*="aspect-"],
-      html.dark .tmd-spotlight-card[class*="bg-white"],
-      html.dark .tmd-spotlight-card[class*="h-44"],
       .product-stage-white,
-      [class*="aspect-[16/11]"],
-      [class*="aspect-[16/10]"],
-      [class*="aspect-[4/3]"],
-      [class*="h-[360px]"][class*="rounded-2xl"],
-      [class*="sm:h-[460px]"][class*="rounded-2xl"],
-      [class*="min-h-[360px]"][class*="rounded-2xl"],
-      [class*="h-44"],
-      .h-44 {
+      .tmd-product-white-stage {
         background-color: #ffffff !important;
         background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
       }
 
       .product-stage-white::after,
-      [class*="aspect-"]::after,
-      [class*="h-44"]::after,
-      .h-44::after {
-        display: none !important;
-      }
-
-      /* Hover glow for product stage cards in dark mode */
-      html.dark [class*="aspect-[16/11]"]:hover,
-      html.dark [class*="h-[360px]"][class*="rounded-2xl"]:hover {
-        border-color: rgba(245, 158, 11, 0.6) !important;
-        box-shadow: 0 22px 48px -12px rgba(0, 0, 0, 0.55), 0 0 25px rgba(245, 158, 11, 0.2) !important;
-      }
-
-      /* Remove dark overlay gradients inside white stages */
-      [class*="h-[360px]"] > div[class*="pointer-events-none"],
-      [class*="sm:h-[460px]"] > div[class*="pointer-events-none"] {
+      .tmd-product-white-stage::after {
         display: none !important;
       }
 
@@ -2996,7 +2956,7 @@ html:not(.dark) #socios .group:hover {
     }
 
     </style>
-        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_spotlight_v11" />
+        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_themes_clean_v12" />
 
 </head>
   <body class="text-neutral-900 antialiased dark:text-neutral-100 transition-colors duration-200" style="background:transparent;">
@@ -4883,7 +4843,7 @@ html:not(.dark) #socios .group:hover {
 
     })();
     </script>
-    <script src="/assets/tmd_animation_engine.js?v=20260913_spotlight_v11"></script>
+    <script src="/assets/tmd_animation_engine.js?v=20260913_themes_clean_v12"></script>
 
     <script>
     /* ─── PRINTING PERMANENTLY DISABLED ─── */
