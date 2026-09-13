@@ -184,7 +184,7 @@
     <link rel="preload" as="image" href="/assets/team_hd/brito_fuentes_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/leonardo_encarnacion_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/perkin_soriano_hd.jpg">
-    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260913_video_midpage_v16"></script>
+    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260913_particles_restored_v17"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=1789230245">
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
@@ -2380,19 +2380,38 @@ html:not(.dark) #socios .group:hover {
         background-color: #040404 !important;
         color: #f4f4f5 !important;
       }
+      /* Master transparent root: Ambient particle canvas flows behind entire app */
       html.dark #root,
       html.dark #root > div,
-      html.dark #root > div.min-h-screen {
+      html.dark #root > div.min-h-screen,
+      html.dark main,
+      html.dark div[class*="min-h-screen"] {
         background-color: transparent !important;
         background: transparent !important;
         color: #f4f4f5 !important;
       }
 
+      /* Ambient particle canvas: Always visible in background */
+      #tmd-ambient-canvas {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        pointer-events: none !important;
+        z-index: 0 !important;
+        display: block !important;
+        opacity: 0.95 !important;
+        visibility: visible !important;
+      }
+
       /* ─── DARK THEME: VEHICLE DETAILS & CATALOG SUBPAGES ─── */
-      html.dark [class*="min-h-screen"],
-      html.dark div[class*="min-h-screen"],
-      html.dark div[class*="bg-slate-50"]:not(.product-stage-white):not(.tmd-product-white-stage):not([class*="h-[360px]"]):not([class*="sm:h-[460px]"]):not([class*="select-none"]) {
-        background-color: #050507 !important;
+      /* Vehicle Detail page wrapper is transparent so ambient particles float behind */
+      html.dark div[class*="bg-slate-50"][class*="pb-24"],
+      html.dark div[class*="bg-slate-50"][class*="selection:text-black"],
+      html.dark div[class*="selection:bg-amber-500"][class*="min-h-screen"] {
+        background-color: transparent !important;
+        background: transparent !important;
         color: #f4f4f5 !important;
       }
 
@@ -3054,7 +3073,7 @@ html:not(.dark) #socios .group:hover {
     }
 
     </style>
-        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_video_midpage_v16" />
+        <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_particles_restored_v17" />
 
 </head>
   <body class="text-neutral-900 antialiased dark:text-neutral-100 transition-colors duration-200" style="background:transparent;">
@@ -4916,7 +4935,7 @@ html:not(.dark) #socios .group:hover {
 
     })();
     </script>
-    <script src="/assets/tmd_animation_engine.js?v=20260913_video_midpage_v16"></script>
+    <script src="/assets/tmd_animation_engine.js?v=20260913_particles_restored_v17"></script>
 
     <script>
     /* ─── PRINTING PERMANENTLY DISABLED ─── */

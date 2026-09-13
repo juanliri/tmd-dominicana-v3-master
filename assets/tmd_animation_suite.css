@@ -612,8 +612,11 @@ html.dark .tmd-diamond-card {
 /* ─── 28A. DARK THEME: VEHICLE DETAILS & CATALOG SUBPAGES ─── */
 html.dark [class*="min-h-screen"],
 html.dark div[class*="min-h-screen"],
-html.dark div[class*="bg-slate-50"]:not(.product-stage-white):not(.tmd-product-white-stage):not([class*="h-[360px]"]):not([class*="sm:h-[460px]"]):not([class*="select-none"]) {
-  background-color: #050507 !important;
+html.dark div[class*="bg-slate-50"][class*="pb-24"],
+html.dark div[class*="bg-slate-50"][class*="selection:text-black"],
+html.dark div[class*="selection:bg-amber-500"][class*="min-h-screen"] {
+  background-color: transparent !important;
+  background: transparent !important;
   color: #f4f4f5 !important;
 }
 
