@@ -1428,7 +1428,7 @@ html.dark .tmd-vid-ctrl-btn:hover {
 
 /* Directory Suite Dark */
 html.dark #tmd-interactive-staff-wrapper {
-  background: #000000 !important;
+  background: transparent !important;
   color: #ffffff !important;
 }
 
@@ -2184,62 +2184,95 @@ html:not(.dark) #socios .group:hover {
     <!-- LUXURY DESKTOP SCALING & MOBILE VIEWPORT PERFECTION               -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <style id="tmd-luxury-and-mobile-engine">
-      /* ─── FULL-WIDTH & ADAPTABLE EXPANSIVE DESKTOP ARCHITECTURE ─── */
+      /* ─── UNIVERSAL BOX SIZING & ZERO HORIZONTAL OVERFLOW ─── */
+      *, *::before, *::after {
+        box-sizing: border-box !important;
+      }
+
+      html,
+      body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      #root,
+      #root > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        transform: none !important;
+      }
+
+      /* ─── FULL-WIDTH TRANSPARENCY (Particles Visible Across Entire Site) ─── */
       section,
       html.dark section,
       #root section,
       #root > div > section,
       footer,
-      html.dark footer {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+      html.dark footer,
+      main,
+      html.dark main,
+      #socios,
+      html.dark #socios,
+      #tmd-interactive-staff-wrapper,
+      html.dark #tmd-interactive-staff-wrapper {
         background: transparent !important;
         background-color: transparent !important;
       }
 
-      /* Expansive edge-to-edge header and top utility bar */
+      /* ─── CLEAN, EXPANSIVE & PERFECTLY CENTERED CONTAINERS ─── */
+      /* Natural wide layout up to 1536px, centered without asymmetric offset */
+      .max-w-7xl,
       header > div,
-      header .max-w-7xl,
-      div.fixed.top-0 > div > div {
-        max-width: 100% !important;
-        width: 100% !important;
-        padding-left: clamp(1.25rem, 3vw, 3.5rem) !important;
-        padding-right: clamp(1.25rem, 3vw, 3.5rem) !important;
-      }
-
-      /* Expansive fluid wide footer */
       footer > div,
-      footer .max-w-7xl {
-        max-width: min(97vw, 1820px) !important;
+      main .max-w-7xl {
+        max-width: min(94vw, 1536px) !important;
         width: 100% !important;
-        padding-left: clamp(1.5rem, 3.5vw, 4.5rem) !important;
-        padding-right: clamp(1.5rem, 3.5vw, 4.5rem) !important;
         margin-left: auto !important;
         margin-right: auto !important;
       }
 
-      /* Adaptable expansive containers for sections */
-      section > div:not(.tmd-full-bleed):not([class*="overflow-hidden"]),
-      main .max-w-7xl,
-      div.max-w-7xl:not(header *):not(footer *) {
-        max-width: min(97vw, 1780px) !important;
+      /* Executive team gallery grid: beautifully centered */
+      .tmd-gallery-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)) !important;
+        gap: 16px !important;
+        max-width: min(94vw, 1536px) !important;
         width: 100% !important;
-        padding-left: clamp(1.25rem, 3vw, 3.5rem) !important;
-        padding-right: clamp(1.25rem, 3vw, 3.5rem) !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        margin: 0 auto !important;
+        padding: 0 1rem !important;
       }
 
-      /* Full-bleed marquee: always 100% screen width edge-to-edge */
+      .tmd-staff-compact-header {
+        max-width: min(94vw, 1536px) !important;
+        width: 100% !important;
+        margin: 0 auto 1.25rem auto !important;
+        padding: 0 1rem !important;
+      }
+
+      /* Socios brand carousel: clean 100% width, no negative calc margins */
       #socios,
       #socios > div[class*="overflow-hidden"],
       .tmd-full-bleed {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin-left: calc(-50vw + 50%) !important;
-        margin-right: calc(-50vw + 50%) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        overflow: hidden !important;
+      }
+
+      /* Floating chat button: fixed and clean within viewport bounds */
+      #tmd-ai-chat-btn {
+        position: fixed !important;
+        bottom: 24px !important;
+        right: 24px !important;
+        z-index: 99999 !important;
       }
 
       /* ─── NATURAL 100% SCALE DESKTOP (No artificial 90% shrinkage) ─── */
