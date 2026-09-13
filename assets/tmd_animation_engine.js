@@ -186,6 +186,20 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas, { passive: true });
 
+    // Mouse tracking for fluid interactive particle responsiveness
+    const mouse = { x: -9999, y: -9999, active: false };
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }, { passive: true });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.active = false;
+      mouse.x = -9999;
+      mouse.y = -9999;
+    }, { passive: true });
+
     particles = [];
     // 90-100 particles across depth layers — clearly luminous & floating
     const count = Math.min(Math.floor(window.innerWidth / 14), 100);
@@ -194,15 +208,16 @@
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.2 + 1.8), // 1.8–4.7px base
-        targetR: isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.2 + 1.8),
-        dx: (Math.random() - 0.5) * 0.4,
-        dy: -(Math.random() * 0.55 + 0.25),   // drift upward
-        alpha: Math.random() * 0.25 + 0.65,   // VISIBLE: 0.65–0.90 base
-        targetAlpha: Math.random() * 0.25 + 0.65,
+        r: isBokeh ? (Math.random() * 2.0 + 4.5) : (Math.random() * 1.0 + 1.8),
+        targetR: isBokeh ? (Math.random() * 2.0 + 4.5) : (Math.random() * 1.0 + 1.8),
+        dx: (Math.random() - 0.5) * 0.55,
+        dy: -(Math.random() * 0.65 + 0.35),   // natural upward drift
+        alpha: Math.random() * 0.25 + 0.70,   // High luminosity base
+        targetAlpha: Math.random() * 0.25 + 0.70,
         isBokeh: isBokeh,
-        pulseSpeed: Math.random() * 0.025 + 0.015,
-        pulseVal: Math.random() * Math.PI
+        pulseSpeed: Math.random() * 0.03 + 0.015,
+        pulseVal: Math.random() * Math.PI,
+        speedMultiplier: 1.0
       });
     }
 
@@ -216,13 +231,13 @@
       const isDark = document.documentElement.classList.contains('dark');
       const particleRgb = isDark ? '245, 158, 11' : '217, 119, 6';
 
-      // Smooth scroll velocity damping: accelerates slightly on scroll, calms when reading
-      scrollVelocity *= 0.92;
-      const velocityDrift = Math.min(scrollVelocity * 0.03, 1.4);
+      // Dynamic scroll velocity inertia: surges upward when scrolling, settles smoothly into constellation
+      scrollVelocity *= 0.93;
+      const velocityDrift = Math.min(scrollVelocity * 0.06, 3.8);
 
-      // In Bokeh mode, draw STRONG dual aurora blooms — cinematic golden hour
+      // In Bokeh mode (Hero section), draw atmospheric dual amber auroras
       if (currentMode === 'bokeh') {
-        auroraPhase += 0.006;
+        auroraPhase += 0.008;
         const pulse = 0.5 + 0.5 * Math.sin(auroraPhase);
         const pulse2 = 0.5 + 0.5 * Math.sin(auroraPhase * 1.3 + 1.2);
 
@@ -231,8 +246,8 @@
           canvas.width * 0.12, canvas.height * 0.18, 5,
           canvas.width * 0.12, canvas.height * 0.18, canvas.width * 0.45
         );
-        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${0.28 + pulse * 0.14})`);
-        gradLeft.addColorStop(0.5, `rgba(245, 158, 11, ${0.06 + pulse * 0.04})`);
+        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${0.30 + pulse * 0.15})`);
+        gradLeft.addColorStop(0.5, `rgba(245, 158, 11, ${0.07 + pulse * 0.04})`);
         gradLeft.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradLeft;
         ctx.fillRect(0, 0, canvas.width * 0.6, canvas.height * 0.7);
@@ -242,8 +257,8 @@
           canvas.width * 0.88, canvas.height * 0.22, 5,
           canvas.width * 0.88, canvas.height * 0.22, canvas.width * 0.42
         );
-        gradRight.addColorStop(0, `rgba(217, 119, 6, ${0.24 + pulse2 * 0.12})`);
-        gradRight.addColorStop(0.5, `rgba(245, 158, 11, ${0.05 + pulse2 * 0.03})`);
+        gradRight.addColorStop(0, `rgba(217, 119, 6, ${0.26 + pulse2 * 0.14})`);
+        gradRight.addColorStop(0.5, `rgba(245, 158, 11, ${0.06 + pulse2 * 0.03})`);
         gradRight.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradRight;
         ctx.fillRect(canvas.width * 0.4, 0, canvas.width * 0.6, canvas.height * 0.7);
@@ -253,23 +268,23 @@
           canvas.width * 0.5, canvas.height * 0.9, 10,
           canvas.width * 0.5, canvas.height * 0.9, canvas.width * 0.35
         );
-        gradBottom.addColorStop(0, `rgba(180, 83, 9, ${0.08 + pulse * 0.05})`);
+        gradBottom.addColorStop(0, `rgba(180, 83, 9, ${0.10 + pulse * 0.06})`);
         gradBottom.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradBottom;
         ctx.fillRect(canvas.width * 0.15, canvas.height * 0.5, canvas.width * 0.7, canvas.height * 0.5);
       }
 
-      // ── CONSTELLATION NET (todobuild.store signature effect) ──
-      const MAXD = 160;
+      // ── CONSTELLATION NET (todobuild.store signature dynamic mesh) ──
+      const MAXD = currentMode === 'bokeh' ? 170 : 145;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAXD) {
-            const lineAlpha = (1 - dist / MAXD) * 0.48;
+            const lineAlpha = (1 - dist / MAXD) * (currentMode === 'bokeh' ? 0.38 : 0.48);
             ctx.strokeStyle = `rgba(${particleRgb}, ${lineAlpha})`;
-            ctx.lineWidth = 1.1;
+            ctx.lineWidth = currentMode === 'bokeh' ? 0.9 : 1.1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -278,42 +293,69 @@
         }
       }
 
-      // Render individual particles
+      // Render individual particles with organic sway and mouse interaction
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
+        const spd = p.speedMultiplier || 1.0;
 
-        // Apply velocity inertia
-        p.x += p.dx;
-        p.y += p.dy - velocityDrift;
+        // Organic horizontal swaying + upward drift + scroll velocity
+        p.x += (p.dx + Math.sin(p.pulseVal * 0.75) * 0.45) * spd;
+        p.y += (p.dy * spd) - velocityDrift;
         p.pulseVal += p.pulseSpeed;
 
-        // Smooth cross-fade of radius and alpha toward mode targets
-        p.r += (p.targetR - p.r) * 0.05;
-        p.alpha += (p.targetAlpha - p.alpha) * 0.05;
+        // Interactive cursor repulsion & proximity connection
+        if (mouse.active) {
+          const dxM = p.x - mouse.x;
+          const dyM = p.y - mouse.y;
+          const distM = Math.sqrt(dxM * dxM + dyM * dyM);
+          if (distM < 160 && distM > 0) {
+            const force = (1 - distM / 160) * 3.2;
+            p.x += (dxM / distM) * force;
+            p.y += (dyM / distM) * force;
+
+            // Fluid luminous cursor connector line
+            if (distM < 130) {
+              const cursorLineAlpha = (1 - distM / 130) * 0.50;
+              ctx.strokeStyle = `rgba(${particleRgb}, ${cursorLineAlpha})`;
+              ctx.lineWidth = 1.0;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Smooth fluid morphing of radius and alpha toward target mode
+        p.r += (p.targetR - p.r) * 0.08;
+        p.alpha += (p.targetAlpha - p.alpha) * 0.08;
 
         // Screen wrap
-        if (p.x < -15) p.x = canvas.width + 15;
-        if (p.x > canvas.width + 15) p.x = -15;
-        if (p.y < -15) {
-          p.y = canvas.height + 15;
+        if (p.x < -20) p.x = canvas.width + 20;
+        if (p.x > canvas.width + 20) p.x = -20;
+        if (p.y < -20) {
+          p.y = canvas.height + 20;
           p.x = Math.random() * canvas.width;
         }
-        if (p.y > canvas.height + 15) p.y = -15;
+        if (p.y > canvas.height + 20) p.y = -20;
 
-        const currentAlpha = p.alpha * (0.85 + 0.25 * Math.sin(p.pulseVal));
+        const currentAlpha = p.alpha * (0.80 + 0.30 * Math.sin(p.pulseVal));
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(0.5, p.r), 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, Math.max(0.6, p.r), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${particleRgb}, ${currentAlpha})`;
 
-        if (p.isBokeh) {
-          // Large glowing halo
+        if (p.isBokeh && currentMode === 'bokeh') {
+          // Large glowing atmospheric halo
           ctx.shadowColor = `rgba(${particleRgb}, 1.0)`;
-          ctx.shadowBlur = 24;
+          ctx.shadowBlur = 28;
+        } else if (p.isBokeh) {
+          ctx.shadowColor = `rgba(${particleRgb}, 0.95)`;
+          ctx.shadowBlur = 18;
         } else {
           // Crisp luminous golden ember
-          ctx.shadowColor = `rgba(${particleRgb}, 0.95)`;
-          ctx.shadowBlur = 12;
+          ctx.shadowColor = `rgba(${particleRgb}, 0.90)`;
+          ctx.shadowBlur = 10;
         }
 
         ctx.fill();
@@ -344,23 +386,36 @@
 
     // Recalibrate target particle parameters based on active mode
     particles.forEach((p) => {
-      if (mode === 'dust') {
-        // Micro-dust: luminous golden embers across the entire screen
-        p.targetR    = p.isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.0 + 1.8);  // 1.8px–4.7px
-        p.targetAlpha = Math.random() * 0.25 + 0.65; // 0.65–0.90
-      } else if (mode === 'bokeh') {
-        // Cinematic bokeh: large luminous glowing orbs
+      if (mode === 'bokeh') {
+        // Mode 1: Cinematic Bokeh Orbs (Hero Section) — large, soft, floating orbs
         if (p.isBokeh) {
-          p.targetR    = Math.random() * 2.0 + 3.8;  // 3.8px–5.8px
-          p.targetAlpha = Math.random() * 0.20 + 0.75; // 0.75–0.95 — Luminous
+          p.targetR    = Math.random() * 2.5 + 4.6;   // 4.6px–7.1px large glowing orbs
+          p.targetAlpha = Math.random() * 0.18 + 0.82; // 0.82–1.00 luminous halo
         } else {
-          p.targetR    = Math.random() * 1.0 + 2.0;  // 2.0px–3.0px
-          p.targetAlpha = Math.random() * 0.20 + 0.60; // 0.60–0.80
+          p.targetR    = Math.random() * 1.2 + 2.0;   // 2.0px–3.2px
+          p.targetAlpha = Math.random() * 0.20 + 0.65; // 0.65–0.85
         }
+        p.speedMultiplier = 0.85; // gentle, majestic floating drift
+      } else if (mode === 'dust') {
+        // Mode 2: Micro-Dust Golden Embers (Content / Machinery / Services) — crisp, active motes
+        if (p.isBokeh) {
+          p.targetR    = Math.random() * 1.0 + 2.2;   // condenses down to 2.2px–3.2px
+          p.targetAlpha = Math.random() * 0.22 + 0.68;
+        } else {
+          p.targetR    = Math.random() * 0.8 + 1.2;   // crisp 1.2px–2.0px spark motes
+          p.targetAlpha = Math.random() * 0.22 + 0.60;
+        }
+        p.speedMultiplier = 1.30; // energetic, lively sparks in the wind
       } else if (mode === 'vignette') {
-        // Vignette: fully visible across all sections
-        p.targetR    = p.isBokeh ? (Math.random() * 1.5 + 3.2) : (Math.random() * 1.0 + 1.8);
-        p.targetAlpha = Math.random() * 0.25 + 0.65;
+        // Mode 3: Vignette Clearing (Technical Specs / Directory)
+        // Peripheral focus: center reading zone remains clear
+        const distFromCenterX = Math.abs(p.x - (canvas.width || 1200) / 2) / ((canvas.width || 1200) / 2);
+        const distFromCenterY = Math.abs(p.y - (canvas.height || 800) / 2) / ((canvas.height || 800) / 2);
+        const edgeFactor = Math.min(1, Math.max(distFromCenterX, distFromCenterY));
+
+        p.targetR    = (Math.random() * 0.9 + 1.2) * (0.5 + 0.7 * edgeFactor);
+        p.targetAlpha = (Math.random() * 0.25 + 0.50) * (0.35 + 0.8 * edgeFactor);
+        p.speedMultiplier = 1.10;
       }
     });
   }
@@ -375,23 +430,29 @@
       return 'vignette';
     }
 
-    // 2. Home Page: Drone Hero uses Mode 2 (Bokeh), lower sections use Mode 1 (Micro-Dust)
-    if (hash === '#/' || hash === '' || hash === '#home') {
-      if (scrollY < 680) {
+    // 2. Home Page: matches '', '#', '#/', '#home', '#/home', '#/home/'
+    const isHome = hash === '' || hash === '#' || hash === '#/' || hash.startsWith('#home') || hash.startsWith('#/home');
+    if (isHome) {
+      // Top Drone Hero zone (< 620px): Cinematic Bokeh Orbs & Auroras
+      if (scrollY < 620) {
         return 'bokeh';
       }
+      // Lower content sections (Machinery, Repuestos, Servicios, Red, Socios): Active Micro-Dust Embers
       return 'dust';
     }
 
-    // 3. About Page / Empresa
-    if (hash.includes('empresa') || hash.includes('about')) {
-      if (scrollY < 550) {
+    // 3. About Page / Empresa: Bokeh on hero, vignette on directory/staff
+    if (hash.includes('empresa') || hash.includes('about') || hash.includes('nosotros')) {
+      if (scrollY < 520) {
         return 'bokeh';
       }
       return 'vignette'; // Keeps staff portraits and directory clear
     }
 
     // 4. Default for Catalog, Spare Parts, Services: Mode 1 (Micro-Dust behind cards)
+    if (scrollY < 480) {
+      return 'bokeh';
+    }
     return 'dust';
   }
 
