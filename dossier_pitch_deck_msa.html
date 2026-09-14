@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"inverse-surface": "#e2e2e6", "telemetry-emerald": "#10B981", "on-primary-fixed-variant": "#5e4200", "on-error": "#690005", "border-structural": "#2E3646", "inverse-primary": "#7c5800", "hazard-gold-glow": "rgba(255, 184, 0, 0.15)", "on-surface": "#e2e2e6", "on-tertiary-container": "#6c4c00", "text-muted": "#94A3B8", "alert-critical": "#EF4444", background: "#111317", surface: "#111317", "on-tertiary-fixed-variant": "#5e4200", "tertiary-fixed-dim": "#fcbb37", "on-primary": "#412d00", "surface-container-low": "#1a1c1f", "surface-container-highest": "#333538", "on-background": "#e2e2e6", outline: "#9e8f78", "secondary-fixed-dim": "#c2c6d3", "on-secondary": "#2b303b", error: "#ffb4ab", tertiary: "#ffdca3", "primary-fixed-dim": "#ffba20", "surface-charcoal": "#14171D", "on-tertiary-fixed": "#271900", "hazard-gold-active": "#E5A500", "surface-container-lowest": "#0c0e11", "surface-bright": "#37393d", "canvas-offwhite": "#F8FAFC", "secondary-fixed": "#dee2f0", "inverse-on-surface": "#2f3034", "surface-variant": "#333538", "on-secondary-fixed-variant": "#424752", "surface-elevated": "#1A1F26", "surface-tint": "#ffba20", "on-secondary-fixed": "#171c25", "on-secondary-container": "#b0b5c2", "primary-fixed": "#ffdea8", "on-primary-container": "#6b4c00", "tertiary-container": "#faba35", "on-error-container": "#ffdad6", "outline-variant": "#514532", secondary: "#c2c6d3", "surface-container": "#1e2023", "on-tertiary": "#422d00", "error-container": "#93000a", "on-surface-variant": "#d5c4ab", "secondary-container": "#424752", "tertiary-fixed": "#ffdea9", primary: "#ffdca1", "telemetry-emerald-glow": "rgba(16, 185, 129, 0.15)", "border-subtle": "#222733", "surface-dim": "#111317", "surface-container-high": "#282a2d", "on-primary-fixed": "#271900", "primary-container": "#ffb800"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, spacing: {"space-xs": "0.25rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "space-md": "1rem", gutter: "1.5rem", "space-lg": "1.5rem", margin: "2rem"}, fontFamily: {"display-lg-mobile": ["Space Grotesk"], caption: ["Inter"], "headline-xl": ["Space Grotesk"], "label-badge": ["JetBrains Mono"], "display-lg": ["Space Grotesk"], "body-lg": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"], "telemetry-data-md": ["JetBrains Mono"], "headline-lg": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "telemetry-data-lg": ["JetBrains Mono"], "headline-xl-mobile": ["Space Grotesk"], headline: ["Space Grotesk"], display: ["Space Grotesk"], body: ["Inter"], label: ["JetBrains Mono"]}, fontSize: {"display-lg-mobile": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}], caption: ["12px", {lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500"}], "headline-xl": ["36px", {lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "700"}], "label-badge": ["11px", {lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "600"}], "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", letterSpacing: "0em", fontWeight: "400"}], "body-md": ["15px", {lineHeight: "24px", letterSpacing: "0em", fontWeight: "400"}], "body-sm": ["13px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "400"}], "telemetry-data-md": ["16px", {lineHeight: "22px", letterSpacing: "-0.01em", fontWeight: "500"}], "headline-lg": ["28px", {lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "600"}], "headline-sm": ["20px", {lineHeight: "28px", letterSpacing: "0em", fontWeight: "600"}], "telemetry-data-lg": ["28px", {lineHeight: "32px", letterSpacing: "-0.03em", fontWeight: "600"}], "headline-xl-mobile": ["26px", {lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 bg-surface-charcoal/95 backdrop-blur-md"><div class="w-full bg-surface-container-lowest py-space-xs px-margin"><div class="max-w-[1360px] mx-auto flex flex-wrap items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-surface-elevated"><span class="inline-block w-2 h-2 rounded-full bg-telemetry-emerald animate-pulse"></span><span class="font-label-badge text-label-badge text-telemetry-emerald uppercase tracking-wider">LIVELINK GPS ONLINE</span></div><span class="font-label-badge text-label-badge text-text-muted">Km 22 Duarte • Soporte 24/7 • Tel: (809) 826-2222 • Taller Central Activo</span></div><div class="flex items-center gap-space-md"><span class="font-label-badge text-label-badge text-primary-container">RD / USA HUB</span><span class="font-label-badge text-label-badge text-text-muted">ESTADO RED: 99.98%</span></div></div></div><div class="h-20 w-full px-margin flex items-center justify-between max-w-[1360px] mx-auto"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Image from https://www.tmd.com.do/wp-content/uploads/2023/07/logo.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VA9lXrksvsphvsVJV2p9VPantEDAE0QXYc7JhlNdji1GF8PZHnaq7lcbvfGtuGv4MjiXJppk1ZrsZTKymyOQ37JSp5MeGesQRdRL7qcLLlsPb6-AcREt2N_jQj4INyoJ9tOcUEeliLzLngn8Q7cA35BHRv-1Avy-ETnUYbYuZ2ZQgTiFd4jBJYfqGt2Zv1NAnjZqkRAvNvDiBEUKt50dsHQoNQiJXGzag3HRXcrZ_T8PLKK-NxQb-7ov_a"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight leading-none">TMD</span><span class="font-label-badge text-label-badge text-text-muted uppercase">Dominicana</span></div></div><nav class="hidden xl:flex items-center gap-space-sm" data-active-classes="bg-surface-elevated text-primary-container font-headline-sm"><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="maquinaria-nueva" href="#">Maquinaria Nueva 0 Km</a><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="renta-de-flota" href="#">Renta de Flota</a><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="repuestos-y-filtros" href="#">Repuestos &amp; Filtros OEM</a><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="telemetria-livelink" href="#">Telemetría LiveLink</a><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="taller-km-22" href="#">Taller Km 22</a><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="portal-prive-vip" href="#">Portal Privé VIP</a><a class="px-space-sm py-space-xs font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="contacto-asesor" href="#">Contacto Asesor</a></nav></div><div class="flex items-center gap-space-sm"><a class="hidden sm:inline-flex items-center px-space-md py-space-sm rounded bg-surface-elevated text-canvas-offwhite font-body-sm text-body-sm hover:bg-surface-container-high transition-colors" data-path="portal-prive-vip" href="#">Portal VIP</a><a class="inline-flex items-center px-space-md py-space-sm rounded bg-primary-container text-surface-container-lowest font-headline-sm text-body-sm uppercase tracking-wide hover:bg-hazard-gold-active transition-all shadow-[0_0_20px_rgba(255,184,0,0.18)]" data-path="cotizar-flota" href="#">Cotizar Flota 0 Km</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full bg-[#000000] text-on-surface select-none pb-28">
+<!-- TOP COCKPIT BAR (Fixed Context Bar) -->
+<div class="sticky top-20 z-40 w-full backdrop-blur-2xl bg-[#12161e]/75 px-margin py-space-sm shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
+<div class="max-w-[1360px] mx-auto flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Ref code & Status Badges -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-elevated/90 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-telemetry-emerald animate-pulse"></span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald tracking-wider uppercase">SLA 99.5% UPTIME INDUSTRIAL</span>
+</div>
+<div class="px-3 py-1 rounded-full bg-surface-charcoal/80">
+<span class="font-label-badge text-label-badge text-text-muted">DOC: </span>
+<span class="font-label-badge text-label-badge text-primary font-bold">TDB-PROP-2026-TMD-3TIERS</span>
+</div>
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high/60 text-text-muted">
+<span class="material-symbols-outlined text-primary-container text-[15px]">verified_user</span>
+<span class="font-caption text-caption text-canvas-offwhite">DGII RNC: 1-30-88492-1</span>
+</div>
+</div>
+<!-- Live Switch USD / DOP & Grand Total Readout -->
+<div class="flex items-center gap-space-md w-full md:w-auto justify-between md:justify-end">
+<div class="flex items-center gap-space-xs bg-surface-container-lowest/80 p-1 rounded-full">
+<button class="px-3 py-1 rounded-full font-label-badge text-label-badge transition-all bg-primary-container text-surface-container-lowest font-bold shadow-[0_0_15px_rgba(255,184,0,0.25)]" id="btn-usd" onclick="setCurrency('USD')">USD ($)</button>
+<button class="px-3 py-1 rounded-full font-label-badge text-label-badge text-text-muted transition-all hover:text-on-surface" id="btn-dop" onclick="setCurrency('DOP')">DOP (@59.50)</button>
+</div>
+<div class="flex items-center gap-space-sm pl-space-sm">
+<div class="flex flex-col text-right">
+<span class="font-caption text-caption text-text-muted uppercase">Inversión Estimada</span>
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary-container font-bold leading-none" id="cockpit-total-display">$2,850</span>
+</div>
+<a class="hidden lg:flex items-center gap-1 px-4 py-2.5 rounded-xl bg-primary-container text-surface-container-lowest font-headline-sm text-body-sm uppercase tracking-wider hover:bg-hazard-gold-active transition-all shadow-[0_0_20px_rgba(255,184,0,0.2)]" href="#section-msa">
+<span>Revisar MSA</span>
+<span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Navigation Hub Tabs (6 Modules) -->
+<div class="max-w-[1360px] mx-auto mt-space-sm overflow-x-auto">
+<div class="flex items-center gap-2 min-w-max pb-1">
+<button class="tab-pill active-tab px-4 py-2 rounded-2xl font-headline-sm text-body-sm transition-all flex items-center gap-2 bg-primary-container text-surface-container-lowest shadow-[0_0_15px_rgba(255,184,0,0.2)]" id="nav-tab-tiers" onclick="switchTab('tab-tiers')">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+<span>1. Matriz 3 Tiers</span>
+</button>
+<button class="tab-pill px-4 py-2 rounded-2xl font-headline-sm text-body-sm text-text-muted hover:text-on-surface transition-all flex items-center gap-2 bg-surface-charcoal/60" id="nav-tab-fullbay" onclick="switchTab('tab-fullbay')">
+<span class="material-symbols-outlined text-[18px]">api</span>
+<span>2. Fullbay API Live (9 Endpoints)</span>
+</button>
+<button class="tab-pill px-4 py-2 rounded-2xl font-headline-sm text-body-sm text-text-muted hover:text-on-surface transition-all flex items-center gap-2 bg-surface-charcoal/60" id="nav-tab-loop" onclick="switchTab('tab-loop')">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span>3. Flujo 360° Closed-Loop</span>
+</button>
+<button class="tab-pill px-4 py-2 rounded-2xl font-headline-sm text-body-sm text-text-muted hover:text-on-surface transition-all flex items-center gap-2 bg-surface-charcoal/60" id="nav-tab-upsells" onclick="switchTab('tab-upsells')">
+<span class="material-symbols-outlined text-[18px]">extension</span>
+<span>4. Upgrades Modulares (+6)</span>
+</button>
+<button class="tab-pill px-4 py-2 rounded-2xl font-headline-sm text-body-sm text-text-muted hover:text-on-surface transition-all flex items-center gap-2 bg-surface-charcoal/60" id="nav-tab-pitch" onclick="switchTab('tab-pitch')">
+<span class="material-symbols-outlined text-[18px]">slideshow</span>
+<span>5. Pitch Deck Ejecutivo</span>
+</button>
+<button class="tab-pill px-4 py-2 rounded-2xl font-headline-sm text-body-sm text-text-muted hover:text-on-surface transition-all flex items-center gap-2 bg-surface-charcoal/60" id="nav-tab-msa" onclick="switchTab('tab-msa')">
+<span class="material-symbols-outlined text-[18px]">draw</span>
+<span>6. Contrato MSA &amp; Firma</span>
+</button>
+</div>
+</div>
+</div>
+<!-- HERO STATEMENT WITH INDUSTRIAL DEPTH -->
+<div class="relative w-full max-w-[1360px] mx-auto px-margin pt-space-xl pb-space-lg overflow-hidden">
+<div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-10 left-10 w-80 h-80 rounded-full bg-telemetry-emerald-glow blur-3xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-space-lg relative z-10">
+<div class="max-w-3xl flex flex-col gap-space-sm">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-container/10">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">DOSSIER DE INGENIERÍA &amp; TRANSFORMACIÓN DIGITAL TMD</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-canvas-offwhite tracking-tight leading-none">
+          Ecosistema Digital <span class="text-primary-container">720°</span> &amp; Fullbay Core.
+        </h1>
+<p class="font-body-lg text-body-lg text-text-muted">
+          Propuesta técnica y contractual para Tecnomaquinarias Diesel S.R.L. Automatización integral de taller Km 22, integración nativa de inventario OEM JCB/LiuGong y pasarela de telemetría LiveLink conectada en tiempo real.
+        </p>
+</div>
+<!-- Quick Executive Stat Pod -->
+<div class="grid grid-cols-2 gap-space-sm w-full lg:w-auto p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 shadow-xl">
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container-lowest/70">
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Tiempo Implementación</span>
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">4-6 Sem</span>
+<span class="font-caption text-caption text-telemetry-emerald">Despliegue escalonado</span>
+</div>
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container-lowest/70">
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Sincronización Fullbay</span>
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-canvas-offwhite font-bold">&lt; 350ms</span>
+<span class="font-caption text-caption text-text-muted">Webhooks bi-direccionales</span>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB CONTENT 1: MATRIZ 3 TIERS -->
+<section class="tab-pane w-full max-w-[1360px] mx-auto px-margin mt-space-md" id="content-tab-tiers">
+<div class="flex flex-col gap-space-md mb-space-lg">
+<div class="flex flex-wrap items-end justify-between gap-space-sm">
+<div>
+<span class="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">ARQUITECTURA DE INVERSIÓN</span>
+<h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">Seleccione el Nivel Operativo para TMD</h2>
+</div>
+<span class="font-caption text-caption text-text-muted">Haga clic en una tarjeta para activarla en el acuerdo MSA global</span>
+</div>
+</div>
+<!-- 3 TIER CARDS GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-stretch">
+<!-- TIER 1: SHOWROOM DIGITAL & CRM -->
+<div class="tier-card cursor-pointer rounded-3xl p-space-lg backdrop-blur-2xl bg-[#12161e]/45 hover:bg-[#12161e]/60 transition-all flex flex-col justify-between relative group" id="tier-card-1" onclick="selectTier(1, 1250)">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-surface-container-high/60 font-label-badge text-label-badge text-text-muted uppercase">Nivel 01 · Showroom</span>
+<span class="tier-radio w-6 h-6 rounded-full bg-surface-charcoal flex items-center justify-center text-transparent">✓</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-canvas-offwhite">Showroom &amp; CRM B2B</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Presencia digital robusta para venta de maquinaria 0 Km, filtros y captura de leads calificados.</p>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-text-muted uppercase">Inversión Única</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-canvas-offwhite font-bold tier-price-usd" data-val="1250">$1,250</span>
+<span class="font-caption text-caption text-text-muted">USD + ITBIS</span>
+</div>
+<span class="font-label-badge text-label-badge text-text-muted tier-price-dop" data-val="74375">RD$ 74,375.00</span>
+</div>
+<ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Catálogo JCB, LS Tractor &amp; LiuGong</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Cotizador de Flota con amortización DOP</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Lead Routing por WhatsApp y Correo</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Diseño Responsive Ultra-Rápido Astro/Tailwind</span>
+</li>
+<li class="flex items-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-alert-critical text-[18px]">cancel</span>
+<span class="line-through">Integración API Fullbay en Vivo</span>
+</li>
+<li class="flex items-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-alert-critical text-[18px]">cancel</span>
+<span class="line-through">Inspecciones DVI Digitales con Foto</span>
+</li>
+</ul>
+</div>
+<button class="w-full mt-space-lg py-3 rounded-2xl bg-surface-elevated font-headline-sm text-body-sm text-canvas-offwhite group-hover:bg-primary-container group-hover:text-surface-container-lowest transition-colors">
+          Seleccionar Tier 1
+        </button>
+</div>
+<!-- TIER 2: FULLBAY FLEET OS (RECOMMENDED) -->
+<div class="tier-card active-tier cursor-pointer rounded-3xl p-space-lg backdrop-blur-2xl bg-[#12161e]/55 transition-all flex flex-col justify-between relative shadow-[0_0_40px_rgba(255,184,0,0.12)] ring-2 ring-primary-container" id="tier-card-2" onclick="selectTier(2, 2850)">
+<!-- Floating badge -->
+<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary-container text-surface-container-lowest font-label-badge text-label-badge uppercase font-bold tracking-wider shadow-lg">
+          Recomendado · Alto Rendimiento
+        </div>
+<div class="flex flex-col gap-space-md mt-2">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-primary-container/20 font-label-badge text-label-badge text-primary font-bold uppercase">Nivel 02 · Fullbay Core</span>
+<span class="tier-radio w-6 h-6 rounded-full bg-primary-container flex items-center justify-center text-surface-container-lowest font-bold text-xs">✓</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-canvas-offwhite">Fullbay Fleet OS &amp; Taller 720°</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Conexión integral en vivo con Fullbay Heavy Duty ERP: DVI, portal de clientes y órdenes Km 22.</p>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-lowest/80">
+<span class="font-caption text-caption text-primary uppercase font-semibold">Inversión Recomendada</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary-container font-bold tier-price-usd" data-val="2850">$2,850</span>
+<span class="font-caption text-caption text-text-muted">USD + ITBIS</span>
+</div>
+<span class="font-label-badge text-label-badge text-telemetry-emerald tier-price-dop" data-val="169575">RD$ 169,575.00</span>
+</div>
+<ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-canvas-offwhite">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span class="font-semibold">Todo lo incluido en Tier 01</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Portal Privé de Clientes con Login Seguro</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>9 Endpoints Fullbay API Bi-Direccionales</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Subida de Fotos DVI y Autorización Digital</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Alertas Preventivas PM-Schedules automáticas</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Pasarela Square Web Payments &amp; Facturación</span>
+</li>
+</ul>
+</div>
+<button class="w-full mt-space-lg py-3 rounded-2xl bg-primary-container text-surface-container-lowest font-headline-sm text-body-sm uppercase tracking-wider font-bold shadow-[0_0_20px_rgba(255,184,0,0.2)]">
+          Tier Seleccionado Actualmente
+        </button>
+</div>
+<!-- TIER 3: ENTERPRISE ECOSYSTEM -->
+<div class="tier-card cursor-pointer rounded-3xl p-space-lg backdrop-blur-2xl bg-[#12161e]/45 hover:bg-[#12161e]/60 transition-all flex flex-col justify-between relative group" id="tier-card-3" onclick="selectTier(3, 4950)">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-surface-container-high/60 font-label-badge text-label-badge text-text-muted uppercase">Nivel 03 · Enterprise</span>
+<span class="tier-radio w-6 h-6 rounded-full bg-surface-charcoal flex items-center justify-center text-transparent">✓</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-canvas-offwhite">Enterprise Digital Twin</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Ecosistema omnicanal completo: Agente IA en WhatsApp, Telemetría satelital y Desglose 3D de piezas.</p>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-text-muted uppercase">Inversión Enterprise</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-canvas-offwhite font-bold tier-price-usd" data-val="4950">$4,950</span>
+<span class="font-caption text-caption text-text-muted">USD + ITBIS</span>
+</div>
+<span class="font-label-badge text-label-badge text-text-muted tier-price-dop" data-val="294525">RD$ 294,525.00</span>
+</div>
+<ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span class="font-semibold text-canvas-offwhite">Todo lo de Tier 01 &amp; Tier 02</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>WhatsApp AI Booking Agent 24/7 Oficial</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Integración Telemetría LiveLink / CANbus</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Explosión 3D Interactiva de Repuestos JCB</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Kiosco Counter Square Taller Km 22 Físico</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">check_circle</span>
+<span>Soporte Prioritario Tier-1 &amp; SLA 99.9% 12 Meses</span>
+</li>
+</ul>
+</div>
+<button class="w-full mt-space-lg py-3 rounded-2xl bg-surface-elevated font-headline-sm text-body-sm text-canvas-offwhite group-hover:bg-primary-container group-hover:text-surface-container-lowest transition-colors">
+          Seleccionar Tier 3
+        </button>
+</div>
+</div>
+<!-- COMPARISON TABLE SECTION -->
+<div class="mt-space-xl p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 overflow-hidden">
+<div class="flex items-center justify-between mb-space-md">
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Matriz Comparativa Técnica Detallada</h3>
+<span class="font-label-badge text-label-badge text-primary-container">TABLA DE COMPONENTES</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-charcoal/80 text-text-muted font-label-badge text-label-badge uppercase tracking-wider">
+<th class="p-3.5 rounded-l-xl">Módulo Funcional</th>
+<th class="p-3.5 text-center">Tier 1 ($1,250)</th>
+<th class="p-3.5 text-center bg-primary-container/10 text-primary">Tier 2 ($2,850) ★</th>
+<th class="p-3.5 text-center rounded-r-xl">Tier 3 ($4,950)</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y divide-[#222733]/40">
+<tr class="hover:bg-surface-container-low/40">
+<td class="p-3.5 font-medium text-canvas-offwhite">Catálogo Digital de Equipos (JCB, LS, LiuGong)</td>
+<td class="p-3.5 text-center text-telemetry-emerald">Completo</td>
+<td class="p-3.5 text-center text-telemetry-emerald bg-primary-container/5">Completo</td>
+<td class="p-3.5 text-center text-telemetry-emerald">Completo + 3D View</td>
+</tr>
+<tr class="hover:bg-surface-container-low/40">
+<td class="p-3.5 font-medium text-canvas-offwhite">API Fullbay Work Orders &amp; Estatus en Vivo</td>
+<td class="p-3.5 text-center text-text-muted">—</td>
+<td class="p-3.5 text-center text-telemetry-emerald font-bold bg-primary-container/5">Activo (9 Endpoints)</td>
+<td class="p-3.5 text-center text-telemetry-emerald font-bold">Activo + Despacho GPS</td>
+</tr>
+<tr class="hover:bg-surface-container-low/40">
+<td class="p-3.5 font-medium text-canvas-offwhite">Inspecciones DVI con Evidencia Fotográfica y Firma</td>
+<td class="p-3.5 text-center text-text-muted">—</td>
+<td class="p-3.5 text-center text-telemetry-emerald font-bold bg-primary-container/5">Portal Clientes Web</td>
+<td class="p-3.5 text-center text-telemetry-emerald font-bold">Web + Notificación WhatsApp</td>
+</tr>
+<tr class="hover:bg-surface-container-low/40">
+<td class="p-3.5 font-medium text-canvas-offwhite">Pasarela de Pagos Square Terminal &amp; Web Pay</td>
+<td class="p-3.5 text-center text-text-muted">—</td>
+<td class="p-3.5 text-center text-telemetry-emerald bg-primary-container/5">Integración Web</td>
+<td class="p-3.5 text-center text-telemetry-emerald font-bold">Web + Kiosco Físico Counter</td>
+</tr>
+<tr class="hover:bg-surface-container-low/40">
+<td class="p-3.5 font-medium text-canvas-offwhite">Mantenimientos Predictivos (PM Schedules)</td>
+<td class="p-3.5 text-center text-text-muted">—</td>
+<td class="p-3.5 text-center text-telemetry-emerald bg-primary-container/5">Cronograma Horómetro</td>
+<td class="p-3.5 text-center text-telemetry-emerald font-bold">Horómetro CANbus Automático</td>
+</tr>
+<tr class="hover:bg-surface-container-low/40">
+<td class="p-3.5 font-medium text-canvas-offwhite">Tiempo de Garantía de Código &amp; SLA</td>
+<td class="p-3.5 text-center text-text-muted">60 Días</td>
+<td class="p-3.5 text-center text-canvas-offwhite font-bold bg-primary-container/5">180 Días</td>
+<td class="p-3.5 text-center text-primary-container font-bold">365 Días 24/7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- TAB CONTENT 2: FULLBAY API LIVE SPEC (9 ENDPOINTS) -->
+<section class="tab-pane hidden w-full max-w-[1360px] mx-auto px-margin mt-space-md" id="content-tab-fullbay">
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-telemetry-emerald-glow w-fit">
+<span class="w-2 h-2 rounded-full bg-telemetry-emerald animate-pulse"></span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald tracking-wider uppercase">FULLBAY REST API V2 · CERTIFICACIÓN TÉCNICA</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">Consola de Integración 9 Endpoints Live</h2>
+<p class="font-body-md text-body-md text-text-muted max-w-3xl">
+        Interconexión nativa y bidireccional entre el portal de Tecnomaquinarias Diesel y el servidor central de Fullbay para automatizar órdenes, inventario y facturación sin re-digitación manual.
+      </p>
+</div>
+<!-- 9 ENDPOINTS GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- 1: /workorders -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary-container font-label-badge text-label-badge font-bold">GET / POST</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">200 OK</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/workorders</span>
+<p class="font-body-sm text-body-sm text-text-muted">Apertura remota de orden de servicio, asignación de bahía en Km 22 y monitoreo de horas hombre de técnicos.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ wo_id, asset_vin, bay_no, status }</span>
+</div>
+</div>
+<!-- 2: /dvi-photos -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-telemetry-emerald/20 text-telemetry-emerald font-label-badge text-label-badge font-bold">MULTIPART POST</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">SYNC REALTIME</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/dvi/inspections</span>
+<p class="font-body-sm text-body-sm text-text-muted">Recepción de inspección visual de 42 puntos con fotografías de desgaste, fugas y firma táctil del cliente.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ check_id, media_urls[], auditor_sig }</span>
+</div>
+</div>
+<!-- 3: /service-requests -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary-container font-label-badge text-label-badge font-bold">POST</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">WEBHOOK TRIGGER</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/service-requests</span>
+<p class="font-body-sm text-body-sm text-text-muted">Generación directa de solicitud desde el portal VIP o WhatsApp cuando una máquina registra falla en campo.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ fleet_rnc, priority: "CRITICAL", fault }</span>
+</div>
+</div>
+<!-- 4: /parts/search -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-canvas-offwhite font-label-badge text-label-badge font-bold">GET REALTIME</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">CACHE 60s</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/parts/inventory</span>
+<p class="font-body-sm text-body-sm text-text-muted">Consulta de existencia de filtros Donaldson/JCB en almacén Km 22, precios mayoristas y reserva inmediata.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ oem_sku, stock_qty, loc: "KM22_WH1" }</span>
+</div>
+</div>
+<!-- 5: /fleet -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary-container font-label-badge text-label-badge font-bold">GET / PATCH</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">ASSET REGISTRY</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/fleet/assets</span>
+<p class="font-body-sm text-body-sm text-text-muted">Registro maestro de excavadoras, retroexcavadoras y tractores asociados al RNC de cada contratista.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ unit_id, serial_vin, brand, horometer }</span>
+</div>
+</div>
+<!-- 6: /pm-schedules -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-canvas-offwhite font-label-badge text-label-badge font-bold">GET AUTOMATED</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">CRON SYNC</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/pm-schedules</span>
+<p class="font-body-sm text-body-sm text-text-muted">Cálculo de intervalos de servicio (250h, 500h, 1000h) con disparo predictivo de cotización de kit de filtros.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ next_service_hrs, oil_due, kit_sku }</span>
+</div>
+</div>
+<!-- 7: /estimates -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary-container font-label-badge text-label-badge font-bold">GET / APPROVE</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">1-CLICK SIGN</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/estimates</span>
+<p class="font-body-sm text-body-sm text-text-muted">Presupuestos de reparación desglosados en repuestos y mano de obra con aprobación digital del gerente de flota.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ est_id, total_usd, auth_status: "APPROVED" }</span>
+</div>
+</div>
+<!-- 8: /invoices -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary-container font-label-badge text-label-badge font-bold">POST DGII SYNC</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">NCF B01</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/invoices</span>
+<p class="font-body-sm text-body-sm text-text-muted">Emisión de facturas fiscales con comprobante de crédito fiscal dominicano y enlace de pago Square.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ ncf_code, tax_amount, square_payment_ref }</span>
+</div>
+</div>
+<!-- 9: /dispatch -->
+<div class="p-space-md rounded-2xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between hover:bg-[#12161e]/65 transition-all">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary-container font-label-badge text-label-badge font-bold">LIVE TELEMETRY</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">GPS TRACKING</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold">/api/v2/dispatch/mobile-units</span>
+<p class="font-body-sm text-body-sm text-text-muted">Despacho y rastreo satelital de camionetas de servicio técnico en campo con asignación por proximidad.</p>
+</div>
+<div class="mt-4 pt-3 p-2 rounded-xl bg-surface-container-lowest/80 font-label-badge text-label-badge text-text-muted">
+          Payload: <span class="text-primary-container">{ truck_id, tech_lat, tech_lng, eta_minutes }</span>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB CONTENT 3: PLATAFORMA INTEGRAL 360° CLOSED-LOOP -->
+<section class="tab-pane hidden w-full max-w-[1360px] mx-auto px-margin mt-space-md" id="content-tab-loop">
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<span class="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">ARQUITECTURA DE CICLO CERRADO TMD</span>
+<h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">Flujo 360°: Desde el Lead Web hasta Conciliación Bancaria</h2>
+<p class="font-body-md text-body-md text-text-muted max-w-3xl">
+        Cada acción digital desencadena eventos sincronizados entre la interfaz web pública, el portal de clientes, el ERP Fullbay y los sistemas de pago en el taller Km 22.
+      </p>
+</div>
+<!-- 8 STEP CLOSED LOOP CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Stage 1 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">01</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">devices</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Lead &amp; Cotización Web</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Cliente configura excavadora JCB o solicita kit de filtros para su flota.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">Frontend Astro &amp; Tailwind</div>
+</div>
+<!-- Stage 2 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">02</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">handshake</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Calificación RNC &amp; VIN</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Validación instantánea de RNC empresarial y asignación de asesor técnico TMD.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">HubSpot / Strapi CRM</div>
+</div>
+<!-- Stage 3 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">03</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">calendar_month</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Apertura en Fullbay</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Inyección de Service Request a Fullbay. Bahía de Km 22 reservada con horario.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">Fullbay API /service-requests</div>
+</div>
+<!-- Stage 4 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">04</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">fact_check</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Inspección Digital DVI</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Mecánico sube fotos del desgaste en orugas o motor desde tablet en taller.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">Fullbay DVI Module</div>
+</div>
+<!-- Stage 5 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">05</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">approval_delegation</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Aprobación Remota</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Gerente de obra recibe SMS/Email, revisa fotos y aprueba la cotización con 1 clic.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">Portal Clientes TMD VIP</div>
+</div>
+<!-- Stage 6 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">06</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">build_circle</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Ejecución Taller Km 22</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Descarga de piezas del inventario, prueba hidráulica a 6,000 PSI y control de calidad.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">Taller Central S.D.O.</div>
+</div>
+<!-- Stage 7 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">07</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">payments</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Cobro Square &amp; NCF</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Cobro online o en terminal counter físico con generación instantánea de NCF Fiscal.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">Square Webhook + DGII</div>
+</div>
+<!-- Stage 8 -->
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden flex flex-col justify-between group">
+<div class="flex items-center justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary font-bold">08</span>
+<span class="material-symbols-outlined text-text-muted text-[24px]">monitoring</span>
+</div>
+<div class="mt-4 flex flex-col gap-1">
+<h4 class="font-headline-sm text-headline-sm text-canvas-offwhite">Telemetría LiveLink Post</h4>
+<p class="font-body-sm text-body-sm text-text-muted">Unidad liberada vuelve a obra con monitoreo activo de horómetro y consumo de diésel.</p>
+</div>
+<div class="mt-4 pt-2 font-label-badge text-label-badge text-primary-container">JCB LiveLink Telematics</div>
+</div>
+</div>
+</section>
+<!-- TAB CONTENT 4: MÓDULOS EXTRA / UPSELLS (+6 INTERACTIVE CARDS) -->
+<section class="tab-pane hidden w-full max-w-[1360px] mx-auto px-margin mt-space-md" id="content-tab-upsells">
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div>
+<span class="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">INGENIERÍA MODULAR ADICIONAL</span>
+<h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">Upgrades de Alto Impacto para la Flota TMD</h2>
+</div>
+<div class="px-4 py-2 rounded-2xl bg-surface-charcoal/80 flex items-center gap-2">
+<span class="font-caption text-caption text-text-muted">Upgrades seleccionados:</span>
+<span class="font-label-badge text-label-badge text-primary-container font-bold" id="upsells-count-badge">0 de 6</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-text-muted max-w-3xl">
+        Active módulos especializados para enriquecer la experiencia de sus clientes corporativos. Al marcar o desmarcar cada upgrade, el monto total y el contrato MSA se actualizan en tiempo real.
+      </p>
+</div>
+<!-- 6 UPGRADES GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- UPSELL A: LiveLink GPS Telemetry -->
+<div class="upsell-card p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 transition-all flex flex-col justify-between relative group" data-upsell-id="telematics" data-usd="650">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-xl bg-telemetry-emerald-glow text-telemetry-emerald">
+<span class="material-symbols-outlined text-[24px]">satellite_alt</span>
+</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald font-bold">UPGRADE A</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">LiveLink GPS &amp; Telemetría CANbus</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Integración satelital que alimenta Fullbay automáticamente con las horas de uso de motor, alertas de temperatura y geocercas en proyectos mineros y viales.</p>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/80 mt-2">
+<span class="font-caption text-caption text-text-muted">Costo Adicional</span>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container font-bold upsell-price-usd" data-val="650">+$650 USD</span>
+<span class="font-caption text-caption text-text-muted upsell-price-dop" data-val="38675">(RD$ 38,675)</span>
+</div>
+</div>
+</div>
+<button class="btn-upsell w-full mt-space-md py-3 rounded-2xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm flex items-center justify-center gap-2 hover:bg-primary-container hover:text-surface-container-lowest transition-all" onclick="toggleUpsell('telematics', 650, this)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="btn-upsell-text">Agregar al Presupuesto</span>
+</button>
+</div>
+<!-- UPSELL B: 3D Exploded Parts Viewer -->
+<div class="upsell-card p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 transition-all flex flex-col justify-between relative group" data-upsell-id="parts3d" data-usd="850">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-xl bg-primary-container/20 text-primary-container">
+<span class="material-symbols-outlined text-[24px]">view_in_ar</span>
+</span>
+<span class="font-label-badge text-label-badge text-primary-container font-bold">UPGRADE B</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Visor 3D Interactivo de Despiece OEM</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Módulo tridimensional WebGL para que contratistas exploren el motor o pluma excavadora, haciendo clic directamente sobre el retén o filtro que necesitan ordenar.</p>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/80 mt-2">
+<span class="font-caption text-caption text-text-muted">Costo Adicional</span>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container font-bold upsell-price-usd" data-val="850">+$850 USD</span>
+<span class="font-caption text-caption text-text-muted upsell-price-dop" data-val="50575">(RD$ 50,575)</span>
+</div>
+</div>
+</div>
+<button class="btn-upsell w-full mt-space-md py-3 rounded-2xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm flex items-center justify-center gap-2 hover:bg-primary-container hover:text-surface-container-lowest transition-all" onclick="toggleUpsell('parts3d', 850, this)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="btn-upsell-text">Agregar al Presupuesto</span>
+</button>
+</div>
+<!-- UPSELL C: Counter Kiosk Square -->
+<div class="upsell-card p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 transition-all flex flex-col justify-between relative group" data-upsell-id="kiosk" data-usd="550">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-xl bg-surface-container-high text-canvas-offwhite">
+<span class="material-symbols-outlined text-[24px]">point_of_sale</span>
+</span>
+<span class="font-label-badge text-label-badge text-text-muted font-bold">UPGRADE C</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Kiosco Counter Square Taller Km 22</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Configuración de pantalla táctil en el mostrador del taller para cobro de mostrador de repuestos con sincronización a Square Terminal y comprobante por SMS.</p>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/80 mt-2">
+<span class="font-caption text-caption text-text-muted">Costo Adicional</span>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container font-bold upsell-price-usd" data-val="550">+$550 USD</span>
+<span class="font-caption text-caption text-text-muted upsell-price-dop" data-val="32725">(RD$ 32,725)</span>
+</div>
+</div>
+</div>
+<button class="btn-upsell w-full mt-space-md py-3 rounded-2xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm flex items-center justify-center gap-2 hover:bg-primary-container hover:text-surface-container-lowest transition-all" onclick="toggleUpsell('kiosk', 550, this)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="btn-upsell-text">Agregar al Presupuesto</span>
+</button>
+</div>
+<!-- UPSELL D: WhatsApp Business AI Agent -->
+<div class="upsell-card p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 transition-all flex flex-col justify-between relative group" data-upsell-id="whatsapp" data-usd="950">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-xl bg-telemetry-emerald-glow text-telemetry-emerald">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald font-bold">UPGRADE D</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Agente WhatsApp IA Oficial 24/7</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Bot entrenado con el manual técnico de maquinaria TMD que atiende mecánicos en campo, consulta disponibilidad de repuestos en Fullbay y agenda citas de taller.</p>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/80 mt-2">
+<span class="font-caption text-caption text-text-muted">Costo Adicional</span>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container font-bold upsell-price-usd" data-val="950">+$950 USD</span>
+<span class="font-caption text-caption text-text-muted upsell-price-dop" data-val="56525">(RD$ 56,525)</span>
+</div>
+</div>
+</div>
+<button class="btn-upsell w-full mt-space-md py-3 rounded-2xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm flex items-center justify-center gap-2 hover:bg-primary-container hover:text-surface-container-lowest transition-all" onclick="toggleUpsell('whatsapp', 950, this)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="btn-upsell-text">Agregar al Presupuesto</span>
+</button>
+</div>
+<!-- UPSELL E: Strapi Headless CMS Multi-branch -->
+<div class="upsell-card p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 transition-all flex flex-col justify-between relative group" data-upsell-id="strapi" data-usd="450">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-xl bg-primary-container/20 text-primary">
+<span class="material-symbols-outlined text-[24px]">dataset</span>
+</span>
+<span class="font-label-badge text-label-badge text-primary font-bold">UPGRADE E</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Strapi Headless CMS Multi-Sucursal</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Panel administrativo amigable para que el equipo interno de TMD publique maquinaria usada, banners promocionales y noticias del sector sin requerir programadores.</p>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/80 mt-2">
+<span class="font-caption text-caption text-text-muted">Costo Adicional</span>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container font-bold upsell-price-usd" data-val="450">+$450 USD</span>
+<span class="font-caption text-caption text-text-muted upsell-price-dop" data-val="26775">(RD$ 26,775)</span>
+</div>
+</div>
+</div>
+<button class="btn-upsell w-full mt-space-md py-3 rounded-2xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm flex items-center justify-center gap-2 hover:bg-primary-container hover:text-surface-container-lowest transition-all" onclick="toggleUpsell('strapi', 450, this)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="btn-upsell-text">Agregar al Presupuesto</span>
+</button>
+</div>
+<!-- UPSELL F: DGII Fiscal Automation Connector -->
+<div class="upsell-card p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 transition-all flex flex-col justify-between relative group" data-upsell-id="dgii" data-usd="750">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-xl bg-surface-container-high text-canvas-offwhite">
+<span class="material-symbols-outlined text-[24px]">receipt_long</span>
+</span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite font-bold">UPGRADE F</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Conector Fiscal Automatizado DGII</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Emisión y secuenciación automática de comprobantes B01, B02 y B14 vinculados directamente con cada cierre de orden de servicio en Fullbay y liquidación de ITBIS.</p>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/80 mt-2">
+<span class="font-caption text-caption text-text-muted">Costo Adicional</span>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container font-bold upsell-price-usd" data-val="750">+$750 USD</span>
+<span class="font-caption text-caption text-text-muted upsell-price-dop" data-val="44625">(RD$ 44,625)</span>
+</div>
+</div>
+</div>
+<button class="btn-upsell w-full mt-space-md py-3 rounded-2xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm flex items-center justify-center gap-2 hover:bg-primary-container hover:text-surface-container-lowest transition-all" onclick="toggleUpsell('dgii', 750, this)">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="btn-upsell-text">Agregar al Presupuesto</span>
+</button>
+</div>
+</div>
+</section>
+<!-- TAB CONTENT 5: PITCH DECK EJECUTIVO (7 SLIDES) -->
+<section class="tab-pane hidden w-full max-w-[1360px] mx-auto px-margin mt-space-md" id="content-tab-pitch">
+<div class="flex flex-col gap-space-sm mb-space-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">PRESENTACIÓN A LA ALTA GERENCIA</span>
+<h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">Pitch Deck Estratégico TMD 2026</h2>
+</div>
+<!-- Slide Controls -->
+<div class="flex items-center gap-space-sm">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary font-bold" id="slide-indicator">01 / 07</span>
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-full bg-surface-charcoal hover:bg-surface-container-high flex items-center justify-center text-canvas-offwhite" onclick="prevSlide()">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary-container text-surface-container-lowest hover:bg-hazard-gold-active flex items-center justify-center font-bold" onclick="nextSlide()">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- CAROUSEL CONTAINER -->
+<div class="relative w-full rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 p-space-xl overflow-hidden min-h-[460px] flex items-center">
+<!-- SLIDE 1 -->
+<div class="pitch-slide flex flex-col justify-between w-full h-full gap-space-md" data-index="1">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-primary-container uppercase">SLIDE 01 · EL DIAGNÓSTICO</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">El Cuello de Botella Operativo en el Km 22</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            Actualmente, los contratistas en minas y obras civiles pierden hasta 72 horas esperando cotizaciones de filtros y aprobaciones de taller vía llamadas telefónicas no estructuradas. La falta de visibilidad en tiempo real frena la rotación de las 18 bahías de servicio.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-md border-t border-[#222733]/40">
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-alert-critical font-bold">72 Horas Promedio</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Tiempo de ciclo previo en autorizaciones mecánicas complejas.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-primary-container font-bold">18 Bahías Sub-optimizadas</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Capacidad ociosa debido a falta de scheduling predictivo.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-telemetry-emerald font-bold">Oportunidad $120k+ USD</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">En venta no capturada de repuestos OEM y contratos preventivos.</p>
+</div>
+</div>
+</div>
+<!-- SLIDE 2 -->
+<div class="pitch-slide hidden flex-col justify-between w-full h-full gap-space-md" data-index="2">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">SLIDE 02 · LA SOLUCIÓN TÉCNICA</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">Arquitectura Headless Conectada a Fullbay ERP</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            No es un sitio web tradicional: es un sistema operativo web que se enlaza directamente con la base de datos de Fullbay en la nube de TMD. Cada clic de un contratista reserva piezas reales en el Km 22 y actualiza el libro contable de inmediato.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-md border-t border-[#222733]/40">
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-telemetry-emerald font-bold">&lt; 350 Milisegundos</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Latencia ultra-baja en consultas de stock de repuestos.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-primary-container font-bold">100% Cero Fricción</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Acceso seguro con número de cliente o RNC sin contraseñas engorrosas.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-canvas-offwhite font-bold">Astro Island Architecture</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Máxima velocidad de carga en teléfonos en zonas rurales con señal 3G/4G.</p>
+</div>
+</div>
+</div>
+<!-- SLIDE 3 -->
+<div class="pitch-slide hidden flex-col justify-between w-full h-full gap-space-md" data-index="3">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-primary-container uppercase">SLIDE 03 · EXPERIENCIA DEL CLIENTE B2B</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">Portal Privé: Transparencia Brutal para Contratistas</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            Los jefes de maquinaria de las mayores constructoras del país tendrán un panel donde pueden ver el progreso de sus máquinas en el taller con fotos DVI en tiempo real, histórico de mantenimientos y descargas de facturas fiscales DGII en PDF.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-md border-t border-[#222733]/40">
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-primary font-bold">Fotos de Alta Definición</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Evidencia visual antes de desarmar cualquier componente mayor.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-telemetry-emerald font-bold">Aprobación en 2 Minutos</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Firma digital de presupuestos con validez comercial.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-canvas-offwhite font-bold">Historial de Odómetro/Horas</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Registro auditable que revaloriza los activos del cliente.</p>
+</div>
+</div>
+</div>
+<!-- SLIDE 4 -->
+<div class="pitch-slide hidden flex-col justify-between w-full h-full gap-space-md" data-index="4">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">SLIDE 04 · MONETIZACIÓN &amp; EFICIENCIA</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">Acelerador de Flujo de Caja con Pagos Digitales</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            Sustituimos los cheques demorados y depósitos manuales con pasarelas Square certificadas. El cliente paga con tarjeta corporativa o transferencia instantánea antes de que la maquinaria salga del patio de Km 22, reduciendo a cero el riesgo de cartera.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-md border-t border-[#222733]/40">
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-telemetry-emerald font-bold">-85% En Días de Cobro (DSO)</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Reducción sustancial del periodo de cobranza en repuestos.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-primary-container font-bold">Square POS Integrado</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Cobro simultáneo en mostrador físico y enlaces web.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-canvas-offwhite font-bold">Libro Contable Limpio</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Conciliación automática en el ERP sin descuadres.</p>
+</div>
+</div>
+</div>
+<!-- SLIDE 5 -->
+<div class="pitch-slide hidden flex-col justify-between w-full h-full gap-space-md" data-index="5">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-primary-container uppercase">SLIDE 05 · CRONOGRAMA DE INGENIERÍA</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">Ruta Crítica de 5 Semanas hacia el Lanzamiento</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            Metodología ágil con despliegues semanales revisados directamente con la gerencia de TMD. No hay tiempos muertos: la infraestructura se monta en paralelo con la capacitación de mecánicos y secretarias de servicio.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-sm pt-space-md border-t border-[#222733]/40">
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-label-badge text-label-badge text-primary">SEM 01-02</span>
+<h5 class="font-headline-sm text-body-sm text-canvas-offwhite mt-1">Fullbay API Bridge</h5>
+<p class="font-caption text-caption text-text-muted">Conexión de endpoints y tokens seguros.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-label-badge text-label-badge text-primary">SEM 03</span>
+<h5 class="font-headline-sm text-body-sm text-canvas-offwhite mt-1">Portal VIP &amp; DVI</h5>
+<p class="font-caption text-caption text-text-muted">Módulo de inspecciones y cotizador web.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-label-badge text-label-badge text-primary">SEM 04</span>
+<h5 class="font-headline-sm text-body-sm text-canvas-offwhite mt-1">Pruebas en Km 22</h5>
+<p class="font-body-sm text-caption text-text-muted">Test de campo con órdenes de trabajo reales.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-label-badge text-label-badge text-telemetry-emerald">SEM 05</span>
+<h5 class="font-headline-sm text-body-sm text-canvas-offwhite mt-1">Go-Live Oficial</h5>
+<p class="font-body-sm text-caption text-text-muted">Pase a producción con soporte in-situ.</p>
+</div>
+</div>
+</div>
+<!-- SLIDE 6 -->
+<div class="pitch-slide hidden flex-col justify-between w-full h-full gap-space-md" data-index="6">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">SLIDE 06 · RETORNO DE INVERSIÓN (ROI)</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">Recuperación de la Inversión en Menos de 45 Días</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            Con que la plataforma capture 3 servicios mayores de taller adicionales o incremente la venta de repuestos en un 8% durante el primer mes, el sistema se paga por completo. A partir del segundo mes, genera margen puro para TMD.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-md border-t border-[#222733]/40">
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-telemetry-emerald font-bold">3.4x ROI Anualizado</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Estimación conservadora según volumen de tráfico de flotas.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-primary-container font-bold">+18 Horas Libres/Sem</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Ahorro de digitación manual para el personal de oficina.</p>
+</div>
+<div class="p-3 rounded-2xl bg-surface-container-lowest/60">
+<span class="font-caption text-caption text-canvas-offwhite font-bold">Fidelización de Contratistas</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Barrera de entrada insuperable frente a talleres informales.</p>
+</div>
+</div>
+</div>
+<!-- SLIDE 7 -->
+<div class="pitch-slide hidden flex-col justify-between w-full h-full gap-space-md" data-index="7">
+<div class="flex flex-col gap-space-sm max-w-3xl">
+<span class="font-label-badge text-label-badge text-primary-container uppercase">SLIDE 07 · EL SIGUIENTE PASO</span>
+<h3 class="font-display-lg text-display-lg text-canvas-offwhite leading-tight">Formalización Inmediata &amp; Despliegue</h3>
+<p class="font-body-lg text-body-lg text-text-muted">
+            Revise los términos del contrato de servicios maestros (MSA) a continuación. Al firmar digitalmente y autorizar el anticipo del 50%, iniciamos el aprovisionamiento de servidores el mismo día hábil.
+          </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-md pt-space-md">
+<a class="px-6 py-3.5 rounded-2xl bg-primary-container text-surface-container-lowest font-headline-sm text-body-sm uppercase tracking-wider font-bold hover:bg-hazard-gold-active transition-all shadow-[0_0_25px_rgba(255,184,0,0.25)] flex items-center gap-2" href="#section-msa">
+<span>Ir a la Firma Digital del Contrato</span>
+<span class="material-symbols-outlined text-[18px]">draw</span>
+</a>
+<button class="px-6 py-3.5 rounded-2xl bg-surface-charcoal text-canvas-offwhite font-headline-sm text-body-sm hover:bg-surface-container-high transition-colors" onclick="switchTab('tab-tiers')">
+            Volver a la Matriz de Tiers
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB CONTENT 6: CONTRATO FORMAL MSA & FIRMA DIGITAL -->
+<section class="tab-pane hidden w-full max-w-[1360px] mx-auto px-margin mt-space-md" id="content-tab-msa">
+<div class="flex flex-col gap-space-sm mb-space-lg" id="section-msa">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary-container/20 w-fit">
+<span class="material-symbols-outlined text-primary-container text-[16px]">gavel</span>
+<span class="font-label-badge text-label-badge text-primary-container tracking-wider uppercase font-bold">ACUERDO LEGAL VINCULANTE (MSA)</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">Master Services Agreement &amp; Ejecución Contractual</h2>
+<p class="font-body-md text-body-md text-text-muted max-w-3xl">
+        Contrato de prestación de servicios de desarrollo de software, integración de API industrial y transferencia de propiedad intelectual para Tecnomaquinarias Diesel S.R.L.
+      </p>
+</div>
+<!-- DYNAMIC INVESTMENT SUMMARY BOX -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-space-lg">
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between">
+<div>
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Nivel Base Seleccionado</span>
+<h4 class="font-headline-lg text-headline-lg text-canvas-offwhite mt-1" id="msa-tier-name">Tier 2 · Fullbay Fleet OS</h4>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Incluye 9 endpoints API, Portal Privé y módulo de inspecciones DVI.</p>
+</div>
+<div class="mt-4 pt-3 border-t border-[#222733]/40 flex items-baseline justify-between">
+<span class="font-caption text-caption text-text-muted">Costo Base</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite font-bold" id="msa-tier-price">$2,850 USD</span>
+</div>
+</div>
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col justify-between">
+<div>
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Upgrades de Ingeniería</span>
+<h4 class="font-headline-lg text-headline-lg text-primary mt-1" id="msa-upsell-summary">0 Módulos Activos</h4>
+<ul class="mt-2 flex flex-col gap-1 font-body-sm text-body-sm text-text-muted" id="msa-upsell-list">
+<li>(Ningún upgrade adicional marcado)</li>
+</ul>
+</div>
+<div class="mt-4 pt-3 border-t border-[#222733]/40 flex items-baseline justify-between">
+<span class="font-caption text-caption text-text-muted">Total Adicionales</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary font-bold" id="msa-upsells-price">$0 USD</span>
+</div>
+</div>
+<div class="p-space-md rounded-3xl backdrop-blur-2xl bg-primary-container/10 ring-1 ring-primary-container/30 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-primary-container uppercase font-bold">TOTAL GENERAL DEL PROYECTO</span>
+<span class="px-2 py-0.5 rounded bg-primary-container text-surface-container-lowest font-label-badge text-label-badge font-bold">VÁLIDO 15 DÍAS</span>
+</div>
+<div class="mt-2 flex flex-col">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-canvas-offwhite font-bold text-3xl" id="msa-grand-total-usd">$2,850 USD</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald mt-1" id="msa-grand-total-dop">RD$ 169,575.00 (+ ITBIS)</span>
+</div>
+</div>
+<!-- Deposit Split Box -->
+<div class="mt-4 pt-3 border-t border-primary-container/20 flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-canvas-offwhite font-body-sm">
+<span>Anticipo de Inicio (50%):</span>
+<span class="font-telemetry-data-md font-bold text-primary-container" id="msa-deposit-usd">$1,425 USD</span>
+</div>
+<div class="flex items-center justify-between text-text-muted font-caption">
+<span>Saldo a Entrega y Aceptación (50%):</span>
+<span class="font-telemetry-data-md font-bold text-canvas-offwhite" id="msa-balance-usd">$1,425 USD</span>
+</div>
+</div>
+</div>
+</div>
+<!-- FORMAL LEGAL TEXT EXPANDABLE ACCORDIONS -->
+<div class="p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 flex flex-col gap-space-md mb-space-lg">
+<div class="flex items-center justify-between pb-space-sm border-b border-[#222733]/40">
+<h3 class="font-headline-sm text-headline-sm text-canvas-offwhite">Cláusulas del Contrato Maestro de Desarrollo</h3>
+<span class="font-caption text-caption text-text-muted">Legislación aplicable: República Dominicana</span>
+</div>
+<!-- Accordion 1 -->
+<details class="group p-3 rounded-2xl bg-surface-container-lowest/60 cursor-pointer open:bg-surface-container-lowest">
+<summary class="font-headline-sm text-body-md text-canvas-offwhite flex items-center justify-between font-semibold list-none">
+<span>1. OBJETO DEL CONTRATO &amp; ALCANCE TÉCNICO</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container text-[20px]">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-text-muted mt-3 pt-2 border-t border-[#222733]/40 leading-relaxed">
+          EL PROVEEDOR se compromete a diseñar, desarrollar, configurar e implementar el portal institucional de comercio y el motor de integración de API para TECNOMAQUINARIAS DIESEL S.R.L. (TMD), conectando la infraestructura web pública con la plataforma Fullbay Heavy Duty ERP y pasarelas de pago Square, de conformidad con las especificaciones del Nivel seleccionado y los módulos complementarios pactados en el presente documento.
+        </p>
+</details>
+<!-- Accordion 2 -->
+<details class="group p-3 rounded-2xl bg-surface-container-lowest/60 cursor-pointer open:bg-surface-container-lowest">
+<summary class="font-headline-sm text-body-md text-canvas-offwhite flex items-center justify-between font-semibold list-none">
+<span>2. PROPIEDAD INTELECTUAL &amp; CÓDIGO FUENTE (100% EXCLUSIVO)</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container text-[20px]">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-text-muted mt-3 pt-2 border-t border-[#222733]/40 leading-relaxed">
+          Una vez liquidado el saldo final del 50%, la totalidad de los derechos patrimoniales sobre el código fuente, repositorios de GitHub, diseños de interfaz en Figma y configuraciones de nube serán transferidos de manera exclusiva y perpetua a TECNOMAQUINARIAS DIESEL S.R.L. No habrá regalías mensuales por uso de marca ni dependencias propietarias que aten a TMD con el proveedor.
+        </p>
+</details>
+<!-- Accordion 3 -->
+<details class="group p-3 rounded-2xl bg-surface-container-lowest/60 cursor-pointer open:bg-surface-container-lowest">
+<summary class="font-headline-sm text-body-md text-canvas-offwhite flex items-center justify-between font-semibold list-none">
+<span>3. GARANTÍA TÉCNICA &amp; SLA DE 99.5%</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container text-[20px]">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-text-muted mt-3 pt-2 border-t border-[#222733]/40 leading-relaxed">
+          EL PROVEEDOR otorga una garantía de correcto funcionamiento de 180 días calendario contra defectos de código ("bugs") o caídas atribuibles al desarrollo web. Adicionalmente, se garantiza un acuerdo de nivel de servicio (SLA) del 99.5% de disponibilidad en la capa de conexión hacia los webhooks de Fullbay y Square.
+        </p>
+</details>
+<!-- Accordion 4 -->
+<details class="group p-3 rounded-2xl bg-surface-container-lowest/60 cursor-pointer open:bg-surface-container-lowest">
+<summary class="font-headline-sm text-body-md text-canvas-offwhite flex items-center justify-between font-semibold list-none">
+<span>4. CONFIDENCIALIDAD DE DATOS INDUSTRIALES &amp; TELEMETRÍA</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-primary-container text-[20px]">expand_more</span>
+</summary>
+<p class="font-body-sm text-body-sm text-text-muted mt-3 pt-2 border-t border-[#222733]/40 leading-relaxed">
+          Toda información referente a costos de repuestos OEM, clientes corporativos, números de chasis VIN, márgenes de ganancia y telemetría horométrica de maquinaria JCB y LiuGong será tratada bajo estricto secreto industrial bajo la Ley No. 424-06 de la República Dominicana.
+        </p>
+</details>
+</div>
+<!-- DIGITAL SIGNATURE EXECUTION BLOCK -->
+<div class="p-space-lg rounded-3xl backdrop-blur-2xl bg-[#12161e]/45 relative overflow-hidden">
+<div class="flex flex-col gap-space-xs mb-space-md">
+<span class="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">FORMALIZACIÓN LEGAL</span>
+<h3 class="font-headline-lg text-headline-lg text-canvas-offwhite">Ejecución del Acuerdo con Firma Digital</h3>
+<p class="font-body-sm text-body-sm text-text-muted">Complete los datos del apoderado legal o firme en el recuadro interactivo para generar la orden oficial de compra y emitir la factura proforma con NCF.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-start">
+<!-- Signer Info Form -->
+<div class="flex flex-col gap-space-sm">
+<div>
+<label class="font-caption text-caption text-text-muted uppercase block mb-1">Nombre Completo del Firmante</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container" id="signer-name" type="text" value="Gerencia General TMD"/>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="font-caption text-caption text-text-muted uppercase block mb-1">Cargo Ejecutivo</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container" id="signer-role" type="text" value="Director General"/>
+</div>
+<div>
+<label class="font-caption text-caption text-text-muted uppercase block mb-1">RNC de la Empresa</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-label-badge text-label-badge focus:outline-none focus:ring-1 focus:ring-primary-container" id="signer-rnc" type="text" value="1-30-88492-1"/>
+</div>
+</div>
+<div>
+<label class="font-caption text-caption text-text-muted uppercase block mb-1">Correo para Envío de Copia Sellada</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-body-sm focus:outline-none focus:ring-1 focus:ring-primary-container" id="signer-email" type="email" value="gerencia@tmd.com.do"/>
+</div>
+</div>
+<!-- Interactive Canvas Pad -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-caption text-caption text-text-muted uppercase">Trazo de Firma Digital (Use Mouse o Dedo)</label>
+<button class="font-caption text-caption text-alert-critical hover:underline flex items-center gap-1" onclick="clearSignature()">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+<span>Borrar Trazo</span>
+</button>
+</div>
+<div class="relative w-full h-44 rounded-2xl bg-surface-container-lowest overflow-hidden">
+<canvas class="w-full h-full cursor-crosshair" id="signature-pad"></canvas>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none text-text-muted/30 font-label-badge text-label-badge uppercase tracking-widest" id="sig-watermark">
+              [ Dibuje su firma aquí ]
+            </div>
+</div>
+<div class="flex items-center gap-2 mt-1 text-text-muted font-caption">
+<span class="material-symbols-outlined text-telemetry-emerald text-[16px]">lock</span>
+<span>Hash Criptográfico SHA-256 generado al firmar. Registro IP registrado.</span>
+</div>
+</div>
+</div>
+<!-- Action Footer for Signature -->
+<div class="mt-space-lg pt-space-md border-t border-[#222733]/40 flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm text-text-muted font-body-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-lowest text-primary-container focus:ring-0" id="check-terms" type="checkbox"/>
+<label class="cursor-pointer" for="check-terms">Acepto los términos del MSA y apruebo la orden de compra de ingeniería.</label>
+</div>
+<button class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-primary-container text-surface-container-lowest font-headline-sm text-body-sm uppercase tracking-wider font-bold hover:bg-hazard-gold-active transition-all shadow-[0_0_25px_rgba(255,184,0,0.25)] flex items-center justify-center gap-2" id="btn-submit-contract" onclick="submitSignature()">
+<span class="material-symbols-outlined text-[20px]">draw</span>
+<span>Firmar Acuerdo &amp; Generar Factura Proforma</span>
+</button>
+</div>
+<!-- Success Confirmation Box (Hidden initially) -->
+<div class="hidden mt-space-md p-space-md rounded-2xl bg-telemetry-emerald/10 border border-telemetry-emerald/30 flex items-center justify-between flex-wrap gap-space-sm" id="contract-success-banner">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-telemetry-emerald text-[28px]">check_circle</span>
+<div>
+<h5 class="font-headline-sm text-body-md text-canvas-offwhite font-bold">¡Acuerdo Formalizado Exitosamente!</h5>
+<p class="font-body-sm text-body-sm text-text-muted">Se ha enviado copia sellada a gerencia@tmd.com.do con la factura de anticipo del 50% adjunta.</p>
+</div>
+</div>
+<button class="px-4 py-2 rounded-xl bg-surface-elevated text-canvas-offwhite font-headline-sm text-body-sm hover:bg-surface-container-high transition-colors flex items-center gap-1.5" onclick="window.print()">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span>Descargar PDF</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- EMBEDDED JAVASCRIPT LOGIC -->
+<script>
+  // State variables
+  let currentCurrency = 'USD';
+  const exchangeRate = 59.50;
+  let selectedTierId = 2;
+  let baseTierCostUSD = 2850;
+  
+  // Track selected upsells
+  const selectedUpsells = {
+    telematics: false,
+    parts3d: false,
+    kiosk: false,
+    whatsapp: false,
+    strapi: false,
+    dgii: false
+  };
+
+  const upsellCostsUSD = {
+    telematics: 650,
+    parts3d: 850,
+    kiosk: 550,
+    whatsapp: 950,
+    strapi: 450,
+    dgii: 750
+  };
+
+  const upsellNames = {
+    telematics: 'LiveLink GPS & Telemetría CANbus (+$650)',
+    parts3d: 'Visor 3D Interactivo Despiece OEM (+$850)',
+    kiosk: 'Kiosco Counter Square Km 22 (+$550)',
+    whatsapp: 'Agente WhatsApp IA Oficial 24/7 (+$950)',
+    strapi: 'Strapi Headless CMS Multi-Sucursal (+$450)',
+    dgii: 'Conector Fiscal Automatizado DGII (+$750)'
+  };
+
+  const tierNames = {
+    1: 'Tier 1 · Showroom & CRM B2B',
+    2: 'Tier 2 · Fullbay Fleet OS (Recomendado)',
+    3: 'Tier 3 · Enterprise Digital Twin'
+  };
+
+  // Switch Cockpit Tabs
+  function switchTab(tabId) {
+    // Hide all tab panes
+    document.querySelectorAll('.tab-pane').forEach(el => {
+      el.classList.add('hidden');
+    });
+
+    // Show target pane
+    const targetPane = document.getElementById('content-' + tabId);
+    if (targetPane) {
+      targetPane.classList.remove('hidden');
+    }
+
+    // Reset button styles
+    document.querySelectorAll('.tab-pill').forEach(btn => {
+      btn.classList.remove('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btn.classList.add('bg-surface-charcoal/60', 'text-text-muted');
+    });
+
+    // Highlight clicked button
+    const activeBtn = document.getElementById('nav-' + tabId);
+    if (activeBtn) {
+      activeBtn.classList.remove('bg-surface-charcoal/60', 'text-text-muted');
+      activeBtn.classList.add('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+    }
+  }
+
+  // Currency Switcher
+  function setCurrency(curr) {
+    currentCurrency = curr;
+    const btnUsd = document.getElementById('btn-usd');
+    const btnDop = document.getElementById('btn-dop');
+
+    if (curr === 'USD') {
+      btnUsd.classList.add('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btnUsd.classList.remove('text-text-muted');
+      btnDop.classList.remove('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btnDop.classList.add('text-text-muted');
+    } else {
+      btnDop.classList.add('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btnDop.classList.remove('text-text-muted');
+      btnUsd.classList.remove('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btnUsd.classList.add('text-text-muted');
+    }
+
+    recalculateAll();
+  }
+
+  // Tier Selection
+  function selectTier(tierNum, costUsd) {
+    selectedTierId = tierNum;
+    baseTierCostUSD = costUsd;
+
+    // Update UI card borders
+    for (let i = 1; i <= 3; i++) {
+      const card = document.getElementById('tier-card-' + i);
+      const radio = card.querySelector('.tier-radio');
+      if (i === tierNum) {
+        card.classList.add('ring-2', 'ring-primary-container');
+        if (radio) {
+          radio.classList.add('bg-primary-container', 'text-surface-container-lowest');
+          radio.classList.remove('bg-surface-charcoal', 'text-transparent');
+          radio.innerText = '✓';
+        }
+      } else {
+        card.classList.remove('ring-2', 'ring-primary-container');
+        if (radio) {
+          radio.classList.remove('bg-primary-container', 'text-surface-container-lowest');
+          radio.classList.add('bg-surface-charcoal', 'text-transparent');
+          radio.innerText = '';
+        }
+      }
+    }
+
+    recalculateAll();
+  }
+
+  // Toggle Upsells
+  function toggleUpsell(id, cost, btn) {
+    selectedUpsells[id] = !selectedUpsells[id];
+    const isSelected = selectedUpsells[id];
+    const card = btn.closest('.upsell-card');
+    const textSpan = btn.querySelector('.btn-upsell-text');
+
+    if (isSelected) {
+      card.classList.add('ring-2', 'ring-primary-container', 'bg-[#12161e]/80');
+      btn.classList.add('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btn.classList.remove('bg-surface-elevated', 'text-canvas-offwhite');
+      textSpan.innerText = 'Quitar de la Propuesta';
+      btn.querySelector('.material-symbols-outlined').innerText = 'check_circle';
+    } else {
+      card.classList.remove('ring-2', 'ring-primary-container', 'bg-[#12161e]/80');
+      btn.classList.remove('bg-primary-container', 'text-surface-container-lowest', 'font-bold');
+      btn.classList.add('bg-surface-elevated', 'text-canvas-offwhite');
+      textSpan.innerText = 'Agregar al Presupuesto';
+      btn.querySelector('.material-symbols-outlined').innerText = 'add_circle';
+    }
+
+    recalculateAll();
+  }
+
+  // Recalculate Grand Totals and MSA Values
+  function recalculateAll() {
+    let upsellTotalUSD = 0;
+    let selectedCount = 0;
+    const activeUpsellLabels = [];
+
+    for (const [key, isSelected] of Object.entries(selectedUpsells)) {
+      if (isSelected) {
+        upsellTotalUSD += upsellCostsUSD[key];
+        selectedCount++;
+        activeUpsellLabels.push(upsellNames[key]);
+      }
+    }
+
+    const grandTotalUSD = baseTierCostUSD + upsellTotalUSD;
+    const grandTotalDOP = grandTotalUSD * exchangeRate;
+    const depositUSD = grandTotalUSD * 0.50;
+    const balanceUSD = grandTotalUSD * 0.50;
+
+    // Update Cockpit Bar Display
+    const cockpitDisp = document.getElementById('cockpit-total-display');
+    if (cockpitDisp) {
+      if (currentCurrency === 'USD') {
+        cockpitDisp.innerText = '$' + grandTotalUSD.toLocaleString('en-US');
+      } else {
+        cockpitDisp.innerText = 'RD$ ' + Math.round(grandTotalDOP).toLocaleString('es-DO');
+      }
+    }
+
+    // Update Upsell Count Badge
+    const countBadge = document.getElementById('upsells-count-badge');
+    if (countBadge) {
+      countBadge.innerText = selectedCount + ' de 6';
+    }
+
+    // Update MSA Summary
+    const msaTierName = document.getElementById('msa-tier-name');
+    if (msaTierName) msaTierName.innerText = tierNames[selectedTierId];
+
+    const msaTierPrice = document.getElementById('msa-tier-price');
+    if (msaTierPrice) msaTierPrice.innerText = '$' + baseTierCostUSD.toLocaleString('en-US') + ' USD';
+
+    const msaUpsellSummary = document.getElementById('msa-upsell-summary');
+    if (msaUpsellSummary) msaUpsellSummary.innerText = selectedCount + ' Módulo' + (selectedCount === 1 ? '' : 's') + ' Activo' + (selectedCount === 1 ? '' : 's');
+
+    const msaUpsellList = document.getElementById('msa-upsell-list');
+    if (msaUpsellList) {
+      if (activeUpsellLabels.length === 0) {
+        msaUpsellList.innerHTML = '<li>(Ningún upgrade adicional marcado)</li>';
+      } else {
+        msaUpsellList.innerHTML = activeUpsellLabels.map(item => `<li class="flex items-center gap-1.5 text-canvas-offwhite"><span class="material-symbols-outlined text-primary text-[14px]">check</span><span>${item}</span></li>`).join('');
+      }
+    }
+
+    const msaUpsellsPrice = document.getElementById('msa-upsells-price');
+    if (msaUpsellsPrice) msaUpsellsPrice.innerText = '+$' + upsellTotalUSD.toLocaleString('en-US') + ' USD';
+
+    const msaGrandTotalUSD = document.getElementById('msa-grand-total-usd');
+    if (msaGrandTotalUSD) msaGrandTotalUSD.innerText = '$' + grandTotalUSD.toLocaleString('en-US') + ' USD';
+
+    const msaGrandTotalDOP = document.getElementById('msa-grand-total-dop');
+    if (msaGrandTotalDOP) msaGrandTotalDOP.innerText = 'RD$ ' + Math.round(grandTotalDOP).toLocaleString('es-DO') + ' (+ ITBIS)';
+
+    const msaDepositUSD = document.getElementById('msa-deposit-usd');
+    if (msaDepositUSD) msaDepositUSD.innerText = '$' + depositUSD.toLocaleString('en-US') + ' USD';
+
+    const msaBalanceUSD = document.getElementById('msa-balance-usd');
+    if (msaBalanceUSD) msaBalanceUSD.innerText = '$' + balanceUSD.toLocaleString('en-US') + ' USD';
+  }
+
+  // Pitch Deck Carousel Logic
+  let currentSlide = 1;
+  const totalSlides = 7;
+
+  function showSlide(slideIdx) {
+    const slides = document.querySelectorAll('.pitch-slide');
+    slides.forEach(slide => {
+      const idx = parseInt(slide.getAttribute('data-index'));
+      if (idx === slideIdx) {
+        slide.classList.remove('hidden');
+        slide.classList.add('flex');
+      } else {
+        slide.classList.add('hidden');
+        slide.classList.remove('flex');
+      }
+    });
+
+    const indicator = document.getElementById('slide-indicator');
+    if (indicator) {
+      indicator.innerText = '0' + slideIdx + ' / 0' + totalSlides;
+    }
+  }
+
+  function nextSlide() {
+    currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;
+    showSlide(currentSlide);
+  }
+
+  // Signature Canvas Drawing Logic
+  const canvas = document.getElementById('signature-pad');
+  let ctx = null;
+  let isDrawing = false;
+  let hasDrawn = false;
+
+  if (canvas) {
+    ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      if (ctx) {
+        ctx.strokeStyle = '#FFB800';
+        ctx.lineWidth = 2.5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    setTimeout(resizeCanvas, 300);
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function startDraw(e) {
+      isDrawing = true;
+      hasDrawn = true;
+      const watermark = document.getElementById('sig-watermark');
+      if (watermark) watermark.classList.add('hidden');
+      const pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+      e.preventDefault();
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      e.preventDefault();
+    }
+
+    function stopDraw() {
+      isDrawing = false;
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', stopDraw);
+  }
+
+  function clearSignature() {
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasDrawn = false;
+    const watermark = document.getElementById('sig-watermark');
+    if (watermark) watermark.classList.remove('hidden');
+  }
+
+  function submitSignature() {
+    const banner = document.getElementById('contract-success-banner');
+    const btn = document.getElementById('btn-submit-contract');
+    
+    // Animate button and show success
+    btn.disabled = true;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span><span>Registrando Firma en Blockchain...</span>`;
+
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Contrato MSA Formalizado</span>`;
+      btn.classList.remove('bg-primary-container');
+      btn.classList.add('bg-telemetry-emerald', 'text-surface-container-lowest');
+      if (banner) {
+        banner.classList.remove('hidden');
+        banner.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 1200);
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    recalculateAll();
+  });
+</script></main><footer class="w-full bg-surface-charcoal mt-space-xl"><div class="max-w-[1360px] mx-auto px-margin pt-space-xl pb-space-lg"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-xl"><div class="flex flex-col gap-space-md"><div class="flex items-center gap-space-sm"><img alt="Image from https://www.tmd.com.do/wp-content/uploads/2023/07/logo.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VA9lXrksvsphvsVJV2p9VPantEDAE0QXYc7JhlNdji1GF8PZHnaq7lcbvfGtuGv4MjiXJppk1ZrsZTKymyOQ37JSp5MeGesQRdRL7qcLLlsPb6-AcREt2N_jQj4INyoJ9tOcUEeliLzLngn8Q7cA35BHRv-1Avy-ETnUYbYuZ2ZQgTiFd4jBJYfqGt2Zv1NAnjZqkRAvNvDiBEUKt50dsHQoNQiJXGzag3HRXcrZ_T8PLKK-NxQb-7ov_a"/><span class="font-headline-sm text-headline-sm text-on-surface">TMD DOMINICANA</span></div><p class="font-body-sm text-body-sm text-text-muted">Tecnomaquinarias Diesel S.R.L. Especialistas en distribución, servicio técnico industrial y telemetría avanzada para flotas de maquinaria pesada en República Dominicana y el Caribe.</p><div class="flex flex-col gap-space-xs"><span class="font-label-badge text-label-badge text-primary-container uppercase">Línea de Emergencia Flota 24/7</span><span class="font-telemetry-data-md text-telemetry-data-md text-on-surface">+1 (809) 826-2222 / 2223</span></div></div><div class="flex flex-col gap-space-md"><span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wider">Distribuidor Certificado</span><div class="flex flex-col gap-space-sm"><div class="flex items-center justify-between p-space-sm rounded bg-surface-container-low"><span class="font-headline-sm text-body-sm text-on-surface font-bold">JCB Industrial</span><span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">Autorizado Tier-1</span></div><div class="flex items-center justify-between p-space-sm rounded bg-surface-container-low"><span class="font-headline-sm text-body-sm text-on-surface font-bold">LS Tractor</span><span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">Garantía OEM</span></div><div class="flex items-center justify-between p-space-sm rounded bg-surface-container-low"><span class="font-headline-sm text-body-sm text-on-surface font-bold">LiuGong Heavy</span><span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">Soporte Oficial</span></div></div></div><div class="flex flex-col gap-space-md"><span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wider">Taller Central Km 22</span><div class="flex flex-col gap-space-xs font-body-sm text-body-sm text-text-muted"><p class="text-on-surface font-body-sm font-semibold">Autopista Duarte Km 22, Santo Domingo Oeste</p><p>• 18 bahías de servicio pesado equipadas con grúa puente</p><p>• Diagnóstico electrónico computarizado JCB LiveLink</p><p>• Laboratorio diésel para inyección common-rail y turbo</p><p>• Banco de pruebas hidráulicas de hasta 6,000 PSI</p></div><a class="font-label-badge text-label-badge text-primary-container hover:text-hazard-gold-active inline-flex items-center gap-space-xs uppercase" data-path="taller-km-22" href="#">Explorar Centro de Servicio →</a></div><div class="flex flex-col gap-space-md"><span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wider">Red de Cobertura</span><div class="h-28 rounded bg-surface-container-lowest p-space-sm flex flex-col justify-between relative overflow-hidden"><div class="flex items-center justify-between z-10"><span class="font-label-badge text-label-badge text-telemetry-emerald">GPS HUB ACTIVO</span><span class="font-label-badge text-label-badge text-text-muted">4 PUNTOS TALLER</span></div><div class="font-body-sm text-body-sm text-text-muted z-10">Santo Domingo • Santiago • Punta Cana • Barahona</div><div class="absolute inset-0 bg-hazard-gold-glow pointer-events-none"></div></div><div class="flex flex-col gap-0.5"><span class="font-label-badge text-label-badge text-text-muted">RNC: 1-30-88492-1</span><span class="font-label-badge text-label-badge text-text-muted">Registro Industrial MICM: 84920-DO</span></div></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-text-muted"><p>© 2025 Tecnomaquinarias Diesel S.R.L. (TMD Dominicana). Todos los derechos reservados.</p><div class="flex flex-wrap items-center gap-space-md font-label-badge text-label-badge"><a class="hover:text-on-surface transition-colors uppercase" data-path="terminos-legales" href="#">Términos y Garantías OEM</a><a class="hover:text-on-surface transition-colors uppercase" data-path="privacidad" href="#">Privacidad de Telemetría</a><a class="hover:text-on-surface transition-colors uppercase" data-path="cumplimiento-ambiental" href="#">Regulación Ambiental MARN</a></div></div></div></footer></body></html>
