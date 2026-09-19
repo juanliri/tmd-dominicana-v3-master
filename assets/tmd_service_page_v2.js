@@ -69,8 +69,8 @@
               <!-- 4 Critical Capability Badges in Glass -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                 <div
-                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/25 hover:border-primary-container transition-all flex items-start gap-3.5 shadow-md">
-                  <div class="p-2.5 rounded-xl bg-primary-container/10 text-primary-container shrink-0">
+                  class="tmd-capability-card p-4 rounded-[18px] flex items-start gap-3.5">
+                  <div class="p-2.5 rounded-[12px] bg-primary-container/10 text-primary-container shrink-0">
                     <span class="material-symbols-outlined text-[24px]">construction</span>
                   </div>
                   <div class="min-w-0">
@@ -81,8 +81,8 @@
                   </div>
                 </div>
                 <div
-                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/25 hover:border-telemetry-emerald transition-all flex items-start gap-3.5 shadow-md">
-                  <div class="p-2.5 rounded-xl bg-telemetry-emerald/10 text-telemetry-emerald shrink-0">
+                  class="tmd-capability-card p-4 rounded-[18px] flex items-start gap-3.5">
+                  <div class="p-2.5 rounded-[12px] bg-telemetry-emerald/10 text-telemetry-emerald shrink-0">
                     <span class="material-symbols-outlined text-[24px]">speed</span>
                   </div>
                   <div class="min-w-0">
@@ -92,8 +92,8 @@
                   </div>
                 </div>
                 <div
-                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/25 hover:border-telemetry-emerald transition-all flex items-start gap-3.5 shadow-md">
-                  <div class="p-2.5 rounded-xl bg-telemetry-emerald/10 text-telemetry-emerald shrink-0">
+                  class="tmd-capability-card p-4 rounded-[18px] flex items-start gap-3.5">
+                  <div class="p-2.5 rounded-[12px] bg-telemetry-emerald/10 text-telemetry-emerald shrink-0">
                     <span class="material-symbols-outlined text-[24px]">biotech</span>
                   </div>
                   <div class="min-w-0">
@@ -103,8 +103,8 @@
                   </div>
                 </div>
                 <div
-                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/25 hover:border-primary-container transition-all flex items-start gap-3.5 shadow-md">
-                  <div class="p-2.5 rounded-xl bg-primary-container/10 text-primary-container shrink-0">
+                  class="tmd-capability-card p-4 rounded-[18px] flex items-start gap-3.5">
+                  <div class="p-2.5 rounded-[12px] bg-primary-container/10 text-primary-container shrink-0">
                     <span class="material-symbols-outlined text-[24px]">cell_tower</span>
                   </div>
                   <div class="min-w-0">
@@ -117,7 +117,7 @@
               </div>
               <!-- Live Telemetry Ticker Bar -->
               <div
-                class="p-3.5 rounded-[22px] bg-surface-charcoal/80 backdrop-blur-[20px] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-body-sm">
+                class="tmd-ticker-strip p-3.5 rounded-[16px] flex flex-wrap items-center justify-between gap-3 text-body-sm">
                 <div class="flex items-center gap-2">
                   <span class="h-2 w-2 rounded-full bg-telemetry-emerald"></span>
                   <span class="text-text-muted">Bahías Ocupadas:</span>

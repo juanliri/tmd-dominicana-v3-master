@@ -938,7 +938,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <!-- Controls (7 cols) -->
-          <div class="lg:col-span-7 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#181c26]/90 to-[#0b0d13]/95 backdrop-blur-[24px] border border-white/8 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.1)] flex flex-col gap-6">
+          <div class="lg:col-span-7 tmd-tco-controls-card p-6 sm:p-8 flex flex-col gap-6">
             <!-- 1. Equipo -->
             <div class="flex flex-col gap-2">
               <label class="text-xs font-mono uppercase text-neutral-400">1. Seleccione el Equipo Deseado</label>
@@ -983,21 +983,21 @@
             <div class="flex flex-col gap-2">
               <label class="text-xs font-mono uppercase text-neutral-400">3. Distancia Transporte Lowboy (Ida y Retorno desde Km 22)</label>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                <label class="tmd-radio-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
+                <label class="tmd-option-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="tmd_distance" value="250" checked onchange="window.tmdUpdateTcoCalc()" class="accent-primary-container w-4 h-4">
                   <div class="flex flex-col">
                     <span class="text-xs font-bold text-white">Gran Santo Domingo</span>
                     <span class="text-[11px] text-neutral-400">15-30km (+US$250)</span>
                   </div>
                 </label>
-                <label class="tmd-radio-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
+                <label class="tmd-option-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="tmd_distance" value="550" onchange="window.tmdUpdateTcoCalc()" class="accent-primary-container w-4 h-4">
                   <div class="flex flex-col">
                     <span class="text-xs font-bold text-white">Santiago / Cibao</span>
                     <span class="text-[11px] text-neutral-400">140km (+US$550)</span>
                   </div>
                 </label>
-                <label class="tmd-radio-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
+                <label class="tmd-option-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="tmd_distance" value="700" onchange="window.tmdUpdateTcoCalc()" class="accent-primary-container w-4 h-4">
                   <div class="flex flex-col">
                     <span class="text-xs font-bold text-white">Punta Cana / Este</span>
@@ -1011,14 +1011,14 @@
             <div class="flex flex-col gap-2 pt-1">
               <label class="text-xs font-mono uppercase text-neutral-400">4. Servicios Auxiliares en Obra</label>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label class="p-3.5 rounded-[14px] bg-white/[0.03] border border-white/8 hover:border-amber-500/40 flex items-center gap-3 cursor-pointer transition-all">
+                <label class="tmd-option-card p-3.5 rounded-[14px] flex items-center gap-3 cursor-pointer">
                   <input type="checkbox" id="add-operator" checked onchange="window.tmdUpdateTcoCalc()" class="w-4 h-4 accent-primary-container">
                   <div class="flex flex-col">
                     <span class="text-xs font-bold text-white">Operador Certificado TMD</span>
                     <span class="text-[11px] text-neutral-400">+US$ 45 / día de faena</span>
                   </div>
                 </label>
-                <label class="p-3.5 rounded-[14px] bg-white/[0.03] border border-white/8 hover:border-amber-500/40 flex items-center gap-3 cursor-pointer transition-all">
+                <label class="tmd-option-card p-3.5 rounded-[14px] flex items-center gap-3 cursor-pointer">
                   <input type="checkbox" id="add-fuel" onchange="window.tmdUpdateTcoCalc()" class="w-4 h-4 accent-primary-container">
                   <div class="flex flex-col">
                     <span class="text-xs font-bold text-white">Suministro Diario Diésel 1</span>
@@ -1030,7 +1030,7 @@
           </div>
 
           <!-- Live Receipt Sidebar (5 cols) -->
-          <div class="lg:col-span-5 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#1c2230]/90 to-[#0d1017]/95 backdrop-blur-[24px] border border-amber-500/30 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.12)] flex flex-col justify-between gap-6">
+          <div class="lg:col-span-5 tmd-tco-receipt-card p-6 sm:p-8 flex flex-col justify-between gap-6">
             <div class="flex flex-col gap-5">
               <div class="flex items-center justify-between pb-4 border-b border-white/8">
                 <div class="flex items-center gap-2">
@@ -1069,7 +1069,7 @@
               </div>
 
               <!-- Total Callout -->
-              <div class="p-5 rounded-[16px] bg-white/[0.04] border border-amber-500/25 flex flex-col items-center justify-center text-center shadow-inner">
+              <div class="tmd-receipt-callout p-5 rounded-[16px] flex flex-col items-center justify-center text-center">
                 <span class="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">Inversión Total Estimada</span>
                 <div class="flex items-baseline gap-2 mt-1">
                   <span id="rec-total" class="text-3xl sm:text-4xl font-extrabold text-amber-400 font-mono tracking-tight">$1,874</span>
