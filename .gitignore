@@ -5,3 +5,7 @@
 .DS_Store
 Thumbs.db
 *.log
+scratch/
+test_acro.pdf
+theme_v3_hybrid/
+

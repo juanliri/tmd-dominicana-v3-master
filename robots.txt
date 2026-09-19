@@ -1,0 +1,6 @@
+# TMD Dominicana Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://tmddominicana.com/sitemap.xml

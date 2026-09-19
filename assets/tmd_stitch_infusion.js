@@ -748,79 +748,342 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 5. VIP PORT LOTS BENTO GRID (FOR #/magazine)
+  // 5. VIP PORT LOTS & TECHNICAL MAGAZINE SUITE (FOR #/magazine)
   // ─────────────────────────────────────────────────────────────────────────────
   function renderPortLotsModule() {
     return `
-      <div id="tmd-port-lots-infusion" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              ARRIBOS MARÍTIMOS PUERTO HAINA & CAUCEDO
-            </div>
-            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white uppercase">
-              Lotes Portuarios VIP 0 Km & Concierge para Contratistas MOPC
-            </h3>
-            <p class="text-xs text-neutral-400 font-mono mt-1">
-              Maquinarias recién desembarcadas en muelles fiscales con despacho prioritario y trámites aduanales completados.
-            </p>
-          </div>
-          <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo consultar los lotes portuarios disponibles en Puerto Haina y Caucedo.')}" target="_blank" class="px-4 py-2 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-xs transition-colors flex items-center gap-1.5">
-            Consultar Cupo de Importación
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- Lot 1: JCB 220X (8 cols) -->
-          <div class="lg:col-span-8 rounded-2xl border border-white/10 bg-black/60 p-6 flex flex-col justify-between">
+      <div id="tmd-port-lots-infusion" class="tmd-stitch-section rounded-[24px] border p-6 md:p-10 text-white shadow-2xl space-y-12" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.88) 0%, rgba(8, 11, 19, 0.85) 100%) !important; backdrop-filter: blur(28px) !important; -webkit-backdrop-filter: blur(28px) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0,0,0,0.85), 0 0 50px rgba(245,158,11,0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
+        
+        <!-- ─── PILLAR 1: LOTES PORTUARIOS VIP 0 KM (HAINA & CAUCEDO) ─── -->
+        <div>
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-8">
             <div>
-              <div class="flex items-center justify-between mb-3 text-xs font-mono">
-                <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30 uppercase">Lote Puerto Río Haina</span>
-                <span class="text-emerald-400 font-bold">0.0 HORAS · NUEVA</span>
+              <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>ARRIBOS MARÍTIMOS PUERTO HAINA & PUERTO CAUCEDO • 0.0 HORAS</span>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="rounded-xl overflow-hidden h-44 bg-neutral-900">
-                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS1qvrSRchwMffbxOiC-JwnUbO-9XacNv7BPKhoqdCGVXqyH_e567QmL8vAUa_4To8g3I_mnSo49HSqFbEJkPtn9-YIf50TkpG9XKBK_TcDbv8Pq4Ny6IZa_9Umus6_cw6M-CwlTdReLw_0qmb72yH_e1qrl4qSQxPzGnJR6TmiuNbyfL7AZMzZv47feeDVP0_S6dBjOvLvSXAguHuKCPHTfZeJ5gx3_Be3DC2c_atM1ZnqV2APuePug" class="w-full h-full object-cover" alt="JCB 220X Puerto Haina">
+              <h3 class="text-xl sm:text-3xl font-black tracking-tight text-white uppercase font-sans">
+                Lotes Portuarios VIP 0 Km & Concierge para Contratistas MOPC
+              </h3>
+              <p class="text-xs sm:text-sm text-neutral-400 font-sans mt-1 max-w-3xl leading-relaxed">
+                Maquinarias de línea pesada recién desembarcadas en muelles fiscales con despacho prioritario, inspección de tolerancia en Taller Central Km 22 y 100% de crédito fiscal ITBIS (Comprobante B01).
+              </p>
+            </div>
+            <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo consultar los lotes portuarios 0 Km disponibles en Puerto Haina y Caucedo.')}" target="_blank" class="px-5 py-3 rounded-[12px] bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-xs transition-all flex items-center gap-2 shadow-[0_4px_16px_rgba(245,158,11,0.3)] shrink-0">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+              <span>Consultar Cupo de Importación</span>
+            </a>
+          </div>
+
+          <!-- 4-Item Bento Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+            
+            <!-- Lot 1: JCB 220X (7 cols) -->
+            <div class="lg:col-span-7 rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50 shadow-lg" style="background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between mb-3 text-xs font-mono">
+                  <span class="px-3 py-1 rounded-[8px] bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40 uppercase">Muelle Río Haina Oriental</span>
+                  <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> 0.0 HORAS · NUEVA</span>
                 </div>
-                <div>
-                  <h4 class="text-lg font-bold text-white mb-1">Excavadora JCB 220X Heavy Duty</h4>
-                  <p class="text-xs text-neutral-400 mb-3">Motor EcoMAX 173 HP, Cuchara 1.25 m³ HD, Orugas 600mm de triple garra y garantía de 3 años o 5,000h.</p>
-                  <div class="space-y-1 text-xs font-mono text-neutral-300">
-                    <div>Lote Serial: <strong class="text-amber-400">#JCB-HN-220X-88</strong></div>
-                    <div>Precio Especial: <strong class="text-white">$186,500 USD CIF</strong> (Ahorro $14,000 VIP)</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  <div class="rounded-[16px] overflow-hidden h-48 bg-neutral-900 border border-neutral-800">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS1qvrSRchwMffbxOiC-JwnUbO-9XacNv7BPKhoqdCGVXqyH_e567QmL8vAUa_4To8g3I_mnSo49HSqFbEJkPtn9-YIf50TkpG9XKBK_TcDbv8Pq4Ny6IZa_9Umus6_cw6M-CwlTdReLw_0qmb72yH_e1qrl4qSQxPzGnJR6TmiuNbyfL7AZMzZv47feeDVP0_S6dBjOvLvSXAguHuKCPHTfZeJ5gx3_Be3DC2c_atM1ZnqV2APuePug" class="w-full h-full object-cover" alt="JCB 220X Puerto Haina">
+                  </div>
+                  <div class="flex flex-col justify-between">
+                    <div>
+                      <h4 class="text-lg font-bold text-white mb-1.5">Excavadora JCB 220X Heavy Duty</h4>
+                      <p class="text-xs text-neutral-400 mb-3 leading-relaxed">Motor EcoMAX 173 HP, cuchara 1.25 m³ HD Hardox, orugas 600mm de triple garra y garantía de 3 años o 5,000h.</p>
+                    </div>
+                    <div class="space-y-1.5 text-xs font-mono text-neutral-300 border-t border-neutral-800 pt-2.5">
+                      <div>Lote Serial: <strong class="text-amber-400">#JCB-HN-220X-88</strong></div>
+                      <div>Precio CIF: <strong class="text-white text-sm">$186,500 USD</strong> <span class="text-emerald-400 text-[10px] font-bold">(Ahorro $14,000 VIP)</span></div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="pt-4 border-t border-neutral-800 flex items-center justify-between gap-3">
+                <span class="text-xs font-mono text-neutral-400">Entrega en plataforma Lowboy a su obra</span>
+                <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo separar la Excavadora JCB 220X Lote Haina (#JCB-HN-220X-88).')}" target="_blank" class="px-4 py-2.5 rounded-[10px] bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase text-xs transition-all shadow-[0_2px_10px_rgba(245,158,11,0.25)]">
+                  Separar Unidad con Fianza
+                </a>
+              </div>
             </div>
-            <div class="pt-3 border-t border-white/10 flex justify-end">
-              <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo separar la Excavadora JCB 220X Lote Haina (#JCB-HN-220X-88).')}" target="_blank" class="px-4 py-2 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase text-xs">
-                Separar Unidad con Fianza
-              </a>
-            </div>
-          </div>
 
-          <!-- Lot 2: LS Tractor Agro-Cibao (4 cols) -->
-          <div class="lg:col-span-4 rounded-2xl border border-white/10 bg-black/60 p-6 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-3 text-xs font-mono">
-                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30 uppercase">Agro-Cibao 2026</span>
-                <span class="text-neutral-400 font-bold">101 HP</span>
+            <!-- Lot 2: LiuGong 922E HD (5 cols) -->
+            <div class="lg:col-span-5 rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50 shadow-lg" style="background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between mb-3 text-xs font-mono">
+                  <span class="px-3 py-1 rounded-[8px] bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40 uppercase">Puerto Caucedo DP World</span>
+                  <span class="text-emerald-400 font-bold">22 TONELADAS</span>
+                </div>
+                <div class="rounded-[16px] overflow-hidden h-40 bg-neutral-900 mb-3 border border-neutral-800">
+                  <img src="https://www.tmd.com.do/wp-content/uploads/2023/06/Untitled-design-24.jpg" class="w-full h-full object-cover" alt="LiuGong 922E Caucedo">
+                </div>
+                <h4 class="text-base font-bold text-white mb-1">LiuGong 922E HD Severe-Duty</h4>
+                <p class="text-xs text-neutral-400 mb-2 leading-relaxed">Cummins 6BTAA 160 HP mecánico, hidráulica Kawasaki 350 Bar, radiador tropical de aletas anchas.</p>
+                <div class="text-xs font-mono text-amber-400 font-bold">Precio Especial CIF: $174,000 USD (Serial #LG-CAU-922E-41)</div>
               </div>
-              <div class="rounded-xl overflow-hidden h-36 bg-neutral-900 mb-3">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIPhBv3AUqIH6U1Io70Y415FfsHgAbCHNTnfyNzqxsH2i4okm28upwkjvXxWuyjZKrpnPiuM6bmJK6pSK_5Pj8AbFdoC4pfPVUOTBajC0i8zWzq5kvJnra_7ODlM7yJ26vPbKxVhZT-Si0YmQqy6lv8QIGaQqQO9h7_no-Z8E9qAg3e0buuWcuqE6tAZWKySmvF-STontEhmY2_EDiD_IqEfkR2Ap7Jwt4pq6p__Gh9Vy9VV0tdquLQw" class="w-full h-full object-cover" alt="LS Tractor MT7">
+              <div class="pt-3 border-t border-neutral-800 mt-3 flex justify-end">
+                <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar la Excavadora LiuGong 922E HD Lote Caucedo.')}" target="_blank" class="w-full text-center py-2.5 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 hover:border-amber-400 font-mono text-xs uppercase text-white hover:text-amber-400 transition-all">
+                  Reservar Lote Caucedo →
+                </a>
               </div>
-              <h4 class="text-base font-bold text-white mb-1">LS Tractor MT7 Agro-Pro</h4>
-              <p class="text-xs text-neutral-400 mb-2">Transmisión Power Shuttle 40x40 Creeper y tasa Banco Agrícola 8.5% fija.</p>
-              <div class="text-xs font-mono text-amber-400 font-bold">Cuota desde $1,450 USD/mes</div>
             </div>
-            <div class="pt-3 border-t border-white/10 mt-3 flex justify-end">
-              <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar el LS Tractor MT7 Serie Agro-Cibao.')}" target="_blank" class="w-full text-center py-2 rounded border border-white/20 hover:border-amber-400 font-mono text-xs uppercase text-white hover:text-amber-400 transition-colors">
-                Solicitar Ficha Técnica
-              </a>
+
+            <!-- Lot 3: LS Tractor Agro-Cibao (6 cols) -->
+            <div class="lg:col-span-6 rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/50 shadow-lg" style="background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between mb-3 text-xs font-mono">
+                  <span class="px-3 py-1 rounded-[8px] bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/40 uppercase">Patio Central Km 22</span>
+                  <span class="text-neutral-300 font-bold">101 HP TURBO</span>
+                </div>
+                <div class="rounded-[16px] overflow-hidden h-40 bg-neutral-900 mb-3 border border-neutral-800">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIPhBv3AUqIH6U1Io70Y415FfsHgAbCHNTnfyNzqxsH2i4okm28upwkjvXxWuyjZKrpnPiuM6bmJK6pSK_5Pj8AbFdoC4pfPVUOTBajC0i8zWzq5kvJnra_7ODlM7yJ26vPbKxVhZT-Si0YmQqy6lv8QIGaQqQO9h7_no-Z8E9qAg3e0buuWcuqE6tAZWKySmvF-STontEhmY2_EDiD_IqEfkR2Ap7Jwt4pq6p__Gh9Vy9VV0tdquLQw" class="w-full h-full object-cover" alt="LS Tractor MT7">
+                </div>
+                <h4 class="text-base font-bold text-white mb-1">LS Tractor MT7.100 Heavy Agro 4WD</h4>
+                <p class="text-xs text-neutral-400 mb-2 leading-relaxed">FPT Iveco Turbo, transmisión Power Shuttle 40x40 Creeper, eje delantero sellado especial para arrozales y tasa Bagrícola 8.5% fija.</p>
+                <div class="text-xs font-mono text-emerald-400 font-bold">Cuota Leasing desde $1,450 USD/mes · Stock Inmediato</div>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 mt-3 flex justify-end">
+                <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar el LS Tractor MT7 Serie Agro.')}" target="_blank" class="w-full text-center py-2.5 rounded-[10px] bg-emerald-600 hover:bg-emerald-500 font-mono text-xs uppercase text-white font-bold transition-all shadow-[0_2px_10px_rgba(16,185,129,0.25)]">
+                  Cotizar con Crédito Bagrícola
+                </a>
+              </div>
             </div>
+
+            <!-- Lot 4: Ammann ARX 26 Tándem (6 cols) -->
+            <div class="lg:col-span-6 rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50 shadow-lg" style="background: linear-gradient(145deg, rgba(28, 25, 38, 0.82) 0%, rgba(18, 16, 26, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between mb-3 text-xs font-mono">
+                  <span class="px-3 py-1 rounded-[8px] bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40 uppercase">En Tránsito Marítimo</span>
+                  <span class="text-cyan-400 font-bold">COMPACTACIÓN ASFÁLTICA</span>
+                </div>
+                <div class="rounded-[16px] overflow-hidden h-40 bg-neutral-900 mb-3 border border-neutral-800">
+                  <img src="https://www.tmd.com.do/wp-content/uploads/2023/06/Screenshot_102.png" class="w-full h-full object-cover" alt="Ammann ARX 26">
+                </div>
+                <h4 class="text-base font-bold text-white mb-1">Ammann ARX 26 Rodillo Tándem Suizo</h4>
+                <p class="text-xs text-neutral-400 mb-2 leading-relaxed">Compactador vibratorio suizo 2.5T, motor Yanmar diésel, doble tambor con rociador presurizado para calzadas asfálticas de alta especificación.</p>
+                <div class="text-xs font-mono text-white font-bold">Precio CIF: $58,900 USD (Lote Serial #AMM-TX-ARX26-19)</div>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 mt-3 flex justify-end">
+                <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo reservar el Rodillo Ammann ARX 26 en tránsito marítimo.')}" target="_blank" class="w-full text-center py-2.5 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 hover:border-amber-400 font-mono text-xs uppercase text-white hover:text-amber-400 transition-all">
+                  Reservar en Tránsito →
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
+
+        <!-- ─── PILLAR 2: BIBLIOTECA DE FICHAS TÉCNICAS & BROCHURES OFICIALES (EMBEDDED) ─── -->
+        <div class="pt-6 border-t border-white/10">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 mb-1">
+                <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                <span>DOCUMENTACIÓN TÉCNICA OFICIAL ISO & MOPC</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white uppercase font-sans">
+                Biblioteca Oficial de Fichas Técnicas & Brochures en PDF
+              </h3>
+              <p class="text-xs text-neutral-400 font-sans mt-0.5">
+                Consulte curvas de torque, presiones hidráulicas y normativas fiscales DGII para sustentar sus licitaciones.
+              </p>
+            </div>
+            <button onclick="typeof window.tmdOpenBrochuresHub === 'function' ? window.tmdOpenBrochuresHub() : null" class="px-4 py-2.5 rounded-[12px] bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-[0_2px_12px_rgba(6,182,212,0.25)] shrink-0">
+              <span class="material-symbols-outlined text-[18px]">folder_open</span>
+              <span>Abrir Repositorio Completo</span>
+            </button>
+          </div>
+
+          <!-- Embedded Fichas Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            <!-- Ficha 1 (Construcción - Amber Tint) -->
+            <div class="p-5 rounded-[20px] flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50 shadow-sm" style="background: linear-gradient(145deg, rgba(28, 26, 20, 0.82) 0%, rgba(18, 16, 14, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-amber-400 font-bold">Construcción Pesada</span>
+                  <span>FT-JCB-3CX-2026-DO · 4 Pág.</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Ficha Técnica Oficial — JCB 3CX Eco Tropicalizada</h4>
+                <p class="text-xs text-neutral-400 mb-3">Retroexcavadora 4x4 · EcoMax 92 HP · A/C 48°C · Filtro Ciclónico Dual</p>
+                <div class="space-y-1 text-[11px] font-mono text-neutral-300 border-t border-neutral-800 pt-2 mb-4">
+                  <div>▪ Peso Operativo: 8,135 kg</div>
+                  <div>▪ Profundidad Excavación: 5.46 m</div>
+                  <div>▪ Bomba Hidráulica: Variable 251 Bar</div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 flex items-center justify-between gap-2">
+                <button onclick="typeof window.tmdDownloadBrochurePDF === 'function' ? window.tmdDownloadBrochurePDF('doc-jcb-3cx') : null;" class="px-3.5 py-2 rounded-[10px] bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold flex items-center gap-1.5 transition-all">
+                  <span class="material-symbols-outlined text-[15px]">download</span>
+                  <span>Descargar PDF</span>
+                </button>
+                <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, solicito asesoría sobre la Ficha Técnica de la JCB 3CX Eco.')}" target="_blank" class="px-3 py-2 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-semibold flex items-center gap-1 border border-neutral-800 transition-all">
+                  <span class="material-symbols-outlined text-[14px] text-emerald-400">chat</span>
+                  <span>Consultar</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Ficha 2 (Minería - Steel Cyan Tint) -->
+            <div class="p-5 rounded-[20px] flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50 shadow-sm" style="background: linear-gradient(145deg, rgba(20, 26, 38, 0.82) 0%, rgba(13, 18, 28, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-amber-400 font-bold">Canteras / Minería</span>
+                  <span>FT-LG-922E-2026-DO · 6 Pág.</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Ficha Técnica Oficial — LiuGong 922E HD Severe-Duty</h4>
+                <p class="text-xs text-neutral-400 mb-3">Excavadora Oruga 22T · Cummins 160 HP · Balde Hardox 1.2 m³</p>
+                <div class="space-y-1 text-[11px] font-mono text-neutral-300 border-t border-neutral-800 pt-2 mb-4">
+                  <div>▪ Peso Operativo: 22,000 kg</div>
+                  <div>▪ Presión Hidráulica: 343 Bar (Kawasaki)</div>
+                  <div>▪ Cummins 6BTAA mecánico tropical</div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 flex items-center justify-between gap-2">
+                <button onclick="typeof window.tmdDownloadBrochurePDF === 'function' ? window.tmdDownloadBrochurePDF('doc-liugong-922e') : null;" class="px-3.5 py-2 rounded-[10px] bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold flex items-center gap-1.5 transition-all">
+                  <span class="material-symbols-outlined text-[15px]">download</span>
+                  <span>Descargar PDF</span>
+                </button>
+                <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, solicito asesoría sobre la Ficha Técnica de la LiuGong 922E HD.')}" target="_blank" class="px-3 py-2 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-semibold flex items-center gap-1 border border-neutral-800 transition-all">
+                  <span class="material-symbols-outlined text-[14px] text-emerald-400">chat</span>
+                  <span>Consultar</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Ficha 3 (Agro - Emerald Tint) -->
+            <div class="p-5 rounded-[20px] flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50 shadow-sm" style="background: linear-gradient(145deg, rgba(16, 30, 24, 0.82) 0%, rgba(11, 20, 18, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div>
+                <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-emerald-400 font-bold">Línea Agrícola 4WD</span>
+                  <span>FT-LS-MT7-2026-DO · 4 Pág.</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Ficha Técnica Oficial — LS Tractor MT7.100 Heavy Agro</h4>
+                <p class="text-xs text-neutral-400 mb-3">Tractor Agrícola 4WD 101 HP · FPT Iveco Turbo · Toma Triple</p>
+                <div class="space-y-1 text-[11px] font-mono text-neutral-300 border-t border-neutral-800 pt-2 mb-4">
+                  <div>▪ Potencia Neta: 101 HP FPT Iveco</div>
+                  <div>▪ Levante Cat II: 3,800 kg</div>
+                  <div>▪ Eje delantero sellado para lodo</div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 flex items-center justify-between gap-2">
+                <button onclick="typeof window.tmdDownloadBrochurePDF === 'function' ? window.tmdDownloadBrochurePDF('doc-ls-mt7') : null;" class="px-3.5 py-2 rounded-[10px] bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold flex items-center gap-1.5 transition-all">
+                  <span class="material-symbols-outlined text-[15px]">download</span>
+                  <span>Descargar PDF</span>
+                </button>
+                <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, solicito asesoría sobre la Ficha Técnica del LS Tractor MT7.')}" target="_blank" class="px-3 py-2 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-semibold flex items-center gap-1 border border-neutral-800 transition-all">
+                  <span class="material-symbols-outlined text-[14px] text-emerald-400">chat</span>
+                  <span>Consultar</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ─── PILLAR 3: CASOS DE ÉXITO EN SUELO DOMINICANO ─── -->
+        <div class="pt-6 border-t border-white/10">
+          <div class="mb-6">
+            <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
+              <span class="material-symbols-outlined text-[16px]">engineering</span>
+              <span>HISTORIAS DE INGENIERÍA & DESEMPEÑO REAL EN RD</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white uppercase font-sans">
+              Casos de Estudio: Maquinaria en Suelo Dominicano
+            </h3>
+            <p class="text-xs text-neutral-400 font-sans mt-0.5">
+              Evidencia operativa en canteras de roca caliza, obras de autovías y arrozales de alta exigencia.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="rounded-[20px] p-5 flex flex-col justify-between transition-all duration-300 hover:border-amber-500/50" style="background: linear-gradient(145deg, rgba(28, 25, 18, 0.80) 0%, rgba(18, 16, 12, 0.76) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.06) !important;">
+              <div>
+                <span class="text-[10px] font-mono text-amber-400 uppercase font-bold">Canteras San Cristóbal</span>
+                <h4 class="text-base font-bold text-white mt-1 mb-2">Resistencia a 350 BAR en Roca Caliza Abrasiva</h4>
+                <p class="text-xs text-neutral-400 leading-relaxed font-sans">
+                  Las excavadoras LiuGong 922E HD equipadas con baldes Hardox operan en doble turno en canteras de San Cristóbal sin sobrecalentamiento del circuito hidráulico a 38°C ambiente.
+                </p>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 mt-4 text-[11px] font-mono text-neutral-500">
+                <span>Supervisión: Ing. Ramón Peralta (Km 22)</span>
+              </div>
+            </div>
+
+            <div class="rounded-[20px] p-5 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/50" style="background: linear-gradient(145deg, rgba(16, 28, 22, 0.80) 0%, rgba(11, 20, 16, 0.76) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.06) !important;">
+              <div>
+                <span class="text-[10px] font-mono text-emerald-400 uppercase font-bold">Circunvalación de Baní</span>
+                <h4 class="text-base font-bold text-white mt-1 mb-2">Telemetría LiveLink: -42% Tiempo Muerto</h4>
+                <p class="text-xs text-neutral-400 leading-relaxed font-sans">
+                  Conexión telemétrica satelital que alertó sobre saturación prematura de filtros de combustible antes de que la máquina detuviera el frente de rasante en el tramo Baní.
+                </p>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 mt-4 text-[11px] font-mono text-neutral-500">
+                <span>Monitoreo: Ing. Laura Valenzuela (IoT)</span>
+              </div>
+            </div>
+
+            <div class="rounded-[20px] p-5 flex flex-col justify-between transition-all duration-300 hover:border-cyan-500/50" style="background: linear-gradient(145deg, rgba(16, 26, 36, 0.80) 0%, rgba(11, 18, 26, 0.76) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.06) !important;">
+              <div>
+                <span class="text-[10px] font-mono text-cyan-400 uppercase font-bold">Valle de La Vega & Bonao</span>
+                <h4 class="text-base font-bold text-white mt-1 mb-2">Cero Filtración de Lodo con Eje Sellado LS</h4>
+                <p class="text-xs text-neutral-400 leading-relaxed font-sans">
+                  Prueba de 1,200 horas en arrozales anegados demostró que el retén blindado del eje delantero evita el ingreso de sedimentos, prolongando la vida de la corona en 3X.
+                </p>
+              </div>
+              <div class="pt-3 border-t border-neutral-800 mt-4 text-[11px] font-mono text-neutral-500">
+                <span>División Agro: Jorge Torres (TMD)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ─── PILLAR 4: HERRAMIENTAS DE DECISIÓN TÉCNICA (JOHN DEERE & BOBCAT BENCHMARK) ─── -->
+        <div class="pt-6 border-t border-white/10">
+          <div class="mb-5">
+            <span class="text-xs font-mono text-amber-400 uppercase tracking-widest block mb-1">DECISIÓN DE COMPRA TIER-1</span>
+            <h3 class="text-xl font-bold text-white uppercase font-sans">Herramientas Digitales de Soporte Técnico</h3>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            <div onclick="typeof window.tmdOpenMachineAdvisor === 'function' ? window.tmdOpenMachineAdvisor() : null" class="p-5 rounded-[18px] cursor-pointer transition-all duration-300 hover:border-amber-500 group flex items-start gap-3.5 shadow-sm" style="background: linear-gradient(145deg, rgba(26, 24, 18, 0.82) 0%, rgba(17, 15, 12, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div class="w-10 h-10 rounded-[12px] bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">psychology</span>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">Asesor "Help Me Choose"</div>
+                <div class="text-xs text-neutral-400 mt-0.5 font-sans">Quiz interactivo de 3 pasos por tipo de suelo y faena.</div>
+              </div>
+            </div>
+
+            <div onclick="typeof window.tmdOpenModelComparator === 'function' ? window.tmdOpenModelComparator('backhoes') : null" class="p-5 rounded-[18px] cursor-pointer transition-all duration-300 hover:border-cyan-500 group flex items-start gap-3.5 shadow-sm" style="background: linear-gradient(145deg, rgba(18, 26, 38, 0.82) 0%, rgba(12, 18, 28, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div class="w-10 h-10 rounded-[12px] bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">compare_arrows</span>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">Comparador 3-Vías</div>
+                <div class="text-xs text-neutral-400 mt-0.5 font-sans">Benchmark de 14 vectores vs. Cat 420 y Deere 310L.</div>
+              </div>
+            </div>
+
+            <div onclick="typeof window.tmdOpenFinancialSuite === 'function' ? window.tmdOpenFinancialSuite(95000) : null" class="p-5 rounded-[18px] cursor-pointer transition-all duration-300 hover:border-emerald-500 group flex items-start gap-3.5 shadow-sm" style="background: linear-gradient(145deg, rgba(16, 28, 22, 0.82) 0%, rgba(11, 20, 16, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div class="w-10 h-10 rounded-[12px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-[22px]">calculate</span>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">Simulador Lease vs. Buy</div>
+                <div class="text-xs text-neutral-400 mt-0.5 font-sans">Amortización acelerada 25% y crédito ITBIS DGII.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     `;
   }
@@ -1250,47 +1513,208 @@
             </div>
           </div>
 
-          <!-- Node Breakdown Panel (5 cols) -->
-          <div class="lg:col-span-5 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#1c2230]/90 to-[#0d1017]/95 backdrop-blur-[24px] border border-amber-500/25 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] flex flex-col justify-between gap-6">
-            <div class="flex flex-col gap-4">
-              <span class="text-xs font-mono text-amber-500 uppercase tracking-wider">Información de la Sede Seleccionada</span>
+          <!-- Node Breakdown & 32-Province Calculator Panel (5 cols) -->
+          <div class="lg:col-span-5 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#1c2230]/90 to-[#0d1017]/95 backdrop-blur-[24px] border border-amber-500/25 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] flex flex-col justify-between gap-5">
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-amber-500 uppercase tracking-wider">Sede Operativa / Nodo Activo</span>
+                <span id="tmd-hub-status-badge" class="px-2 py-0.5 rounded-[6px] bg-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">OPERATIVO 24/7</span>
+              </div>
               <h3 id="tmd-hub-title" class="text-xl font-extrabold text-white uppercase leading-snug">Sede Central & Taller Principal Km 22</h3>
               <p id="tmd-hub-address" class="text-xs text-neutral-300 flex items-start gap-1.5">
                 <span class="material-symbols-outlined text-[16px] text-amber-500 shrink-0">pin_drop</span>
-                Autopista Duarte Km 22, La Guáyiga, Santo Domingo Oeste
+                <span id="tmd-hub-address-text">Autopista Duarte Km 22, La Guáyiga, Santo Domingo Oeste</span>
               </p>
 
-              <div class="flex flex-col gap-2 pt-2 font-mono text-xs">
-                <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Capacidades & Servicios:</span>
-                <div id="tmd-hub-services" class="space-y-1.5">
-                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Showroom principal de equipos 0km</div>
-                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Banco de pruebas hidrostático 6,000 PSI</div>
-                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Almacén central repuestos OEM Bin C-04</div>
-                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>18 Bahías de servicio pesado y dinamómetro</div>
+              <!-- Province Travel-Time Calculator Dropdown -->
+              <div class="pt-2 border-t border-white/10 mt-1">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-[11px] font-mono font-bold text-amber-400 uppercase">📍 Calculadora de Flete a Obra:</span>
+                  <span class="text-[10px] font-mono text-neutral-400">32 Provincias</span>
+                </div>
+                <select id="tmd-stitch-province-select" onchange="window.tmdUpdateStitchProvince(this.value)" class="w-full bg-[#0d1017] border border-amber-500/40 text-white text-xs font-semibold rounded-[10px] p-2.5 outline-none cursor-pointer">
+                  <option value="0">Santo Domingo (Metropolitana) — 12 km</option>
+                  <option value="1">Distrito Nacional (Centro) — 18 km</option>
+                  <option value="2">San Cristóbal (Sur Cercano) — 28 km</option>
+                  <option value="3">Monte Plata (Este Cercano) — 45 km</option>
+                  <option value="4">Monseñor Nouel (Bonao) — 62 km</option>
+                  <option value="5">Peravia (Baní) — 68 km</option>
+                  <option value="6">San Pedro de Macorís — 85 km</option>
+                  <option value="7">Sánchez Ramírez (Cotuí) — 88 km</option>
+                  <option value="8">San José de Ocoa — 92 km</option>
+                  <option value="9">La Vega (Cibao Central) — 98 km</option>
+                  <option value="10">Hato Mayor — 110 km</option>
+                  <option value="11">Azua — 115 km</option>
+                  <option value="12">Duarte (San Francisco de Macorís) — 122 km</option>
+                  <option value="13">La Romana — 125 km</option>
+                  <option value="14" selected>Santiago de los Caballeros — 135 km</option>
+                  <option value="15">Espaillat (Moca) — 138 km</option>
+                  <option value="16">El Seibo — 138 km</option>
+                  <option value="17">Hermanas Mirabal (Salcedo) — 142 km</option>
+                  <option value="18">María Trinidad Sánchez (Nagua) — 155 km</option>
+                  <option value="19">La Altagracia (Punta Cana / Higüey) — 175 km</option>
+                  <option value="20">Puerto Plata (Costa Norte) — 185 km</option>
+                  <option value="21">San Juan de la Maguana — 185 km</option>
+                  <option value="22">Valverde (Mao) — 185 km</option>
+                  <option value="23">Barahona (Suroeste) — 188 km</option>
+                  <option value="24">Samaná (Península) — 195 km</option>
+                  <option value="25">Santiago Rodríguez — 215 km</option>
+                  <option value="26">Bahoruco (Neyba) — 220 km</option>
+                  <option value="27">Monte Cristi — 245 km</option>
+                  <option value="28">Elías Piña (Frontera) — 245 km</option>
+                  <option value="29">Independencia (Jimaní) — 250 km</option>
+                  <option value="30">Dajabón (Frontera Norte) — 265 km</option>
+                  <option value="31">Pedernales (Cabo Rojo / Alcoa) — 295 km</option>
+                </select>
+              </div>
+
+              <!-- Real-Time Province Metrics -->
+              <div class="grid grid-cols-3 gap-2 font-mono text-center pt-1">
+                <div class="p-2 rounded-[10px] bg-white/[0.04] border border-white/8">
+                  <span class="text-[9px] text-neutral-400 uppercase block">Distancia:</span>
+                  <span id="tmd-stitch-km" class="font-bold text-amber-400 text-xs block mt-0.5">135 km</span>
+                </div>
+                <div class="p-2 rounded-[10px] bg-white/[0.04] border border-white/8">
+                  <span class="text-[9px] text-neutral-400 uppercase block">Flete Cama Baja:</span>
+                  <span id="tmd-stitch-lowboy" class="font-bold text-sky-400 text-xs block mt-0.5">3.0 horas</span>
+                </div>
+                <div class="p-2 rounded-[10px] bg-white/[0.04] border border-white/8">
+                  <span class="text-[9px] text-neutral-400 uppercase block">SLA Auxilio:</span>
+                  <span id="tmd-stitch-sla" class="font-bold text-emerald-400 text-xs block mt-0.5">&lt; 1.5 horas</span>
                 </div>
               </div>
 
-              <div class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
-                <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
-                  <span class="text-[10px] text-neutral-400 uppercase block">Tiempo Respuesta:</span>
-                  <span id="tmd-hub-eta" class="font-bold text-amber-400 text-[11px] block mt-0.5">&lt; 2 Horas Gran Santo Domingo</span>
-                </div>
-                <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
-                  <span class="text-[10px] text-neutral-400 uppercase block">Línea Directa:</span>
-                  <span id="tmd-hub-phone" class="font-bold text-white text-[11px] block mt-0.5">(809) 826-2222</span>
+              <div class="flex flex-col gap-1.5 pt-1 font-mono text-xs">
+                <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Capacidades del Nodo:</span>
+                <div id="tmd-hub-services" class="space-y-1 text-neutral-300">
+                  <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span id="tmd-hub-spec-1">18 Bahías pesadas y dinamómetro</span></div>
+                  <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span id="tmd-hub-spec-2">Banco de pruebas hidrostático 6,000 PSI</span></div>
+                  <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span id="tmd-hub-spec-3">Laboratorio diésel y almacén repuestos OEM</span></div>
                 </div>
               </div>
             </div>
 
-            <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo agendar una visita técnica o servicio en la Sede seleccionada.')}" target="_blank" class="w-full py-4 px-6 rounded-[14px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs font-bold uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2">
-              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-              <span>Agendar Servicio en Esta Sede</span>
+            <a id="tmd-stitch-dispatch-btn" href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, solicito cotización de flete en Cama Baja / auxilio técnico para maquinaria en Santiago.')}" target="_blank" class="w-full py-3.5 px-5 rounded-[12px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs font-bold uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">local_shipping</span>
+              <span id="tmd-stitch-btn-text">Solicitar Despacho a Santiago</span>
             </a>
           </div>
         </div>
       </section>
     `;
   }
+
+  // Global Map Interactive Handlers
+  window.tmdSelectMapHub = function (hubKey) {
+    var hubs = {
+      km22: {
+        title: 'Sede Central & Taller Principal Km 22',
+        address: 'Autopista Duarte Km 22, La Guáyiga, Santo Domingo Oeste',
+        status: 'OPERATIVO 24/7',
+        phone: '(809) 826-2222',
+        specs: ['18 Bahías pesadas y dinamómetro', 'Banco de pruebas hidrostático 6,000 PSI', 'Laboratorio diésel y almacén repuestos OEM']
+      },
+      santiago: {
+        title: 'Hub Cibao (Santiago • Nodo Norte)',
+        address: 'Autopista Duarte Entrada Santiago, Zona Industrial',
+        status: 'ACTIVO',
+        phone: '(809) 826-2223',
+        specs: ['Flota móvil de auxilio mecánico 4x4', 'Repuestos de alta rotación para minería y agro', 'Soporte técnico directo en canteras del Cibao']
+      },
+      puntacana: {
+        title: 'Nodo Este (Punta Cana • Base Este)',
+        address: 'Boulevard Turístico del Este, Bávaro / Punta Cana',
+        status: 'ACTIVO',
+        phone: '(809) 826-2222',
+        specs: ['Soporte para canteras de caliza y hoteles', 'Técnicos especialistas en plantas eléctricas', 'Atención prioritaria aeropuertos y obras viales']
+      },
+      sur: {
+        title: 'Base Sur (Barahona • Nodo Suroeste)',
+        address: 'Carretera Sánchez Km 5, Barahona',
+        status: 'ACTIVO',
+        phone: '(809) 826-2222',
+        specs: ['Mantenimiento pesado para minería de bauxita y yeso', 'Auxilio técnico para parques eólicos y solares', 'Respaldo móvil en Pedernales y Jimaní']
+      }
+    };
+
+    var hub = hubs[hubKey] || hubs.km22;
+    var tEl = document.getElementById('tmd-hub-title');
+    var aEl = document.getElementById('tmd-hub-address-text');
+    var sEl = document.getElementById('tmd-hub-status-badge');
+    var s1 = document.getElementById('tmd-hub-spec-1');
+    var s2 = document.getElementById('tmd-hub-spec-2');
+    var s3 = document.getElementById('tmd-hub-spec-3');
+
+    if (tEl) tEl.textContent = hub.title;
+    if (aEl) aEl.textContent = hub.address;
+    if (sEl) sEl.textContent = hub.status;
+    if (s1 && hub.specs[0]) s1.textContent = hub.specs[0];
+    if (s2 && hub.specs[1]) s2.textContent = hub.specs[1];
+    if (s3 && hub.specs[2]) s3.textContent = hub.specs[2];
+
+    document.querySelectorAll('.tmd-hub-marker-btn').forEach(function (el) {
+      if (el.getAttribute('data-hub') === hubKey) {
+        el.classList.add('ring-2', 'ring-amber-500', 'scale-110');
+      } else {
+        el.classList.remove('ring-2', 'ring-amber-500', 'scale-110');
+      }
+    });
+  };
+
+  window.tmdUpdateStitchProvince = function (idx) {
+    var pList = [
+      { name: 'Santo Domingo', km: 12, lowboy: '0.8h', sla: '< 1.5h', hub: 'km22' },
+      { name: 'Distrito Nacional', km: 18, lowboy: '1.0h', sla: '< 1.5h', hub: 'km22' },
+      { name: 'San Cristóbal', km: 28, lowboy: '1.2h', sla: '< 2.0h', hub: 'km22' },
+      { name: 'Monte Plata', km: 45, lowboy: '1.5h', sla: '< 2.5h', hub: 'km22' },
+      { name: 'Monseñor Nouel (Bonao)', km: 62, lowboy: '1.8h', sla: '< 2.0h', hub: 'km22' },
+      { name: 'Peravia (Baní)', km: 68, lowboy: '1.8h', sla: '< 2.0h', hub: 'km22' },
+      { name: 'San Pedro de Macorís', km: 85, lowboy: '2.2h', sla: '< 2.5h', hub: 'puntacana' },
+      { name: 'Sánchez Ramírez (Cotuí)', km: 88, lowboy: '2.3h', sla: '< 2.5h', hub: 'santiago' },
+      { name: 'San José de Ocoa', km: 92, lowboy: '2.5h', sla: '< 3.0h', hub: 'km22' },
+      { name: 'La Vega', km: 98, lowboy: '2.4h', sla: '< 2.0h', hub: 'santiago' },
+      { name: 'Hato Mayor', km: 110, lowboy: '2.8h', sla: '< 3.0h', hub: 'puntacana' },
+      { name: 'Azua', km: 115, lowboy: '2.8h', sla: '< 3.0h', hub: 'sur' },
+      { name: 'Duarte (San Francisco)', km: 122, lowboy: '3.0h', sla: '< 2.5h', hub: 'santiago' },
+      { name: 'La Romana', km: 125, lowboy: '3.0h', sla: '< 2.0h', hub: 'puntacana' },
+      { name: 'Santiago de los Caballeros', km: 135, lowboy: '3.0h', sla: '< 1.5h', hub: 'santiago' },
+      { name: 'Espaillat (Moca)', km: 138, lowboy: '3.2h', sla: '< 2.0h', hub: 'santiago' },
+      { name: 'El Seibo', km: 138, lowboy: '3.2h', sla: '< 3.0h', hub: 'puntacana' },
+      { name: 'Hermanas Mirabal (Salcedo)', km: 142, lowboy: '3.2h', sla: '< 2.5h', hub: 'santiago' },
+      { name: 'María Trinidad Sánchez (Nagua)', km: 155, lowboy: '3.5h', sla: '< 3.0h', hub: 'santiago' },
+      { name: 'La Altagracia (Punta Cana)', km: 175, lowboy: '3.8h', sla: '< 1.5h', hub: 'puntacana' },
+      { name: 'Puerto Plata', km: 185, lowboy: '4.2h', sla: '< 2.5h', hub: 'santiago' },
+      { name: 'San Juan de la Maguana', km: 185, lowboy: '4.0h', sla: '< 3.5h', hub: 'sur' },
+      { name: 'Valverde (Mao)', km: 185, lowboy: '4.2h', sla: '< 2.5h', hub: 'santiago' },
+      { name: 'Barahona', km: 188, lowboy: '4.0h', sla: '< 1.5h', hub: 'sur' },
+      { name: 'Samaná', km: 195, lowboy: '4.2h', sla: '< 3.5h', hub: 'santiago' },
+      { name: 'Santiago Rodríguez', km: 215, lowboy: '4.8h', sla: '< 3.5h', hub: 'santiago' },
+      { name: 'Bahoruco (Neyba)', km: 220, lowboy: '4.8h', sla: '< 3.0h', hub: 'sur' },
+      { name: 'Monte Cristi', km: 245, lowboy: '5.2h', sla: '< 4.0h', hub: 'santiago' },
+      { name: 'Elías Piña (Frontera)', km: 245, lowboy: '5.2h', sla: '< 4.0h', hub: 'sur' },
+      { name: 'Independencia (Jimaní)', km: 250, lowboy: '5.4h', sla: '< 3.5h', hub: 'sur' },
+      { name: 'Dajabón (Frontera Norte)', km: 265, lowboy: '5.5h', sla: '< 4.0h', hub: 'santiago' },
+      { name: 'Pedernales (Cabo Rojo)', km: 295, lowboy: '6.2h', sla: '< 4.0h', hub: 'sur' }
+    ];
+
+    var item = pList[parseInt(idx, 10)] || pList[0];
+    var kmEl = document.getElementById('tmd-stitch-km');
+    var lbEl = document.getElementById('tmd-stitch-lowboy');
+    var slaEl = document.getElementById('tmd-stitch-sla');
+    var btn = document.getElementById('tmd-stitch-dispatch-btn');
+    var btnText = document.getElementById('tmd-stitch-btn-text');
+
+    if (kmEl) kmEl.textContent = item.km + ' km';
+    if (lbEl) lbEl.textContent = item.lowboy;
+    if (slaEl) slaEl.textContent = item.sla;
+    if (btnText) btnText.textContent = 'Solicitar Despacho a ' + item.name;
+    if (btn) {
+      var text = 'Hola TMD Dominicana, solicito cotización de flete en Cama Baja (Lowboy) / auxilio técnico para maquinaria en ' + item.name + ' (Distancia Km 22: ' + item.km + ' km).';
+      btn.href = 'https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(text);
+    }
+
+    window.tmdSelectMapHub(item.hub);
+  };
 
   // ─────────────────────────────────────────────────────────────────────────────
   // 8. MODULE 3: FILTROS RÁPIDOS POR INDUSTRIA / FAENA B2B (#/vehicles)
@@ -1559,6 +1983,460 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // 10B. TOOLS MEGA MENU HELPERS & FULL DASHBOARD MODULE (#/tools)
+  // ─────────────────────────────────────────────────────────────────────────────
+  var _toolsMenuTimeout = null;
+
+  window.tmdToggleToolsMenu = function (e) {
+    if (e) e.stopPropagation();
+    var dd = document.getElementById('tmd-tools-mega-menu-dropdown');
+    if (!dd) return;
+    var isOpen = !dd.classList.contains('hidden');
+    if (isOpen) {
+      window.tmdCloseToolsMenu();
+    } else {
+      window.tmdOpenToolsMenu();
+    }
+  };
+
+  window.tmdOpenToolsMenu = function () {
+    if (_toolsMenuTimeout) {
+      clearTimeout(_toolsMenuTimeout);
+      _toolsMenuTimeout = null;
+    }
+    var dd = document.getElementById('tmd-tools-mega-menu-dropdown');
+    var ch = document.getElementById('tmd-tools-menu-chevron');
+    var btn = document.getElementById('tmd-nav-mega-menu-btn');
+    if (dd) dd.classList.remove('hidden');
+    if (ch) ch.style.transform = 'rotate(180deg)';
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+  };
+
+  window.tmdCloseToolsMenu = function () {
+    var dd = document.getElementById('tmd-tools-mega-menu-dropdown');
+    var ch = document.getElementById('tmd-tools-menu-chevron');
+    var btn = document.getElementById('tmd-nav-mega-menu-btn');
+    if (dd) dd.classList.add('hidden');
+    if (ch) ch.style.transform = 'rotate(0deg)';
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  };
+
+  function renderToolsDashboardModule() {
+    return `
+      <div id="tmd-tools-dashboard-infusion" class="w-full min-h-screen text-neutral-100 pb-20 pt-24" style="background: radial-gradient(circle at 50% 0%, rgba(245,158,11,0.09) 0%, rgba(9,11,18,0.98) 65%, #05070c 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <!-- Breadcrumb & Live Indicator -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pt-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2 text-xs font-mono text-neutral-400">
+              <a href="#/home" class="hover:text-amber-400 transition-colors">TMD DOMINICANA</a>
+              <span>/</span>
+              <span class="text-amber-400 font-bold">ECOSISTEMA DIGITAL</span>
+              <span>/</span>
+              <span class="text-white">CENTRO DE HERRAMIENTAS</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                ENLACE SATELITAL EN VIVO
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-black uppercase bg-amber-500 text-black shadow">
+                20/10 STANDARD
+              </span>
+            </div>
+          </div>
+
+          <!-- Hero Master Banner -->
+          <div class="relative rounded-3xl p-8 sm:p-12 mb-10 overflow-hidden border border-amber-500/30" style="background: linear-gradient(135deg, rgba(20,26,40,0.88) 0%, rgba(12,16,25,0.92) 100%); backdrop-filter: blur(24px); box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-mono font-black uppercase tracking-wider mb-4">
+                <span class="material-symbols-outlined text-[16px]">terminal</span>
+                Centro de Mando Digital para Contratistas
+              </div>
+              <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-sans">
+                Ecosistema de Operaciones, Finanzas &amp; Flota
+              </h1>
+              <p class="text-sm sm:text-base text-neutral-300 leading-relaxed font-sans mb-8">
+                Inspirado en el estándar de gestión de flotas de clase mundial de John Deere y Bobcat, adaptado a la geografía, canteras y régimen tributario DGII de la República Dominicana.
+              </p>
+
+              <!-- Quick Launch CTA Bar -->
+              <div class="flex flex-wrap items-center gap-3">
+                <button onclick="window.tmdOpenClientPortal();" class="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer">
+                  <span>🚜</span>
+                  <span>Abrir Portal VIP &amp; Flota</span>
+                </button>
+                <button onclick="window.tmdOpenMachineAdvisor();" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-[18px] text-amber-400">psychology</span>
+                  <span>Asesor "Help Me Choose"</span>
+                </button>
+                <a href="tel:18098262222" class="px-5 py-3 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 font-mono font-bold text-xs flex items-center gap-2 transition-all">
+                  <span class="material-symbols-outlined text-[18px] text-emerald-400">phone_in_talk</span>
+                  <span>Km 22: 809-826-2222</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Stats Ribbon -->
+            <div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+                <div class="text-neutral-400 text-[10px] uppercase">Flota en Terreno</div>
+                <div class="text-lg font-bold text-emerald-400 mt-0.5">44 Máquinas Activas</div>
+                <div class="text-[10px] text-neutral-500">LiveLink GPS Satelital</div>
+              </div>
+              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+                <div class="text-neutral-400 text-[10px] uppercase">Capacidad Taller</div>
+                <div class="text-lg font-bold text-amber-400 mt-0.5">18 Bahías Pesadas</div>
+                <div class="text-[10px] text-neutral-500">Km 22 Autopista Duarte</div>
+              </div>
+              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+                <div class="text-neutral-400 text-[10px] uppercase">Escudo Fiscal DGII</div>
+                <div class="text-lg font-bold text-white mt-0.5">25% Depreciación</div>
+                <div class="text-[10px] text-neutral-500">Ley 11-92 Cat. 2 + ITBIS</div>
+              </div>
+              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+                <div class="text-neutral-400 text-[10px] uppercase">Repuestos OEM</div>
+                <div class="text-lg font-bold text-cyan-400 mt-0.5">390+ SKUs Stock</div>
+                <div class="text-[10px] text-neutral-500">Entrega Inmediata en RD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 CORE PILLARS OF DIGITAL TOOLS -->
+          <div class="space-y-12">
+            
+            <!-- PILLAR 1: FLOTA & TELEMETRÍA IOT -->
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <span class="material-symbols-outlined text-[24px]">satellite_alt</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">1. Gestión de Flota &amp; Telemetría IoT</h2>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold uppercase">Enlace 24/7</span>
+                  </div>
+                  <p class="text-xs text-neutral-400">Monitoreo en tiempo real de presión hidráulica, horómetros y estado en taller</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Operations Center -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-emerald-500/30 transition-all duration-300 hover:border-emerald-400 hover:shadow-[0_10px_35px_rgba(16,185,129,0.2)]" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                        <span class="material-symbols-outlined text-[28px]">satellite_alt</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 uppercase">SATELITAL</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">TMD Operations Center™</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
+                      Cabina de telemetría completa: horómetros acumulados, curva de presión hidráulica (hasta 350 Bar) en vivo y geocercas activas en proyectos viales de RD.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Rastreo satelital GPS en canteras</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Alertas de consumo de diésel</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Alertas predictivas de mantenimiento 500h</li>
+                    </ul>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenTelematicsCockpit();" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(16,185,129,0.3)] transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                      <span>Abrir Operations Center</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 2: DVI Tracker WO-4482 -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-emerald-500/20 transition-all duration-300 hover:border-emerald-400 hover:shadow-[0_10px_35px_rgba(16,185,129,0.15)]" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                        <span class="material-symbols-outlined text-[28px]">fact_check</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-neutral-300 uppercase">TALLER KM 22</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Rastreo de Órdenes (WO / DVI)</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
+                      Siga el progreso de su orden de reparación en Taller Km 22 a través de las 5 fases oficiales, con evidencia fotográfica digital de 40 puntos.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Reporte DVI fotográfico en alta resolución</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Aprobación electrónica de repuestos requeridos</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Tiempo estimado de entrega de máquina</li>
+                    </ul>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenDviTracker('WO-4482');" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-neutral-700 transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-[18px]">search</span>
+                      <span>Rastrear Orden WO-4482</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 3: Client VIP Portal -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-amber-500/30 transition-all duration-300 hover:border-amber-400 hover:shadow-[0_10px_35px_rgba(245,158,11,0.2)]" style="background: linear-gradient(160deg, rgba(25,22,15,0.85) 0%, rgba(14,12,8,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                        <span class="text-2xl">🚜</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-amber-500 text-black uppercase">EXCLUSIVO</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-amber-400 mb-2">Portal VIP &amp; Flota Contratista</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
+                      Acceso exclusivo para directores de operaciones y contratistas: histórico de horas, bóveda de facturas fiscales NCF B01 y requisición de repuestos con entrega express.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
+                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Firma digital de cotizaciones autorizadas</li>
+                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Reserva prioritaria de bahías mecánicas</li>
+                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Descarga de NCF fiscales en PDF/XML</li>
+                    </ul>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenClientPortal();" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(245,158,11,0.35)] transition-all cursor-pointer">
+                      <span>🚜</span>
+                      <span>Ingresar al Portal VIP</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- PILLAR 2: FINANZAS & DGII -->
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <span class="material-symbols-outlined text-[24px]">account_balance</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">2. Inteligencia Financiera &amp; Escudo Fiscal DGII</h2>
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold uppercase">Ley 11-92</span>
+                  </div>
+                  <p class="text-xs text-neutral-400">Modelos de ahorro impositivo, leasing operativo con banca nacional y comprobantes B01/B15</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 4: Financial Suite -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-amber-500/30 transition-all duration-300 hover:border-amber-400 hover:shadow-[0_10px_35px_rgba(245,158,11,0.2)]" style="background: linear-gradient(160deg, rgba(25,22,15,0.85) 0%, rgba(14,12,8,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                        <span class="material-symbols-outlined text-[28px]">calculate</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 uppercase">ESCUDO FISCAL</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-amber-400 mb-2">TMD MyFinancial™ Suite</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
+                      Simule la amortización acelerada del 25% (Categoría 2), crédito fiscal del 18% ITBIS y compare compra directa versus leasing bancario con Banreservas, Popular y BHD.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
+                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Depreciación acelerada Ley 11-92</li>
+                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Tasa preferencial desde 9.50%</li>
+                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Exportación de reporte fiscal DGII</li>
+                    </ul>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenFinancialSuite('JCB 3CX Eco', 85000);" class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(245,158,11,0.3)] transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-[18px]">account_balance</span>
+                      <span>Abrir Suite Financiera DGII</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 5: Formal DGII Quote -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-amber-400 hover:shadow-[0_10px_35px_rgba(245,158,11,0.15)]" style="background: linear-gradient(160deg, rgba(20,24,35,0.85) 0%, rgba(12,16,24,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-amber-400">
+                        <span class="material-symbols-outlined text-[28px]">receipt_long</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-neutral-300 uppercase">NCF B01 / B15</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Cotización Formal DGII</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
+                      Genere una propuesta comercial formal con desglose de ITBIS, comprobante de crédito fiscal B01 para empresas o B15 para licitaciones con MOPC y sector público.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Validación instantánea de RNC corporativo</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Especificación técnica según norma MOPC</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Garantía de fábrica respaldada en Km 22</li>
+                    </ul>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="if(typeof window.tmdShowQuoteModal==='function') window.tmdShowQuoteModal('JCB 3CX Eco');" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-neutral-700 transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-[18px]">request_quote</span>
+                      <span>Generar Cotización Formal</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 6: TCO Calculator -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-emerald-400 hover:shadow-[0_10px_35px_rgba(16,185,129,0.15)]" style="background: linear-gradient(160deg, rgba(20,24,35,0.85) 0%, rgba(12,16,24,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                        <span class="material-symbols-outlined text-[28px]">payments</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 uppercase">TCO OPERATIVO</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Calculadora TCO &amp; Renta</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
+                      Proyecte el costo total de posesión por hora de trabajo: consumo de diésel óptimo con bomba mecánica tropicalizada, salario de operador y filtros preventivos.
+                    </p>
+                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Comparativa de costo por m³ excavado</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Ahorro diésel de hasta 16% con EcoMAX</li>
+                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Tarifa de renta diaria, semanal y mensual</li>
+                    </ul>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.location.hash='#/home'; setTimeout(function(){ var el = document.getElementById('tmd-tco-estimator-infusion'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 300);" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-neutral-700 transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-[18px]">bar_chart</span>
+                      <span>Calcular Costo TCO</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- PILLAR 3: INGENIERÍA OEM & SELECCIÓN -->
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <span class="material-symbols-outlined text-[24px]">manage_search</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">3. Selección de Maquinaria, Comparador &amp; Repuestos</h2>
+                    <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold uppercase">14 Vectores OEM</span>
+                  </div>
+                  <p class="text-xs text-neutral-400">Benchmarks técnicos frente a Caterpillar y John Deere, catálogos PDF y despiece de repuestos</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Card 7: Model Comparator -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-cyan-500/30 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_10px_35px_rgba(6,182,212,0.2)]" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4">
+                      <span class="material-symbols-outlined text-[28px]">compare_arrows</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 uppercase">3-VÍAS</span>
+                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Comparador 3-Vías</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed">
+                      JCB y LiuGong frente a Cat 420 y Deere 310L: fuerza de desprendimiento, presión hidráulica y consumo de diésel.
+                    </p>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenModelComparator('backhoes');" class="w-full py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(6,182,212,0.3)] transition-all cursor-pointer">
+                      <span>Comparar Modelos</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 8: Parts Serial Engine -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-cyan-400" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4">
+                      <span class="material-symbols-outlined text-[28px]">precision_manufacturing</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-neutral-300 uppercase">390+ SKUS</span>
+                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Buscador de Repuestos</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed">
+                      Búsqueda por VIN/Serial o código OEM: filtros originales, inyección, orugas y sellos con stock en Km 22.
+                    </p>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenPartsSerialEngine();" class="w-full py-2.5 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-700 transition-all cursor-pointer">
+                      <span>Buscar Piezas</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 9: AI Machine Advisor -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-amber-400" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
+                      <span class="material-symbols-outlined text-[28px]">psychology</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 uppercase">AI FLEET</span>
+                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Help Me Choose</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed">
+                      Asistente interactivo: indique tipo de suelo, profundidad de excavación y proyecto para recomendar el equipo idóneo.
+                    </p>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenMachineAdvisor();" class="w-full py-2.5 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-700 transition-all cursor-pointer">
+                      <span>Iniciar Asesor</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Card 10: Brochures Hub -->
+                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-emerald-400" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+                  <div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
+                      <span class="material-symbols-outlined text-[28px]">download</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 uppercase">PDF OFICIAL</span>
+                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Fichas Técnicas PDF</h3>
+                    <p class="text-xs text-neutral-300 leading-relaxed">
+                      Descargue especificaciones oficiales de fábrica, diagramas de alcance y tablas de lubricantes autorizados.
+                    </p>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-white/10">
+                    <button onclick="window.tmdOpenBrochuresHub();" class="w-full py-2.5 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-700 transition-all cursor-pointer">
+                      <span>Descargar PDFs</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Institutional Taller Central Km 22 Support Banner -->
+          <div class="mt-14 rounded-3xl p-8 border border-neutral-800 flex flex-wrap items-center justify-between gap-6" style="background: linear-gradient(145deg, rgba(15,18,28,0.95) 0%, rgba(9,11,18,0.98) 100%);">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                <span class="material-symbols-outlined text-[32px]">home_repair_service</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Centro Técnico Maestro Km 22 Autopista Duarte</h3>
+                <p class="text-xs text-neutral-400 mt-0.5">
+                  18 bahías pesadas, banco de calibración hidráulica a 6,000 PSI y laboratorio diésel Common Rail certificado.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <a href="https://wa.me/18098262222?text=Hola%20TMD%20Dominicana,%20necesito%20asistencia%20tecnica" target="_blank" rel="noopener" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow transition-all">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+                <span>Auxilio WhatsApp 24/7</span>
+              </a>
+              <button onclick="if(typeof window.tmdOpenBookingModal==='function') window.tmdOpenBookingModal(); else window.location.hash='#/service';" class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider transition-all cursor-pointer">
+                Agendar Bahía
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
   // 11. TOP UTILITY BAR LINK INJECTION
   // ─────────────────────────────────────────────────────────────────────────────
   function injectTopBarLink() {
@@ -1595,6 +2473,7 @@
     if (raw === 'parts' || raw === 'repuestos') return 'parts';
     if (raw === 'magazine' || raw === 'revista') return 'magazine';
     if (raw === 'about' || raw === 'empresa' || raw === 'nosotros' || raw === 'contacto') return 'about';
+    if (raw === 'tools' || raw === 'herramientas' || raw === 'herramientas-digitales') return 'tools';
     return 'home';
   }
 
@@ -1646,6 +2525,12 @@
       var el = document.getElementById('tmd-v2-full-service-page');
       if (el) el.remove();
     }
+
+    // 8. Tools Dashboard: ONLY on 'tools'
+    if (activeRoute !== 'tools') {
+      var el = document.getElementById('tmd-tools-dashboard-infusion');
+      if (el) el.remove();
+    }
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -1667,6 +2552,14 @@
       cleanupInjectedSections(currentRoute);
 
       var mainEl = document.querySelector('#root main');
+
+      // A0. TOOLS DASHBOARD PAGE (#/tools)
+      if (currentRoute === 'tools') {
+        if (!document.getElementById('tmd-tools-dashboard-infusion') && mainEl) {
+          mainEl.innerHTML = renderToolsDashboardModule();
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      }
 
       // A. SERVICE PAGE (#/service)
       if (currentRoute === 'service') {
@@ -1809,6 +2702,197 @@
         }
       }
 
+      // J. TOP NAVIGATION BAR: TOOLS MEGA MENU & PORTAL VIP INJECTION
+      var mainNav = document.querySelector('nav[aria-label="Navegación principal"]');
+      if (mainNav) {
+        // 1. Tools Mega Menu Dropdown
+        if (!document.getElementById('tmd-nav-mega-menu-wrapper')) {
+          var legacyBtn = document.getElementById('tmd-nav-digital-tools-btn');
+          if (legacyBtn) legacyBtn.remove();
+
+          var megaWrapper = document.createElement('div');
+          megaWrapper.id = 'tmd-nav-mega-menu-wrapper';
+          megaWrapper.className = 'relative shrink-0 ml-1';
+          megaWrapper.onmouseenter = function () {
+            window.tmdOpenToolsMenu();
+          };
+          megaWrapper.onmouseleave = function () {
+            _toolsMenuTimeout = setTimeout(function () {
+              window.tmdCloseToolsMenu();
+            }, 250);
+          };
+
+          megaWrapper.innerHTML = `
+            <button id="tmd-nav-mega-menu-btn" type="button" aria-expanded="false" class="h-9 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/40 shadow-sm cursor-pointer" onclick="window.tmdToggleToolsMenu(event)">
+              <span class="material-symbols-outlined text-[16px] text-amber-400">terminal</span>
+              <span>Herramientas</span>
+              <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500 text-black font-mono font-black">20/10</span>
+              <span class="material-symbols-outlined text-[16px] transition-transform duration-200" id="tmd-tools-menu-chevron">expand_more</span>
+            </button>
+
+            <!-- 3-Column Mega Menu Dropdown -->
+            <div id="tmd-tools-mega-menu-dropdown" class="hidden absolute top-full right-0 mt-2 z-[99999] w-[760px] max-w-[92vw] rounded-2xl p-5 border border-amber-500/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(245,158,11,0.15)] text-neutral-200" style="background: linear-gradient(170deg, rgba(14,18,28,0.98) 0%, rgba(8,11,18,0.98) 100%); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);">
+              
+              <!-- Dropdown Header -->
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-amber-500 text-black font-mono text-[9px] font-black uppercase">TIER-1 OEM</span>
+                  <span class="text-xs font-bold text-white tracking-wide">Ecosistema de Herramientas Digitales TMD</span>
+                </div>
+                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors">
+                  <span>Dashboard Completo</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- 3 Columns -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                
+                <!-- Col 1: Flota & Telemetría -->
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-emerald-500/20 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center gap-1.5 mb-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                      <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">Flota &amp; Telemetría</span>
+                    </div>
+                    
+                    <div class="space-y-2">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenTelematicsCockpit();">
+                        <div class="text-xs font-bold text-white group-hover:text-emerald-300 flex items-center justify-between">
+                          <span>Operations Center™</span>
+                          <span class="material-symbols-outlined text-[14px] text-emerald-400">open_in_new</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Telemetría satelital, 350 Bar en vivo y geocercas</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenDviTracker('WO-4482');">
+                        <div class="text-xs font-bold text-white group-hover:text-emerald-300 flex items-center justify-between">
+                          <span>Rastreo WO / DVI</span>
+                          <span class="material-symbols-outlined text-[14px] text-emerald-400">search</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Inspección fotográfica digital 40 puntos en Km 22</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenClientPortal();">
+                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between">
+                          <span>Portal VIP Clientes</span>
+                          <span>🚜</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Acceso exclusivo a contratistas y flota propia</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Col 2: Finanzas & DGII -->
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-amber-500/20 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center gap-1.5 mb-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                      <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Finanzas &amp; DGII</span>
+                    </div>
+
+                    <div class="space-y-2">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenFinancialSuite('JCB 3CX Eco', 85000);">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
+                          <span>Suite MyFinancial™</span>
+                          <span class="material-symbols-outlined text-[14px] text-amber-400">calculate</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Ley 11-92: Depreciación 25% Cat. 2 y leasing bancario</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); if(typeof window.tmdShowQuoteModal==='function') window.tmdShowQuoteModal('JCB 3CX Eco');">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
+                          <span>Cotizador DGII</span>
+                          <span class="material-symbols-outlined text-[14px] text-amber-400">receipt_long</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Comprobante fiscal B01 empresarial y B15 público</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.location.hash='#/home'; setTimeout(function(){ var el = document.getElementById('tmd-tco-estimator-infusion'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 300);">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
+                          <span>Calculadora TCO</span>
+                          <span class="material-symbols-outlined text-[14px] text-amber-400">payments</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Estimador de costo por hora/día y tarifa de alquiler</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Col 3: Selección & Repuestos -->
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-cyan-500/20 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center gap-1.5 mb-2.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                      <span class="text-[10px] font-mono font-bold text-cyan-400 uppercase">Selección &amp; Repuestos</span>
+                    </div>
+
+                    <div class="space-y-2">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenModelComparator('backhoes');">
+                        <div class="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                          <span>Comparador 3-Vías</span>
+                          <span class="material-symbols-outlined text-[14px] text-cyan-400">compare_arrows</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">JCB vs CAT 420 vs Deere 310L en 14 vectores</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenPartsSerialEngine();">
+                        <div class="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                          <span>Repuestos por VIN</span>
+                          <span class="material-symbols-outlined text-[14px] text-cyan-400">precision_manufacturing</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">390+ piezas OEM con stock en Taller Km 22</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenMachineAdvisor();">
+                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between">
+                          <span>Help Me Choose</span>
+                          <span class="material-symbols-outlined text-[14px] text-amber-400">psychology</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Asesor inteligente según suelo, faena y volumen</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Dropdown Footer -->
+              <div class="mt-3 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
+                <div class="flex items-center gap-2 text-neutral-400">
+                  <button onclick="window.tmdCloseToolsMenu(); window.tmdOpenBrochuresHub();" class="hover:text-white transition-colors cursor-pointer">📥 Fichas PDF</button>
+                  <span>·</span>
+                  <button onclick="window.tmdCloseToolsMenu(); window.tmdOpenDemoRequestModal();" class="hover:text-white transition-colors cursor-pointer">🚜 Pedir Demo en Obra</button>
+                </div>
+                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 font-bold uppercase tracking-wider transition-all">
+                  Ver Todas (8) →
+                </a>
+              </div>
+
+            </div>
+          `;
+
+          mainNav.appendChild(megaWrapper);
+        }
+
+        // 2. Portal VIP & Flota Button
+        if (!document.getElementById('tmd-nav-portal-vip-btn')) {
+          var portalBtn = document.createElement('button');
+          portalBtn.id = 'tmd-nav-portal-vip-btn';
+          portalBtn.type = 'button';
+          portalBtn.className = 'h-9 px-3.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black shadow-[0_2px_12px_rgba(245,158,11,0.35)] cursor-pointer ml-1.5 shrink-0 border border-amber-400 active:scale-95';
+          portalBtn.title = 'Acceso al Portal de Clientes VIP & Flota TMD';
+          portalBtn.onclick = function () {
+            if (typeof window.tmdOpenClientPortal === 'function') {
+              window.tmdOpenClientPortal();
+            }
+          };
+          portalBtn.innerHTML = '<span class="text-sm leading-none">🚜</span><span class="hidden sm:inline">PORTAL VIP &amp; FLOTA</span><span class="sm:hidden">PORTAL VIP</span>';
+          mainNav.appendChild(portalBtn);
+        }
+      }
+
     } catch (err) {
       console.warn('TMD Infusion Dispatch error:', err);
     } finally {
@@ -1827,6 +2911,22 @@
 
   window.addEventListener('hashchange', function () {
     triggerInfuseDebounced(100);
+  });
+
+  // Global listeners for Mega Menu outside click and escape
+  document.addEventListener('click', function (e) {
+    var wrap = document.getElementById('tmd-nav-mega-menu-wrapper');
+    if (wrap && !wrap.contains(e.target)) {
+      if (typeof window.tmdCloseToolsMenu === 'function') {
+        window.tmdCloseToolsMenu();
+      }
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && typeof window.tmdCloseToolsMenu === 'function') {
+      window.tmdCloseToolsMenu();
+    }
   });
 
   // Observe navigation changes on #root without self-triggering loops

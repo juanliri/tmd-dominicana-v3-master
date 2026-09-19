@@ -1,0 +1,8 @@
+# Vercel Ignore file
+scratch/
+theme_v3_hybrid/
+*.bat
+test_acro.pdf
+*.log
+.DS_Store
+Thumbs.db

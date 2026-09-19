@@ -83,6 +83,76 @@ This checklist is used to track the delivery of the 9 specific features promised
 
 ---
 
+## 💎 PHASE 1.6: ESPECIFICACIONES "ESTÁNDAR DIAMANTE (20/10)" — DOMINACIÓN REGIONAL SOBRE LOS OEM GLOBALES
+
+Basado en el **Informe de Inteligencia Competitiva vs. Bobcat, Caterpillar, New Holland y John Deere**:
+
+- [x] **F. Bio-Link Oficial Nativo (`/bio` · `/links`) — Reemplazo Gratuito de Linktree**
+  - [x] Página nativa ultra-ligera (<43 KB) con glassmorphism oscuro y cero esquinas cuadradas (`bio.html`).
+  - [x] Botón de auxilio técnico de emergencia WhatsApp 24/7 con mensaje pre-cargado.
+  - [x] Chip de telemetría en vivo: `🟢 TALLER CENTRAL KM 22: OPERATIVO · 18 BAHÍAS ACTIVAS`.
+  - [x] Generador y descarga de vCard 3.0 (`.vcf`) en 1 tap para guardar contactos de TMD en teléfonos de contratistas.
+  - [x] Modal de Código QR vectorial para escanear en faenas y obras sin conexión.
+  - [x] Motor de preservación de parámetros UTM e identificadores de pauta (`fbclid`, `gclid`).
+  - [x] Configuración de reescrituras limpias en `vercel.json` para `/bio` y `/links`.
+
+- [x] **G. Arquitectura de Indexación & SEO Técnico**
+  - [x] Generación de `sitemap.xml` oficial con 8 rutas indexadas y soporte multilingüe.
+  - [x] Creación de directiva de rastreo `robots.txt`.
+  - [x] Ingesta de suite de microdatos Schema.org JSON-LD (`LocalBusiness`, `AutoDealer`, `Product`, `Service`).
+
+- [x] **H. Comparador Side-by-Side de Maquinaria (3-Way Spec Matrix)**
+  - [x] Herramienta interactiva para comparar 2 o 3 máquinas simultáneamente (ej: JCB 3CX vs Cat 420F vs Deere 310L).
+  - [x] Matriz de 14 vectores técnicos (peso operativo, potencia kW, balde m³, profundidad, presión hidráulica, gal/h).
+  - [x] Diferenciadores exclusivos del Caribe: A/C 38°C+, filtro ciclónico dual, tropicalización anti-corrosión.
+  - [x] Botón de cierre: *"Cotizar Comparativa por WhatsApp"* y descarga en PDF formal (`tmd_model_comparator.js`).
+
+- [x] **I. Buscador de Repuestos por Serial (VIN) & Diagramas de Despiece**
+  - [x] Búsqueda inteligente por Número de Parte OEM, Serial de Máquina o Modelo (`tmd_parts_serial_engine.js`).
+  - [x] Visor esquemático de despiece de piezas de desgaste crítico (filtros, kits de sellos, inyección, orugas).
+  - [x] Indicador en tiempo real de inventario físico en Almacén Km 22 con garantía de despacho 24h.
+
+- [x] **J. Radar de Cobertura Nacional Interactivo con Calculadora de Tiempo de Ruta**
+  - [x] Mapa interactivo de República Dominicana con geolocalización de las 4 sedes operativas (Km 22, Santiago, Punta Cana, Barahona).
+  - [x] Selector de las 32 provincias con cálculo dinámico de distancia en km y tiempo de traslado en cama baja (Lowboy) (`tmd_interactive_map.js`).
+  - [x] Publicación de Acuerdos de Nivel de Servicio (SLA): Respuesta de rescate móvil < 2h en Gran Santo Domingo y < 4h en el interior.
+
+- [x] **K. Suite Financiera: Calculadora Lease vs. Buy & Escudo Fiscal DGII**
+  - [x] Comparador financiero de Adquisición de Capital vs. Leasing Operativo a 12, 24 y 36 meses (`tmd_financial_suite.js`).
+  - [x] Calculadora de deducción fiscal por depreciación acelerada bajo Ley 11-92 (Categoría 2: 25% anual).
+  - [x] Crédito fiscal de ITBIS 18% para constructoras (Comprobante Fiscal B01).
+
+- [x] **L. Motor Tri-Lingüe de Exportación & PWA Offline para Canteras**
+  - [x] Selector de idioma: Español Dominicano 🇩🇴, English Caribbean 🇺🇸, Kreyòl Ayisyen / Français 🇭🇹 (`tmd_i18n_core.js`).
+  - [x] Modo PWA instalable en iOS y Android con caché local sin conexión para faenas y canteras sin señal (`manifest.json` y `sw.js`).
+  - [x] Modo Alto Contraste para operación bajo sol directo caribeño en canteras.
+
+- [x] **M. Pantalla de Carga & Fallback Corporativo (Anti-FOUC & Telemetría Km 22)**
+  - [x] Eliminación total del pantallazo negro y botones huérfanos al recargar rutas directas (`#/parts`, `#/service`, `#/magazine`).
+  - [x] Branding de lujo con logo oficial, halo áureo pulsante y badge de estado en vivo Sede Central Km 22 (`#tmd-app-loader`).
+  - [x] Transición CSS fluida y desconexión automática inteligente mediante MutationObserver en `#root`.
+
+- [x] **N. Revista Digital TMD (`#/magazine`): 4 Pilares de Operación Dominicana**
+  - [x] Pilar 1: Lotes 0 Km recién descargados en Puerto Haina Oriental y DP World Caucedo listos para entrega inmediata.
+  - [x] Pilar 2: Biblioteca Oficial de Fichas Técnicas & Brochures PDF embebida con especificaciones MOPC e ISO.
+  - [x] Pilar 3: Casos de Estudio en Canteras de San Cristóbal, Circunvalación de Baní y arrozales de Bonao.
+  - [x] Pilar 4: Accesos directos a Herramientas Digitales (Asesor de Flota, Comparador 3-vías, Cotizador DGII).
+
+- [x] **O. Modales de Herramientas Digitales Obsidian Sólido 96% Opacidad (Zero Text Bleed)**
+  - [x] Backdrops y contenedores obsidian profundo (`rgba(4,6,10,0.96)`) con desenfoque de 28px sin transparencia ni sangrado de texto.
+  - [x] Fichas Técnicas, Asesor de Maquinaria, Comparador, Despiece VIN y Suite Financiera 100% legibles.
+  - [x] Alineación micrométrica de triggers flotantes en desktop (bottom 24px/82px) y móvil (bottom 72px/116px).
+
+- [x] **P. Bio-Link Hub Diamante (Milton CAT Benchmark) & Loader Fix (`/bio`, `/links`)**
+  - [x] **Hero Cinematográfico**: Video drone HD y póster de maquinaria pesada en faena (`tmd_hero_drone_hd.mp4` / `tmd_hero_poster.jpg`) con gradiente obsidiana continuo.
+  - [x] **Logo Oficial TMD de Alto Contraste**: Badge dorado con borde áureo de 2px, halo ambiental y fallback local offline (`/assets/logos/tmd_logo_gold.png`), sustituyendo enlace roto de Google.
+  - [x] **Barra de Iconos Sociales (Benchmark Milton CAT)**: Fila dedicada de 5 redes oficiales (Facebook, Instagram, YouTube, LinkedIn, WhatsApp) con botones circulares de vidrio esmerilado y efecto hover ámbar.
+  - [x] **Miniaturas Fotográficas 1:1 en Cada Tarjeta**: Sustitución de íconos genéricos por fotografías reales de excavadoras JCB, repuestos OEM, laboratorio de inyección diésel, comparador de maquinaria y telemetría satelital.
+  - [x] **Reparación del Loader `#tmd-app-loader`**: Posicionamiento fijo estricto en línea (`position: fixed !important; inset: 0 !important; z-index: 999999 !important;`) con auto-remoción del DOM (`loader.remove()`) para impedir cualquier desplazamiento de navbar.
+
+---
+
+
 ## 🟦 PHASE 2: B. Integración y Portales (Fullbay Fleet)
 
 - [ ] **5. Sincronización API con Fullbay (Lectura)**

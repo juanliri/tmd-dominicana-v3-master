@@ -149,14 +149,17 @@
   let auroraPhase = 0;
 
   function initAmbientCanvas() {
+    if (window.__TMD_ANIMATION_ENGINE_RUNNING) return;
+
     if (document.getElementById('tmd-ambient-canvas')) {
       canvas = document.getElementById('tmd-ambient-canvas');
-      ctx = canvas.getContext('2d');
-      return;
+    } else {
+      canvas = document.createElement('canvas');
+      canvas.id = 'tmd-ambient-canvas';
+      document.body.prepend(canvas);
     }
 
-    canvas = document.createElement('canvas');
-    canvas.id = 'tmd-ambient-canvas';
+    window.__TMD_ANIMATION_ENGINE_RUNNING = true;
     canvas.className = 'mode-dust';
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
@@ -164,14 +167,13 @@
     canvas.style.width = '100vw';
     canvas.style.height = '100vh';
     canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '30';
+    canvas.style.zIndex = '1000001';
     if (localStorage.getItem('tmd_particles_active') === 'false') {
       canvas.style.display = 'none';
     } else {
       canvas.style.display = 'block';
     }
     canvas.style.opacity = '0.95';
-    document.body.prepend(canvas); // Prepend to body so content sits in front
 
     window.__TMD_ANIMATION_ENGINE = {
       setParticlesActive: function(active) {
@@ -249,36 +251,7 @@
       scrollVelocity *= 0.92;
       const velocityDrift = Math.min(scrollVelocity * 0.03, 1.8);
 
-      // ── AMBIENT AURORA BLOOM (todobuild.store 1:1 Parity) ──
-      const glowLevel = window.__TMD_GLOW_LEVEL || localStorage.getItem('tmd_glow_level') || 'medium';
-      if (glowLevel !== 'off') {
-        const glowMult = glowLevel === 'subtle' ? 0.5 : (glowLevel === 'high' ? 1.5 : 1.0);
-        auroraPhase += 0.005;
-        const pulse = 0.5 + 0.5 * Math.sin(auroraPhase);
-        const pulse2 = 0.5 + 0.5 * Math.sin(auroraPhase * 1.3 + 1.2);
-
-        // Left top bloom — industrial warm amber
-        const gradLeft = ctx.createRadialGradient(
-          canvas.width * 0.12, canvas.height * 0.18, 5,
-          canvas.width * 0.12, canvas.height * 0.18, canvas.width * 0.42
-        );
-        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${(0.14 + pulse * 0.06) * glowMult})`);
-        gradLeft.addColorStop(0.5, `rgba(245, 158, 11, ${(0.025 + pulse * 0.015) * glowMult})`);
-        gradLeft.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = gradLeft;
-        ctx.fillRect(0, 0, canvas.width * 0.55, canvas.height * 0.65);
-
-        // Right top bloom — industrial warm amber
-        const gradRight = ctx.createRadialGradient(
-          canvas.width * 0.88, canvas.height * 0.22, 5,
-          canvas.width * 0.88, canvas.height * 0.22, canvas.width * 0.40
-        );
-        gradRight.addColorStop(0, `rgba(217, 119, 6, ${(0.11 + pulse2 * 0.05) * glowMult})`);
-        gradRight.addColorStop(0.5, `rgba(245, 158, 11, ${(0.02 + pulse2 * 0.015) * glowMult})`);
-        gradRight.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = gradRight;
-        ctx.fillRect(canvas.width * 0.45, 0, canvas.width * 0.55, canvas.height * 0.65);
-      }
+      // ── AMBIENT AURORA BLOOM PURGED: Pure uniform obsidian black background (zero half-screen split) ──
 
       // ── SPECULAR MOUSE CURSOR GLOW (todobuild.store Cursor Spotlight 1:1) ──
       const mouseGlowActive = window.__TMD_MOUSE_GLOW !== undefined ? window.__TMD_MOUSE_GLOW : (localStorage.getItem('tmd_mouse_glow') !== 'false');
@@ -504,6 +477,10 @@
       const observer = new MutationObserver(debouncedRunSuite);
       observer.observe(rootEl, { childList: true, subtree: true });
     }
+  }
+
+  if (document.body) {
+    initAmbientCanvas();
   }
 
   if (document.readyState === 'loading') {

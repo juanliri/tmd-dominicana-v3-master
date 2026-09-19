@@ -53,7 +53,14 @@
       location: 'Autopista Duarte Km 18 · Obra Tramo I',
       status: 'OPERATIVA',
       nextServiceIn: '79.5 hrs (Servicio 3500h)',
-      operator: 'José Paulino'
+      operator: 'José Paulino',
+      hydraulicPressure: '248 Bar / 251 Bar Max',
+      coolantTemp: '84°C (Normal)',
+      batteryVoltage: '24.8 V',
+      gpsCoords: '18.5714° N, 70.0347° W',
+      geofence: 'Dentro de Perímetro Tramo I',
+      sosFluid: 'Muestra Óptima (12-Sep)',
+      dtc: 'Sin Fallas Activas'
     },
     {
       id: 'EQ-02',
@@ -64,7 +71,14 @@
       location: 'Taller Central Km 22 · Bahía 3 (350 Bar)',
       status: 'EN TALLER',
       nextServiceIn: 'En calibración hidráulica',
-      operator: 'Ing. Eduardo López (Taller)'
+      operator: 'Ing. Eduardo López (Taller)',
+      hydraulicPressure: '348 Bar (En Banco)',
+      coolantTemp: '62°C (Prueba)',
+      batteryVoltage: '25.1 V',
+      gpsCoords: '18.5780° N, 70.0410° W',
+      geofence: 'Sede Matriz Km 22 Aut. Duarte',
+      sosFluid: 'SOS Cat/JCB: Partículas 0%',
+      dtc: 'WO-8492 en proceso'
     },
     {
       id: 'EQ-03',
@@ -75,7 +89,14 @@
       location: 'Cantera Santo Domingo Oeste',
       status: 'OPERATIVA',
       nextServiceIn: '188.0 hrs (Servicio 5000h)',
-      operator: 'Manuel Rosario'
+      operator: 'Manuel Rosario',
+      hydraulicPressure: '210 Bar / 215 Bar Max',
+      coolantTemp: '88°C (Carga Pesada)',
+      batteryVoltage: '24.4 V',
+      gpsCoords: '18.4912° N, 70.0125° W',
+      geofence: 'Cantera Caliza SDO',
+      sosFluid: 'Viscosidad 15W-40 Conforme',
+      dtc: 'Sin Fallas Activas'
     },
     {
       id: 'EQ-04',
@@ -86,7 +107,14 @@
       location: 'Proyecto Agroindustrial Bonao',
       status: 'OPERATIVA',
       nextServiceIn: '220.0 hrs (Servicio 1500h)',
-      operator: 'Carlos Peña'
+      operator: 'Carlos Peña',
+      hydraulicPressure: '175 Bar',
+      coolantTemp: '79°C (Normal)',
+      batteryVoltage: '12.8 V',
+      gpsCoords: '18.9367° N, 70.4092° W',
+      geofence: 'Valle Arrocero Yuna',
+      sosFluid: 'Filtro Anti-Bagazo Limpio',
+      dtc: 'Sin Fallas Activas'
     }
   ];
 
@@ -382,9 +410,26 @@
               </div>
             </section>
 
-            <!-- PANE 3: GESTOR DE ACTIVOS & MAQUINARIA PESADA -->
+            <!-- PANE 3: GESTOR DE ACTIVOS, FLOTA & TELEMETRÍA SATELITAL -->
             <section id="cpane-fleet" class="tmd-client-pane" style="display:none;">
               <div style="padding:0 28px 40px;">
+                <!-- Telematics Fleet KPI Header -->
+                <div style="background:linear-gradient(135deg, #0e131d 0%, #141c2c 100%);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                      <span class="tmd-dot"></span>
+                      <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:800;color:#10b981;letter-spacing:0.04em;">LIVELINK TELEMATICS &amp; IOT 24/7 ONLINE</span>
+                    </div>
+                    <h3 style="margin:0;font-size:1.35rem;font-weight:800;color:#ffffff;font-family:'Space Grotesk',sans-serif;">Monitoreo de Flota &amp; Diagnóstico Remoto</h3>
+                    <p style="margin:4px 0 0 0;font-size:0.75rem;color:#a1a1aa;">Telemetría en tiempo real: Presión hidráulica (hasta 350 Bar), geocercas en proyectos RD, análisis de fluidos SOS y conteo de horas.</p>
+                  </div>
+                  <div style="display:flex;gap:10px;">
+                    <button class="tmd-btn-pay-primary" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){window.tmdOpenTelematicsCockpit();}else{alert('Abriendo Cockpit...');}" style="padding:10px 18px;font-size:0.78rem;">
+                      🛰️ Abrir Cockpit Telemetría Completo
+                    </button>
+                  </div>
+                </div>
+
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;" id="tmd-fleet-container">
                   <!-- Rendered dynamically -->
                 </div>
@@ -656,25 +701,59 @@
 
     c.innerHTML = FLEET_ASSETS.map(function(eq) {
       return `
-        <div style="background:#09090b;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="background:#0c1017;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color 0.2s, transform 0.2s;box-shadow:0 10px 25px rgba(0,0,0,0.5);" onmouseover="this.style.borderColor='rgba(255,184,0,0.3)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='none'">
           <div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-              <strong style="color:#ffffff;font-size:1rem;">${eq.name}</strong>
+            <!-- Header -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:12px;">
+              <div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:800;color:#ffb800;padding:2px 8px;border-radius:9999px;background:rgba(255,184,0,0.12);border:1px solid rgba(255,184,0,0.25);">${eq.id}</span>
+                <h4 style="color:#ffffff;font-size:1.05rem;font-weight:800;margin:6px 0 2px 0;font-family:'Space Grotesk',sans-serif;">${eq.name}</h4>
+                <div style="font-size:0.72rem;color:#71717a;font-family:'JetBrains Mono',monospace;">VIN: ${eq.vin}</div>
+              </div>
               <span class="tmd-status-tag ${eq.status === 'OPERATIVA' ? 'tmd-tag-green' : 'tmd-tag-amber'}">${eq.status}</span>
             </div>
             
-            <div style="font-size:0.78rem;color:#a1a1aa;line-height:1.7;">
-              <div>VIN: <span style="font-family:'JetBrains Mono',monospace;color:#ffffff;">${eq.vin}</span></div>
-              <div>Horómetro: <strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">${eq.hours}</strong></div>
-              <div>Combustible Diésel: <strong style="color:#10b981;">${eq.fuel}%</strong></div>
-              <div>Ubicación: <span>${eq.location}</span></div>
-              <div>Mantenimiento: <span style="color:#facc15;">${eq.nextServiceIn}</span></div>
+            <!-- Telemetry Metrics Grid -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+                <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Horómetro Motor</div>
+                <div style="font-size:0.95rem;font-weight:800;color:#facc15;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.hours}</div>
+              </div>
+              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+                <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Presión Hidráulica</div>
+                <div style="font-size:0.95rem;font-weight:800;color:#10b981;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.hydraulicPressure}</div>
+              </div>
+              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+                <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Diésel en Tanque</div>
+                <div style="font-size:0.95rem;font-weight:800;color:#38bdf8;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.fuel}% · ${eq.coolantTemp}</div>
+              </div>
+              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+                <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Voltaje Batería</div>
+                <div style="font-size:0.95rem;font-weight:800;color:#cbd5e1;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.batteryVoltage}</div>
+              </div>
+            </div>
+
+            <!-- Health & Geo Diagnostics -->
+            <div style="font-size:0.75rem;color:#a1a1aa;line-height:1.6;background:#080b11;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:12px;margin-bottom:14px;">
+              <div>📍 <strong>Ubicación:</strong> <span>${eq.location}</span> (${eq.gpsCoords})</div>
+              <div>🛡️ <strong>Geocerca:</strong> <span style="color:#10b981;">${eq.geofence}</span></div>
+              <div>🧪 <strong>Análisis SOS:</strong> <span style="color:#ffb800;">${eq.sosFluid}</span></div>
+              <div>⏱️ <strong>Próximo Servicio:</strong> <span style="color:#facc15;">${eq.nextServiceIn}</span></div>
             </div>
           </div>
 
-          <button class="tmd-btn-outline" style="margin-top:18px;width:100%;justify-content:center;" onclick="alert('Solicitando servicio técnico prioritario en obra para ${eq.name}...')">
-            Solicitar Mantenimiento en Obra
-          </button>
+          <!-- Action Buttons Bar -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;">
+            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){window.tmdOpenTelematicsCockpit('${eq.vin}');}else{alert('Abriendo telemetría para ${eq.name}...');}">
+              🛰️ Telemetría
+            </button>
+            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenPartsSerialEngine==='function'){window.tmdOpenPartsSerialEngine('${eq.vin}');}else{alert('Buscando despiece para ${eq.vin}...');}">
+              ⚙️ Despiece VIN
+            </button>
+            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;color:#ffb800;border-color:rgba(255,184,0,0.3);" onclick="document.getElementById('tmd-book-machine').value='${eq.name}';window.tmdSwitchClientNav('nav-booking');">
+              ⏱️ Cita Taller
+            </button>
+          </div>
         </div>
       `;
     }).join('');

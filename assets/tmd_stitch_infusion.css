@@ -617,4 +617,227 @@ html:not(.dark) .tmd-dvi-modal-card {
   box-shadow: 0 10px 24px -5px rgba(0, 0, 0, 0.6) !important;
 }
 
+/* ═════════════════════════════════════════════════════════════════════════
+   H. ENTERPRISE MULTI-SCALE FROSTED SHADES ENGINE (75% - 90% OPACITY / 10% - 25% TRANSLUCENCY)
+   Replaces flat colors and eliminates 100% clear backgrounds with rich dynamic glass
+═════════════════════════════════════════════════════════════════════════ */
+
+/* Universal safeguard: Any element with backdrop-blur that has no background or is transparent gets 80% frosted glass */
+[class*="backdrop-blur"]:not([class*="bg-"]),
+.backdrop-blur-md:not([class*="bg-"]),
+.backdrop-blur-lg:not([class*="bg-"]),
+.backdrop-blur-xl:not([class*="bg-"]),
+.backdrop-blur-\[24px\]:not([class*="bg-"]) {
+  background-color: rgba(14, 19, 31, 0.82) !important;
+}
+
+/* Arbitrary hex backgrounds mapped to dynamic frosted shades (75% - 88% opacity) */
+.bg-\[\#070a10\], [class*="bg-[#070a10]"] { 
+  background: rgba(7, 10, 16, 0.88) !important; 
+  backdrop-filter: blur(20px) !important; 
+  -webkit-backdrop-filter: blur(20px) !important; 
+}
+.bg-\[\#090d16\], [class*="bg-[#090d16]"] { 
+  background: linear-gradient(165deg, rgba(14, 19, 30, 0.88) 0%, rgba(8, 12, 20, 0.90) 100%) !important; 
+  backdrop-filter: blur(24px) !important; 
+  -webkit-backdrop-filter: blur(24px) !important; 
+}
+.bg-\[\#0c1017\], [class*="bg-[#0c1017]"],
+.bg-\[\#0c1018\], [class*="bg-[#0c1018]"] { 
+  background: linear-gradient(180deg, rgba(18, 24, 38, 0.86) 0%, rgba(11, 16, 26, 0.84) 100%) !important; 
+  backdrop-filter: blur(20px) !important; 
+  -webkit-backdrop-filter: blur(20px) !important; 
+}
+.bg-\[\#0d1017\], [class*="bg-[#0d1017]"],
+.bg-\[\#0d1117\], [class*="bg-[#0d1117]"],
+.bg-\[\#0e1219\], [class*="bg-[#0e1219]"] { 
+  background: rgba(13, 17, 26, 0.84) !important; 
+  backdrop-filter: blur(18px) !important; 
+  -webkit-backdrop-filter: blur(18px) !important; 
+}
+.bg-\[\#0f1420\], [class*="bg-[#0f1420]"] { 
+  background: rgba(15, 20, 32, 0.82) !important; 
+  backdrop-filter: blur(16px) !important; 
+  -webkit-backdrop-filter: blur(16px) !important; 
+}
+.bg-\[\#10141f\], [class*="bg-[#10141f]"],
+.bg-\[\#101520\], [class*="bg-[#101520]"],
+.bg-\[\#101522\], [class*="bg-[#101522]"] { 
+  background: linear-gradient(145deg, rgba(20, 27, 42, 0.82) 0%, rgba(13, 18, 30, 0.78) 100%) !important; 
+  backdrop-filter: blur(16px) !important; 
+  -webkit-backdrop-filter: blur(16px) !important; 
+}
+.bg-\[\#111622\], [class*="bg-[#111622]"] { 
+  background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important; 
+  backdrop-filter: blur(16px) !important; 
+  -webkit-backdrop-filter: blur(16px) !important; 
+}
+.bg-\[\#12151e\], [class*="bg-[#12151e]"],
+.bg-\[\#121722\], [class*="bg-[#121722]"] { 
+  background: linear-gradient(145deg, rgba(24, 32, 48, 0.82) 0%, rgba(15, 20, 32, 0.78) 100%) !important; 
+  backdrop-filter: blur(16px) !important; 
+  -webkit-backdrop-filter: blur(16px) !important; 
+}
+
+/* Tailwind partial opacity black and dark neutral classes elevated from clear/weak to 75% - 88% opacity */
+.bg-black\/10, [class*="bg-black/10"],
+.bg-black\/20, [class*="bg-black/20"],
+.bg-black\/30, [class*="bg-black/30"],
+.bg-black\/40, [class*="bg-black/40"],
+.bg-black\/50, [class*="bg-black/50"],
+.bg-black\/60, [class*="bg-black/60"],
+.bg-neutral-900\/40, [class*="bg-neutral-900/40"],
+.bg-neutral-900\/50, [class*="bg-neutral-900/50"],
+.bg-neutral-900\/60, [class*="bg-neutral-900/60"],
+.bg-neutral-950\/40, [class*="bg-neutral-950/40"],
+.bg-neutral-950\/50, [class*="bg-neutral-950/50"],
+.bg-neutral-950\/60, [class*="bg-neutral-950/60"] { 
+  background-color: rgba(12, 16, 26, 0.78) !important; 
+  backdrop-filter: blur(16px) !important; 
+  -webkit-backdrop-filter: blur(16px) !important; 
+}
+.bg-black\/70, [class*="bg-black/70"],
+.bg-black\/80, [class*="bg-black/80"] { 
+  background-color: rgba(10, 14, 24, 0.82) !important; 
+  backdrop-filter: blur(18px) !important; 
+  -webkit-backdrop-filter: blur(18px) !important; 
+}
+.bg-black\/85, [class*="bg-black/85"],
+.bg-black\/90, [class*="bg-black/90"] { 
+  background-color: rgba(8, 11, 19, 0.88) !important; 
+  backdrop-filter: blur(22px) !important; 
+  -webkit-backdrop-filter: blur(22px) !important; 
+}
+
+/* Scale 1: Fullscreen Modal Overlays (85% Opacity, 15% Translucency + Deep Atmospheric Blur) */
+#tmd-digital-tools-modal,
+#tmd-brochures-modal,
+#tmd-demo-modal,
+#tmd-advisor-modal,
+#tmd-comparator-modal,
+#tmd-parts-serial-modal,
+#tmd-client-portal-modal,
+#tmd-staff-detail-modal,
+#tmd-telematics-modal,
+#tmd-financial-suite-modal,
+#reservationSuccessModal {
+  background-color: rgba(4, 6, 12, 0.85) !important;
+  backdrop-filter: blur(24px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+}
+
+/* Scale 2: Master Modal Dialog Windows (88% - 90% Opacity with Inset Glass Highlight) */
+#tmd-digital-tools-modal > div,
+#tmd-brochures-modal > div,
+#tmd-demo-modal > div,
+#tmd-advisor-modal > div,
+#tmd-comparator-modal > div,
+#tmd-parts-serial-modal > div,
+#tmd-client-portal-modal > div,
+#tmd-telematics-modal > div,
+#tmd-financial-suite-modal > div,
+#reservationSuccessModal > div {
+  background: linear-gradient(165deg, rgba(14, 19, 30, 0.90) 0%, rgba(8, 11, 19, 0.88) 100%) !important;
+  backdrop-filter: blur(28px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(150%) !important;
+  border: 1px solid rgba(255, 184, 0, 0.28) !important;
+  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Scale 3: Modal Headers and Category Bars (84% - 86% Opacity) */
+#tmd-digital-tools-modal > div > div:first-child,
+#tmd-brochures-modal > div > div:first-child,
+#tmd-advisor-modal > div > div:first-child,
+#tmd-comparator-modal > div > div:first-child,
+#tmd-parts-serial-modal > div > div:first-child,
+#tmd-telematics-modal > div > div:first-child,
+#tmd-financial-suite-modal > div > div:first-child {
+  background: linear-gradient(180deg, rgba(18, 24, 38, 0.86) 0%, rgba(11, 16, 26, 0.82) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Scale 4: Grid Feature Cards within Modals and Infused Sections (78% - 82% Opacity) */
+#tmd-digital-tools-modal .p-6.grid > div,
+#tmd-brochures-modal .grid > div,
+#tmd-advisor-modal .grid > div,
+#tmd-comparator-modal .grid > div,
+#tmd-telematics-modal .grid > div,
+#tmd-financial-suite-modal .grid > div,
+#tmd-port-lots-infusion .grid > div,
+.tmd-stitch-section .grid > div {
+  background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease !important;
+}
+
+#tmd-digital-tools-modal .p-6.grid > div:hover,
+#tmd-brochures-modal .grid > div:hover,
+#tmd-advisor-modal .grid > div:hover,
+#tmd-comparator-modal .grid > div:hover,
+#tmd-port-lots-infusion .grid > div:hover,
+.tmd-stitch-section .grid > div:hover {
+  background: linear-gradient(145deg, rgba(28, 38, 58, 0.88) 0%, rgba(18, 25, 40, 0.84) 100%) !important;
+  border-color: rgba(255, 184, 0, 0.45) !important;
+  box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 184, 0, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+/* Scale 5: Sub-cards, Data Rows & Stats Callouts (75% - 78% Opacity) */
+.tmd-stat-box,
+.tmd-spec-box,
+.tmd-sub-card {
+  background: rgba(11, 15, 24, 0.76) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px !important;
+}
+
+/* Master Infused Page Sections Container: 88% Obsidian Glass */
+.tmd-stitch-section {
+  background: linear-gradient(165deg, rgba(14, 19, 30, 0.88) 0%, rgba(8, 11, 18, 0.85) 100%) !important;
+  backdrop-filter: blur(24px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+  border: 1px solid rgba(255, 184, 0, 0.22) !important;
+  box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Thematic Color Tint Variations (78% - 84% Opacity) for Visual Dynamism */
+.tmd-shade-amber {
+  background: linear-gradient(145deg, rgba(28, 25, 18, 0.82) 0%, rgba(18, 15, 12, 0.78) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 184, 0, 0.25) !important;
+}
+.tmd-shade-emerald {
+  background: linear-gradient(145deg, rgba(16, 28, 22, 0.82) 0%, rgba(11, 20, 16, 0.78) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+}
+.tmd-shade-cyan {
+  background: linear-gradient(145deg, rgba(16, 26, 38, 0.82) 0%, rgba(11, 18, 28, 0.78) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(6, 182, 212, 0.25) !important;
+}
+.tmd-shade-slate {
+  background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+.tmd-shade-charcoal {
+  background: linear-gradient(145deg, rgba(20, 24, 34, 0.84) 0%, rgba(12, 15, 22, 0.80) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+
 

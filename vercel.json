@@ -1,5 +1,8 @@
 {
-  "name": "tmd-dominicana-2026",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/bio", "destination": "/bio.html" },
+    { "source": "/links", "destination": "/bio.html" }
+  ]
 }

@@ -91,13 +91,13 @@ body {
 .tmd-stagger-parent > *:nth-child(11) { transition-delay: 0.63s; }
 .tmd-stagger-parent > *:nth-child(12) { transition-delay: 0.69s; }
 
-/* ─── 4. PARTICLE CANVAS — ALWAYS BEHIND ─── */
+/* ─── 4. PARTICLE CANVAS — ALWAYS BEHIND CONTENT (ABOVE LOADER WITH POINTER-EVENTS: NONE) ─── */
 #tmd-ambient-canvas {
   position: fixed !important;
   top: 0 !important; left: 0 !important;
   width: 100vw !important; height: 100vh !important;
   pointer-events: none !important;
-  z-index: 30 !important;
+  z-index: 1000001 !important;
   display: block !important;
   opacity: 0.95 !important;
   transition: opacity 0.9s ease, filter 0.9s ease;
@@ -1026,7 +1026,7 @@ body > *:not(#tmd-ambient-canvas):not([id*="modal"]):not([role="dialog"]):not([i
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  z-index: 30 !important;
+  z-index: 1000001 !important;
   pointer-events: none !important;
   display: block !important;
   opacity: 0.92 !important;
