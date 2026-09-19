@@ -29,7 +29,6 @@
     }
 
     var isDark = document.documentElement.classList.contains('dark');
-    var cardBg = isDark ? '#09090b' : '#ffffff';
     var textMain = isDark ? '#ffffff' : '#0f172a';
     var textMuted = isDark ? '#a1a1aa' : '#64748b';
     var borderSubtle = isDark ? 'rgba(255,255,255,0.1)' : '#e2e8f0';
@@ -434,7 +433,6 @@
       labelEl.innerText = 'PIEZA SELECCIONADA: #' + part.num + ' ' + part.name.toUpperCase();
     }
 
-    // Update pins
     for (var i = 1; i <= 8; i++) {
       var pin = document.getElementById('pin-' + i);
       if (pin) {
@@ -450,145 +448,7 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 3. 18-BAY WORKSHOP ARCHITECTURE (FOR #/service)
-  // ─────────────────────────────────────────────────────────────────────────────
-  function renderWorkshopBaysModule() {
-    return `
-      <div id="tmd-workshop-bays-infusion" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
-        <!-- Header -->
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              SEDE CENTRAL AUTOPISTA DUARTE KM 22
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white uppercase">
-              Matriz Arquitectónica de las 18 Bahías de Servicio
-            </h2>
-            <p class="text-xs text-neutral-400 font-mono mt-1">
-              Capacidad instalada para 18 equipos simultáneos. Monitoreo Fullbay ERP y diagnóstico de laboratorio en tiempo real.
-            </p>
-          </div>
-          <div class="flex items-center gap-2 font-mono text-xs">
-            <span class="px-3 py-1.5 rounded bg-neutral-900 border border-white/10 text-neutral-300">
-              Ocupación: <strong class="text-amber-400">14 / 18 Bahías</strong>
-            </span>
-            <button onclick="window.tmdOpenDviTracker()" class="px-3.5 py-1.5 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-xs transition-colors flex items-center gap-1.5 shadow-lg shadow-amber-500/20">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-              Rastrear Orden WO / DVI
-            </button>
-          </div>
-        </div>
-
-        <!-- 4 Specialized Divisions Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <!-- Div 1 -->
-          <div class="p-4 rounded-xl border border-white/10 bg-black/60 tmd-bay-card">
-            <div class="flex items-center justify-between mb-3 text-xs font-mono">
-              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30">BAHÍAS 01-06</span>
-              <span class="text-neutral-500">Grúas 15T</span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-1">Overhaul Mayor & Motores</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-3">Reconstrucción total de bloques diésel Cummins, JCB EcoMAX, Yanmar y Perkins con dinamómetro.</p>
-            <div class="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-              <span>●</span> 5 bahías ocupadas · 1 disponible
-            </div>
-          </div>
-
-          <!-- Div 2 -->
-          <div class="p-4 rounded-xl border border-white/10 bg-black/60 tmd-bay-card">
-            <div class="flex items-center justify-between mb-3 text-xs font-mono">
-              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">BAHÍAS 07-10</span>
-              <span class="text-neutral-500">Banco 6,000 PSI</span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-1">Laboratorio Hidráulico</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-3">Bruñido de camisas, cilindros hidráulicos, prueba de bombas axiales Parker/Rexroth y calibración proporcional.</p>
-            <div class="text-[11px] font-mono text-amber-400 flex items-center gap-1">
-              <span>●</span> 4 bahías ocupadas (100% carga)
-            </div>
-          </div>
-
-          <!-- Div 3 -->
-          <div class="p-4 rounded-xl border border-white/10 bg-black/60 tmd-bay-card">
-            <div class="flex items-center justify-between mb-3 text-xs font-mono">
-              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30">BAHÍAS 11-14</span>
-              <span class="text-neutral-500">Diagnóstico CAN</span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-1">ECM & Mandos Powershift</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-3">Flasheo de módulos electrónicos, calibración de cajas de cambio Carraro/ZF y diagnóstico computarizado Jaltest.</p>
-            <div class="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-              <span>●</span> 3 bahías ocupadas · 1 disponible
-            </div>
-          </div>
-
-          <!-- Div 4 -->
-          <div class="p-4 rounded-xl border border-white/10 bg-black/60 tmd-bay-card">
-            <div class="flex items-center justify-between mb-3 text-xs font-mono">
-              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">BAHÍAS 15-18</span>
-              <span class="text-neutral-500">Service Express</span>
-            </div>
-            <h4 class="text-base font-bold text-white mb-1">Mantenimiento Preventivo</h4>
-            <p class="text-xs text-neutral-400 leading-relaxed mb-3">Planes PM 250h / 500h / 1,000h, análisis espectrométrico de aceite en 24h y prensado express de mangueras.</p>
-            <div class="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-              <span>●</span> 2 bahías ocupadas · 2 listas para ingreso
-            </div>
-          </div>
-        </div>
-
-        <!-- 4 Mobile Fleet Rapid Dispatch Vans Strip -->
-        <div class="border-t border-white/10 pt-6">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-amber-400 font-bold">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-              Flota de Asistencia Técnica Móvil 24/7 (Despliegue Nacional en Faena)
-            </div>
-            <span class="text-xs font-mono text-neutral-400">Garantía de Llegada &lt; 3 Horas en Corredores Viales</span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <div class="p-3.5 rounded-xl border border-emerald-500/30 bg-black/40">
-              <div class="flex justify-between items-center text-xs font-mono mb-1">
-                <strong class="text-white font-bold">Móvil #1 · Autopista Duarte</strong>
-                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">ACTIVA</span>
-              </div>
-              <p class="text-[11px] text-neutral-400">Compresor 175 PSI, crimpadora móvil de mangueras, generador 10kVA y scanner Jaltest.</p>
-              <div class="mt-2 text-[10px] font-mono text-neutral-500">Téc: Ing. R. Batista · Base Km 22</div>
-            </div>
-
-            <div class="p-3.5 rounded-xl border border-emerald-500/30 bg-black/40">
-              <div class="flex justify-between items-center text-xs font-mono mb-1">
-                <strong class="text-white font-bold">Móvil #2 · Circunvalación SD</strong>
-                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">ACTIVA</span>
-              </div>
-              <p class="text-[11px] text-neutral-400">Soldadora Miller Trailblazer, oxicorte, torquímetro hidráulico 2,500 Nm para canteras.</p>
-              <div class="mt-2 text-[10px] font-mono text-neutral-500">Téc: M. Santos · Tramo II Canteras</div>
-            </div>
-
-            <div class="p-3.5 rounded-xl border border-amber-500/30 bg-black/40">
-              <div class="flex justify-between items-center text-xs font-mono mb-1">
-                <strong class="text-white font-bold">Móvil #3 · Cibao Central</strong>
-                <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">EN FAENA</span>
-              </div>
-              <p class="text-[11px] text-neutral-400">Muestreador espectral de aceite, osciloscopio Fluke y banco móvil de presión 4,000 PSI.</p>
-              <div class="mt-2 text-[10px] font-mono text-neutral-500">Santiago / La Vega · Libera 45 min</div>
-            </div>
-
-            <div class="p-3.5 rounded-xl border border-emerald-500/30 bg-black/40">
-              <div class="flex justify-between items-center text-xs font-mono mb-1">
-                <strong class="text-white font-bold">Móvil #4 · Haina / Caucedo</strong>
-                <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">ACTIVA</span>
-              </div>
-              <p class="text-[11px] text-neutral-400">Grúa pluma pick-up 1.5T para izaje de componentes en puertos y patios industriales.</p>
-              <div class="mt-2 text-[10px] font-mono text-neutral-500">Téc: D. Guzmán · Corredor Sur</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // 4. DOMINICAN LEASING & LEY 392-07 TAX SHIELD (FOR #/vehicle/:slug & #/configurator)
+  // 3. DOMINICAN LEASING & LEY 392-07 TAX SHIELD (FOR #/vehicle/:slug & #/configurator)
   // ─────────────────────────────────────────────────────────────────────────────
   var DOM_BANKS = [
     { id: 'banreservas', name: 'Banreservas - Fondo Fomper Pyme', bankName: 'BANRESERVAS', rate: 9.50, desc: 'Tasa fija preferencial sectorial, 0% comisión de prepago a partir del mes 24. Aprobación simplificada con RNC.' },
@@ -608,8 +468,8 @@
 
     var dopRate = 60.0;
     var monthlyDop = monthlyPayment * dopRate;
-    var proindustriaShieldDop = price * dopRate * 0.18; // 18% ITBIS exemption
-    var isrSavingsDop = price * dopRate * 0.27; // 27% corporate income tax accelerated deduction
+    var proindustriaShieldDop = price * dopRate * 0.18;
+    var isrSavingsDop = price * dopRate * 0.27;
 
     return {
       monthlyUsd: Math.round(monthlyPayment),
@@ -674,9 +534,7 @@
 
         <!-- Sliders & Results Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-black/60 p-5 rounded-xl border border-white/10">
-          <!-- Left: Sliders -->
           <div class="lg:col-span-6 space-y-5">
-            <!-- Down payment slider -->
             <div>
               <div class="flex justify-between items-center text-xs font-mono mb-2">
                 <span class="text-neutral-400">INICIAL / DOWN PAYMENT (${_downPaymentPct}%):</span>
@@ -685,7 +543,6 @@
               <input type="range" min="10" max="50" step="5" value="${_downPaymentPct}" oninput="window.tmdUpdateDp(this.value)" class="tmd-slider">
             </div>
 
-            <!-- Term slider -->
             <div>
               <div class="flex justify-between items-center text-xs font-mono mb-2">
                 <span class="text-neutral-400">PLAZO DEL FINANCIAMIENTO:</span>
@@ -694,7 +551,6 @@
               <input type="range" min="12" max="60" step="12" value="${_loanTermMonths}" oninput="window.tmdUpdateTerm(this.value)" class="tmd-slider">
             </div>
 
-            <!-- Proindustria Shield Box -->
             <div class="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 space-y-2">
               <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -710,7 +566,6 @@
             </div>
           </div>
 
-          <!-- Right: Calculated Results Summary -->
           <div class="lg:col-span-6 flex flex-col justify-between p-5 rounded-xl border border-amber-500/40 bg-neutral-950">
             <div>
               <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block mb-1">CUOTA MENSUAL ESTIMADA (${_activeBank.bankName}):</span>
@@ -776,7 +631,7 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 5. 360° INSPECTOR & ATTACHMENT SELECTOR (FOR #/vehicle/:slug)
+  // 4. 360° INSPECTOR & ATTACHMENT SELECTOR (FOR #/vehicle/:slug)
   // ─────────────────────────────────────────────────────────────────────────────
   var _activeAngle = 0;
   var _activeAttachment = { name: 'Cuchara Estándar 1.0 m³', extraWeight: 0, flow: 123, price: 0 };
@@ -791,7 +646,6 @@
   function renderVehicleDetailInfusion(machineName) {
     return `
       <div id="tmd-vehicle-360-infusion" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
-        <!-- 360 & Attachment Selector Header -->
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
           <div>
             <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
@@ -809,7 +663,6 @@
             </p>
           </div>
 
-          <!-- Telemetry Live Sensor Pod -->
           <div class="flex items-center gap-2 font-mono text-xs">
             <div class="px-3 py-1.5 rounded bg-black/60 border border-emerald-500/30 text-emerald-400 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -824,7 +677,6 @@
           </div>
         </div>
 
-        <!-- 360 Angle Switcher Buttons -->
         <div class="flex items-center gap-2 mb-6">
           <span class="text-xs font-mono text-neutral-400 mr-2">ÁNGULO:</span>
           <button onclick="window.tmdSetAngle(0)" class="tmd-360-btn px-3 py-1.5 rounded-lg border text-xs font-mono uppercase ${_activeAngle === 0 ? 'active' : 'border-white/10 bg-black text-neutral-400'}">
@@ -841,7 +693,6 @@
           </button>
         </div>
 
-        <!-- Attachment Cards Grid -->
         <div class="mb-4">
           <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Acople Rápido de Accesorios Hidráulicos:</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -864,7 +715,6 @@
           </div>
         </div>
 
-        <!-- Dynamic Spec Recalculation Bar -->
         <div class="p-3.5 rounded-xl bg-black/80 border border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
           <div class="flex items-center gap-4">
             <span>Peso Operativo Recalculado: <strong class="text-white">${(8135 + _activeAttachment.extraWeight).toLocaleString()} kg</strong></span>
@@ -898,6 +748,84 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // 5. VIP PORT LOTS BENTO GRID (FOR #/magazine)
+  // ─────────────────────────────────────────────────────────────────────────────
+  function renderPortLotsModule() {
+    return `
+      <div id="tmd-port-lots-infusion" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              ARRIBOS MARÍTIMOS PUERTO HAINA & CAUCEDO
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white uppercase">
+              Lotes Portuarios VIP 0 Km & Concierge para Contratistas MOPC
+            </h3>
+            <p class="text-xs text-neutral-400 font-mono mt-1">
+              Maquinarias recién desembarcadas en muelles fiscales con despacho prioritario y trámites aduanales completados.
+            </p>
+          </div>
+          <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo consultar los lotes portuarios disponibles en Puerto Haina y Caucedo.')}" target="_blank" class="px-4 py-2 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-xs transition-colors flex items-center gap-1.5">
+            Consultar Cupo de Importación
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Lot 1: JCB 220X (8 cols) -->
+          <div class="lg:col-span-8 rounded-2xl border border-white/10 bg-black/60 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30 uppercase">Lote Puerto Río Haina</span>
+                <span class="text-emerald-400 font-bold">0.0 HORAS · NUEVA</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="rounded-xl overflow-hidden h-44 bg-neutral-900">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS1qvrSRchwMffbxOiC-JwnUbO-9XacNv7BPKhoqdCGVXqyH_e567QmL8vAUa_4To8g3I_mnSo49HSqFbEJkPtn9-YIf50TkpG9XKBK_TcDbv8Pq4Ny6IZa_9Umus6_cw6M-CwlTdReLw_0qmb72yH_e1qrl4qSQxPzGnJR6TmiuNbyfL7AZMzZv47feeDVP0_S6dBjOvLvSXAguHuKCPHTfZeJ5gx3_Be3DC2c_atM1ZnqV2APuePug" class="w-full h-full object-cover" alt="JCB 220X Puerto Haina">
+                </div>
+                <div>
+                  <h4 class="text-lg font-bold text-white mb-1">Excavadora JCB 220X Heavy Duty</h4>
+                  <p class="text-xs text-neutral-400 mb-3">Motor EcoMAX 173 HP, Cuchara 1.25 m³ HD, Orugas 600mm de triple garra y garantía de 3 años o 5,000h.</p>
+                  <div class="space-y-1 text-xs font-mono text-neutral-300">
+                    <div>Lote Serial: <strong class="text-amber-400">#JCB-HN-220X-88</strong></div>
+                    <div>Precio Especial: <strong class="text-white">$186,500 USD CIF</strong> (Ahorro $14,000 VIP)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-white/10 flex justify-end">
+              <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo separar la Excavadora JCB 220X Lote Haina (#JCB-HN-220X-88).')}" target="_blank" class="px-4 py-2 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase text-xs">
+                Separar Unidad con Fianza
+              </a>
+            </div>
+          </div>
+
+          <!-- Lot 2: LS Tractor Agro-Cibao (4 cols) -->
+          <div class="lg:col-span-4 rounded-2xl border border-white/10 bg-black/60 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30 uppercase">Agro-Cibao 2026</span>
+                <span class="text-neutral-400 font-bold">101 HP</span>
+              </div>
+              <div class="rounded-xl overflow-hidden h-36 bg-neutral-900 mb-3">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIPhBv3AUqIH6U1Io70Y415FfsHgAbCHNTnfyNzqxsH2i4okm28upwkjvXxWuyjZKrpnPiuM6bmJK6pSK_5Pj8AbFdoC4pfPVUOTBajC0i8zWzq5kvJnra_7ODlM7yJ26vPbKxVhZT-Si0YmQqy6lv8QIGaQqQO9h7_no-Z8E9qAg3e0buuWcuqE6tAZWKySmvF-STontEhmY2_EDiD_IqEfkR2Ap7Jwt4pq6p__Gh9Vy9VV0tdquLQw" class="w-full h-full object-cover" alt="LS Tractor MT7">
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">LS Tractor MT7 Agro-Pro</h4>
+              <p class="text-xs text-neutral-400 mb-2">Transmisión Power Shuttle 40x40 Creeper y tasa Banco Agrícola 8.5% fija.</p>
+              <div class="text-xs font-mono text-amber-400 font-bold">Cuota desde $1,450 USD/mes</div>
+            </div>
+            <div class="pt-3 border-t border-white/10 mt-3 flex justify-end">
+              <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar el LS Tractor MT7 Serie Agro-Cibao.')}" target="_blank" class="w-full text-center py-2 rounded border border-white/20 hover:border-amber-400 font-mono text-xs uppercase text-white hover:text-amber-400 transition-colors">
+                Solicitar Ficha Técnica
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
   // 6. TOP UTILITY BAR LINK INJECTION
   // ─────────────────────────────────────────────────────────────────────────────
   function injectTopBarLink() {
@@ -927,18 +855,22 @@
     var hash = window.location.hash || '';
 
     // A. SERVICE PAGE (#/service, #/servicios, #/taller)
+    // COMPLETE INNER OVERHAUL: Replace inner broken sections with Full Stitch V2 Suite
     if (hash.includes('service') || hash.includes('servicios') || hash.includes('taller')) {
-      if (!document.getElementById('tmd-workshop-bays-infusion')) {
-        var serviceContainer = document.querySelector('#root main') || document.querySelector('#root > div > div.bg-slate-50') || document.querySelector('#root > div > div.dark\\:bg-neutral-950') || document.querySelector('#root .max-w-7xl');
-        if (serviceContainer) {
-          var wrapper = document.createElement('div');
-          wrapper.innerHTML = renderWorkshopBaysModule();
-          // Insert after header section or near top
-          var firstSection = serviceContainer.querySelector('div') || serviceContainer.firstChild;
-          if (firstSection && firstSection.nextSibling) {
-            firstSection.parentNode.insertBefore(wrapper.firstElementChild, firstSection.nextSibling);
-          } else {
-            serviceContainer.appendChild(wrapper.firstElementChild);
+      if (!document.getElementById('tmd-v2-full-service-page') && window.TMD_V2_SERVICE_HTML) {
+        var serviceOuter = document.querySelector('#root > div > div.bg-slate-50') ||
+                           document.querySelector('#root > div > div.dark\\:bg-neutral-950') ||
+                           document.querySelector('#root main');
+        if (serviceOuter) {
+          serviceOuter.innerHTML = window.TMD_V2_SERVICE_HTML;
+          window.scrollTo({ top: 0, behavior: 'instant' });
+
+          var bookingForm = serviceOuter.querySelector('form');
+          if (bookingForm && bookingForm.id !== 'dtcServiceForm') {
+            bookingForm.onsubmit = function (e) {
+              e.preventDefault();
+              window.tmdSubmitBookingForm();
+            };
           }
         }
       }
@@ -996,6 +928,18 @@
         }
       }
     }
+
+    // E. MAGAZINE / VIP PRIVÉ PAGE (#/magazine, #/revista)
+    if (hash.includes('magazine') || hash.includes('revista')) {
+      if (!document.getElementById('tmd-port-lots-infusion')) {
+        var magMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
+        if (magMain) {
+          var wrapperLots = document.createElement('div');
+          wrapperLots.innerHTML = renderPortLotsModule();
+          magMain.appendChild(wrapperLots.firstElementChild);
+        }
+      }
+    }
   }
 
   // Event Listeners & Periodic Sync
@@ -1003,7 +947,6 @@
     setTimeout(checkAndInfuseSections, 150);
   });
 
-  // Observe React DOM renders
   var observer = new MutationObserver(function () {
     checkAndInfuseSections();
   });
@@ -1017,7 +960,6 @@
     setTimeout(checkAndInfuseSections, 2000);
   });
 
-  // Initial call
   setTimeout(checkAndInfuseSections, 1200);
 
 })();

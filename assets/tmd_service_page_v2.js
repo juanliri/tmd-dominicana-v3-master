@@ -1,0 +1,1012 @@
+/* ═════════════════════════════════════════════════════════════════════════════
+   TMD DOMINICANA 2026 — SERVICE MASTER SUITE V2 TEMPLATE & CONTROLLER
+   Full Overhaul of #/service matching theme_v2_stitch/servicio_tecnico_overhaul_km22.html
+═════════════════════════════════════════════════════════════════════════════ */
+
+(function () {
+  'use strict';
+
+  window.TMD_V2_SERVICE_HTML = `
+<div id="tmd-v2-full-service-page" class="w-full text-on-surface bg-slate-50 dark:bg-black selection:bg-primary-container selection:text-on-primary-container transition-colors duration-200">
+  
+    <div
+      class="flex flex-col w-full text-on-surface bg-black selection:bg-primary-container selection:text-on-primary-container">
+      <!-- TOP AMBIENT GLOW SYSTEM -->
+      <div class="relative w-full overflow-hidden">
+        <div
+          class="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-primary-container/10 blur-[140px] pointer-events-none -z-10 rounded-full">
+        </div>
+        <div
+          class="absolute top-80 right-10 w-[500px] h-[500px] bg-telemetry-emerald/10 blur-[160px] pointer-events-none -z-10 rounded-full">
+        </div>
+        <!-- 1. HERO TÉCNICO KM 22 -->
+        <section class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 pt-10 pb-16">
+          <!-- SUB-NAV / STATUS TICKER STRIP -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-white/5">
+            <div class="flex items-center gap-3">
+              <div
+                class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/30 shadow-sm">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-telemetry-emerald opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-telemetry-emerald"></span>
+                </span>
+                <span class="font-label-badge text-label-badge text-telemetry-emerald tracking-wider uppercase">CENTRO
+                  ACTIVO • DISPONIBILIDAD INMEDIATA</span>
+              </div>
+              <span class="hidden md:inline font-telemetry-data-md text-body-sm text-text-muted">Km 22 Autopista Duarte,
+                Santo Domingo Oeste</span>
+            </div>
+            <div class="flex items-center gap-6 font-telemetry-data-md text-caption text-text-muted">
+              <div class="flex items-center gap-2">
+                <span class="text-primary-container">ERP STATUS:</span>
+                <span class="text-canvas-offwhite font-semibold">FULLBAY V4.8 SYNCED</span>
+              </div>
+              <div class="hidden sm:flex items-center gap-2">
+                <span class="text-primary-container">ISO LAB:</span>
+                <span class="text-canvas-offwhite font-semibold">9001:2015 DIESEL-CERT</span>
+              </div>
+            </div>
+          </div>
+          <!-- HERO HEADLINE & DIRECT WORKSHOP DISPATCH GRID -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <!-- Left 7 Cols: Headline & Technical Capability Badges -->
+            <div class="lg:col-span-7 flex flex-col space-y-6">
+              <div
+                class="inline-flex items-center gap-2 font-label-badge text-label-badge text-primary-container tracking-widest uppercase">
+                <span
+                  class="material-symbols-outlined text-[16px] text-primary-container">precision_manufacturing</span>
+                INFRAESTRUCTURA INDUSTRIAL AUTORIZADA
+              </div>
+              <h1 class="font-display-lg text-display-lg text-canvas-offwhite tracking-tight leading-tight">
+                Taller Central de Servicio Pesado, <span class="text-primary-container">Laboratorio Diésel</span> &amp;
+                Overhaul Km 22.
+              </h1>
+              <p class="font-body-lg text-body-lg text-secondary max-w-2xl">
+                El complejo de cirugía mecánica y remanufactura estructural más tecnificado del Caribe. Capacidad de
+                respuesta ininterrumpida para flotas mineras, canteras y megaproyectos de infraestructura civil.
+              </p>
+              <!-- 4 Critical Capability Badges in Glass -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                <div
+                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/25 hover:border-primary-container transition-all flex items-start gap-3.5 shadow-md">
+                  <div class="p-2.5 rounded-xl bg-primary-container/10 text-primary-container shrink-0">
+                    <span class="material-symbols-outlined text-[24px]">construction</span>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-headline-sm text-body-md text-canvas-offwhite font-bold">18 Bahías de Servicio
+                    </div>
+                    <div class="font-caption text-caption text-text-muted mt-0.5">Grúa puente de 15 toneladas para
+                      chasis mayores y dragas.</div>
+                  </div>
+                </div>
+                <div
+                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/25 hover:border-telemetry-emerald transition-all flex items-start gap-3.5 shadow-md">
+                  <div class="p-2.5 rounded-xl bg-telemetry-emerald/10 text-telemetry-emerald shrink-0">
+                    <span class="material-symbols-outlined text-[24px]">speed</span>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-headline-sm text-body-md text-canvas-offwhite font-bold">Banco 6,000 PSI</div>
+                    <div class="font-caption text-caption text-text-muted mt-0.5">Prueba hidrostática de flujo
+                      proporcional dinámico.</div>
+                  </div>
+                </div>
+                <div
+                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/25 hover:border-telemetry-emerald transition-all flex items-start gap-3.5 shadow-md">
+                  <div class="p-2.5 rounded-xl bg-telemetry-emerald/10 text-telemetry-emerald shrink-0">
+                    <span class="material-symbols-outlined text-[24px]">biotech</span>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-headline-sm text-body-md text-canvas-offwhite font-bold">Lab Common Rail</div>
+                    <div class="font-caption text-caption text-text-muted mt-0.5">Certificación OEM Bosch, Delphi, Denso
+                      &amp; Yanmar.</div>
+                  </div>
+                </div>
+                <div
+                  class="p-4 rounded-[20px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/25 hover:border-primary-container transition-all flex items-start gap-3.5 shadow-md">
+                  <div class="p-2.5 rounded-xl bg-primary-container/10 text-primary-container shrink-0">
+                    <span class="material-symbols-outlined text-[24px]">cell_tower</span>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-headline-sm text-body-md text-canvas-offwhite font-bold">JCB LiveLink Diagnostic
+                    </div>
+                    <div class="font-caption text-caption text-text-muted mt-0.5">Telemetría CAN bus satelital y
+                      calibración in situ.</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Live Telemetry Ticker Bar -->
+              <div
+                class="p-3.5 rounded-[22px] bg-surface-charcoal/80 backdrop-blur-[20px] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-body-sm">
+                <div class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full bg-telemetry-emerald"></span>
+                  <span class="text-text-muted">Bahías Ocupadas:</span>
+                  <span class="font-telemetry-data-md text-canvas-offwhite font-semibold">13 / 18</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full bg-primary-container"></span>
+                  <span class="text-text-muted">Turnos de Dinamómetro:</span>
+                  <span class="font-telemetry-data-md text-canvas-offwhite font-semibold">4 Pruebas Pendientes
+                    Hoy</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-telemetry-emerald">verified</span>
+                  <span class="font-label-badge text-label-badge text-telemetry-emerald">ISO 14001 ECO-FRIENDLY
+                    DISPOSAL</span>
+                </div>
+              </div>
+            </div>
+            <!-- Right 5 Cols: Agendamiento Directo de Bahía Card -->
+            <div class="lg:col-span-5 w-full">
+              <div
+                class="relative p-6 sm:p-8 rounded-[30px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+                <div class="flex items-center justify-between pb-5 mb-5 border-b border-white/10">
+                  <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-primary-container text-[26px]">calendar_add_on</span>
+                    <span class="font-headline-sm text-headline-sm text-canvas-offwhite">Reserva de Bahía Km 22</span>
+                  </div>
+                  <span
+                    class="font-label-badge text-label-badge text-primary-container uppercase px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/30">ERP
+                    GATEWAY</span>
+                </div>
+                <form class="space-y-4" id="bayReservationForm"
+                  onsubmit="event.preventDefault(); document.getElementById('reservationSuccessModal').classList.remove('hidden');">
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">1. Categoría
+                      de Equipo Pesado</label>
+                    <div class="grid grid-cols-2 gap-2">
+                      <label
+                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
+                        <input checked="" class="accent-primary-container" name="machine_cat" type="radio"
+                          value="excavadora" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Excavadora 20T+</span>
+                      </label>
+                      <label
+                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
+                        <input class="accent-primary-container" name="machine_cat" type="radio" value="retro" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Retroexcavadora</span>
+                      </label>
+                      <label
+                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
+                        <input class="accent-primary-container" name="machine_cat" type="radio" value="tractor" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Tractor Agrícola</span>
+                      </label>
+                      <label
+                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
+                        <input class="accent-primary-container" name="machine_cat" type="radio" value="compactador" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Compactador Suelo</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">2. Fecha de
+                        Ingreso</label>
+                      <input
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-telemetry-data-md text-body-sm focus:border-primary-container focus:outline-none transition-all"
+                        required="" type="date" value="2025-03-03" />
+                    </div>
+                    <div>
+                      <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">3. Bahía
+                        Requerida</label>
+                      <select
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm focus:border-primary-container focus:outline-none transition-all">
+                        <option>Bahía 04 (Grúa 15T - Chasis)</option>
+                        <option>Bahía 07 (Dinamo &amp; Overhaul)</option>
+                        <option>Bahía 11 (Hidráulica Avanzada)</option>
+                        <option>Bahía 16 (PM Rápido &amp; Muestreo)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">4.
+                      Contratista / Empresa Asignada</label>
+                    <input
+                      class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm placeholder:text-text-muted/60 focus:border-primary-container focus:outline-none transition-all"
+                      placeholder="Ej. Constructora del Caribe S.R.L. • RNC" required="" type="text" />
+                  </div>
+                  <div class="pt-2">
+                    <button
+                      class="w-full py-3.5 px-6 rounded-[18px] bg-primary-container hover:bg-hazard-gold-active text-on-primary font-headline-sm text-body-md font-bold tracking-tight uppercase transition-all shadow-[0_0_24px_rgba(255,184,0,0.25)] flex items-center justify-center gap-2 group"
+                      type="submit">
+                      <span>Agendar Ingreso a Taller</span>
+                      <span
+                        class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+                    </button>
+                    <div class="mt-2 text-center">
+                      <span class="font-caption text-caption text-text-muted flex items-center justify-center gap-1.5">
+                        <span class="h-1.5 w-1.5 rounded-full bg-telemetry-emerald"></span>
+                        Sincronización instantánea con orden de trabajo Fullbay ERP
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- WORKSHOP IMAGE SPOTLIGHT STRIP -->
+      <section class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div
+            class="relative group overflow-hidden rounded-[26px] h-60 bg-white/[0.04] backdrop-blur-[20px] border border-white/10">
+            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              data-alt="High-tech heavy machinery overhaul workshop with heavy overhead crane, clean epoxy obsidian floor, JCB yellow tracked excavators undergoing engine repair, dramatic golden technical spotlights"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1xvGxRtXQxnG30t0Vq7xiqAZkSW-xaydJD7gK1m3ICnp1zPSJpX7wS2R74yCXwkTO7FNIKTy2rm_cZVkZ72C-jdmRZWb1g21iUiwAVac_IHCi4mokaYrKs06QKXpAbtB7oYYknTKxJuvahtAIIPf_yjWpfth-Js0Jd1t3cNWdcKf2GCX93XoWtSJX4cnEgy8dwNMR7jQUkjQP6wchOcm7GvXwsVy77ppQnBQYDqEMFxsGpxKtDF6yyA" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-end">
+              <span class="font-label-badge text-label-badge text-primary-container uppercase">Bahías Mayores
+                01-06</span>
+              <span class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold">Grúas Puente de Doble
+                Viga</span>
+            </div>
+          </div>
+          <div
+            class="relative group overflow-hidden rounded-[26px] h-60 bg-white/[0.04] backdrop-blur-[20px] border border-white/10">
+            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              data-alt="Cleanroom high pressure diesel fuel injection laboratory with computerized test benches, Bosch and Delphi calibration rigs, illuminated green diagnostic readouts and micro gauges"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2mJm0MsV1L-lwu-EyAcQHKHlrt0b_AD7F2STq3l130xJc7IzQmmQk4mZEjJ9J82cezJvOdUH96NxOLUF33pRvhHY3z31DKydQaRpCAtCrkKaCRyOUYpJC82rdk9VbKLPU6OIuVsxDXADKHnJQSzQ6Q8G2aJ8hQNuoFEfNMz05HR_xN4OE5XDkVez2CJ61GzIQrQAzyOOUS0ufgvnYw2Z5ihsFCAMjgQuwiXkbdSU4lWxryInuoD5JHA" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-end">
+              <span class="font-label-badge text-label-badge text-telemetry-emerald uppercase">Sala Limpia ISO
+                14644</span>
+              <span class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold">Laboratorio Common Rail
+                &amp; Inyectores</span>
+            </div>
+          </div>
+          <div
+            class="relative group overflow-hidden rounded-[26px] h-60 bg-white/[0.04] backdrop-blur-[20px] border border-white/10">
+            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              data-alt="Automated hydraulic testing bench with heavy-duty steel braided hoses, analog and digital pressure gauges reading 6000 PSI, glowing amber control panel in a technical workshop"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFUOxlLR74RMi-yfWcmMBgHQBgYgusR1fUDxkRkC5CSDiMOZ6x0mZ_e1hnQghGw2nxeqlaKWMS7n-TzcdC-3yU9F05CZoDyuHynld1Xax5T2BetHEjKuAfPn9eW0siYMDGu_fAfQnuwI7mAy-nFQ01zT3e9SbTs5nXUveD9ZtPrikWTFdJ4F65ccVH8UchAxSkMEQNpoqo8ZRNQ0zxFygxLG-memrdQyMWnpdW54phyxdng3poBMZLfA" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-end">
+              <span class="font-label-badge text-label-badge text-primary-container uppercase">Banco Dinámico de
+                Carga</span>
+              <span class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold">Certificación Hidráulica
+                6,000 PSI</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 2. LAS 4 DIVISIONES DE SERVICIO ESPECIALIZADO EN KM 22 -->
+      <section class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <div
+              class="flex items-center gap-2 font-label-badge text-label-badge text-primary-container uppercase tracking-widest mb-2">
+              <span class="h-2 w-2 rounded-full bg-primary-container"></span>
+              CENTRO DE EXCELENCIA TÉCNICA OEM
+            </div>
+            <h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">
+              Las 4 Divisiones de Servicio Especializado
+            </h2>
+          </div>
+          <p class="font-body-sm text-body-sm text-text-muted max-w-md">
+            Procedimientos estandarizados bajo normativas directas de fábrica. Trazabilidad completa con repuestos
+            genuinos y certificación por dinamómetro.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- DIVISIÓN 1 -->
+          <div
+            class="flex flex-col justify-between p-6 sm:p-7 rounded-[26px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/30 hover:border-primary-container transition-all shadow-xl group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span
+                  class="font-telemetry-data-md text-caption text-primary-container font-semibold px-2.5 py-1 rounded-full bg-primary-container/10 border border-primary-container/20">DIV-01</span>
+                <span class="material-symbols-outlined text-primary-container text-[28px]">valve</span>
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold mb-3 group-hover:text-primary-container transition-colors">
+                Overhaul Integral de Motores
+              </h3>
+              <p class="font-body-sm text-body-sm text-secondary mb-5">
+                Reconstrucción total de bloques mayores: <strong class="text-canvas-offwhite">Cummins, JCB EcoMAX,
+                  Perkins, Yanmar</strong>. Rectificación micrométrica, encamisado, calibración de árboles de levas y
+                cigüeñal.
+              </p>
+              <div class="p-3 rounded-[16px] bg-black/60 border border-white/10 mb-4 space-y-2">
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Pruebas Dinamométricas:</span>
+                  <span class="text-telemetry-emerald font-bold">100% CARGA</span>
+                </div>
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Garantía Certificada:</span>
+                  <span class="text-primary-container font-bold">1,500 HORAS</span>
+                </div>
+              </div>
+            </div>
+            <ul class="space-y-1.5 font-body-sm text-caption text-text-muted border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>Descarbonizado
+                ultrasónico</li>
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>Balanceo
+                dinámico de turbos</li>
+            </ul>
+          </div>
+          <!-- DIVISIÓN 2 -->
+          <div
+            class="flex flex-col justify-between p-6 sm:p-7 rounded-[26px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/30 hover:border-telemetry-emerald transition-all shadow-xl group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span
+                  class="font-telemetry-data-md text-caption text-telemetry-emerald font-semibold px-2.5 py-1 rounded-full bg-telemetry-emerald/10 border border-telemetry-emerald/20">DIV-02</span>
+                <span class="material-symbols-outlined text-telemetry-emerald text-[28px]">water_damage</span>
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold mb-3 group-hover:text-telemetry-emerald transition-colors">
+                Hidráulica &amp; Mangueras 6,000 PSI
+              </h3>
+              <p class="font-body-sm text-body-sm text-secondary mb-5">
+                Reconstrucción y prueba de bombas de pistones axiales <strong class="text-canvas-offwhite">Rexroth,
+                  Kawasaki y Parker</strong>. Bruñido de camisas de cilindro hidráulico, válvulas proporcionales y
+                crimpado rápido.
+              </p>
+              <div class="p-3 rounded-[16px] bg-black/60 border border-white/10 mb-4 space-y-2">
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Flujo Máximo de Prueba:</span>
+                  <span class="text-canvas-offwhite font-bold">420 L/min</span>
+                </div>
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Tolerancia de Sello:</span>
+                  <span class="text-telemetry-emerald font-bold">± 0.002 mm</span>
+                </div>
+              </div>
+            </div>
+            <ul class="space-y-1.5 font-body-sm text-caption text-text-muted border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-telemetry-emerald">check_circle</span>Prensado de
+                mangueras 4-espirales</li>
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-telemetry-emerald">check_circle</span>Lavado
+                flushing de circuito</li>
+            </ul>
+          </div>
+          <!-- DIVISIÓN 3 -->
+          <div
+            class="flex flex-col justify-between p-6 sm:p-7 rounded-[26px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/30 hover:border-primary-container transition-all shadow-xl group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span
+                  class="font-telemetry-data-md text-caption text-primary-container font-semibold px-2.5 py-1 rounded-full bg-primary-container/10 border border-primary-container/20">DIV-03</span>
+                <span class="material-symbols-outlined text-primary-container text-[28px]">terminal</span>
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold mb-3 group-hover:text-primary-container transition-colors">
+                Diagnóstico Electrónico &amp; ECM
+              </h3>
+              <p class="font-body-sm text-body-sm text-secondary mb-5">
+                Escaneo en faena con protocolos Jaltest multimarca y JCB ServiceMaster. Reprogramación y flasheo de ECM,
+                calibración de transmisiones <strong class="text-canvas-offwhite">ZF Powershift y Carraro</strong>.
+              </p>
+              <div class="p-3 rounded-[16px] bg-black/60 border border-white/10 mb-4 space-y-2">
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Lector CAN Bus:</span>
+                  <span class="text-canvas-offwhite font-bold">J1939 / ISO 11783</span>
+                </div>
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Resolución de Fallas:</span>
+                  <span class="text-primary-container font-bold">TIEMPO REAL</span>
+                </div>
+              </div>
+            </div>
+            <ul class="space-y-1.5 font-body-sm text-caption text-text-muted border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>Reset de
+                límites de par de torque</li>
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>Telemetría de
+                emulación de carga</li>
+            </ul>
+          </div>
+          <!-- DIVISIÓN 4 -->
+          <div
+            class="flex flex-col justify-between p-6 sm:p-7 rounded-[26px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/30 hover:border-telemetry-emerald transition-all shadow-xl group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span
+                  class="font-telemetry-data-md text-caption text-telemetry-emerald font-semibold px-2.5 py-1 rounded-full bg-telemetry-emerald/10 border border-telemetry-emerald/20">DIV-04</span>
+                <span class="material-symbols-outlined text-telemetry-emerald text-[28px]">oil_barrel</span>
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold mb-3 group-hover:text-telemetry-emerald transition-colors">
+                Mantenimiento Preventivo (PM)
+              </h3>
+              <p class="font-body-sm text-body-sm text-secondary mb-5">
+                Planes estandarizados <strong class="text-canvas-offwhite">PM 250h, 500h y 1,000h</strong>. Empleo
+                exclusivo de fluidos genuinos, kits de filtración Donaldson/OEM y análisis químico espectrométrico de
+                desgaste metálico.
+              </p>
+              <div class="p-3 rounded-[16px] bg-black/60 border border-white/10 mb-4 space-y-2">
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Espectrometría de Aceite:</span>
+                  <span class="text-telemetry-emerald font-bold">24H REPORT</span>
+                </div>
+                <div class="flex items-center justify-between font-label-badge text-caption">
+                  <span class="text-text-muted">Kits de Filtros:</span>
+                  <span class="text-canvas-offwhite font-bold">100% CERTIFICADO</span>
+                </div>
+              </div>
+            </div>
+            <ul class="space-y-1.5 font-body-sm text-caption text-text-muted border-t border-white/10 pt-4">
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-telemetry-emerald">check_circle</span>Monitoreo de
+                silicio y hollín</li>
+              <li class="flex items-center gap-2"><span
+                  class="material-symbols-outlined text-[16px] text-telemetry-emerald">check_circle</span>Inspección
+                boroscópica interna</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- 3. MÓDULOS DE FAENA & FLOTA DE ASISTENCIA MÓVIL 24/7 -->
+      <section class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-16 border-t border-white/10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+          <div>
+            <div
+              class="flex items-center gap-2 font-label-badge text-label-badge text-telemetry-emerald uppercase tracking-widest mb-2">
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-telemetry-emerald opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-telemetry-emerald"></span>
+              </span>
+              DESPLIEGUE RÁPIDO NACIONAL EN VIVO
+            </div>
+            <h2 class="font-headline-xl text-headline-xl text-canvas-offwhite">
+              Módulos de Faena &amp; Flota de Asistencia Móvil
+            </h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <a class="px-5 py-2.5 rounded-[18px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/40 hover:bg-primary-container hover:text-on-primary text-primary-container font-headline-sm text-caption uppercase tracking-wider font-semibold transition-all"
+              href="#solicitud-servicio">
+              Solicitar Respaldo In Situ
+            </a>
+          </div>
+        </div>
+        <!-- Live Fleet Grid: 4 Vans -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- MÓVIL 1 -->
+          <div
+            class="p-6 rounded-[28px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/30 shadow-lg flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full bg-telemetry-emerald animate-pulse"></span>
+                  <span class="font-telemetry-data-md text-headline-sm font-bold text-canvas-offwhite">Móvil #1</span>
+                </div>
+                <span
+                  class="font-label-badge text-label-badge text-telemetry-emerald uppercase px-2 py-0.5 rounded bg-telemetry-emerald/10 border border-telemetry-emerald/30">DISPONIBLE</span>
+              </div>
+              <div class="font-headline-sm text-body-md text-primary-container font-semibold mb-1">Eje Duarte - Bonao
+              </div>
+              <div class="font-caption text-caption text-text-muted mb-4">Base Operativa: Km 22 Almacén Central</div>
+              <div class="p-3.5 rounded-[18px] bg-black/60 border border-white/10 space-y-2 mb-5">
+                <div class="font-label-badge text-caption text-secondary uppercase font-semibold">Equipamiento a Bordo:
+                </div>
+                <p class="font-body-sm text-caption text-text-muted">
+                  Compresor 175 PSI, crimpadora móvil Gates de mangueras, generador 10kVA, kit de diagnosis Jaltest.
+                </p>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-white/10">
+              <div class="flex items-center justify-between text-caption font-telemetry-data-md text-text-muted mb-3">
+                <span>Técnico Líder:</span>
+                <span class="text-canvas-offwhite">Ing. R. Batista</span>
+              </div>
+              <button
+                class="w-full py-2.5 px-4 rounded-[14px] bg-telemetry-emerald/20 hover:bg-telemetry-emerald hover:text-black text-telemetry-emerald border border-telemetry-emerald/40 font-headline-sm text-caption font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-1.5"
+                onclick="dispatchAlert('Móvil #1 Duarte')">
+                <span class="material-symbols-outlined text-[16px]">local_shipping</span>
+                Despacho Emergencia 24/7
+              </button>
+            </div>
+          </div>
+          <!-- MÓVIL 2 -->
+          <div
+            class="p-6 rounded-[28px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/30 shadow-lg flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full bg-telemetry-emerald animate-pulse"></span>
+                  <span class="font-telemetry-data-md text-headline-sm font-bold text-canvas-offwhite">Móvil #2</span>
+                </div>
+                <span
+                  class="font-label-badge text-label-badge text-telemetry-emerald uppercase px-2 py-0.5 rounded bg-telemetry-emerald/10 border border-telemetry-emerald/30">DISPONIBLE</span>
+              </div>
+              <div class="font-headline-sm text-body-md text-primary-container font-semibold mb-1">Circunvalación Santo
+                Domingo</div>
+              <div class="font-caption text-caption text-text-muted mb-4">Base Operativa: Tramo II • Canteras</div>
+              <div class="p-3.5 rounded-[18px] bg-black/60 border border-white/10 space-y-2 mb-5">
+                <div class="font-label-badge text-caption text-secondary uppercase font-semibold">Equipamiento a Bordo:
+                </div>
+                <p class="font-body-sm text-caption text-text-muted">
+                  Máquina de soldar Miller Trailblazer, corte oxiacetileno, torquímetro hidráulico 2,500 Nm.
+                </p>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-white/10">
+              <div class="flex items-center justify-between text-caption font-telemetry-data-md text-text-muted mb-3">
+                <span>Técnico Líder:</span>
+                <span class="text-canvas-offwhite">Téc. M. Santos</span>
+              </div>
+              <button
+                class="w-full py-2.5 px-4 rounded-[14px] bg-telemetry-emerald/20 hover:bg-telemetry-emerald hover:text-black text-telemetry-emerald border border-telemetry-emerald/40 font-headline-sm text-caption font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-1.5"
+                onclick="dispatchAlert('Móvil #2 Circunvalación')">
+                <span class="material-symbols-outlined text-[16px]">local_shipping</span>
+                Despacho Emergencia 24/7
+              </button>
+            </div>
+          </div>
+          <!-- MÓVIL 3 -->
+          <div
+            class="p-6 rounded-[28px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/30 shadow-lg flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full bg-primary-container animate-pulse"></span>
+                  <span class="font-telemetry-data-md text-headline-sm font-bold text-canvas-offwhite">Móvil #3</span>
+                </div>
+                <span
+                  class="font-label-badge text-label-badge text-primary-container uppercase px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/30">EN
+                  FAENA (LA VEGA)</span>
+              </div>
+              <div class="font-headline-sm text-body-md text-primary-container font-semibold mb-1">Cibao Central •
+                Santiago</div>
+              <div class="font-caption text-caption text-text-muted mb-4">Intervención en Mina de Áridos</div>
+              <div class="p-3.5 rounded-[18px] bg-black/60 border border-white/10 space-y-2 mb-5">
+                <div class="font-label-badge text-caption text-secondary uppercase font-semibold">Equipamiento a Bordo:
+                </div>
+                <p class="font-body-sm text-caption text-text-muted">
+                  Muestreador espectral de aceite, osciloscopio portátil Fluke, banco móvil de presión piloto 4,000 PSI.
+                </p>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-white/10">
+              <div class="flex items-center justify-between text-caption font-telemetry-data-md text-text-muted mb-3">
+                <span>Liberación Estimada:</span>
+                <span class="text-canvas-offwhite font-semibold">45 minutos</span>
+              </div>
+              <button
+                class="w-full py-2.5 px-4 rounded-[14px] bg-primary-container/20 hover:bg-primary-container hover:text-black text-primary-container border border-primary-container/40 font-headline-sm text-caption font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-1.5"
+                onclick="dispatchAlert('Móvil #3 Cibao Central')">
+                <span class="material-symbols-outlined text-[16px]">schedule</span>
+                Pre-asignar Turno
+              </button>
+            </div>
+          </div>
+          <!-- MÓVIL 4 -->
+          <div
+            class="p-6 rounded-[28px] bg-white/[0.04] backdrop-blur-[20px] border border-telemetry-emerald/30 shadow-lg flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full bg-telemetry-emerald animate-pulse"></span>
+                  <span class="font-telemetry-data-md text-headline-sm font-bold text-canvas-offwhite">Móvil #4</span>
+                </div>
+                <span
+                  class="font-label-badge text-label-badge text-telemetry-emerald uppercase px-2 py-0.5 rounded bg-telemetry-emerald/10 border border-telemetry-emerald/30">DISPONIBLE</span>
+              </div>
+              <div class="font-headline-sm text-body-md text-primary-container font-semibold mb-1">Haina / Caucedo Ports
+              </div>
+              <div class="font-caption text-caption text-text-muted mb-4">Base Operativa: Corredor Industrial Sur</div>
+              <div class="p-3.5 rounded-[18px] bg-black/60 border border-white/10 space-y-2 mb-5">
+                <div class="font-label-badge text-caption text-secondary uppercase font-semibold">Equipamiento a Bordo:
+                </div>
+                <p class="font-body-sm text-caption text-text-muted">
+                  Grúa pluma hidráulica pick-up de 1.5T, kit electrohidráulico portuarios, diagnóstico CAN bus marítimo.
+                </p>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-white/10">
+              <div class="flex items-center justify-between text-caption font-telemetry-data-md text-text-muted mb-3">
+                <span>Técnico Líder:</span>
+                <span class="text-canvas-offwhite">Téc. D. Guzmán</span>
+              </div>
+              <button
+                class="w-full py-2.5 px-4 rounded-[14px] bg-telemetry-emerald/20 hover:bg-telemetry-emerald hover:text-black text-telemetry-emerald border border-telemetry-emerald/40 font-headline-sm text-caption font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-1.5"
+                onclick="dispatchAlert('Móvil #4 Haina/Caucedo')">
+                <span class="material-symbols-outlined text-[16px]">local_shipping</span>
+                Despacho Emergencia 24/7
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Telemetry Map Preview Link -->
+        <div
+          class="mt-8 p-5 rounded-[22px] bg-white/[0.04] backdrop-blur-[20px] border border-white/10 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary-container text-[24px]">satellite_alt</span>
+            <div>
+              <div class="font-headline-sm text-body-md text-canvas-offwhite">Monitoreo LiveLink GPS Activo en República
+                Dominicana</div>
+              <div class="font-caption text-caption text-text-muted">Rastreo de posición, códigos DTC satelitales y
+                velocidad de desplazamiento en tiempo real.</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-label-badge text-label-badge text-telemetry-emerald">4/4 UNIDADES EN RED</span>
+          </div>
+        </div>
+      </section>
+      <!-- 4. FORMULARIO DE SOLICITUD DE SERVICIO & SUBIDA DE CÓDIGOS DTC -->
+      <section class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-16" id="solicitud-servicio">
+        <div
+          class="relative p-8 md:p-12 rounded-[32px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/30 shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
+          <!-- Top Decorative Lighting -->
+          <div
+            class="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/10 blur-3xl pointer-events-none rounded-full">
+          </div>
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Form Left Info -->
+            <div class="lg:col-span-4 space-y-6">
+              <div
+                class="inline-flex items-center gap-2 font-label-badge text-label-badge text-primary-container uppercase tracking-widest">
+                <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+                TICKET DE INGENIERÍA • KM 22
+              </div>
+              <h2 class="font-headline-xl text-headline-xl text-canvas-offwhite leading-tight">
+                Solicitud de Servicio &amp; Análisis de Fallas DTC
+              </h2>
+              <p class="font-body-sm text-body-sm text-secondary">
+                Genere su presupuesto preliminar automatizado. Ingrese el número de serie/VIN y los códigos de
+                diagnóstico arrojados por el monitor de cabina para priorizar el suministro de componentes en almacén.
+              </p>
+              <div class="p-4 rounded-[20px] bg-black/60 border border-white/10 space-y-3">
+                <div class="font-headline-sm text-body-md text-canvas-offwhite font-bold flex items-center gap-2">
+                  <span class="material-symbols-outlined text-telemetry-emerald text-[20px]">verified_user</span>
+                  Ventajas del Diagnóstico Certificado
+                </div>
+                <ul class="space-y-2 font-body-sm text-caption text-text-muted">
+                  <li class="flex items-start gap-2">
+                    <span class="text-primary-container">•</span>
+                    <span>Descuento del 15% en mano de obra para flotas con telemetría LiveLink.</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-primary-container">•</span>
+                    <span>Reporte de cotización multimoneda configurable (USD o DOP oficial Banreservas).</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-primary-container">•</span>
+                    <span>Inspección en 24h garantizada para detenciones críticas de proyecto.</span>
+                  </li>
+                </ul>
+              </div>
+              <!-- Direct Line Card -->
+              <div
+                class="p-4 rounded-[20px] bg-primary-container/10 border border-primary-container/30 flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary-container text-[28px]">phone_in_talk</span>
+                <div>
+                  <div class="font-label-badge text-caption text-primary-container uppercase">Línea Técnica Directa
+                    Taller</div>
+                  <div class="font-telemetry-data-md text-headline-sm font-bold text-canvas-offwhite">+1 (809) 826-2222
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Form Right Inputs -->
+            <div class="lg:col-span-8">
+              <form class="space-y-5" id="dtcServiceForm" onsubmit="event.preventDefault(); calculateAndShowQuote();">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- VIN / Serial -->
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">
+                      VIN / Número de Chasis *
+                    </label>
+                    <input
+                      class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-telemetry-data-md text-body-sm tracking-wider uppercase focus:border-primary-container focus:outline-none transition-all"
+                      id="inputVin" placeholder="Ej. JCB4CX-2023-982187" required="" type="text" />
+                  </div>
+                  <!-- Horómetro Actual -->
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">
+                      Horómetro Actual (Horas de Motor) *
+                    </label>
+                    <div class="relative">
+                      <input
+                        class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-telemetry-data-md text-body-sm focus:border-primary-container focus:outline-none transition-all"
+                        id="inputHours" max="50000" min="1" placeholder="Ej. 4850" required="" type="number" />
+                      <span
+                        class="absolute right-3.5 top-3 font-label-badge text-caption text-text-muted uppercase">HRS</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <!-- Marca de Motor -->
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">Fabricante
+                      Motor</label>
+                    <select
+                      class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm focus:border-primary-container focus:outline-none transition-all"
+                      id="engineSelect">
+                      <option value="JCB EcoMAX 4.8L">JCB EcoMAX Tier 4 / Stage V</option>
+                      <option value="Cummins QSB 6.7">Cummins QSB / QSL Series</option>
+                      <option value="Perkins 1104D">Perkins 1100 / 1200 Industrial</option>
+                      <option value="Yanmar 4TNV">Yanmar 3TNV / 4TNV Series</option>
+                      <option value="Otro Fabricante">Otro / Consultar OEM</option>
+                    </select>
+                  </div>
+                  <!-- Tipo de Intervención -->
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">Tipo de
+                      Falla</label>
+                    <select
+                      class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm focus:border-primary-container focus:outline-none transition-all"
+                      id="serviceTypeSelect">
+                      <option value="overhaul">Overhaul Bloque Motor</option>
+                      <option value="hidraulica">Bomba Hidráulica / Pérdida Presión</option>
+                      <option value="inyeccion">Inyectores / Bomba Alta Common Rail</option>
+                      <option value="transmision">Transmisión / Mandos Finales</option>
+                      <option value="pm">Mantenimiento Preventivo PM Programado</option>
+                    </select>
+                  </div>
+                  <!-- Moneda Presupuesto -->
+                  <div>
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">Moneda del
+                      Estimado</label>
+                    <div class="grid grid-cols-2 gap-1 p-1 rounded-xl bg-black/60 border border-white/15">
+                      <label
+                        class="flex items-center justify-center gap-1 py-1.5 rounded-lg cursor-pointer transition-all hover:bg-white/5 has-[:checked]:bg-primary-container has-[:checked]:text-on-primary font-telemetry-data-md text-caption font-bold">
+                        <input checked="" class="hidden" name="currency" type="radio" value="USD" />
+                        <span>USD ($)</span>
+                      </label>
+                      <label
+                        class="flex items-center justify-center gap-1 py-1.5 rounded-lg cursor-pointer transition-all hover:bg-white/5 has-[:checked]:bg-primary-container has-[:checked]:text-on-primary font-telemetry-data-md text-caption font-bold">
+                        <input class="hidden" name="currency" type="radio" value="DOP" />
+                        <span>DOP (RD$)</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <!-- DTC Codes -->
+                <div>
+                  <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">
+                    Códigos de Error DTC / Alertas en Pantalla (Separados por coma)
+                  </label>
+                  <div class="relative">
+                    <span
+                      class="absolute left-3.5 top-3.5 material-symbols-outlined text-text-muted text-[18px]">bug_report</span>
+                    <input
+                      class="w-full pl-10 pr-4 py-3 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-telemetry-data-md text-body-sm focus:border-primary-container focus:outline-none transition-all"
+                      id="inputDtc" placeholder="Ej. SPN 157 FMI 3, DTC P0087, JCB 0110-04 (Presión de Riel Baja)"
+                      type="text" />
+                  </div>
+                </div>
+                <!-- Descripción de la Falla -->
+                <div>
+                  <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">
+                    Descripción Técnica del Síntoma en Faena
+                  </label>
+                  <textarea
+                    class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm placeholder:text-text-muted/60 focus:border-primary-container focus:outline-none transition-all"
+                    placeholder="Detalle sobrecalentamiento, emisión de humo negro/azul, pérdida repentina de fuerza o fugas hidráulicas observadas..."
+                    rows="3"></textarea>
+                </div>
+                <!-- Foto de Inspección / Archivo Adjunto -->
+                <div>
+                  <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">
+                    Fotos de Inspección Previa / Monitor de Cabina / Placa VIN
+                  </label>
+                  <div
+                    class="p-6 rounded-2xl bg-black/50 border border-dashed border-white/20 hover:border-primary-container/60 transition-all text-center cursor-pointer">
+                    <span class="material-symbols-outlined text-primary-container text-[36px] mb-2">cloud_upload</span>
+                    <div class="font-headline-sm text-body-md text-canvas-offwhite font-semibold">Subir imágenes o
+                      reporte en PDF</div>
+                    <div class="font-caption text-caption text-text-muted mt-1">Archivos JPG, PNG o PDF hasta 25MB
+                      (Permite análisis óptico por personal de taller)</div>
+                  </div>
+                </div>
+                <!-- Submit Button -->
+                <div class="pt-3">
+                  <button
+                    class="w-full py-4 px-8 rounded-[20px] bg-primary-container hover:bg-hazard-gold-active text-on-primary font-headline-sm text-body-md font-bold tracking-tight uppercase transition-all shadow-[0_0_24px_rgba(255,184,0,0.3)] flex items-center justify-center gap-2 group"
+                    type="submit">
+                    <span class="material-symbols-outlined text-[22px]">calculate</span>
+                    <span>Generar Estimado Inmediato de Taller &amp; Despacho</span>
+                    <span
+                      class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+                  </button>
+                </div>
+              </form>
+              <!-- Cotización Dinámica Resultado Container (Hidden by default, shown on submit) -->
+              <div
+                class="hidden mt-6 p-6 rounded-[24px] bg-black/80 backdrop-blur-[20px] border border-telemetry-emerald/40 shadow-2xl space-y-4"
+                id="quoteResultContainer">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-telemetry-emerald text-[22px]">verified</span>
+                    <span class="font-headline-sm text-body-md text-canvas-offwhite font-bold">PRESUPUESTO PRELIMINAR
+                      GENERADO • TALLER CENTRAL KM 22</span>
+                  </div>
+                  <span
+                    class="font-telemetry-data-md text-caption text-telemetry-emerald font-bold px-2 py-0.5 rounded bg-telemetry-emerald/10 border border-telemetry-emerald/30"
+                    id="quoteCurrencyBadge">USD</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-telemetry-data-md">
+                  <div class="p-3 rounded-xl bg-white/5">
+                    <div class="text-caption text-text-muted">Horas Estimadas de Labor:</div>
+                    <div class="text-headline-sm text-canvas-offwhite font-bold" id="quoteLaborHours">18.5 hrs</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white/5">
+                    <div class="text-caption text-text-muted">Partes &amp; Kits Estimados:</div>
+                    <div class="text-headline-sm text-primary-container font-bold" id="quotePartsTotal">$1,850.00</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white/5">
+                    <div class="text-caption text-text-muted">Estimado Total Preliminar:</div>
+                    <div class="text-headline-sm text-telemetry-emerald font-bold" id="quoteGrandTotal">$3,150.00</div>
+                  </div>
+                </div>
+                <p class="font-caption text-caption text-text-muted">
+                  * Nota: Sujeto a desarmado e inspección micrométrica física en Km 22. Un Ingeniero de Servicio Técnico
+                  le contactará en menos de 30 minutos vía WhatsApp / Teléfono con el plan de desmonte.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- MODAL / FEEDBACK SCRIPT & OVERLAYS -->
+      <div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-6 hidden"
+        id="reservationSuccessModal">
+        <div
+          class="max-w-md w-full p-8 rounded-[28px] bg-surface-charcoal border border-primary-container/40 shadow-2xl text-center space-y-4">
+          <div
+            class="w-14 h-14 mx-auto rounded-full bg-primary-container/20 border border-primary-container text-primary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px]">task_alt</span>
+          </div>
+          <h3 class="font-headline-sm text-headline-sm text-canvas-offwhite font-bold">¡Bahía Reservada Exitosamente!
+          </h3>
+          <p class="font-body-sm text-body-sm text-secondary">
+            La orden de ingreso ha sido emitida y transferida a <strong class="text-primary-container">Fullbay
+              ERP</strong>. El equipo de recepción en Km 22 Autopista Duarte está notificado para la fecha solicitada.
+          </p>
+          <div class="p-3 rounded-xl bg-black/60 font-telemetry-data-md text-caption text-primary">
+            TICKET DE INGRESO: #TMD-2025-0894
+          </div>
+          <button
+            class="w-full py-3 rounded-xl bg-primary-container text-on-primary font-headline-sm text-caption font-bold uppercase tracking-wider"
+            onclick="document.getElementById('reservationSuccessModal').classList.add('hidden')">
+            Aceptar y Volver
+          </button>
+        </div>
+      </div>
+      <script>
+        function dispatchAlert(unitName) {
+          alert("⚠️ DESPACHO DE EMERGENCIA ACTIVADO PARA: " + unitName + "\\n\\nSe ha emitido la señal satelital a la tripulación técnica en ruta. La unidad cambiará su estado operativo en telemetría de inmediato.");
+        }
+
+        function calculateAndShowQuote() {
+          const type = document.getElementById('serviceTypeSelect').value;
+          const hours = parseInt(document.getElementById('inputHours').value) || 3000;
+          const isUSD = document.querySelector('input[name="currency"]:checked').value === 'USD';
+          const fxRate = 60.25; // DOP per USD
+
+          let baseLaborHours = 12;
+          let basePartsUSD = 1200;
+
+          if (type === 'overhaul') {
+            baseLaborHours = 48;
+            basePartsUSD = 4500;
+          } else if (type === 'hidraulica') {
+            baseLaborHours = 18;
+            basePartsUSD = 2100;
+          } else if (type === 'inyeccion') {
+            baseLaborHours = 14;
+            basePartsUSD = 1800;
+          } else if (type === 'transmision') {
+            baseLaborHours = 28;
+            basePartsUSD = 3200;
+          } else if (type === 'pm') {
+            baseLaborHours = 6;
+            basePartsUSD = 650;
+          }
+
+          const laborRateUSD = 75; // USD per hour
+          const totalUSD = (baseLaborHours * laborRateUSD) + basePartsUSD;
+
+          const container = document.getElementById('quoteResultContainer');
+          const badge = document.getElementById('quoteCurrencyBadge');
+          const elHours = document.getElementById('quoteLaborHours');
+          const elParts = document.getElementById('quotePartsTotal');
+          const elGrand = document.getElementById('quoteGrandTotal');
+
+          elHours.textContent = baseLaborHours + " hrs estimadas";
+
+          if (isUSD) {
+            badge.textContent = "USD ($)";
+            elParts.textContent = "$" + basePartsUSD.toLocaleString('en-US') + ".00";
+            elGrand.textContent = "$" + totalUSD.toLocaleString('en-US') + ".00";
+          } else {
+            badge.textContent = "DOP (RD$)";
+            const partsDOP = Math.round(basePartsUSD * fxRate);
+            const grandDOP = Math.round(totalUSD * fxRate);
+            elParts.textContent = "RD$ " + partsDOP.toLocaleString('es-DO');
+            elGrand.textContent = "RD$ " + grandDOP.toLocaleString('es-DO');
+          }
+
+          container.classList.remove('hidden');
+          container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      </script>
+    </div>
+  
+</div>
+`;
+
+  window.dispatchAlert = function (unitName) {
+    var msg = 'Hola TMD Dominicana, deseo solicitar el despacho de emergencia de ' + unitName + ' para asistencia técnica inmediata en obra.';
+    var waUrl = 'https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(msg);
+    alert('⚠️ DESPACHO DE EMERGENCIA ACTIVADO PARA: ' + unitName + '\n\nSe ha emitido la señal satelital a la tripulación técnica en ruta. A continuación se abrirá WhatsApp con la central de operaciones.');
+    window.open(waUrl, '_blank');
+  };
+
+  window.calculateAndShowQuote = function () {
+    var typeEl = document.getElementById('serviceTypeSelect');
+    var type = typeEl ? typeEl.value : 'overhaul';
+    var hoursEl = document.getElementById('inputHours');
+    var hours = hoursEl ? parseInt(hoursEl.value, 10) || 3000 : 3000;
+    var currRadio = document.querySelector('input[name="currency"]:checked');
+    var isUSD = currRadio ? currRadio.value === 'USD' : true;
+    var fxRate = 60.25;
+
+    var baseLaborHours = 12;
+    var basePartsUSD = 1200;
+
+    if (type === 'overhaul') {
+      baseLaborHours = 48;
+      basePartsUSD = 4500;
+    } else if (type === 'hidraulica') {
+      baseLaborHours = 18;
+      basePartsUSD = 2100;
+    } else if (type === 'inyeccion') {
+      baseLaborHours = 14;
+      basePartsUSD = 1800;
+    } else if (type === 'transmision') {
+      baseLaborHours = 28;
+      basePartsUSD = 3200;
+    } else if (type === 'pm') {
+      baseLaborHours = 6;
+      basePartsUSD = 650;
+    }
+
+    var laborRateUSD = 75;
+    var totalUSD = (baseLaborHours * laborRateUSD) + basePartsUSD;
+
+    var container = document.getElementById('quoteResultContainer');
+    var badge = document.getElementById('quoteCurrencyBadge');
+    var elHours = document.getElementById('quoteLaborHours');
+    var elParts = document.getElementById('quotePartsTotal');
+    var elGrand = document.getElementById('quoteGrandTotal');
+
+    if (container) container.classList.remove('hidden');
+
+    if (isUSD) {
+      if (badge) badge.innerText = 'PRESUPUESTO PRELIMINAR (USD)';
+      if (elHours) elHours.innerText = baseLaborHours + ' hrs ($' + (baseLaborHours * laborRateUSD).toLocaleString('en-US') + ')';
+      if (elParts) elParts.innerText = '$' + basePartsUSD.toLocaleString('en-US') + '.00';
+      if (elGrand) elGrand.innerText = '$' + totalUSD.toLocaleString('en-US') + '.00';
+    } else {
+      var totalDOP = totalUSD * fxRate;
+      var laborDOP = baseLaborHours * laborRateUSD * fxRate;
+      var partsDOP = basePartsUSD * fxRate;
+
+      if (badge) badge.innerText = 'PRESUPUESTO PRELIMINAR (DOP @ ' + fxRate + ')';
+      if (elHours) elHours.innerText = baseLaborHours + ' hrs (RD$ ' + Math.round(laborDOP).toLocaleString('es-DO') + ')';
+      if (elParts) elParts.innerText = 'RD$ ' + Math.round(partsDOP).toLocaleString('es-DO');
+      if (elGrand) elGrand.innerText = 'RD$ ' + Math.round(totalDOP).toLocaleString('es-DO');
+    }
+  };
+
+  window.tmdSubmitBookingForm = function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var modal = document.getElementById('reservationSuccessModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    } else {
+      alert('¡Bahía Reservada Exitosamente! Su orden ha sido transferida a Fullbay ERP (Ticket #TMD-2026-0894).');
+    }
+  };
+
+})();

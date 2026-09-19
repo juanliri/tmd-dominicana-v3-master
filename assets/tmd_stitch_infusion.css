@@ -4,17 +4,78 @@
    Hazard Gold (#f59e0b / #ffb800) · Telemetry Emerald (#10b981) · Pure Black (#000000)
 ═════════════════════════════════════════════════════════════════════════════ */
 
-/* Root Infusion Scoping & Design Tokens */
-.tmd-stitch-section {
-  width: 100%;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  transition: all 0.25s ease-in-out;
-  position: relative;
-  z-index: 10;
-}
+/* ── 1. STITCH DESIGN TOKEN COMPATIBILITY LAYER ── */
 
-/* ── 1. BLUEPRINT & SVG SCHEMATIC STYLES ── */
+/* Typography Tokens */
+.font-headline-xl { font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: clamp(1.75rem, 4vw, 2.35rem) !important; line-height: 1.2 !important; font-weight: 800 !important; letter-spacing: -0.02em !important; }
+.font-headline-lg { font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: clamp(1.4rem, 3vw, 1.85rem) !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: -0.01em !important; }
+.font-headline-sm { font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: clamp(1.1rem, 2vw, 1.28rem) !important; line-height: 1.35 !important; font-weight: 700 !important; }
+.font-body-lg { font-family: 'Inter', sans-serif !important; font-size: 1.125rem !important; line-height: 1.75rem !important; }
+.font-body-md { font-family: 'Inter', sans-serif !important; font-size: 0.95rem !important; line-height: 1.55rem !important; }
+.font-body-sm { font-family: 'Inter', sans-serif !important; font-size: 0.84rem !important; line-height: 1.4rem !important; }
+.font-caption { font-family: 'Inter', sans-serif !important; font-size: 0.75rem !important; line-height: 1.15rem !important; }
+.font-label-badge { font-family: 'JetBrains Mono', monospace !important; font-size: 0.72rem !important; letter-spacing: 0.08em !important; }
+.font-telemetry-data-md { font-family: 'JetBrains Mono', monospace !important; font-size: 0.88rem !important; }
+.font-telemetry-data-lg { font-family: 'JetBrains Mono', monospace !important; font-size: 1.4rem !important; font-weight: 700 !important; }
+
+/* Color & Surface Tokens (Dark Mode Default) */
+html.dark .bg-surface-container-lowest { background-color: #000000 !important; }
+html.dark .bg-surface-charcoal { background-color: #14171d !important; }
+html.dark .bg-surface-elevated { background-color: #1a1f26 !important; }
+html.dark .bg-surface-container { background-color: #1e2023 !important; }
+html.dark .bg-surface-container-high { background-color: #282a2d !important; }
+html.dark .bg-surface-container-low { background-color: #1a1c1f !important; }
+html.dark .bg-surface-dim { background-color: #111317 !important; }
+
+html.dark .border-border-structural { border-color: rgba(255, 255, 255, 0.12) !important; }
+html.dark .border-border-subtle { border-color: rgba(255, 255, 255, 0.07) !important; }
+
+html.dark .text-canvas-offwhite { color: #f8fafc !important; }
+html.dark .text-on-surface { color: #e2e2e6 !important; }
+html.dark .text-on-surface-variant { color: #d5c4ab !important; }
+html.dark .text-secondary { color: #c2c6d3 !important; }
+html.dark .text-text-muted { color: #94a3b8 !important; }
+
+/* Color & Surface Tokens (Light Mode Override) */
+html:not(.dark) .bg-surface-container-lowest { background-color: #ffffff !important; }
+html:not(.dark) .bg-surface-charcoal { background-color: #f8fafc !important; }
+html:not(.dark) .bg-surface-elevated { background-color: #ffffff !important; }
+html:not(.dark) .bg-surface-container { background-color: #f1f5f9 !important; }
+html:not(.dark) .bg-surface-container-high { background-color: #e2e8f0 !important; }
+html:not(.dark) .bg-surface-container-low { background-color: #f8fafc !important; }
+html:not(.dark) .bg-surface-dim { background-color: #f8fafc !important; }
+
+html:not(.dark) .border-border-structural { border-color: #e2e8f0 !important; }
+html:not(.dark) .border-border-subtle { border-color: #f1f5f9 !important; }
+
+html:not(.dark) .text-canvas-offwhite { color: #0f172a !important; }
+html:not(.dark) .text-on-surface { color: #1e293b !important; }
+html:not(.dark) .text-on-surface-variant { color: #475569 !important; }
+html:not(.dark) .text-secondary { color: #475569 !important; }
+html:not(.dark) .text-text-muted { color: #64748b !important; }
+
+/* Universal Brand Colors (Zero Blues) */
+.text-primary-container { color: #f59e0b !important; }
+.bg-primary-container { background-color: #f59e0b !important; color: #000000 !important; }
+.bg-hazard-gold-active { background-color: #d97706 !important; color: #000000 !important; }
+.text-on-primary-container { color: #000000 !important; }
+.text-on-primary { color: #000000 !important; }
+
+.text-telemetry-emerald { color: #10b981 !important; }
+.bg-telemetry-emerald { background-color: #10b981 !important; }
+.text-tertiary-container { color: #10b981 !important; }
+.text-alert-critical { color: #ef4444 !important; }
+.bg-alert-critical { background-color: #ef4444 !important; color: #ffffff !important; }
+
+/* Spacing tokens */
+.p-space-lg { padding: 1.5rem !important; }
+.p-space-md { padding: 1rem !important; }
+.gap-space-sm { gap: 0.5rem !important; }
+.gap-space-xs { gap: 0.25rem !important; }
+.mt-space-md { margin-top: 1rem !important; }
+.mt-space-xs { margin-top: 0.25rem !important; }
+
+/* ── 2. CAD SCHEMATIC BLUEPRINT STYLES ── */
 .tmd-cad-grid {
   background-image: 
     linear-gradient(rgba(245, 158, 11, 0.04) 1px, transparent 1px),
@@ -64,7 +125,7 @@ html:not(.dark) .tmd-bom-row.active {
   border-left: 4px solid #d97706 !important;
 }
 
-/* ── 2. 18-BAY WORKSHOP ARCHITECTURE ── */
+/* ── 3. 18-BAY WORKSHOP & MOBILE FLEET ── */
 .tmd-bay-card {
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -75,7 +136,7 @@ html:not(.dark) .tmd-bom-row.active {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(245, 158, 11, 0.15);
 }
 
-/* ── 3. DOMINICAN LEASING & TAX SHIELD ENGINE ── */
+/* ── 4. DOMINICAN LEASING & TAX SHIELD ENGINE ── */
 .tmd-bank-card {
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -94,7 +155,6 @@ html:not(.dark) .tmd-bank-card.active {
   box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
 }
 
-/* Range input styling in gold */
 .tmd-slider {
   -webkit-appearance: none;
   appearance: none;
@@ -124,28 +184,6 @@ html:not(.dark) .tmd-slider {
 
 .tmd-slider::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-}
-
-/* ── 4. 360° INSPECTOR & IMPLEMENT SELECTOR ── */
-.tmd-360-btn {
-  transition: all 0.15s ease;
-}
-
-.tmd-360-btn.active {
-  background-color: #f59e0b !important;
-  color: #000000 !important;
-  font-weight: 800 !important;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
-}
-
-.tmd-implement-card {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tmd-implement-card.active {
-  border-color: #f59e0b !important;
-  background: rgba(245, 158, 11, 0.1) !important;
 }
 
 /* ── 5. PUBLIC DVI WORK ORDER TRACKER MODAL ── */
@@ -192,14 +230,4 @@ html:not(.dark) .tmd-dvi-modal-card {
   border-color: #e2e8f0;
   color: #0f172a;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Pulse effects */
-@keyframes tmd-pulse-gold {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.08); }
-}
-
-.tmd-gold-ping {
-  animation: tmd-pulse-gold 2s infinite ease-in-out;
 }
