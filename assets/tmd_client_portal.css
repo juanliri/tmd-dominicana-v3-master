@@ -623,6 +623,270 @@ input:checked + .tmd-slider:before {
   transform: translateX(22px);
 }
 
+/* ─── ENTERPRISE SUITE EXTENSIONS (Apple / Microsoft / Jobber Standard) ─── */
+.tmd-enterprise-hud {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tmd-hud-card {
+  background: rgba(18, 24, 38, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tmd-hud-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.tmd-hud-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.tmd-hud-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+.tmd-hud-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.tmd-hud-sub {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Fleet Cards Grid */
+.tmd-fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.tmd-fleet-card {
+  background: rgba(18, 24, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.tmd-fleet-card:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+}
+
+.tmd-fleet-img-wrap {
+  position: relative;
+  height: 140px;
+  background: #0c0e14;
+  overflow: hidden;
+}
+
+.tmd-fleet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tmd-fleet-card:hover .tmd-fleet-img {
+  transform: scale(1.04);
+}
+
+.tmd-fleet-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.tmd-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.tmd-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #f59e0b, #facc15);
+  transition: width 0.5s ease;
+}
+
+/* NCF Invoices Table */
+.tmd-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(14, 18, 28, 0.6);
+}
+
+.tmd-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.tmd-data-table th {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tmd-data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: #e5e7eb;
+}
+
+.tmd-data-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Status Badges */
+.tmd-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.tmd-badge-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tmd-badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.tmd-badge-blue {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+/* DVI Checklist and Signature Pad */
+.tmd-dvi-group {
+  margin-bottom: 20px;
+}
+
+.tmd-dvi-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+}
+
+.tmd-dvi-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.tmd-dvi-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tmd-dvi-btn.active-pass {
+  background: #10b981;
+  border-color: #10b981;
+  color: #06110a;
+}
+
+.tmd-dvi-btn.active-warn {
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: #110d04;
+}
+
+.tmd-dvi-btn.active-fail {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.tmd-signature-box {
+  background: #070a12;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  height: 120px;
+  width: 100%;
+  position: relative;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.tmd-signature-box canvas {
+  width: 100%;
+  height: 100%;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .tmd-portal-container {

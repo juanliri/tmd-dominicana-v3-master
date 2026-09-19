@@ -518,28 +518,30 @@ html.dark .tmd-white-studio-stage {
   -webkit-backdrop-filter: none !important;
 }
 
-/* ─── 25. SPOTLIGHT CARD HOVER EFFECT (todobuild SpotlightCard) ─── */
+/* ─── 25. SPOTLIGHT CARD HOVER EFFECT (todobuild.store SpotlightCard 1:1) ─── */
 .spotlight-card,
 .tmd-spotlight-card {
   position: relative;
   overflow: hidden;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  will-change: transform;
 }
 .spotlight-card::after,
 .tmd-spotlight-card::after {
   content: '';
   pointer-events: none;
   position: absolute;
-  inset: 0;
+  inset: -1px;
   border-radius: inherit;
   opacity: 0;
   background: radial-gradient(
-    340px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
-    rgba(245, 158, 11, 0.24) 0%,
-    rgba(245, 158, 11, 0.08) 40%,
-    rgba(245, 158, 11, 0.02) 65%,
-    transparent 80%
+    550px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(245, 158, 11, 0.22) 0%,
+    rgba(245, 158, 11, 0.08) 35%,
+    rgba(245, 158, 11, 0.02) 55%,
+    transparent 70%
   );
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 5;
 }
 .spotlight-card:hover::after,

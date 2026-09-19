@@ -165,9 +165,23 @@
     canvas.style.height = '100vh';
     canvas.style.pointerEvents = 'none';
     canvas.style.zIndex = '30';
-    canvas.style.display = 'block';
+    if (localStorage.getItem('tmd_particles_active') === 'false') {
+      canvas.style.display = 'none';
+    } else {
+      canvas.style.display = 'block';
+    }
     canvas.style.opacity = '0.95';
     document.body.prepend(canvas); // Prepend to body so content sits in front
+
+    window.__TMD_ANIMATION_ENGINE = {
+      setParticlesActive: function(active) {
+        if (canvas) canvas.style.display = active ? 'block' : 'none';
+      },
+      setParticleMode: function(mode) {
+        currentMode = mode;
+        if (canvas) canvas.className = 'mode-' + mode;
+      }
+    };
 
     // Guard: re-prepend canvas if React removes it from body
     const bodyObserver = new MutationObserver(() => {
@@ -235,33 +249,49 @@
       scrollVelocity *= 0.92;
       const velocityDrift = Math.min(scrollVelocity * 0.03, 1.8);
 
-      // In Bokeh mode (Hero section only), draw subtle ambient warm auroras
-      if (currentMode === 'bokeh') {
+      // ── AMBIENT AURORA BLOOM (todobuild.store 1:1 Parity) ──
+      const glowLevel = window.__TMD_GLOW_LEVEL || localStorage.getItem('tmd_glow_level') || 'medium';
+      if (glowLevel !== 'off') {
+        const glowMult = glowLevel === 'subtle' ? 0.5 : (glowLevel === 'high' ? 1.5 : 1.0);
         auroraPhase += 0.005;
         const pulse = 0.5 + 0.5 * Math.sin(auroraPhase);
         const pulse2 = 0.5 + 0.5 * Math.sin(auroraPhase * 1.3 + 1.2);
 
-        // Left top bloom — subtle amber
+        // Left top bloom — industrial warm amber
         const gradLeft = ctx.createRadialGradient(
           canvas.width * 0.12, canvas.height * 0.18, 5,
-          canvas.width * 0.12, canvas.height * 0.18, canvas.width * 0.40
+          canvas.width * 0.12, canvas.height * 0.18, canvas.width * 0.42
         );
-        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${0.16 + pulse * 0.08})`);
-        gradLeft.addColorStop(0.5, `rgba(245, 158, 11, ${0.03 + pulse * 0.02})`);
+        gradLeft.addColorStop(0, `rgba(245, 158, 11, ${(0.14 + pulse * 0.06) * glowMult})`);
+        gradLeft.addColorStop(0.5, `rgba(245, 158, 11, ${(0.025 + pulse * 0.015) * glowMult})`);
         gradLeft.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradLeft;
         ctx.fillRect(0, 0, canvas.width * 0.55, canvas.height * 0.65);
 
-        // Right top bloom — subtle amber
+        // Right top bloom — industrial warm amber
         const gradRight = ctx.createRadialGradient(
           canvas.width * 0.88, canvas.height * 0.22, 5,
-          canvas.width * 0.88, canvas.height * 0.22, canvas.width * 0.38
+          canvas.width * 0.88, canvas.height * 0.22, canvas.width * 0.40
         );
-        gradRight.addColorStop(0, `rgba(217, 119, 6, ${0.12 + pulse2 * 0.07})`);
-        gradRight.addColorStop(0.5, `rgba(245, 158, 11, ${0.02 + pulse2 * 0.02})`);
+        gradRight.addColorStop(0, `rgba(217, 119, 6, ${(0.11 + pulse2 * 0.05) * glowMult})`);
+        gradRight.addColorStop(0.5, `rgba(245, 158, 11, ${(0.02 + pulse2 * 0.015) * glowMult})`);
         gradRight.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = gradRight;
         ctx.fillRect(canvas.width * 0.45, 0, canvas.width * 0.55, canvas.height * 0.65);
+      }
+
+      // ── SPECULAR MOUSE CURSOR GLOW (todobuild.store Cursor Spotlight 1:1) ──
+      const mouseGlowActive = window.__TMD_MOUSE_GLOW !== undefined ? window.__TMD_MOUSE_GLOW : (localStorage.getItem('tmd_mouse_glow') !== 'false');
+      if (mouseGlowActive && mouse.active && mouse.x > 0 && mouse.y > 0) {
+        const mGrad = ctx.createRadialGradient(
+          mouse.x, mouse.y, 0,
+          mouse.x, mouse.y, 450
+        );
+        mGrad.addColorStop(0, `rgba(${particleRgb}, 0.07)`);
+        mGrad.addColorStop(0.35, `rgba(${particleRgb}, 0.02)`);
+        mGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = mGrad;
+        ctx.fillRect(mouse.x - 450, mouse.y - 450, 900, 900);
       }
 
       // ── CONSTELLATION NET: Delicate connections that appear softly as particles approach ──
@@ -534,10 +564,23 @@
         const y = e.clientY - rect.top;
         card.style.setProperty('--spotlight-x', `${x}px`);
         card.style.setProperty('--spotlight-y', `${y}px`);
+
+        // Subtle 3D perspective tilt (todobuild.store 1:1)
+        if (card.classList.contains('tmd-tilt') || card.classList.contains('tmd-role-card') || card.classList.contains('tmd-glass-card') || card.classList.contains('diamond-card')) {
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const tiltMax = 2.5;
+          const rotateX = ((y - centerY) / centerY) * -tiltMax;
+          const rotateY = ((x - centerX) / centerX) * tiltMax;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        }
       }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
         rect = null;
+        if (card.style.transform && card.style.transform.includes('perspective')) {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
       }, { passive: true });
     });
   }
