@@ -1,481 +1,799 @@
 /**
- * TMD Dominicana — Multi-Role Industrial Enterprise Portal Suite
+ * TMD Dominicana — Enterprise Full-Screen Portal Workspace
  * Tecnomaquinarias Diesel S.R.L. — Km 22 Autopista Duarte, Santo Domingo
  * 
- * Standards: Microsoft Azure Dashboard / Apple Business / Jobber Client Hub / Google Cloud Console
- * 
- * Roles:
- *   1. 'client': Clientes & Contratistas (HUD KPIs, Rastreo WO 5 Fases, Flota en Alquiler LiveLink, Bahías, Facturas NCF, Repuestos)
- *   2. 'staff':  Mesa Técnica Taller Km 22 (Tablero 18 Bahías, Control de Fases WO, Alertas WhatsApp, DVI con Firma Digital)
- *   3. 'admin':  Consola TI & Administración Web (Toggles Partículas, Mouse Glow 1:1, Intensidad Glow, Switch Live API, Reset)
+ * Design Standards:
+ *   - Jobber Client Hub (Split Document Sheet, Sticky Right Checkout Drawer, 4-Stage Workflow Ribbon, Signature Approval)
+ *   - John Deere Dealer Customer Portal & AgriVision (Heavy Equipment OEM Parts Grid & Warehouse Inventory)
+ *   - Microsoft Azure & Fullbay Workshop Dashboard (18 Bahías, DVI 40-Point Inspection)
+ *   - 100% Dark Industrial Theme (Obsidian #080a0f, Amber Hazard #f59e0b, Telemetry Emerald #10b981, Sapphire #38bdf8)
  */
 
 (function(window) {
   'use strict';
 
-  var _currentRole = null; // 'client' | 'staff' | 'admin' | null (selector)
-  var _currentTab = 'tab-tracker';
-  var _staffTab = 'staff-bays';
-  var _activeWO = null;
+  var _currentRole = 'client'; // 'client' | 'staff' | 'admin' | null
+  var _activeNav = 'nav-workflow'; // 'nav-workflow' | 'nav-quotes' | 'nav-orders' | 'nav-fleet' | 'nav-booking' | 'nav-parts' | 'nav-invoices'
+  var _activeQuoteId = 'QUOTE-11555';
+  var _activeWOId = 'WO-8492';
 
-  // PINs de Seguridad
   var STAFF_PIN = '2222';
   var ADMIN_PIN = '9999';
 
-  function initPortalDOM() {
+  // Base de datos de demostración de alta fidelidad (Fullbay + Samsara + Square)
+  var CLIENT_DATA = {
+    company: 'Consorcio Malespín S.R.L.',
+    rnc: '1-31-84920-1',
+    project: 'Proyecto Circunvalación Tramo II',
+    contact: 'Ing. Marcos Malespín',
+    phone: '(809) 567-8900',
+    email: 'operaciones@malespin.com.do',
+    kpis: {
+      requests: { count: 21, amount: '$11.2K', label: 'Solicitudes en Cola' },
+      quotes: { count: 16, amount: '$15.4K', label: 'Cotizaciones Aprobadas' },
+      jobs: { count: 4, amount: '$11.9K', label: 'Equipos en Taller Km 22' },
+      invoices: { count: 5, amount: '$4,150.00', label: 'Facturas NCF Pendientes' }
+    }
+  };
+
+  var QUOTE_DATA = {
+    id: '11555',
+    date: '10 Sep 2026',
+    validUntil: '10 Oct 2026',
+    status: 'En espera de respuesta',
+    machine: 'Excavadora Hidráulica JCB JS220SC',
+    vin: 'JCB220SC2024X981',
+    items: [
+      {
+        title: 'Bomba Hidráulica Principal Kawasaki K3V112DT',
+        desc: 'Reemplazo de bomba de pistones axiales de alta presión para circuito principal de giro y traslación.',
+        qty: 1,
+        price: 3500.00,
+        total: 3500.00
+      },
+      {
+        title: 'Kit de Sellos de Pistón de Pluma OEM JCB (JCB-991/001472)',
+        desc: 'Juego de sellos de uretano y anillos de desgaste para banco de alta presión a 350 Bar.',
+        qty: 1,
+        price: 350.00,
+        total: 350.00
+      },
+      {
+        title: 'Calibración en Banco de Pruebas 350 Bar & Mano de Obra Especializada',
+        desc: '8 horas de banco de pruebas dinámico, purga de circuito y calibración de válvula de alivio a 348 Bar a 60°C.',
+        qty: 8,
+        price: 100.00,
+        total: 800.00
+      }
+    ],
+    subtotal: 4650.00,
+    tax: 837.00, // 18% ITBIS
+    total: 5487.00,
+    depositRequired: 1000.00
+  };
+
+  var OEM_PARTS = [
+    { partNo: 'JCB-20/9253401', desc: 'Bomba Hidráulica Principal Kawasaki K3V112DT', machine: 'JCB JS220 / JS200', cat: 'hydraulics', stock: '2 en stock Km 22', price: 3500.00 },
+    { partNo: 'JCB-991/001472', desc: 'Kit de Sellos de Pistón de Pluma 140mm', machine: 'JCB 3CX / JS220', cat: 'cylinders', stock: '14 en stock Km 22', price: 350.00 },
+    { partNo: 'JCB-32/9253461', desc: 'Filtro Hidráulico de Retorno 10 Micras', machine: 'Universal JCB', cat: 'filters', stock: '28 en stock Km 22', price: 85.00 },
+    { partNo: 'LS-40007521', desc: 'Filtro de Aceite de Motor Diésel Tier 3', machine: 'LS Tractor MT357C', cat: 'filters', stock: '20 en stock Km 22', price: 45.00 },
+    { partNo: 'LG-40C0448', desc: 'Bomba de Transmisión ZF PowerShift', machine: 'LiuGong 856H', cat: 'drivetrain', stock: '1 en stock Km 22', price: 1850.00 },
+    { partNo: 'JCB-332/Y3163', desc: 'Zapatas y Eslabón de Cadena de Oruga 600mm', machine: 'JCB JS220SC', cat: 'undercarriage', stock: '48 tramos en Km 22', price: 240.00 },
+    { partNo: 'PERK-2645K016', desc: 'Inyector Diésel Common Rail Delphi', machine: 'Motor Perkins 1104D', cat: 'engine', stock: '8 en stock Km 22', price: 420.00 },
+    { partNo: 'BOM-05755340', desc: 'Amortiguador de Tambor de Rodillo 211', machine: 'Bomag BW 211', cat: 'brakes', stock: '6 en stock Km 22', price: 290.00 }
+  ];
+
+  function initFullWorkspaceDOM() {
     if (document.getElementById('tmd-client-portal-modal')) {
       return;
     }
 
-    var modal = document.createElement('div');
-    modal.id = 'tmd-client-portal-modal';
-    modal.innerHTML = `
-      <div class="tmd-portal-container" role="dialog" aria-modal="true" aria-labelledby="tmd-portal-header-title">
+    var app = document.createElement('div');
+    app.id = 'tmd-client-portal-modal';
+    app.innerHTML = `
+      <div class="tmd-portal-app">
         
-        <!-- TOP ENTERPRISE HEADER -->
-        <header class="tmd-portal-header">
-          <div class="tmd-portal-title-wrap">
-            <div class="tmd-portal-logo-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zm-9-1a2 2 0 0 1 4 0v1h-4V6zm9 13H5V9h14v10z"/>
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 1. LEFT RAIL SIDEBAR (Jobber Client Hub Style)              -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <aside class="tmd-portal-sidebar" id="tmd-portal-sidebar">
+          <div>
+            <!-- Brand Logo -->
+            <div class="tmd-sidebar-brand">
+              <div class="tmd-sidebar-brand-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zm-9-1a2 2 0 0 1 4 0v1h-4V6zm9 13H5V9h14v10z"/>
+                </svg>
+              </div>
+              <div class="tmd-sidebar-brand-text">
+                <h2>TMD Heavy Hub</h2>
+                <p>AUT. DUARTE KM 22 · REP. DOM.</p>
+              </div>
+            </div>
+
+            <!-- Action Button '+ New Request' (Jobber Standard) -->
+            <button class="tmd-btn-new-request" onclick="window.tmdOpenNewRequestModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
-              <span>TMD HEAVY HUB</span>
-            </div>
-            <div class="tmd-portal-headings">
-              <h2 id="tmd-portal-header-title">PORTAL CORPORATIVO TMD · ENTERPRISE SUITE</h2>
-              <p id="tmd-portal-subhead">Autopista Duarte Km 22 · Fullbay Direct Sync · Samsara Telemetry IoT</p>
-            </div>
-          </div>
-          <div class="tmd-portal-header-actions">
-            <button class="tmd-switch-role-btn" id="tmd-change-role-btn" onclick="window.tmdShowRoleSelector()" style="display:none;">
-              🔄 Cambiar de Entorno
+              <span>+ Nueva Solicitud</span>
             </button>
-            <div class="tmd-portal-api-mode-badge" id="tmd-api-indicator" title="Estado de la conexión API">
-              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;"></span>
-              <span id="tmd-api-status-text">FULLBAY READY · STAGING MOCK</span>
-            </div>
-            <button class="tmd-portal-close-btn" onclick="window.tmdCloseClientPortal()" aria-label="Cerrar Portal">✕</button>
+
+            <!-- Navigation Links -->
+            <nav class="tmd-sidebar-nav" aria-label="Navegación Principal">
+              <div class="tmd-nav-item active" data-nav="nav-workflow" onclick="window.tmdSwitchNav('nav-workflow')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Inicio / Workflow</span>
+                <span class="tmd-nav-badge">4 FASES</span>
+              </div>
+
+              <div class="tmd-nav-item" data-nav="nav-quotes" onclick="window.tmdSwitchNav('nav-quotes')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span>Cotizaciones & Firma</span>
+                <span class="tmd-nav-badge" style="background:rgba(236,72,153,0.2);color:#f472b6;">1 PEND</span>
+              </div>
+
+              <div class="tmd-nav-item" data-nav="nav-orders" onclick="window.tmdSwitchNav('nav-orders')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+                <span>Órdenes de Taller (WO)</span>
+                <span class="tmd-nav-badge" style="background:rgba(245,158,11,0.2);color:#facc15;">348 BAR</span>
+              </div>
+
+              <div class="tmd-nav-item" data-nav="nav-fleet" onclick="window.tmdSwitchNav('nav-fleet')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+                <span>Mi Flota en Alquiler</span>
+                <span class="tmd-nav-badge">4 EQUIPOS</span>
+              </div>
+
+              <div class="tmd-nav-item" data-nav="nav-booking" onclick="window.tmdSwitchNav('nav-booking')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Agendar Bahía Km 22</span>
+              </div>
+
+              <div class="tmd-nav-item" data-nav="nav-parts" onclick="window.tmdSwitchNav('nav-parts')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span>Catálogo Repuestos OEM</span>
+                <span class="tmd-nav-badge">ALMACÉN</span>
+              </div>
+
+              <div class="tmd-nav-item" data-nav="nav-invoices" onclick="window.tmdSwitchNav('nav-invoices')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                  <line x1="2" y1="10" x2="22" y2="10"></line>
+                </svg>
+                <span>Facturas NCF & Pagos</span>
+                <span class="tmd-nav-badge" style="background:rgba(56,189,248,0.2);color:#38bdf8;">B01</span>
+              </div>
+            </nav>
           </div>
-        </header>
 
-        <!-- ================================================================ -->
-        <!-- 0. VISTA SELECTORA DE ROL (LOGIN GATE EMPRESARIAL)                -->
-        <!-- ================================================================ -->
-        <div id="tmd-view-role-select" class="tmd-role-select-screen" style="display:block;">
-          <span style="background:rgba(250,204,21,0.15);color:#facc15;font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:800;padding:4px 16px;border-radius:9999px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(250,204,21,0.3);">
-            CENTRO DE ACCESO UNIFICADO TMD 2026 · TIER-1 HEAVY HUB
-          </span>
-          <h2 style="font-size:1.75rem;font-weight:900;color:#fff;margin:14px 0 6px;letter-spacing:-0.02em;">
-            Seleccione su Entorno de Trabajo
-          </h2>
-          <p style="font-size:0.85rem;color:#9ca3af;max-width:620px;margin:0 auto 28px;">
-            Plataforma omnicanal de maquinaria pesada: telemetría en vivo, gestión de taller de alta presión y consola de operaciones.
-          </p>
-
-          <div class="tmd-role-cards-grid">
-            
-            <!-- TARJETA 1: CLIENTES & CONTRATISTAS -->
-            <div class="tmd-role-card tmd-tilt">
-              <div>
-                <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(250,204,21,0.12);border:1px solid rgba(250,204,21,0.3);color:#facc15;margin-bottom:12px;">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                    <line x1="4" y1="22" x2="4" y2="15"></line>
-                  </svg>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                  <span class="tmd-badge-pill tmd-badge-amber">CLIENT HUB</span>
-                  <span style="font-size:0.68rem;color:#9ca3af;font-family:'JetBrains Mono',monospace;">JOBBER STANDARD</span>
-                </div>
-                <h3 class="tmd-role-title">Portal Clientes & Contratistas</h3>
-                <p class="tmd-role-desc">
-                  Rastreo de reparaciones de taller en 5 fases, telemetría LiveLink de maquinaria en alquiler, comprobantes fiscales NCF y reserva de bahías express.
-                </p>
-              </div>
-              <div style="margin-top:16px;">
-                <button class="tmd-search-btn" style="width:100%;text-align:center;" onclick="window.tmdSelectRole('client')">
-                  Ingresar como Cliente Contratista →
-                </button>
-                <div style="font-size:0.7rem;color:#9ca3af;text-align:center;margin-top:6px;">
-                  Acceso directo sin contraseña para clientes autorizados
-                </div>
+          <!-- Sidebar Footer -->
+          <div class="tmd-sidebar-footer">
+            <div class="tmd-user-badge">
+              <div class="tmd-user-avatar">CM</div>
+              <div class="tmd-user-info">
+                <div class="tmd-user-name">Consorcio Malespín S.R.L.</div>
+                <div class="tmd-user-role">RNC: 1-31-84920-1 · TIER 1</div>
               </div>
             </div>
 
-            <!-- TARJETA 2: PERSONAL TALLER & ALMACÉN KM 22 -->
-            <div class="tmd-role-card tmd-tilt" style="border-color:rgba(56,189,248,0.3);">
-              <div>
-                <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:#38bdf8;margin-bottom:12px;">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-                  </svg>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                  <span class="tmd-badge-pill tmd-badge-blue">WORKSHOP COCKPIT</span>
-                  <span style="font-size:0.68rem;color:#9ca3af;font-family:'JetBrains Mono',monospace;">18 BAHÍAS LIVE</span>
-                </div>
-                <h3 class="tmd-role-title">Mesa Técnica & Taller Km 22</h3>
-                <p class="tmd-role-desc">
-                  Tablero operativo de Bahías 1 a 18, control de etapas de reparación, avisos WhatsApp automáticos a clientes e inspecciones digitales DVI con firma.
-                </p>
-              </div>
-              <div style="margin-top:16px;">
-                <label style="font-size:0.72rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:4px;">
-                  PIN de Seguridad Taller (Default: 2222):
-                </label>
-                <input type="password" id="tmd-staff-pin-input" class="tmd-role-pin-input" maxlength="4" placeholder="• • • •" onkeydown="if(event.key==='Enter')window.tmdVerifyStaffPIN();" />
-                <div id="tmd-staff-pin-err" style="display:none;color:#ef4444;font-size:0.72rem;font-weight:700;margin-top:4px;text-align:center;">
-                  PIN incorrecto. Ingrese 2222.
-                </div>
-                <button class="tmd-search-btn" style="width:100%;margin-top:10px;background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff;" onclick="window.tmdVerifyStaffPIN()">
-                  Entrar a Mesa Técnica →
-                </button>
-              </div>
-            </div>
-
-            <!-- TARJETA 3: ADMIN & IT CONSOLE -->
-            <div class="tmd-role-card tmd-tilt" style="border-color:rgba(16,185,129,0.3);">
-              <div>
-                <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#10b981;margin-bottom:12px;">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                  </svg>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                  <span class="tmd-badge-pill tmd-badge-green">IT CONSOLE</span>
-                  <span style="font-size:0.68rem;color:#9ca3af;font-family:'JetBrains Mono',monospace;">CLOUD SETTINGS</span>
-                </div>
-                <h3 class="tmd-role-title">Consola TI & Administración Web</h3>
-                <p class="tmd-role-desc">
-                  Control en vivo de efectos visuales (Partículas, Mouse Glow 1:1), conmutador de datos (Mock vs Live API), métricas de latencia y reset de fábrica.
-                </p>
-              </div>
-              <div style="margin-top:16px;">
-                <label style="font-size:0.72rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:4px;">
-                  PIN Administrador TI (Default: 9999):
-                </label>
-                <input type="password" id="tmd-admin-pin-input" class="tmd-role-pin-input" maxlength="4" placeholder="• • • •" onkeydown="if(event.key==='Enter')window.tmdVerifyAdminPIN();" />
-                <div id="tmd-admin-pin-err" style="display:none;color:#ef4444;font-size:0.72rem;font-weight:700;margin-top:4px;text-align:center;">
-                  PIN incorrecto. Ingrese 9999.
-                </div>
-                <button class="tmd-search-btn" style="width:100%;margin-top:10px;background:linear-gradient(135deg,#10b981,#059669);color:#090d16;" onclick="window.tmdVerifyAdminPIN()">
-                  Abrir Consola TI →
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ================================================================ -->
-        <!-- 1. VISTA DE CLIENTES & CONTRATISTAS (JOBBER CLIENT HUB STYLE)     -->
-        <!-- ================================================================ -->
-        <div id="tmd-view-client" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
-          
-          <!-- CONTRACTOR HUD BANNER -->
-          <div style="padding:14px 24px;background:#0b0f19;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span class="tmd-badge-pill tmd-badge-amber">CLIENTE VIP #TMD-8834</span>
-              <span style="font-size:0.85rem;font-weight:700;color:#fff;">Consorcio Malespín S.R.L.</span>
-              <span style="font-size:0.72rem;color:#9ca3af;font-family:'JetBrains Mono',monospace;">RNC: 1-31-84920-1 · Proyecto Circunvalación</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span class="tmd-badge-pill tmd-badge-green">
-                <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;"></span>
-                LiveLink GPS Online
-              </span>
-              <button class="tmd-chip" onclick="alert('Descargando estado de cuenta en formato PDF oficial TMD...')">
-                📥 Descargar Estado de Cuenta PDF
+            <div style="display:flex;gap:6px;">
+              <button class="tmd-btn-outline" style="flex:1;justify-content:center;font-size:0.7rem;padding:6px 8px;" onclick="window.tmdShowRoleSelector()">
+                🔄 Roles
+              </button>
+              <button class="tmd-btn-outline" style="flex:1;justify-content:center;font-size:0.7rem;padding:6px 8px;border-color:rgba(239,68,68,0.3);color:#fca5a5;" onclick="window.tmdCloseClientPortal()">
+                ✕ Salir
               </button>
             </div>
+
+            <div class="tmd-sidebar-powered">
+              POWERED BY TODOBUILD TITAN OS · FULLBAY READY
+            </div>
           </div>
+        </aside>
 
-          <!-- CLIENT NAVIGATION TABS -->
-          <nav class="tmd-portal-tabs" aria-label="Navegación Cliente">
-            <button class="tmd-portal-tab active" data-tab="tab-tracker" onclick="window.tmdSwitchPortalTab('tab-tracker')">
-              <span>📋 Rastrear mi Orden (WO)</span>
-            </button>
-            <button class="tmd-portal-tab" data-tab="tab-fleet" onclick="window.tmdSwitchPortalTab('tab-fleet')">
-              <span>🚜 Mi Flota en Alquiler</span>
-            </button>
-            <button class="tmd-portal-tab" data-tab="tab-booking" onclick="window.tmdSwitchPortalTab('tab-booking')">
-              <span>⏱️ Agendar Bahía Km 22</span>
-            </button>
-            <button class="tmd-portal-tab" data-tab="tab-invoices" onclick="window.tmdSwitchPortalTab('tab-invoices')">
-              <span>💳 Facturación NCF & Pagos</span>
-            </button>
-            <button class="tmd-portal-tab" data-tab="tab-parts" onclick="window.tmdSwitchPortalTab('tab-parts')">
-              <span>📦 Catálogo de Repuestos OEM</span>
-            </button>
-          </nav>
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- 2. MAIN WORKSPACE VIEWPORT                                  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <main class="tmd-portal-main" id="tmd-portal-main">
+          
+          <!-- Top Global Sticky Bar -->
+          <header class="tmd-portal-topbar">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <button class="tmd-btn-icon" style="display:none;" id="tmd-mobile-menu-toggle" onclick="document.getElementById('tmd-portal-sidebar').classList.toggle('open')">
+                ☰
+              </button>
+              <div class="tmd-topbar-breadcrumbs">
+                <span>Portal VIP Clientes</span>
+                <span>/</span>
+                <span class="active" id="tmd-breadcrumb-active">Inicio / Workflow</span>
+              </div>
+            </div>
 
-          <!-- CLIENT BODY CONTAINER -->
-          <div class="tmd-portal-body">
+            <div class="tmd-topbar-actions">
+              <div class="tmd-status-pill">
+                <span class="tmd-dot"></span>
+                <span>LIVELINK GPS ONLINE · 1.2MS</span>
+              </div>
+              <button class="tmd-btn-outline" onclick="window.tmdShowRoleSelector()">
+                🔄 Cambiar Entorno
+              </button>
+              <button class="tmd-btn-icon" onclick="window.tmdCloseClientPortal()" title="Cerrar y volver al sitio">
+                ✕
+              </button>
+            </div>
+          </header>
+
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 1: WORKFLOW & EXECUTIVE DASHBOARD (Foto 5)          -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-workflow" class="tmd-workspace-pane" style="display:block;">
             
-            <!-- HUD TOP KPI CARDS -->
-            <div class="tmd-enterprise-hud">
-              <div class="tmd-hud-card">
-                <div class="tmd-hud-top">
-                  <span class="tmd-hud-label">Equipos en Faena</span>
-                  <span class="tmd-badge-pill tmd-badge-green">4 ACTIVOS</span>
+            <!-- 4-Stage Jobber Workflow Ribbon -->
+            <div class="tmd-workflow-ribbon">
+              <!-- Block 1: Solicitudes (Amber) -->
+              <div class="tmd-ribbon-card" style="--accent-color:#f59e0b;" onclick="window.tmdSwitchNav('nav-booking')">
+                <div class="tmd-ribbon-header">
+                  <span class="tmd-ribbon-title">Solicitudes</span>
+                  <span style="color:#f59e0b;font-size:0.75rem;">🟡 NUEVAS</span>
                 </div>
-                <div class="tmd-hud-val">14,892.4 <span style="font-size:0.8rem;color:#9ca3af;">hrs</span></div>
-                <div class="tmd-hud-sub">
-                  <span>Combustible Flota: 76.4%</span>
+                <div class="tmd-ribbon-number">
+                  21 <span class="tmd-ribbon-amount">$11.2K</span>
                 </div>
-                <div class="tmd-progress-bar"><div class="tmd-progress-fill" style="width:76.4%;"></div></div>
+                <div class="tmd-ribbon-sub">
+                  <span>Diagnósticos listos: 15</span>
+                  <span style="color:#f59e0b;">En revisión: 6</span>
+                </div>
               </div>
 
-              <div class="tmd-hud-card" style="border-color:rgba(245,158,11,0.3);">
-                <div class="tmd-hud-top">
-                  <span class="tmd-hud-label">Orden Activa Taller</span>
-                  <span class="tmd-badge-pill tmd-badge-amber">BANCO 350 BAR</span>
+              <!-- Block 2: Cotizaciones (Fucsia/Magenta) -->
+              <div class="tmd-ribbon-card" style="--accent-color:#ec4899;" onclick="window.tmdSwitchNav('nav-quotes')">
+                <div class="tmd-ribbon-header">
+                  <span class="tmd-ribbon-title">Cotizaciones</span>
+                  <span style="color:#ec4899;font-size:0.75rem;">🔴 POR FIRMAR</span>
                 </div>
-                <div class="tmd-hud-val" style="color:#facc15;">WO-8492</div>
-                <div class="tmd-hud-sub">
-                  <span>Entrega Estimada: Hoy 4:30 PM</span>
+                <div class="tmd-ribbon-number">
+                  16 <span class="tmd-ribbon-amount">$15.4K</span>
                 </div>
-                <div class="tmd-progress-bar"><div class="tmd-progress-fill" style="width:80%;background:#f59e0b;"></div></div>
+                <div class="tmd-ribbon-sub">
+                  <span>Borradores: 9</span>
+                  <span style="color:#ec4899;">Cambios solicitados: 7</span>
+                </div>
               </div>
 
-              <div class="tmd-hud-card">
-                <div class="tmd-hud-top">
-                  <span class="tmd-hud-label">Balance Fiscal NCF</span>
-                  <span class="tmd-badge-pill tmd-badge-blue">NCF B01</span>
+              <!-- Block 3: Trabajos en Taller (Verde) -->
+              <div class="tmd-ribbon-card" style="--accent-color:#10b981;" onclick="window.tmdSwitchNav('nav-orders')">
+                <div class="tmd-ribbon-header">
+                  <span class="tmd-ribbon-title">Taller Km 22</span>
+                  <span style="color:#10b981;font-size:0.75rem;">🟢 EN BAHÍAS</span>
                 </div>
-                <div class="tmd-hud-val">USD $4,150.00</div>
-                <div class="tmd-hud-sub">
-                  <span>Factura B01000492 · Vence en 6 días</span>
+                <div class="tmd-ribbon-number">
+                  4 <span class="tmd-ribbon-amount">$11.9K</span>
                 </div>
-                <div class="tmd-progress-bar"><div class="tmd-progress-fill" style="width:40%;background:#38bdf8;"></div></div>
+                <div class="tmd-ribbon-sub">
+                  <span>Activas en banco: 3</span>
+                  <span style="color:#10b981;">Lista para retiro: 1</span>
+                </div>
               </div>
 
-              <div class="tmd-hud-card">
-                <div class="tmd-hud-top">
-                  <span class="tmd-hud-label">Disponibilidad Flota</span>
-                  <span class="tmd-badge-pill tmd-badge-green">SLA 98.2%</span>
+              <!-- Block 4: Facturas NCF (Azul) -->
+              <div class="tmd-ribbon-card" style="--accent-color:#38bdf8;" onclick="window.tmdSwitchNav('nav-invoices')">
+                <div class="tmd-ribbon-header">
+                  <span class="tmd-ribbon-title">Facturación NCF</span>
+                  <span style="color:#38bdf8;font-size:0.75rem;">🔵 POR COBRAR</span>
                 </div>
-                <div class="tmd-hud-val" style="color:#34d399;">98.2%</div>
-                <div class="tmd-hud-sub">
-                  <span>3 Operativas | 1 en Mantenimiento</span>
+                <div class="tmd-ribbon-number">
+                  5 <span class="tmd-ribbon-amount">$4,150.00</span>
                 </div>
-                <div class="tmd-progress-bar"><div class="tmd-progress-fill" style="width:98.2%;background:#10b981;"></div></div>
+                <div class="tmd-ribbon-sub">
+                  <span>Comprobante B01: 3</span>
+                  <span style="color:#38bdf8;">Vencen en 6 días: 2</span>
+                </div>
               </div>
             </div>
 
-            <!-- TAB 1: RASTREO DE ÓRDENES (WO) -->
-            <div id="tab-tracker" class="tmd-portal-pane active">
-              <div style="background:rgba(18,24,38,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:24px;">
-                <div style="font-size:0.78rem;font-weight:700;color:#facc15;font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:8px;">
-                  CONSULTAR ESTADO DE REPARACIÓN EN TALLER KM 22
+            <!-- Dashboard Split Layout (Today Appointments + Receivables) -->
+            <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px;padding:0 28px 40px;">
+              <!-- Today Appointments -->
+              <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+                  <div>
+                    <h3 style="margin:0;font-size:1.05rem;color:#fff;">Turnos & Entregas de Hoy en Taller Km 22</h3>
+                    <p style="margin:2px 0 0 0;font-size:0.75rem;color:#94a3b8;">Calibraciones de alta presión y mantenimiento de flota activa.</p>
+                  </div>
+                  <button class="tmd-btn-outline" onclick="window.tmdSwitchNav('nav-booking')">Ver Calendario →</button>
                 </div>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                  <input type="text" id="tmd-wo-search-input" class="tmd-search-input" style="flex:1;min-width:280px;" placeholder="Ingrese Número de Orden (Ej: WO-8492) o VIN/Chasis..." onkeydown="if(event.key==='Enter')window.tmdSearchWO();" />
-                  <button class="tmd-search-btn" onclick="window.tmdSearchWO()">Consultar WO →</button>
-                </div>
-                <div style="margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                  <span style="font-size:0.75rem;color:#9ca3af;">Órdenes de demostración en vivo:</span>
-                  <span class="tmd-chip" onclick="window.tmdLoadDemoWO('WO-8492')">WO-8492 (JCB JS220 - 350 Bar)</span>
-                  <span class="tmd-chip" onclick="window.tmdLoadDemoWO('WO-8501')">WO-8501 (LiuGong 856H)</span>
-                  <span class="tmd-chip" onclick="window.tmdLoadDemoWO('WO-8504')">WO-8504 (LS MT357C)</span>
-                  <span class="tmd-chip" onclick="window.tmdLoadDemoWO('WO-8488')">WO-8488 (Bomag BW 211)</span>
+
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                  <div style="padding:14px;background:#111622;border:1px solid rgba(255,255,255,0.06);border-radius:10px;display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;align-items:center;gap:14px;">
+                      <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:700;color:#facc15;">09:00 AM</div>
+                      <div>
+                        <div style="font-weight:700;color:#fff;font-size:0.82rem;">Excavadora JCB JS220SC — Prueba Hidráulica 350 Bar</div>
+                        <div style="font-size:0.72rem;color:#94a3b8;">Bahía 3 · Técnico Ing. Eduardo López · Consorcio Malespín</div>
+                      </div>
+                    </div>
+                    <span class="tmd-status-tag tmd-tag-blue">EN BANCO</span>
+                  </div>
+
+                  <div style="padding:14px;background:#111622;border:1px solid rgba(255,255,255,0.06);border-radius:10px;display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;align-items:center;gap:14px;">
+                      <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:700;color:#34d399;">01:30 PM</div>
+                      <div>
+                        <div style="font-weight:700;color:#fff;font-size:0.82rem;">Cargador Frontal LiuGong 856H — Inspección DVI Final</div>
+                        <div style="font-size:0.72rem;color:#94a3b8;">Patio de Despacho · Téc. Rafael Valdez · Constructora del Cibao</div>
+                      </div>
+                    </div>
+                    <span class="tmd-status-tag tmd-tag-green">LISTO RETIRO</span>
+                  </div>
+
+                  <div style="padding:14px;background:#111622;border:1px solid rgba(255,255,255,0.06);border-radius:10px;display:flex;justify-content:space-between;align-items:center;">
+                    <div style="display:flex;align-items:center;gap:14px;">
+                      <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:700;color:#94a3b8;">04:00 PM</div>
+                      <div>
+                        <div style="font-weight:700;color:#fff;font-size:0.82rem;">Tractor Agrícola LS MT357C — Recepción Mantenimiento 250h</div>
+                        <div style="font-size:0.72rem;color:#94a3b8;">Bahía 4 · Téc. Domingo Rosario · Agroindustrial del Este</div>
+                      </div>
+                    </div>
+                    <span class="tmd-status-tag tmd-tag-yellow">PROGRAMADA</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- CONTENEDOR DINÁMICO DE LA WO -->
-              <div id="tmd-wo-results-container"></div>
-            </div>
-
-            <!-- TAB 2: MI FLOTA EN ALQUILER (LIVELINK GPS) -->
-            <div id="tab-fleet" class="tmd-portal-pane">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+              <!-- Receivables / Performance -->
+              <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;">
                 <div>
-                  <h3 style="font-size:1.25rem;font-weight:800;color:#fff;margin:0 0 4px 0;">Telemetría Samsara LiveLink de Flota Pesada</h3>
-                  <p style="font-size:0.8rem;color:#9ca3af;margin:0;">Monitoreo en tiempo real de ubicación satelital, horómetros y salud de máquina.</p>
-                </div>
-                <span class="tmd-badge-pill tmd-badge-green">FRECUENCIA: 15 SEG</span>
-              </div>
+                  <div style="font-size:0.75rem;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:6px;">Balance Total Pendiente</div>
+                  <div style="font-size:2rem;font-weight:900;color:#fff;font-family:'JetBrains Mono',monospace;">$4,150.00 <span style="font-size:0.85rem;color:#64748b;">USD</span></div>
+                  <p style="font-size:0.75rem;color:#94a3b8;margin:6px 0 18px 0;">Comprobante Fiscal B01000492 emitido el 12 Sep 2026.</p>
 
-              <div class="tmd-fleet-grid">
-                <!-- Unidad 1 -->
-                <div class="tmd-fleet-card">
-                  <div class="tmd-fleet-img-wrap">
-                    <img src="/assets/catalog_hd/jcb_js220sc_hd.jpg" onerror="this.src='/assets/video/tmd_hero_poster.jpg'" class="tmd-fleet-img" alt="JCB JS220SC" />
-                    <span class="tmd-badge-pill tmd-badge-amber" style="position:absolute;top:10px;right:10px;">EN TALLER KM 22</span>
-                  </div>
-                  <div class="tmd-fleet-info">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;color:#facc15;font-weight:700;">UNIDAD #EXC-01</span>
-                      <span style="font-size:0.7rem;color:#9ca3af;">VIN: JCB220SC2024X981</span>
+                  <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;display:flex;flex-direction:column;gap:10px;">
+                    <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+                      <span style="color:#94a3b8;">Consorcio Malespín S.R.L.</span>
+                      <strong style="color:#fff;">$4,150.00</strong>
                     </div>
-                    <h4 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0;">Excavadora Hidráulica JCB JS220SC</h4>
-                    <div style="font-size:0.75rem;color:#d1d5db;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                      <div>Horómetro: <strong style="color:#fff;">3,420 hrs</strong></div>
-                      <div>Combustible: <strong style="color:#34d399;">74%</strong></div>
-                      <div>Presión Hidráulica: <strong style="color:#facc15;">348 Bar</strong></div>
-                      <div>Ubicación: <strong style="color:#fff;">Bahía 3 Km 22</strong></div>
+                    <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+                      <span style="color:#94a3b8;">Constructora del Cibao</span>
+                      <strong style="color:#fff;">$720.00</strong>
                     </div>
-                    <button class="tmd-chip" style="width:100%;text-align:center;margin-top:4px;" onclick="window.tmdLoadDemoWO('WO-8492');window.tmdSwitchPortalTab('tab-tracker');">
-                      Ver Historial WO-8492 →
-                    </button>
                   </div>
                 </div>
 
-                <!-- Unidad 2 -->
-                <div class="tmd-fleet-card">
-                  <div class="tmd-fleet-img-wrap">
-                    <img src="/assets/catalog_hd/liugong_856h_hd.jpg" onerror="this.src='/assets/video/tmd_hero_poster.jpg'" class="tmd-fleet-img" alt="LiuGong 856H" />
-                    <span class="tmd-badge-pill tmd-badge-green" style="position:absolute;top:10px;right:10px;">OPERATIVA EN OBRA</span>
-                  </div>
-                  <div class="tmd-fleet-info">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;color:#facc15;font-weight:700;">UNIDAD #WLD-04</span>
-                      <span style="font-size:0.7rem;color:#9ca3af;">VIN: LG856H2023C441</span>
-                    </div>
-                    <h4 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0;">Cargador Frontal LiuGong 856H</h4>
-                    <div style="font-size:0.75rem;color:#d1d5db;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                      <div>Horómetro: <strong style="color:#fff;">1,890 hrs</strong></div>
-                      <div>Combustible: <strong style="color:#34d399;">88%</strong></div>
-                      <div>Próximo Service: <strong style="color:#fff;">en 110 hrs</strong></div>
-                      <div>Ubicación: <strong style="color:#fff;">Muelle Haina</strong></div>
-                    </div>
-                    <button class="tmd-chip" style="width:100%;text-align:center;margin-top:4px;" onclick="alert('Telemetría GPS: LiuGong 856H operando en Cantera Muelle Haina. Consumo: 5.2 gal/h.')">
-                      Consultar Telemetría GPS →
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Unidad 3 -->
-                <div class="tmd-fleet-card">
-                  <div class="tmd-fleet-img-wrap">
-                    <img src="/assets/catalog_hd/ls_mt357c_hd.jpg" onerror="this.src='/assets/video/tmd_hero_poster.jpg'" class="tmd-fleet-img" alt="LS MT357C" />
-                    <span class="tmd-badge-pill tmd-badge-green" style="position:absolute;top:10px;right:10px;">OPERATIVA EN FAENA</span>
-                  </div>
-                  <div class="tmd-fleet-info">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;color:#facc15;font-weight:700;">UNIDAD #TRC-08</span>
-                      <span style="font-size:0.7rem;color:#9ca3af;">VIN: LSMT3572024A102</span>
-                    </div>
-                    <h4 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0;">Tractor Agrícola LS MT357C</h4>
-                    <div style="font-size:0.75rem;color:#d1d5db;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                      <div>Horómetro: <strong style="color:#fff;">640 hrs</strong></div>
-                      <div>Combustible: <strong style="color:#34d399;">92%</strong></div>
-                      <div>Próximo Service: <strong style="color:#fff;">en 360 hrs</strong></div>
-                      <div>Ubicación: <strong style="color:#fff;">Finca La Vega</strong></div>
-                    </div>
-                    <button class="tmd-chip" style="width:100%;text-align:center;margin-top:4px;" onclick="alert('Telemetría LS Tractor: Operación en Finca Arrocera La Vega. Temperatura motor: 82°C (Normal).')">
-                      Consultar Telemetría GPS →
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Unidad 4 -->
-                <div class="tmd-fleet-card">
-                  <div class="tmd-fleet-img-wrap">
-                    <img src="/assets/catalog_hd/bomag_bw211_hd.jpg" onerror="this.src='/assets/video/tmd_hero_poster.jpg'" class="tmd-fleet-img" alt="Bomag BW 211" />
-                    <span class="tmd-badge-pill tmd-badge-green" style="position:absolute;top:10px;right:10px;">OPERATIVA EN OBRA</span>
-                  </div>
-                  <div class="tmd-fleet-info">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                      <span style="font-size:0.75rem;font-family:'JetBrains Mono',monospace;color:#facc15;font-weight:700;">UNIDAD #RDL-02</span>
-                      <span style="font-size:0.7rem;color:#9ca3af;">VIN: BW2112023B882</span>
-                    </div>
-                    <h4 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0;">Rodillo Compactador Bomag BW 211</h4>
-                    <div style="font-size:0.75rem;color:#d1d5db;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                      <div>Horómetro: <strong style="color:#fff;">2,110 hrs</strong></div>
-                      <div>Combustible: <strong style="color:#34d399;">68%</strong></div>
-                      <div>Próximo Service: <strong style="color:#f59e0b;">en 40 hrs</strong></div>
-                      <div>Ubicación: <strong style="color:#fff;">Circunvalación II</strong></div>
-                    </div>
-                    <button class="tmd-chip" style="width:100%;text-align:center;margin-top:4px;" onclick="alert('Telemetría Bomag: Compactación continua en Tramo II Circunvalación. Frecuencia vibratoria calibrada.')">
-                      Consultar Telemetría GPS →
-                    </button>
-                  </div>
-                </div>
+                <button class="tmd-btn-pay-primary" style="margin-top:20px;" onclick="window.tmdSwitchNav('nav-quotes')">
+                  Revisar Cotización #11555 & Pagar Anticipo →
+                </button>
               </div>
             </div>
 
-            <!-- TAB 3: AGENDAR BAHÍA KM 22 -->
-            <div id="tab-booking" class="tmd-portal-pane">
-              <div style="max-width:760px;margin:0 auto;background:rgba(18,24,38,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:28px;">
-                <h3 style="font-size:1.3rem;font-weight:800;color:#fff;margin:0 0 6px 0;">Agendar Turno en Bahía de Servicio Pesado</h3>
-                <p style="font-size:0.82rem;color:#9ca3af;margin:0 0 20px 0;">Reserve bahía equipada con grúa puente, dinamómetro o banco de pruebas de 350 Bar en nuestra sede central.</p>
+          </section>
 
-                <form onsubmit="window.tmdSubmitBooking(event)">
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-                    <div>
-                      <label style="font-size:0.75rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:6px;">Equipo a Reparar / Mantener:</label>
-                      <select id="tmd-book-machine" class="tmd-search-input" style="width:100%;">
-                        <option value="JCB JS220SC">Excavadora JCB JS220SC (JCB-2024)</option>
-                        <option value="LiuGong 856H">Cargador Frontal LiuGong 856H</option>
-                        <option value="LS MT357C">Tractor Agrícola LS MT357C</option>
-                        <option value="Bomag BW 211">Rodillo Bomag BW 211</option>
-                        <option value="Otro">Otro Equipo Pesado / Diésel</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label style="font-size:0.75rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:6px;">Tipo de Intervención Técnica:</label>
-                      <select id="tmd-book-service" class="tmd-search-input" style="width:100%;">
-                        <option value="Preventivo 250h/500h">Mantenimiento Preventivo Express 250h / 500h</option>
-                        <option value="Overhaul Motor">Overhaul de Motor Diésel Common-Rail</option>
-                        <option value="Diagnostico 350 Bar">Calibración & Banco Hidráulico 350 Bar</option>
-                        <option value="Tren de Rodaje">Reconstrucción de Tren de Rodaje & Orugas</option>
-                        <option value="Auxilio Faena">Auxilio Móvil en Obra 24/7 (Soporte en Faena)</option>
-                      </select>
-                    </div>
-                  </div>
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 2: JOBBER SPLIT QUOTE & CHECKOUT DRAWER (Foto 1 y 2) -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-quotes" class="tmd-workspace-pane" style="display:none;">
+            <div class="tmd-split-workspace">
+              
+              <!-- Center Formal Document Sheet (Jobber Style) -->
+              <div class="tmd-doc-sheet">
+                
+                <div class="tmd-doc-topbar">
+                  <button class="tmd-btn-text" onclick="window.tmdSwitchNav('nav-workflow')">
+                    ← Volver a Workflow
+                  </button>
+                  <button class="tmd-btn-outline" onclick="alert('Descargando Cotización #11555 formal en formato PDF oficial TMD Dominicana...')">
+                    📥 Descargar PDF Oficial
+                  </button>
+                </div>
 
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-                    <div>
-                      <label style="font-size:0.75rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:6px;">Fecha Deseada de Ingreso:</label>
-                      <input type="date" id="tmd-book-date" class="tmd-search-input" style="width:100%;" required />
+                <div class="tmd-doc-meta-grid">
+                  <div class="tmd-doc-client-info">
+                    <div style="font-size:0.75rem;font-weight:700;color:#facc15;font-family:'JetBrains Mono',monospace;margin-bottom:4px;">
+                      COTIZACIÓN / ORDEN DE REPARACIÓN #11555
                     </div>
-                    <div>
-                      <label style="font-size:0.75rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:6px;">Bahía de Preferencia:</label>
-                      <select id="tmd-book-bay" class="tmd-search-input" style="width:100%;">
-                        <option value="Bahia 1">Bahía 1 (Tren de Fuerza & Motores)</option>
-                        <option value="Bahia 2">Bahía 2 (Tren de Rodaje & Orugas)</option>
-                        <option value="Bahia 3">Bahía 3 (Hidráulica 350 Bar & Banco)</option>
-                        <option value="Bahia 4">Bahía 4 (Mantenimiento Express 250h/500h)</option>
-                        <option value="Asignacion Automatica">Asignación Automática según disponibilidad</option>
-                      </select>
+                    <h3>Consorcio Malespín S.R.L.</h3>
+                    <p>Av. Luperón Esq. Mirador Sur, Santo Domingo, D.N.</p>
+                    <p>RNC: 1-31-84920-1 · Tel: (809) 567-8900</p>
+                    <div style="margin-top:10px;display:inline-block;padding:4px 10px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:6px;font-size:0.75rem;color:#facc15;">
+                      Equipo: <strong>Excavadora JCB JS220SC</strong> (VIN: JCB220SC2024X981)
                     </div>
                   </div>
 
-                  <div style="margin-bottom:20px;">
-                    <label style="font-size:0.75rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:6px;">Síntomas observados o repuestos requeridos:</label>
-                    <textarea id="tmd-book-notes" class="tmd-search-input" style="width:100%;height:80px;" placeholder="Ej: Pérdida de fuerza en cilindro de pluma al superar 2,800 RPM o cambio de kit de sellos OEM..."></textarea>
+                  <div class="tmd-doc-dates">
+                    <div><span class="tmd-status-tag tmd-tag-yellow">En espera de respuesta</span></div>
+                    <div style="margin-top:12px;color:#94a3b8;">Fecha de Envío: <strong style="color:#fff;">10 Sep 2026</strong></div>
+                    <div style="color:#94a3b8;">Vence: <strong style="color:#fff;">10 Oct 2026</strong></div>
+                  </div>
+                </div>
+
+                <!-- Document Items Table -->
+                <table class="tmd-doc-table">
+                  <thead>
+                    <tr>
+                      <th style="width:60%;">Producto / Servicio Técnico</th>
+                      <th style="text-align:center;">Cant.</th>
+                      <th style="text-align:right;">Precio Unitario</th>
+                      <th style="text-align:right;">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="tmd-doc-item-title">Bomba Hidráulica Principal Kawasaki K3V112DT</div>
+                        <div class="tmd-doc-item-desc">
+                          Reemplazo de bomba de pistones axiales para circuito hidráulico principal. Garantía de 12 meses.
+                        </div>
+                      </td>
+                      <td style="text-align:center;font-family:'JetBrains Mono',monospace;">1</td>
+                      <td style="text-align:right;font-family:'JetBrains Mono',monospace;">$3,500.00</td>
+                      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;">$3,500.00</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="tmd-doc-item-title">Kit de Sellos de Pistón de Pluma OEM JCB (JCB-991/001472)</div>
+                        <div class="tmd-doc-item-desc">
+                          Empaquetadura completa de alta presión para resistir 350 Bar en banco de pruebas.
+                        </div>
+                      </td>
+                      <td style="text-align:center;font-family:'JetBrains Mono',monospace;">1</td>
+                      <td style="text-align:right;font-family:'JetBrains Mono',monospace;">$350.00</td>
+                      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;">$350.00</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="tmd-doc-item-title">Calibración en Banco de Pruebas 350 Bar & Mano de Obra</div>
+                        <div class="tmd-doc-item-desc">
+                          8 horas de pruebas dinámicas con control de temperatura a 60°C y ajuste de válvulas de alivio.
+                        </div>
+                      </td>
+                      <td style="text-align:center;font-family:'JetBrains Mono',monospace;">8</td>
+                      <td style="text-align:right;font-family:'JetBrains Mono',monospace;">$100.00</td>
+                      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;">$800.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- Totals -->
+                <div class="tmd-doc-totals">
+                  <div class="tmd-total-row">
+                    <span>Subtotal:</span>
+                    <span style="font-family:'JetBrains Mono',monospace;">$4,650.00</span>
+                  </div>
+                  <div class="tmd-total-row">
+                    <span>ITBIS (18% DGII):</span>
+                    <span style="font-family:'JetBrains Mono',monospace;">$837.00</span>
+                  </div>
+                  <div class="tmd-total-row grand">
+                    <span>Total Estimado:</span>
+                    <span style="font-family:'JetBrains Mono',monospace;color:#facc15;">$5,487.00 USD</span>
+                  </div>
+                  <div class="tmd-total-row" style="color:#34d399;font-weight:700;">
+                    <span>Anticipo Requerido:</span>
+                    <span style="font-family:'JetBrains Mono',monospace;">$1,000.00 USD</span>
+                  </div>
+                </div>
+
+                <div class="tmd-doc-disclaimer">
+                  Esta cotización es válida por 30 días. La aprobación formal mediante firma digital y el pago del anticipo autorizan el desmontaje y la asignación inmediata de Bahía en el Km 22 Autopista Duarte.
+                </div>
+
+              </div>
+
+              <!-- Right Sticky Checkout Drawer (Jobber Style - Foto 1) -->
+              <aside class="tmd-sticky-checkout">
+                <div class="tmd-checkout-header">
+                  <div class="tmd-checkout-deposit-label">Anticipo Requerido</div>
+                  <div class="tmd-checkout-deposit-val">$1,000.00</div>
+                  <div style="font-size:0.75rem;color:#94a3b8;font-family:'JetBrains Mono',monospace;">
+                    Equivalente en moneda local: RD$ 59,500.00
+                  </div>
+                </div>
+
+                <!-- Payment Method Toggle -->
+                <div class="tmd-payment-methods">
+                  <button class="tmd-method-btn active" id="btn-pay-cc" onclick="window.tmdSelectPayMethod('cc')">
+                    💳 Tarjeta de Crédito
+                  </button>
+                  <button class="tmd-method-btn" id="btn-pay-bank" onclick="window.tmdSelectPayMethod('bank')">
+                    🏦 Banreservas / BHD
+                  </button>
+                </div>
+
+                <!-- Credit Card Fields -->
+                <div id="tmd-cc-form">
+                  <div class="tmd-card-field-group">
+                    <input type="text" class="tmd-input-field" placeholder="Nombre en la tarjeta" value="Marcos Malespín" />
+                    <input type="text" class="tmd-input-field" placeholder="Número de tarjeta (4242 •••• •••• 4242)" value="•••• •••• •••• 8492" />
+                    <div class="tmd-card-row-split">
+                      <input type="text" class="tmd-input-field" placeholder="MM / AA" value="09 / 28" />
+                      <input type="text" class="tmd-input-field" placeholder="CVC" value="•••" />
+                    </div>
                   </div>
 
-                  <button type="submit" class="tmd-search-btn" style="width:100%;text-align:center;">
-                    Confirmar Reserva de Bahía en Km 22 →
+                  <label class="tmd-checkbox-label">
+                    <input type="checkbox" checked />
+                    <span>Recordar esta tarjeta para futuros pagos y reparaciones de flota.</span>
+                  </label>
+                </div>
+
+                <!-- Billing Address RNC -->
+                <div class="tmd-billing-box">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                    <strong style="color:#fff;">Dirección Fiscal (DGII)</strong>
+                    <a href="#" style="color:#38bdf8;text-decoration:none;font-weight:700;">Editar</a>
+                  </div>
+                  <div>Consorcio Malespín S.R.L.</div>
+                  <div>RNC: 1-31-84920-1 · Av. Luperón, Santo Domingo</div>
+                </div>
+
+                <!-- Primary Action Button: Pay & Approve -->
+                <button class="tmd-btn-pay-primary" onclick="window.tmdOpenSignatureModal()">
+                  Aprobar & Pagar $1,000.00 →
+                </button>
+
+                <button class="tmd-btn-secondary-action" onclick="alert('Abriendo chat directo de WhatsApp con el Jefe de Taller Km 22 para solicitar modificaciones en el presupuesto...')">
+                  Solicitar Cambios en Presupuesto
+                </button>
+              </aside>
+
+            </div>
+          </section>
+
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 3: AGRI-VISION / JOHN DEERE PARTS CATALOG (Fotos 3/4) -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-parts" class="tmd-workspace-pane" style="display:none;">
+            <div class="tmd-parts-workspace">
+              
+              <!-- John Deere Style Search Header -->
+              <div class="tmd-parts-search-bar">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                  <div>
+                    <h3 style="margin:0;font-size:1.25rem;color:#fff;font-weight:800;">CATÁLOGO DE REPUESTOS OEM & ALMACÉN CENTRAL</h3>
+                    <p style="margin:2px 0 0 0;font-size:0.75rem;color:#94a3b8;">Consulta directa de inventario físico en el Almacén del Km 22 Autopista Duarte.</p>
+                  </div>
+                  <span class="tmd-status-pill">
+                    <span class="tmd-dot"></span>
+                    <span>391 ÍTEMS SINCRONIZADOS</span>
+                  </span>
+                </div>
+
+                <div class="tmd-parts-search-inputs">
+                  <input type="text" id="tmd-parts-input" class="tmd-input-field" style="flex:2;" placeholder="Ingrese Número de Parte OEM (ej. JCB-20/9253401, LS-40007521) o descripción..." oninput="window.tmdFilterParts(this.value)" />
+                  <select class="tmd-input-field" style="flex:1;" onchange="window.tmdFilterPartsByCategory(this.value)">
+                    <option value="all">Todas las Marcas (JCB, LS, LiuGong, Yanmar)</option>
+                    <option value="jcb">JCB Construction OEM</option>
+                    <option value="ls">LS Tractor Agrícola</option>
+                    <option value="liugong">LiuGong Heavy Machinery</option>
+                  </select>
+                  <button class="tmd-btn-new-request" style="width:auto;padding:10px 24px;margin-bottom:0;" onclick="window.tmdFilterParts(document.getElementById('tmd-parts-input').value)">
+                    Buscar Piezas →
+                  </button>
+                </div>
+              </div>
+
+              <!-- AgriVision Visual Category Grid (Foto 3) -->
+              <div class="tmd-parts-categories-grid">
+                <div class="tmd-category-card" onclick="window.tmdFilterPartsByCategory('brakes')">
+                  <div class="tmd-category-card-icon">🛑</div>
+                  <div class="tmd-category-card-title">Sistemas de Frenos & Válvulas</div>
+                </div>
+
+                <div class="tmd-category-card" onclick="window.tmdFilterPartsByCategory('filters')">
+                  <div class="tmd-category-card-icon">🛢️</div>
+                  <div class="tmd-category-card-title">Filtros & Mantenimiento</div>
+                </div>
+
+                <div class="tmd-category-card" onclick="window.tmdFilterPartsByCategory('hydraulics')">
+                  <div class="tmd-category-card-icon">⚙️</div>
+                  <div class="tmd-category-card-title">Hidráulica 350 Bar & Bombas</div>
+                </div>
+
+                <div class="tmd-category-card" onclick="window.tmdFilterPartsByCategory('undercarriage')">
+                  <div class="tmd-category-card-icon">🚜</div>
+                  <div class="tmd-category-card-title">Tren de Rodaje & Orugas</div>
+                </div>
+              </div>
+
+              <!-- Industrial Parts Inventory Table (Foto 4) -->
+              <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;overflow-x:auto;">
+                <table class="tmd-doc-table" id="tmd-parts-table">
+                  <thead>
+                    <tr>
+                      <th>Nº de Parte OEM</th>
+                      <th>Descripción Técnica</th>
+                      <th>Equipo Compatible</th>
+                      <th>Disponibilidad Almacén Km 22</th>
+                      <th style="text-align:right;">Precio Unitario</th>
+                      <th style="text-align:center;">Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tmd-parts-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 4: ÓRDENES EN TALLER (WO 5 FASES)                    -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-orders" class="tmd-workspace-pane" style="display:none;">
+            <div style="padding:0 28px 40px;">
+              <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;margin-bottom:24px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                  <div>
+                    <span class="tmd-status-tag tmd-tag-yellow">WO-8492 · FASE 4 DE 5</span>
+                    <h3 style="margin:8px 0 2px 0;font-size:1.35rem;color:#fff;font-weight:800;">Excavadora Hidráulica JCB JS220SC</h3>
+                    <p style="margin:0;font-size:0.78rem;color:#94a3b8;">Consorcio Malespín S.R.L. · Bahía 3 (Hidráulica 350 Bar) · Km 22 Autopista Duarte</p>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:0.75rem;color:#94a3b8;">Mecánico Asignado:</div>
+                    <strong style="color:#38bdf8;">Ing. Eduardo López</strong>
+                  </div>
+                </div>
+
+                <!-- 5-Stage Stepper -->
+                <div style="display:flex;justify-content:space-between;align-items:center;margin:32px 0;position:relative;">
+                  <div style="position:absolute;top:50%;left:40px;right:40px;height:2px;background:rgba(255,255,255,0.1);z-index:1;"></div>
+                  
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#10b981;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;">✓</div>
+                    <span style="font-size:0.72rem;color:#fff;font-weight:700;">1. Recepción</span>
+                  </div>
+
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#10b981;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;">✓</div>
+                    <span style="font-size:0.72rem;color:#fff;font-weight:700;">2. Diagnóstico</span>
+                  </div>
+
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#10b981;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;">✓</div>
+                    <span style="font-size:0.72rem;color:#fff;font-weight:700;">3. Espera Repuestos</span>
+                  </div>
+
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#f59e0b;color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:0 0 16px rgba(245,158,11,0.6);">4</div>
+                    <span style="font-size:0.72rem;color:#facc15;font-weight:800;">4. Banco 350 Bar</span>
+                  </div>
+
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#1e293b;color:#64748b;display:flex;align-items:center;justify-content:center;font-weight:800;">5</div>
+                    <span style="font-size:0.72rem;color:#64748b;font-weight:600;">5. Listo para Retiro</span>
+                  </div>
+                </div>
+
+                <!-- Report Box -->
+                <div style="background:#111622;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;">
+                  <h4 style="margin:0 0 8px 0;font-size:0.9rem;color:#fff;">Reporte de Banco de Pruebas Hidráulicas:</h4>
+                  <p style="margin:0;font-size:0.8rem;color:#d1d5db;line-height:1.6;">
+                    Se reemplazó la bomba del circuito principal por cavitación severa. En este momento el equipo se encuentra en el banco de pruebas hidráulicas estabilizado a <strong>348 Bar sin fugas</strong> en la válvula de alivio primario. Prueba de ciclo de pluma aprobada a 60°C.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 5: SAMSARA IOT FLEET TELEMETRY                       -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-fleet" class="tmd-workspace-pane" style="display:none;">
+            <div style="padding:0 28px 40px;">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;">
+                
+                <!-- Unit 1 -->
+                <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <strong style="color:#fff;font-size:1rem;">Retroexcavadora JCB 3CX Eco #01</strong>
+                    <span class="tmd-status-tag tmd-tag-green">OPERATIVA</span>
+                  </div>
+                  <div style="font-size:0.78rem;color:#94a3b8;line-height:1.6;">
+                    <div>Horómetro: <strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">3,420.5 hrs</strong></div>
+                    <div>Combustible Diésel: <strong style="color:#34d399;">82%</strong> (Autonomía ~12 hrs)</div>
+                    <div>Ubicación: <strong>Km 18 Autopista Duarte</strong></div>
+                  </div>
+                  <button class="tmd-btn-outline" style="width:100%;margin-top:16px;justify-content:center;" onclick="alert('Solicitando mantenimiento en obra...')">
+                    Solicitar Mantenimiento Preventivo
+                  </button>
+                </div>
+
+                <!-- Unit 2 -->
+                <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <strong style="color:#fff;font-size:1rem;">Cargador Frontal LiuGong 856H</strong>
+                    <span class="tmd-status-tag tmd-tag-green">OPERATIVA</span>
+                  </div>
+                  <div style="font-size:0.78rem;color:#94a3b8;line-height:1.6;">
+                    <div>Horómetro: <strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">4,812.0 hrs</strong></div>
+                    <div>Combustible Diésel: <strong style="color:#34d399;">68%</strong> (Autonomía ~9 hrs)</div>
+                    <div>Ubicación: <strong>Cantera Santo Domingo Oeste</strong></div>
+                  </div>
+                  <button class="tmd-btn-outline" style="width:100%;margin-top:16px;justify-content:center;" onclick="alert('Solicitando mantenimiento en obra...')">
+                    Solicitar Mantenimiento Preventivo
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 6: BOOKING EXPRESS BAY                               -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-booking" class="tmd-workspace-pane" style="display:none;">
+            <div style="max-width:700px;margin:0 auto;padding:20px 28px 40px;">
+              <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;">
+                <h3 style="margin:0 0 4px 0;font-size:1.25rem;color:#fff;">Agendar Bahía en Taller Central Km 22</h3>
+                <p style="margin:0 0 24px 0;font-size:0.78rem;color:#94a3b8;">Reserve un turno prioritario para su equipo con confirmación inmediata por WhatsApp.</p>
+
+                <form onsubmit="window.tmdSubmitBooking(event)" style="display:flex;flex-direction:column;gap:16px;">
+                  <div>
+                    <label style="font-size:0.75rem;font-weight:700;color:#94a3b8;display:block;margin-bottom:6px;">Equipo:</label>
+                    <input type="text" id="tmd-book-machine" class="tmd-input-field" value="Excavadora JCB JS220SC" required />
+                  </div>
+
+                  <div>
+                    <label style="font-size:0.75rem;font-weight:700;color:#94a3b8;display:block;margin-bottom:6px;">Tipo de Servicio Técnico:</label>
+                    <select id="tmd-book-service" class="tmd-input-field">
+                      <option value="hidraulica">Calibración & Banco de Pruebas Hidráulicas 350 Bar</option>
+                      <option value="express">Mantenimiento Preventivo Express (250h / 500h)</option>
+                      <option value="rodaje">Tren de Rodaje & Prensado de Cadenas</option>
+                      <option value="motor">Overhaul de Motor Diésel</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style="font-size:0.75rem;font-weight:700;color:#94a3b8;display:block;margin-bottom:6px;">Fecha Deseada:</label>
+                    <input type="date" id="tmd-book-date" class="tmd-input-field" value="2026-09-22" required />
+                  </div>
+
+                  <button type="submit" class="tmd-btn-pay-primary" style="margin-top:12px;">
+                    Confirmar Turno en Bahía Km 22 →
                   </button>
                 </form>
               </div>
             </div>
+          </section>
 
-            <!-- TAB 4: FACTURACIÓN FISCAL NCF & PAGOS SQUARE -->
-            <div id="tab-invoices" class="tmd-portal-pane">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
-                <div>
-                  <h3 style="font-size:1.25rem;font-weight:800;color:#fff;margin:0 0 4px 0;">Comprobantes Fiscales NCF & Estado de Pagos</h3>
-                  <p style="font-size:0.8rem;color:#9ca3af;margin:0;">Facturación válida para crédito fiscal DGII (B01) y pagos en 1-clic vía Square.</p>
-                </div>
-                <button class="tmd-search-btn" style="padding:8px 18px;font-size:0.78rem;" onclick="alert('Abriendo pasarela de pago Square Terminal para abono a cuenta...')">
-                  💳 Realizar Abono con Square
-                </button>
-              </div>
-
-              <div class="tmd-table-wrap">
-                <table class="tmd-data-table">
+          <!-- ───────────────────────────────────────────────────────── -->
+          <!-- PANE 7: FACTURACIÓN NCF B01                               -->
+          <!-- ───────────────────────────────────────────────────────── -->
+          <section id="pane-invoices" class="tmd-workspace-pane" style="display:none;">
+            <div style="padding:0 28px 40px;">
+              <div style="background:#0d111a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;">
+                <h3 style="margin:0 0 16px 0;font-size:1.15rem;color:#fff;">Comprobantes Fiscales DGII (NCF B01)</h3>
+                
+                <table class="tmd-doc-table">
                   <thead>
                     <tr>
-                      <th>No. NCF Fiscal</th>
+                      <th>Número NCF</th>
                       <th>Fecha</th>
-                      <th>Concepto / Orden</th>
-                      <th>Monto DOP</th>
-                      <th>Monto USD</th>
+                      <th>Concepto</th>
+                      <th>Total USD</th>
                       <th>Estado</th>
                       <th>Acción</th>
                     </tr>
@@ -483,879 +801,273 @@
                   <tbody>
                     <tr>
                       <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">B01000492</strong></td>
-                      <td>16 Sep 2026</td>
-                      <td>Overhaul Bomba K3V112DT & Banco 350 Bar (WO-8492)</td>
-                      <td>RD$ 246,925.00</td>
-                      <td><strong style="color:#fff;">USD $4,150.00</strong></td>
-                      <td><span class="tmd-badge-pill tmd-badge-amber">PENDIENTE</span></td>
+                      <td>12 Sep 2026</td>
+                      <td>Reparación Bomba Hidráulica JCB JS220SC</td>
+                      <td><strong style="color:#fff;">$4,150.00</strong></td>
+                      <td><span class="tmd-status-tag tmd-tag-yellow">POR PAGAR</span></td>
                       <td>
-                        <button class="tmd-chip" onclick="alert('Iniciando pago seguro de USD $4,150.00 en pasarela Square Terminal...')">Pagar 1-Clic</button>
+                        <button class="tmd-btn-outline" style="padding:4px 10px;font-size:0.72rem;" onclick="window.tmdSwitchNav('nav-quotes')">Pagar vía Square →</button>
                       </td>
                     </tr>
                     <tr>
                       <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">B01000488</strong></td>
-                      <td>12 Sep 2026</td>
-                      <td>Kit de Filtros OEM 500h JCB JS220 (Despacho Km 22)</td>
-                      <td>RD$ 42,840.00</td>
-                      <td><strong style="color:#fff;">USD $720.00</strong></td>
-                      <td><span class="tmd-badge-pill tmd-badge-green">PAGADA</span></td>
+                      <td>05 Sep 2026</td>
+                      <td>Filtros y Aceites Hidráulicos LiuGong 856H</td>
+                      <td><strong style="color:#fff;">$720.00</strong></td>
+                      <td><span class="tmd-status-tag tmd-tag-green">PAGADA</span></td>
                       <td>
-                        <button class="tmd-chip" onclick="alert('Descargando comprobante fiscal digital NCF B01000488...')">PDF NCF</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">B01000475</strong></td>
-                      <td>01 Sep 2026</td>
-                      <td>Renta Mensual Retroexcavadora JCB 3CX Eco #02</td>
-                      <td>RD$ 297,500.00</td>
-                      <td><strong style="color:#fff;">USD $5,000.00</strong></td>
-                      <td><span class="tmd-badge-pill tmd-badge-green">PAGADA</span></td>
-                      <td>
-                        <button class="tmd-chip" onclick="alert('Descargando comprobante fiscal digital NCF B01000475...')">PDF NCF</button>
+                        <button class="tmd-btn-outline" style="padding:4px 10px;font-size:0.72rem;" onclick="alert('Descargando comprobante fiscal B01000488...')">PDF NCF</button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
+          </section>
 
-            <!-- TAB 5: CATÁLOGO DE REPUESTOS OEM -->
-            <div id="tab-parts" class="tmd-portal-pane">
-              <div style="background:rgba(18,24,38,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:24px;">
-                <div style="font-size:0.78rem;font-weight:700;color:#facc15;font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:8px;">
-                  BÚSQUEDA DIRECTA EN ALMACÉN CENTRAL KM 22
-                </div>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                  <input type="text" id="tmd-part-search-input" class="tmd-search-input" style="flex:1;min-width:280px;" placeholder="Ingrese Número de Parte OEM (Ej: JCB-20/9253401, LS-40007521)..." onkeydown="if(event.key==='Enter')window.tmdSearchParts();" />
-                  <button class="tmd-search-btn" onclick="window.tmdSearchParts()">Consultar Almacén →</button>
-                </div>
-              </div>
+        </main>
+      </div>
 
-              <div id="tmd-parts-results-container"></div>
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <!-- 3. MODAL DE FIRMA DIGITAL MANUSCRITA (Foto 2)               -->
+      <!-- ═══════════════════════════════════════════════════════════ -->
+      <div id="tmd-sig-modal" class="tmd-modal-overlay">
+        <div class="tmd-sig-dialog">
+          <div class="tmd-sig-dialog-header">
+            <h3>Aprobar Cotización #11555</h3>
+            <button class="tmd-btn-icon" onclick="window.tmdCloseSignatureModal()">✕</button>
+          </div>
+          <div class="tmd-sig-dialog-body">
+            <p style="font-size:0.78rem;color:#94a3b8;margin:0 0 12px 0;">
+              Dibuje su firma manuscrita para autorizar la orden de trabajo, la orden de piezas y el cargo de anticipo por USD $1,000.00.
+            </p>
+            <div class="tmd-canvas-wrapper">
+              <canvas id="tmd-quote-sig-canvas"></canvas>
             </div>
-
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+              <span style="font-size:0.68rem;color:#64748b;font-family:'JetBrains Mono',monospace;">Firma con Certificado Criptográfico TMD</span>
+              <button class="tmd-btn-text" style="font-size:0.72rem;" onclick="window.tmdClearQuoteSig()">Limpiar Firma</button>
+            </div>
+          </div>
+          <div class="tmd-sig-dialog-footer">
+            <button class="tmd-btn-text" onclick="window.tmdCloseSignatureModal()">Cancelar</button>
+            <button class="tmd-btn-pay-primary" style="width:auto;padding:10px 24px;" onclick="window.tmdConfirmQuoteApproval()">
+              Confirmar & Aprobar Cotización →
+            </button>
           </div>
         </div>
-
-        <!-- ================================================================ -->
-        <!-- 2. VISTA DE PERSONAL TALLER KM 22 (MICROSOFT AZURE / FULLBAY)     -->
-        <!-- ================================================================ -->
-        <div id="tmd-view-staff" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
-          
-          <!-- STAFF TOP BANNER -->
-          <div style="padding:14px 24px;background:#081320;border-bottom:1px solid rgba(56,189,248,0.2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span class="tmd-badge-pill tmd-badge-blue">MESA TÉCNICA ACTIVA</span>
-              <span style="font-size:0.85rem;font-weight:700;color:#fff;">Taller Central Km 22 Autopista Duarte</span>
-              <span style="font-size:0.72rem;color:#38bdf8;font-family:'JetBrains Mono',monospace;">FULLBAY SYNC 1.2MS · 18 BAHÍAS DISPONIBLES</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <button class="tmd-chip" style="background:rgba(56,189,248,0.15);border-color:#38bdf8;color:#38bdf8;" onclick="alert('Abriendo terminal Square POS para cobro directo en mostrador de taller...')">
-                💳 Square POS Km 22
-              </button>
-            </div>
-          </div>
-
-          <!-- STAFF SUBNAV TABS -->
-          <nav class="tmd-portal-tabs" aria-label="Navegación Taller">
-            <button class="tmd-portal-tab active" data-staff-tab="staff-bays" onclick="window.tmdSwitchStaffTab('staff-bays')">
-              <span>🏗️ Bahías de Taller Km 22 (1-18)</span>
-            </button>
-            <button class="tmd-portal-tab" data-staff-tab="staff-orders" onclick="window.tmdSwitchStaffTab('staff-orders')">
-              <span>📋 Órdenes en Curso (Fullbay Work Orders)</span>
-            </button>
-            <button class="tmd-portal-tab" data-staff-tab="staff-dvi" onclick="window.tmdSwitchStaffTab('staff-dvi')">
-              <span>🚜 Inspección Digital DVI & Firma</span>
-            </button>
-          </nav>
-
-          <!-- STAFF BODY CONTAINER -->
-          <div class="tmd-portal-body">
-            
-            <!-- STAFF SUBTAB 1: BAHÍAS -->
-            <div id="staff-bays" class="tmd-staff-pane" style="display:block;">
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
-                
-                <!-- Bahía 1 -->
-                <div class="tmd-card-panel" style="border-color:rgba(245,158,11,0.3);">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                    <h4 style="margin:0;border:none;padding:0;">Bahía 1 — Tren de Fuerza & Motores</h4>
-                    <span class="tmd-badge-pill tmd-badge-amber">OCUPADA</span>
-                  </div>
-                  <div style="font-size:0.78rem;color:#d1d5db;line-height:1.6;">
-                    <div>Equipo: <strong style="color:#fff;">JCB JS220SC</strong></div>
-                    <div>Técnico Asignado: <strong style="color:#38bdf8;">Téc. Rafael Valdez</strong></div>
-                    <div>Orden Activa: <strong style="color:#facc15;">WO-8501</strong></div>
-                    <div>Estado: <strong style="color:#fff;">Ensamblaje de Culata</strong></div>
-                  </div>
-                  <div style="display:flex;gap:8px;margin-top:14px;">
-                    <button class="tmd-chip" style="flex:1;text-align:center;" onclick="window.tmdAdvanceStage('WO-8501')">Avanzar Fase</button>
-                    <button class="tmd-chip" style="flex:1;text-align:center;" onclick="alert('Bahía 1 liberada. Lista para nuevo ingreso.')">Liberar</button>
-                  </div>
-                </div>
-
-                <!-- Bahía 2 -->
-                <div class="tmd-card-panel" style="border-color:rgba(245,158,11,0.3);">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                    <h4 style="margin:0;border:none;padding:0;">Bahía 2 — Tren de Rodaje & Orugas</h4>
-                    <span class="tmd-badge-pill tmd-badge-amber">OCUPADA</span>
-                  </div>
-                  <div style="font-size:0.78rem;color:#d1d5db;line-height:1.6;">
-                    <div>Equipo: <strong style="color:#fff;">LiuGong 856H</strong></div>
-                    <div>Técnico Asignado: <strong style="color:#38bdf8;">Ing. Kelvin De León</strong></div>
-                    <div>Orden Activa: <strong style="color:#facc15;">WO-8488</strong></div>
-                    <div>Estado: <strong style="color:#fff;">Tensión de Orugas & Rodillos</strong></div>
-                  </div>
-                  <div style="display:flex;gap:8px;margin-top:14px;">
-                    <button class="tmd-chip" style="flex:1;text-align:center;" onclick="window.tmdAdvanceStage('WO-8488')">Avanzar Fase</button>
-                    <button class="tmd-chip" style="flex:1;text-align:center;" onclick="alert('Bahía 2 liberada.')">Liberar</button>
-                  </div>
-                </div>
-
-                <!-- Bahía 3 -->
-                <div class="tmd-card-panel" style="border-color:rgba(56,189,248,0.4);">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                    <h4 style="margin:0;border:none;padding:0;">Bahía 3 — Hidráulica 350 Bar & Banco</h4>
-                    <span class="tmd-badge-pill tmd-badge-blue">EN PRUEBA</span>
-                  </div>
-                  <div style="font-size:0.78rem;color:#d1d5db;line-height:1.6;">
-                    <div>Equipo: <strong style="color:#fff;">JCB JS220SC (Consorcio Malespín)</strong></div>
-                    <div>Técnico Asignado: <strong style="color:#38bdf8;">Ing. Eduardo López</strong></div>
-                    <div>Orden Activa: <strong style="color:#facc15;">WO-8492</strong></div>
-                    <div>Lectura: <strong style="color:#34d399;">348 Bar Estabilizada a 60°C</strong></div>
-                  </div>
-                  <div style="display:flex;gap:8px;margin-top:14px;">
-                    <button class="tmd-chip" style="flex:1;text-align:center;background:rgba(16,185,129,0.15);border-color:#10b981;color:#34d399;" onclick="window.tmdNotifyClientWhatsApp('WO-8492')">
-                      Avisar WhatsApp
-                    </button>
-                    <button class="tmd-chip" style="flex:1;text-align:center;" onclick="window.tmdAdvanceStage('WO-8492')">Fase Final →</button>
-                  </div>
-                </div>
-
-                <!-- Bahía 4 -->
-                <div class="tmd-card-panel" style="border-color:rgba(16,185,129,0.3);">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                    <h4 style="margin:0;border:none;padding:0;">Bahía 4 — Mantenimiento Express</h4>
-                    <span class="tmd-badge-pill tmd-badge-green">DISPONIBLE</span>
-                  </div>
-                  <div style="font-size:0.78rem;color:#d1d5db;line-height:1.6;">
-                    <div>Mecánico en Guardia: <strong style="color:#fff;">Téc. Domingo Rosario</strong></div>
-                    <div>Especialidad: <strong style="color:#fff;">Servicio Express 250h / 500h</strong></div>
-                    <div>Próximo Turno: <strong style="color:#34d399;">Bahía Lista para Asignación</strong></div>
-                  </div>
-                  <div style="margin-top:14px;">
-                    <button class="tmd-chip" style="width:100%;text-align:center;" onclick="alert('Asignando turno express a Bahía 4...')">
-                      Asignar Turno Inmediato →
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- STAFF SUBTAB 2: ÓRDENES FULLBAY -->
-            <div id="staff-orders" class="tmd-staff-pane" style="display:none;">
-              <div class="tmd-table-wrap">
-                <table class="tmd-data-table">
-                  <thead>
-                    <tr>
-                      <th>Orden WO</th>
-                      <th>Equipo / Modelo</th>
-                      <th>Cliente</th>
-                      <th>Bahía</th>
-                      <th>Fase Actual</th>
-                      <th>Mecánico</th>
-                      <th>Acción</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">WO-8492</strong></td>
-                      <td>Excavadora JCB JS220SC</td>
-                      <td>Consorcio Malespín</td>
-                      <td>Bahía 3 (350 Bar)</td>
-                      <td><span class="tmd-badge-pill tmd-badge-blue">4/5 BANCO PRUEBA</span></td>
-                      <td>Ing. Eduardo López</td>
-                      <td><button class="tmd-chip" onclick="window.tmdAdvanceStage('WO-8492')">Avanzar →</button></td>
-                    </tr>
-                    <tr>
-                      <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">WO-8501</strong></td>
-                      <td>Cargador LiuGong 856H</td>
-                      <td>Constructora del Cibao</td>
-                      <td>Bahía 1 (Motores)</td>
-                      <td><span class="tmd-badge-pill tmd-badge-amber">2/5 DIAGNÓSTICO</span></td>
-                      <td>Téc. Rafael Valdez</td>
-                      <td><button class="tmd-chip" onclick="window.tmdAdvanceStage('WO-8501')">Avanzar →</button></td>
-                    </tr>
-                    <tr>
-                      <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">WO-8504</strong></td>
-                      <td>Tractor Agrícola LS MT357C</td>
-                      <td>Agroindustrial del Este</td>
-                      <td>Bahía 4 (Express)</td>
-                      <td><span class="tmd-badge-pill tmd-badge-green">1/5 RECEPCIÓN</span></td>
-                      <td>Téc. Domingo Rosario</td>
-                      <td><button class="tmd-chip" onclick="window.tmdAdvanceStage('WO-8504')">Avanzar →</button></td>
-                    </tr>
-                    <tr>
-                      <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">WO-8488</strong></td>
-                      <td>Rodillo Bomag BW 211</td>
-                      <td>Ingeniería Vial Dominicana</td>
-                      <td>Bahía 2 (Rodaje)</td>
-                      <td><span class="tmd-badge-pill tmd-badge-amber">3/5 REPUESTOS</span></td>
-                      <td>Ing. Kelvin De León</td>
-                      <td><button class="tmd-chip" onclick="window.tmdAdvanceStage('WO-8488')">Avanzar →</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- STAFF SUBTAB 3: DVI & FIRMA DIGITAL -->
-            <div id="staff-dvi" class="tmd-staff-pane" style="display:none;">
-              <div style="max-width:850px;margin:0 auto;background:rgba(18,24,38,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                  <div>
-                    <h3 style="font-size:1.2rem;font-weight:800;color:#fff;margin:0;">Inspección Digital de Vehículo (DVI) & Calibración 350 Bar</h3>
-                    <p style="font-size:0.75rem;color:#9ca3af;margin:2px 0 0;">Checklist técnico de 40 puntos conforme a especificaciones de fábrica JCB / LiuGong.</p>
-                  </div>
-                  <span class="tmd-badge-pill tmd-badge-amber">WO-8492</span>
-                </div>
-
-                <div class="tmd-dvi-group">
-                  <div style="font-size:0.75rem;font-weight:700;color:#facc15;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">
-                    1. CIRCUITO HIDRÁULICO PRINCIPAL (BANCO 350 BAR)
-                  </div>
-                  
-                  <div class="tmd-dvi-row">
-                    <span>Presión de Alivio Válvula Principal (Target: 348 Bar a 1800 RPM):</span>
-                    <div class="tmd-dvi-btns">
-                      <button class="tmd-dvi-btn active-pass" onclick="window.tmdToggleDVI(this,'pass')">Pasa (348 Bar)</button>
-                      <button class="tmd-dvi-btn" onclick="window.tmdToggleDVI(this,'warn')">Atención</button>
-                      <button class="tmd-dvi-btn" onclick="window.tmdToggleDVI(this,'fail')">Falla</button>
-                    </div>
-                  </div>
-
-                  <div class="tmd-dvi-row">
-                    <span>Inspección de Fugas en Cilindros de Pluma y Brazo:</span>
-                    <div class="tmd-dvi-btns">
-                      <button class="tmd-dvi-btn active-pass" onclick="window.tmdToggleDVI(this,'pass')">Sin Fugas (OK)</button>
-                      <button class="tmd-dvi-btn" onclick="window.tmdToggleDVI(this,'warn')">Humedad</button>
-                      <button class="tmd-dvi-btn" onclick="window.tmdToggleDVI(this,'fail')">Fuga Activa</button>
-                    </div>
-                  </div>
-
-                  <div class="tmd-dvi-row">
-                    <span>Temperatura de Aceite Hidráulico tras Ciclo de 30 min:</span>
-                    <div class="tmd-dvi-btns">
-                      <button class="tmd-dvi-btn active-pass" onclick="window.tmdToggleDVI(this,'pass')">60°C (Óptima)</button>
-                      <button class="tmd-dvi-btn" onclick="window.tmdToggleDVI(this,'warn')">75°C</button>
-                      <button class="tmd-dvi-btn" onclick="window.tmdToggleDVI(this,'fail')">&gt;85°C Alerta</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- CANVAS DE FIRMA DIGITAL -->
-                <div style="margin-top:20px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <label style="font-size:0.75rem;font-weight:700;color:#9ca3af;">Firma Digital de Aprobación Técnica (Mecánico / Supervisor Km 22):</label>
-                    <button class="tmd-chip" style="font-size:0.68rem;padding:2px 8px;" onclick="window.tmdClearSignature()">Limpiar Firma</button>
-                  </div>
-                  <div class="tmd-signature-box">
-                    <canvas id="tmd-sig-canvas"></canvas>
-                  </div>
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
-                    <span style="font-size:0.7rem;color:#6b7280;font-family:'JetBrains Mono',monospace;">Certificado Criptográfico SHA-256 TMD</span>
-                    <button class="tmd-search-btn" style="padding:8px 20px;font-size:0.8rem;" onclick="window.tmdSaveDVIInspection()">
-                      Guardar y Firmar DVI →
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ================================================================ -->
-        <!-- 3. VISTA DE CONSOLA TI & ADMINISTRACIÓN (META / GOOGLE CLOUD)     -->
-        <!-- ================================================================ -->
-        <div id="tmd-view-admin" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
-          
-          <!-- ADMIN TOP BANNER -->
-          <div style="padding:14px 24px;background:#06140e;border-bottom:1px solid rgba(16,185,129,0.2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span class="tmd-badge-pill tmd-badge-green">CONSOLA TI & SISTEMAS</span>
-              <span style="font-size:0.85rem;font-weight:700;color:#fff;">Control de Rendimiento, Suite Visual & Conexión de APIs</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <span id="tmd-admin-save-notice" style="display:none;color:#10b981;font-size:0.75rem;font-weight:700;">
-                ✓ Parámetros guardados
-              </span>
-            </div>
-          </div>
-
-          <!-- ADMIN BODY CONTAINER -->
-          <div class="tmd-portal-body">
-            <div style="max-width:850px;margin:0 auto;display:flex;flex-direction:column;gap:20px;">
-              
-              <!-- CARD 1: CONTROL VISUAL & ATMÓSFERA -->
-              <div class="tmd-console-card">
-                <h4 style="margin:0 0 16px 0;font-size:0.95rem;color:#fff;display:flex;align-items:center;gap:8px;">
-                  ✨ Control de Efectos Visuales & Suite Atmosférica
-                </h4>
-
-                <!-- Toggle Partículas -->
-                <div class="tmd-console-row">
-                  <div>
-                    <div class="tmd-console-label">Efecto de Partículas & Constelaciones</div>
-                    <div class="tmd-console-desc">Activa o apaga las partículas de micro-polvo y las conexiones estelares en el fondo.</div>
-                  </div>
-                  <label class="tmd-toggle-switch">
-                    <input type="checkbox" id="tmd-toggle-particles" checked onchange="window.tmdToggleParticles(this.checked)" />
-                    <span class="tmd-slider"></span>
-                  </label>
-                </div>
-
-                <!-- Toggle Mouse Glow 1:1 -->
-                <div class="tmd-console-row">
-                  <div>
-                    <div class="tmd-console-label">Luz de Cursor / Mouse Glow (todobuild.store 1:1)</div>
-                    <div class="tmd-console-desc">Haz de luz radial de 550px que sigue el movimiento del ratón sobre tarjetas y fondo.</div>
-                  </div>
-                  <label class="tmd-toggle-switch">
-                    <input type="checkbox" id="tmd-toggle-mouse-glow" checked onchange="window.tmdToggleMouseGlow(this.checked)" />
-                    <span class="tmd-slider"></span>
-                  </label>
-                </div>
-
-                <!-- Modo de Partículas -->
-                <div class="tmd-console-row">
-                  <div>
-                    <div class="tmd-console-label">Modo de Partículas</div>
-                    <div class="tmd-console-desc">Alterna la estética visual del sistema de partículas.</div>
-                  </div>
-                  <select id="tmd-select-particle-mode" class="tmd-search-input" style="width:240px;" onchange="window.tmdSetParticleMode(this.value)">
-                    <option value="dust">Micro-Dust Ámbar (Sutil y Técnico)</option>
-                    <option value="bokeh">Constelaciones & Nube Técnica</option>
-                    <option value="vignette">Minimalista con Viñeta Suave</option>
-                  </select>
-                </div>
-
-                <!-- Resplandor Dorado (Glow) -->
-                <div class="tmd-console-row">
-                  <div>
-                    <div class="tmd-console-label">Resplandor Atmosférico Dorado (Glow)</div>
-                    <div class="tmd-console-desc">Ajusta la intensidad del halo de luz ambiental en las esquinas superiores.</div>
-                  </div>
-                  <select id="tmd-select-glow-level" class="tmd-search-input" style="width:240px;" onchange="window.tmdSetGlowLevel(this.value)">
-                    <option value="off">Desactivado (Negro Puro)</option>
-                    <option value="subtle">Sutil (Bajo Consumo)</option>
-                    <option value="medium" selected>Medio (Recomendado)</option>
-                    <option value="high">Alto (Efecto Cinemático)</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- CARD 2: CONMUTADOR DE APIS & CREDENCIALES -->
-              <div class="tmd-console-card">
-                <h4 style="margin:0 0 16px 0;font-size:0.95rem;color:#fff;display:flex;align-items:center;gap:8px;">
-                  🔌 Conmutador de APIs & Credenciales
-                </h4>
-
-                <div class="tmd-console-row">
-                  <div>
-                    <div class="tmd-console-label">Fuente de Datos del Sistema</div>
-                    <div class="tmd-console-desc">Alterna entre la base de datos de simulación local o las llamadas en vivo a Fullbay y JCB.</div>
-                  </div>
-                  <label class="tmd-toggle-switch">
-                    <input type="checkbox" id="tmd-toggle-live-api" onchange="window.tmdToggleLiveAPI(this.checked)" />
-                    <span class="tmd-slider"></span>
-                  </label>
-                </div>
-
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
-                  <div>
-                    <label style="font-size:0.72rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:4px;">Fullbay Store ID:</label>
-                    <input type="text" id="tmd-cfg-fullbay-store" class="tmd-search-input" style="width:100%;font-size:0.8rem;" value="tmd-km22-do" onchange="window.tmdSaveAPIConfig()" />
-                  </div>
-                  <div>
-                    <label style="font-size:0.72rem;font-weight:700;color:#9ca3af;display:block;margin-bottom:4px;">Fullbay API Key:</label>
-                    <input type="password" id="tmd-cfg-fullbay-key" class="tmd-search-input" style="width:100%;font-size:0.8rem;" value="Bearer fb_live_84920_tmd_km22" onchange="window.tmdSaveAPIConfig()" />
-                  </div>
-                </div>
-
-                <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
-                  <button class="tmd-chip" style="background:rgba(239,68,68,0.15);border-color:#ef4444;color:#ef4444;" onclick="window.tmdResetConfigDefaults()">
-                    ⚠️ Restablecer Valores Iniciales
-                  </button>
-                  <button class="tmd-chip" onclick="localStorage.clear();alert('Caché local purgada correctamente.');location.reload();">
-                    🧹 Purgar Caché del Navegador
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
       </div>
     `;
 
-    document.body.appendChild(modal);
+    document.body.appendChild(app);
 
-    // Cerrar al presionar Escape
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        window.tmdCloseClientPortal();
-      }
-    });
+    // Render initial parts
+    renderPartsTable(OEM_PARTS);
 
-    // Iniciar pad de firma
-    initSignaturePad();
+    // Setup Signature Pad
+    initQuoteSignaturePad();
   }
 
-  // Lógica del Canvas de Firma Digital
-  var _sigDrawing = false;
-  function initSignaturePad() {
-    setTimeout(function() {
-      var canvas = document.getElementById('tmd-sig-canvas');
-      if (!canvas) return;
-      var ctx = canvas.getContext('2d');
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      ctx.strokeStyle = '#facc15';
-      ctx.lineWidth = 2.5;
-      ctx.lineCap = 'round';
+  // ─── PARTS CATALOG LOGIC (John Deere / AgriVision Style) ───
+  function renderPartsTable(parts) {
+    var tbody = document.getElementById('tmd-parts-tbody');
+    if (!tbody) return;
 
-      function start(e) {
-        _sigDrawing = true;
-        ctx.beginPath();
-        var pos = getPos(e, canvas);
-        ctx.moveTo(pos.x, pos.y);
-      }
-      function draw(e) {
-        if (!_sigDrawing) return;
-        var pos = getPos(e, canvas);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      }
-      function stop() {
-        _sigDrawing = false;
-      }
+    if (parts.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:24px;color:#94a3b8;">No se encontraron piezas en el almacén del Km 22 con ese criterio.</td></tr>`;
+      return;
+    }
 
-      function getPos(e, cvs) {
-        var rect = cvs.getBoundingClientRect();
-        var clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        var clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
-      }
-
-      canvas.addEventListener('mousedown', start);
-      canvas.addEventListener('mousemove', draw);
-      window.addEventListener('mouseup', stop);
-
-      canvas.addEventListener('touchstart', start, { passive: true });
-      canvas.addEventListener('touchmove', draw, { passive: true });
-      window.addEventListener('touchend', stop);
-    }, 400);
+    tbody.innerHTML = parts.map(function(p) {
+      return `
+        <tr>
+          <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">${p.partNo}</strong></td>
+          <td>
+            <div style="color:#fff;font-weight:600;">${p.desc}</div>
+          </td>
+          <td><span style="color:#94a3b8;">${p.machine}</span></td>
+          <td><span class="tmd-status-tag tmd-tag-green">${p.stock}</span></td>
+          <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;">$${p.price.toFixed(2)} USD</td>
+          <td style="text-align:center;">
+            <button class="tmd-btn-outline" style="padding:4px 10px;font-size:0.72rem;" onclick="alert('Pieza ${p.partNo} agregada a su solicitud de despacho.')">
+              + Añadir
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
   }
 
-  window.tmdClearSignature = function() {
-    var canvas = document.getElementById('tmd-sig-canvas');
-    if (canvas) {
-      var ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-  };
-
-  window.tmdSaveDVIInspection = function() {
-    alert('Inspección Digital DVI y Calibración Hidráulica de 350 Bar firmadas y sincronizadas con Fullbay ERP exitosamente.');
-  };
-
-  window.tmdToggleDVI = function(btn, type) {
-    var parent = btn.parentElement;
-    var btns = parent.querySelectorAll('.tmd-dvi-btn');
-    btns.forEach(function(b) {
-      b.className = 'tmd-dvi-btn';
+  window.tmdFilterParts = function(query) {
+    var q = (query || '').toLowerCase().trim();
+    var filtered = OEM_PARTS.filter(function(p) {
+      return p.partNo.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.machine.toLowerCase().includes(q);
     });
-    btn.className = 'tmd-dvi-btn active-' + type;
+    renderPartsTable(filtered);
   };
 
-  window.tmdOpenClientPortal = function() {
-    initPortalDOM();
-    var modal = document.getElementById('tmd-client-portal-modal');
-    if (modal) {
-      modal.classList.add('tmd-active');
-      document.body.style.overflow = 'hidden';
-      
-      // Si ya hay un rol seleccionado, mostrar su vista; de lo contrario, el selector
-      var savedRole = localStorage.getItem('tmd_portal_role');
-      if (savedRole && (savedRole === 'client' || savedRole === 'staff' || savedRole === 'admin')) {
-        window.tmdSelectRole(savedRole);
-      } else {
-        window.tmdShowRoleSelector();
-      }
-    }
-  };
-
-  window.tmdCloseClientPortal = function() {
-    var modal = document.getElementById('tmd-client-portal-modal');
-    if (modal) {
-      modal.classList.remove('tmd-active');
-      document.body.style.overflow = '';
-    }
-  };
-
-  window.tmdShowRoleSelector = function() {
-    _currentRole = null;
-    var vSelect = document.getElementById('tmd-view-role-select');
-    var vClient = document.getElementById('tmd-view-client');
-    var vStaff = document.getElementById('tmd-view-staff');
-    var vAdmin = document.getElementById('tmd-view-admin');
-    var btnChange = document.getElementById('tmd-change-role-btn');
-
-    if (vSelect) vSelect.style.display = 'block';
-    if (vClient) vClient.style.display = 'none';
-    if (vStaff) vStaff.style.display = 'none';
-    if (vAdmin) vAdmin.style.display = 'none';
-    if (btnChange) btnChange.style.display = 'none';
-
-    // Focus en PIN input si se necesita
-    var staffPinInput = document.getElementById('tmd-staff-pin-input');
-    if (staffPinInput) staffPinInput.value = '';
-    var adminPinInput = document.getElementById('tmd-admin-pin-input');
-    if (adminPinInput) adminPinInput.value = '';
-  };
-
-  window.tmdSelectRole = function(role) {
-    _currentRole = role;
-    localStorage.setItem('tmd_portal_role', role);
-
-    var vSelect = document.getElementById('tmd-view-role-select');
-    var vClient = document.getElementById('tmd-view-client');
-    var vStaff = document.getElementById('tmd-view-staff');
-    var vAdmin = document.getElementById('tmd-view-admin');
-    var btnChange = document.getElementById('tmd-change-role-btn');
-
-    if (vSelect) vSelect.style.display = 'none';
-    if (vClient) vClient.style.display = (role === 'client') ? 'flex' : 'none';
-    if (vStaff) vStaff.style.display = (role === 'staff') ? 'flex' : 'none';
-    if (vAdmin) vAdmin.style.display = (role === 'admin') ? 'flex' : 'none';
-    if (btnChange) btnChange.style.display = 'inline-block';
-
-    if (role === 'client') {
-      if (!_activeWO) {
-        window.tmdLoadDemoWO('WO-8492');
-      }
-      window.tmdSearchParts();
-    } else if (role === 'staff') {
-      window.tmdSwitchStaffTab(_staffTab || 'staff-bays');
-      initSignaturePad();
-    } else if (role === 'admin') {
-      syncAdminConsoleState();
-    }
-  };
-
-  window.tmdVerifyStaffPIN = function() {
-    var input = document.getElementById('tmd-staff-pin-input');
-    var err = document.getElementById('tmd-staff-pin-err');
-    if (!input) return;
-    if (input.value === STAFF_PIN || input.value === '0909') {
-      if (err) err.style.display = 'none';
-      window.tmdSelectRole('staff');
+  window.tmdFilterPartsByCategory = function(cat) {
+    if (cat === 'all') {
+      renderPartsTable(OEM_PARTS);
     } else {
-      if (err) err.style.display = 'block';
-      input.focus();
+      var filtered = OEM_PARTS.filter(function(p) {
+        return p.cat === cat || p.machine.toLowerCase().includes(cat);
+      });
+      renderPartsTable(filtered);
     }
   };
 
-  window.tmdVerifyAdminPIN = function() {
-    var input = document.getElementById('tmd-admin-pin-input');
-    var err = document.getElementById('tmd-admin-pin-err');
-    if (!input) return;
-    if (input.value === ADMIN_PIN || input.value === '0909') {
-      if (err) err.style.display = 'none';
-      window.tmdSelectRole('admin');
-    } else {
-      if (err) err.style.display = 'block';
-      input.focus();
+  // ─── SIGNATURE PAD LOGIC (Jobber Style - Foto 2) ───
+  var sigCanvas, sigCtx, sigDrawing = false;
+
+  function initQuoteSignaturePad() {
+    sigCanvas = document.getElementById('tmd-quote-sig-canvas');
+    if (!sigCanvas) return;
+
+    sigCtx = sigCanvas.getContext('2d');
+
+    function resizeSig() {
+      var rect = sigCanvas.getBoundingClientRect();
+      sigCanvas.width = rect.width;
+      sigCanvas.height = 180;
+      sigCtx.lineWidth = 2.5;
+      sigCtx.lineCap = 'round';
+      sigCtx.strokeStyle = '#0284c7'; // Jobber technical dark blue ink
+    }
+    resizeSig();
+
+    function getPos(e) {
+      var rect = sigCanvas.getBoundingClientRect();
+      var cx = e.touches ? e.touches[0].clientX : e.clientX;
+      var cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: cx - rect.left, y: cy - rect.top };
+    }
+
+    function startDraw(e) {
+      sigDrawing = true;
+      var pos = getPos(e);
+      sigCtx.beginPath();
+      sigCtx.moveTo(pos.x, pos.y);
+      e.preventDefault();
+    }
+
+    function draw(e) {
+      if (!sigDrawing) return;
+      var pos = getPos(e);
+      sigCtx.lineTo(pos.x, pos.y);
+      sigCtx.stroke();
+      e.preventDefault();
+    }
+
+    function stopDraw() {
+      sigDrawing = false;
+    }
+
+    sigCanvas.addEventListener('mousedown', startDraw);
+    sigCanvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+
+    sigCanvas.addEventListener('touchstart', startDraw, { passive: false });
+    sigCanvas.addEventListener('touchmove', draw, { passive: false });
+    window.addEventListener('touchend', stopDraw);
+  }
+
+  window.tmdClearQuoteSig = function() {
+    if (sigCanvas && sigCtx) {
+      sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
     }
   };
 
-  window.tmdSwitchPortalTab = function(tabId) {
-    _currentTab = tabId;
-    var tabs = document.querySelectorAll('.tmd-portal-tab');
-    tabs.forEach(function(tab) {
-      if (tab.getAttribute('data-tab') === tabId) {
-        tab.classList.add('active');
-      } else {
-        tab.classList.remove('active');
-      }
-    });
-
-    var panes = document.querySelectorAll('.tmd-portal-pane');
-    panes.forEach(function(pane) {
-      if (pane.id === tabId) {
-        pane.classList.add('active');
-      } else {
-        pane.classList.remove('active');
-      }
-    });
-  };
-
-  window.tmdSwitchStaffTab = function(staffTabId) {
-    _staffTab = staffTabId;
-    var tabs = document.querySelectorAll('[data-staff-tab]');
-    tabs.forEach(function(tab) {
-      if (tab.getAttribute('data-staff-tab') === staffTabId) {
-        tab.classList.add('active');
-      } else {
-        tab.classList.remove('active');
-      }
-    });
-
-    var panes = document.querySelectorAll('.tmd-staff-pane');
-    panes.forEach(function(pane) {
-      if (pane.id === staffTabId) {
-        pane.style.display = 'block';
-      } else {
-        pane.style.display = 'none';
-      }
-    });
-
-    if (staffTabId === 'staff-dvi') {
-      initSignaturePad();
+  window.tmdOpenSignatureModal = function() {
+    var m = document.getElementById('tmd-sig-modal');
+    if (m) {
+      m.style.display = 'flex';
+      setTimeout(function() {
+        if (sigCanvas) {
+          var rect = sigCanvas.getBoundingClientRect();
+          sigCanvas.width = rect.width;
+          sigCanvas.height = 180;
+          sigCtx.lineWidth = 2.5;
+          sigCtx.lineCap = 'round';
+          sigCtx.strokeStyle = '#0284c7';
+        }
+      }, 50);
     }
   };
 
-  window.tmdLoadDemoWO = function(woId) {
-    var input = document.getElementById('tmd-wo-search-input');
-    if (input) input.value = woId;
-    renderWOView(woId);
+  window.tmdCloseSignatureModal = function() {
+    var m = document.getElementById('tmd-sig-modal');
+    if (m) m.style.display = 'none';
   };
 
-  window.tmdSearchWO = function() {
-    var input = document.getElementById('tmd-wo-search-input');
-    if (!input || !input.value.trim()) return;
-    renderWOView(input.value.trim());
+  window.tmdConfirmQuoteApproval = function() {
+    window.tmdCloseSignatureModal();
+    alert('¡Cotización #11555 Aprobada con Éxito!\n\nSe ha emitido el comprobante de anticipo de USD $1,000.00 a través de Square Web Payments y se ha bloqueado la Bahía 3 del Km 22 para la Excavadora JCB JS220SC.\n\nNotificación enviada a Don Eduardo vía WhatsApp.');
+    window.tmdSwitchNav('nav-orders');
   };
 
-  function renderWOView(query) {
-    var container = document.getElementById('tmd-wo-results-container');
-    if (!container) return;
+  // ─── NAVIGATION SWITCHER ───
+  window.tmdSwitchNav = function(navId) {
+    _activeNav = navId;
 
-    var woData = {
-      id: query.toUpperCase(),
-      unit: 'Excavadora Hidráulica JCB JS220SC',
-      client: 'Consorcio Malespín S.R.L.',
-      rnc: '1-31-84920-1',
-      vin: 'JCB220SC2024X981',
-      hours: '3,420 Horas',
-      bay: 'Bahía 3 (Hidráulica de Alta Presión) · Km 22',
-      tech: 'Ing. Eduardo López / Téc. Manuel Peña',
-      eta: 'Hoy, 4:30 PM',
-      stage: 4,
-      diagnosis: 'Se reemplazó la bomba del circuito principal por cavitación severa. En este momento se encuentra en el banco de pruebas hidráulicas estabilizada a 348 Bar sin fugas en la válvula de alivio primario. Prueba de ciclo de pluma aprobada a 60°C.',
-      parts: [
-        { code: 'JCB-20/9253401', desc: 'Bomba Hidráulica Principal Kawasaki K3V112DT', qty: 1, status: 'Instalada' },
-        { code: 'JCB-991/001472', desc: 'Kit de Sellos de Pistón de Pluma 140mm', qty: 2, status: 'Instalada' },
-        { code: 'JCB-32/9253461', desc: 'Filtro Hidráulico de Retorno 10 Micras OEM', qty: 2, status: 'Instalada' },
-        { code: 'JCB-4000/0500', desc: 'Aceite Hidráulico Especial ISO VG 46 (55 Gal)', qty: 1, status: 'Cargado' }
-      ]
+    // Update sidebar active class
+    var items = document.querySelectorAll('.tmd-nav-item');
+    items.forEach(function(el) {
+      if (el.getAttribute('data-nav') === navId) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    });
+
+    // Hide all panes
+    var panes = document.querySelectorAll('.tmd-workspace-pane');
+    panes.forEach(function(p) {
+      p.style.display = 'none';
+    });
+
+    // Show selected pane
+    var map = {
+      'nav-workflow': { pane: 'pane-workflow', title: 'Inicio / Workflow' },
+      'nav-quotes': { pane: 'pane-quotes', title: 'Cotizaciones & Aprobación' },
+      'nav-orders': { pane: 'pane-orders', title: 'Órdenes de Taller (WO)' },
+      'nav-fleet': { pane: 'pane-fleet', title: 'Mi Flota en Alquiler' },
+      'nav-booking': { pane: 'pane-booking', title: 'Agendar Bahía Km 22' },
+      'nav-parts': { pane: 'pane-parts', title: 'Catálogo Repuestos OEM' },
+      'nav-invoices': { pane: 'pane-invoices', title: 'Facturas NCF & Pagos' }
     };
 
-    if (query.toUpperCase().includes('8501')) {
-      woData.unit = 'Cargador Frontal LiuGong 856H';
-      woData.stage = 2;
-      woData.bay = 'Bahía 1 (Tren de Fuerza)';
-      woData.tech = 'Téc. Rafael Valdez';
-      woData.eta = 'Mañana, 11:00 AM';
-      woData.diagnosis = 'Diagnóstico de transmisión Powershift: presiones de embrague de 2da marcha descalibradas. Procediendo a calibrar válvula de control electrohidráulica.';
-    } else if (query.toUpperCase().includes('8504')) {
-      woData.unit = 'Tractor Agrícola LS MT357C';
-      woData.stage = 1;
-      woData.bay = 'Bahía 4 (Mantenimiento Express)';
-      woData.tech = 'Téc. Domingo Rosario';
-      woData.eta = 'Hoy, 5:00 PM';
-      woData.diagnosis = 'Recepción e inspección inicial para mantenimiento preventivo programado de 500 horas.';
+    var target = map[navId] || map['nav-workflow'];
+    var targetPane = document.getElementById(target.pane);
+    if (targetPane) targetPane.style.display = 'block';
+
+    var bread = document.getElementById('tmd-breadcrumb-active');
+    if (bread) bread.innerText = target.title;
+
+    // Close mobile sidebar if open
+    var sb = document.getElementById('tmd-portal-sidebar');
+    if (sb) sb.classList.remove('open');
+  };
+
+  window.tmdSelectPayMethod = function(m) {
+    var btnCC = document.getElementById('btn-pay-cc');
+    var btnBank = document.getElementById('btn-pay-bank');
+    var form = document.getElementById('tmd-cc-form');
+
+    if (m === 'cc') {
+      btnCC.classList.add('active');
+      btnBank.classList.remove('active');
+      if (form) form.style.display = 'block';
+    } else {
+      btnBank.classList.add('active');
+      btnCC.classList.remove('active');
+      if (form) form.style.display = 'none';
+      alert('Datos para Transferencia Bancaria:\n\nBanco: Banco de Reservas (Banreservas)\nCuenta Corriente: 960-249201-1\nBeneficiario: Tecnomaquinarias Diesel S.R.L.\nRNC: 1-31-84920-1\n\nPor favor envíe el comprobante a Don Eduardo vía WhatsApp.');
     }
+  };
 
-    _activeWO = woData;
-
-    var stages = [
-      { num: 1, label: '1. Recepción', sub: 'Km 22 Duarte' },
-      { num: 2, label: '2. Diagnóstico', sub: 'Técnico Especialista' },
-      { num: 3, label: '3. Repuestos OEM', sub: 'Almacén Central' },
-      { num: 4, label: '4. Banco de Pruebas', sub: 'Calibración 350 Bar' },
-      { num: 5, label: '5. Listo para Retiro', sub: 'Patio de Despacho' }
-    ];
-
-    var stepperHtml = `
-      <div class="tmd-stepper-container">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span class="tmd-badge-pill tmd-badge-amber" style="font-size:0.85rem;padding:4px 12px;">${woData.id}</span>
-            <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#fff;">${woData.unit}</h3>
-          </div>
-          <span class="tmd-badge-pill ${woData.stage >= 4 ? 'tmd-badge-amber' : 'tmd-badge-blue'}">
-            FASE ${woData.stage} DE 5: ${stages[woData.stage - 1].label.substring(3).toUpperCase()}
-          </span>
-        </div>
-        <div class="tmd-stepper">
-          ${stages.map(function(s) {
-            var cls = s.num < woData.stage ? 'completed' : (s.num === woData.stage ? 'active' : '');
-            var icon = s.num < woData.stage ? '✓' : s.num;
-            return `
-              <div class="tmd-step-item ${cls}">
-                <div class="tmd-step-circle">${icon}</div>
-                <div class="tmd-step-label">${s.label}</div>
-                <div style="font-size:0.68rem;color:#6b7280;">${s.sub}</div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      </div>
-    `;
-
-    var detailsHtml = `
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;">
-        <div class="tmd-card-panel">
-          <h4>🛠️ Diagnóstico & Reporte Técnico de Taller</h4>
-          <p style="font-size:0.85rem;color:#d1d5db;line-height:1.6;margin:0 0 16px 0;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border-left:3px solid #facc15;">
-            ${woData.diagnosis}
-          </p>
-          <div style="font-size:0.75rem;font-weight:700;color:#9ca3af;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">
-            REPUESTOS INSTALADOS EN ESTA ORDEN:
-          </div>
-          <table class="tmd-data-table" style="font-size:0.75rem;">
-            <thead>
-              <tr>
-                <th>Descripción</th>
-                <th>Código OEM</th>
-                <th>Cant.</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${woData.parts.map(function(p) {
-                return `
-                  <tr>
-                    <td><strong>${p.desc}</strong></td>
-                    <td style="color:#facc15;font-family:'JetBrains Mono',monospace;">${p.code}</td>
-                    <td>${p.qty}</td>
-                    <td style="color:#34d399;font-weight:700;">${p.status}</td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-        </div>
-
-        <div class="tmd-card-panel">
-          <h4>📑 Ficha de Control & Telemetría</h4>
-          <div style="font-size:0.82rem;color:#d1d5db;line-height:1.8;">
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding:6px 0;">
-              <span style="color:#9ca3af;">Cliente Contratista:</span>
-              <strong style="color:#fff;">${woData.client}</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding:6px 0;">
-              <span style="color:#9ca3af;">RNC / Identificación:</span>
-              <span style="font-family:'JetBrains Mono',monospace;">${woData.rnc}</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding:6px 0;">
-              <span style="color:#9ca3af;">Número de Serie (VIN):</span>
-              <span style="font-family:'JetBrains Mono',monospace;color:#facc15;">${woData.vin}</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding:6px 0;">
-              <span style="color:#9ca3af;">Horómetro de Ingreso:</span>
-              <strong>${woData.hours}</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding:6px 0;">
-              <span style="color:#9ca3af;">Bahía de Taller Asignada:</span>
-              <span style="color:#38bdf8;font-weight:700;">${woData.bay}</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding:6px 0;">
-              <span style="color:#9ca3af;">Técnico Especialista:</span>
-              <strong>${woData.tech}</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;padding:6px 0;">
-              <span style="color:#9ca3af;">Entrega Estimada:</span>
-              <strong style="color:#34d399;">${woData.eta}</strong>
-            </div>
-          </div>
-          <div style="margin-top:16px;display:flex;gap:10px;">
-            <a href="https://api.whatsapp.com/send/?phone=18098262222&text=Hola%20TMD%2C%20consulto%20sobre%20la%20orden%20${woData.id}" target="_blank" class="tmd-search-btn" style="flex:1;text-align:center;text-decoration:none;font-size:0.75rem;padding:10px 14px;">
-              WhatsApp con Taller →
-            </a>
-            <button class="tmd-chip" style="flex:1;text-align:center;" onclick="alert('Generando ficha técnica oficial de la orden ${woData.id} en formato PDF...')">
-              Descargar PDF
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    container.innerHTML = stepperHtml + detailsHtml;
-  }
-
-  window.tmdSearchParts = function() {
-    var container = document.getElementById('tmd-parts-results-container');
-    if (!container) return;
-
-    var input = document.getElementById('tmd-part-search-input');
-    var query = input ? input.value.trim().toLowerCase() : '';
-
-    var partsDatabase = [
-      { code: 'JCB-20/9253401', name: 'Bomba Hidráulica Principal Kawasaki K3V112DT', brand: 'JCB Genuine', app: 'JCB JS200, JS220SC', stock: 3, price: 'USD $3,850.00' },
-      { code: 'JCB-991/001472', name: 'Kit de Sellos Cilindro de Pluma 140mm', brand: 'JCB OEM', app: 'JCB 3CX, JS220', stock: 18, price: 'USD $185.00' },
-      { code: 'JCB-32/9253461', name: 'Filtro Hidráulico de Retorno 10 Micras', brand: 'Donaldson / JCB', app: 'Línea Excavadoras', stock: 35, price: 'USD $72.00' },
-      { code: 'LG-40C0012', name: 'Válvula de Control Principal Hidráulica', brand: 'LiuGong OEM', app: 'LiuGong 856H', stock: 2, price: 'USD $2,450.00' },
-      { code: 'LS-40007521', name: 'Kit de Embrague Doble Disco Cerametálico', brand: 'LS Tractor Genuine', app: 'LS MT357C, Plus 80', stock: 6, price: 'USD $640.00' },
-      { code: 'YMR-119802-55800', name: 'Filtro Separador Agua/Combustible Racor', brand: 'Yanmar Genuine', app: 'Línea Agrícola & Mini', stock: 42, price: 'USD $38.50' },
-      { code: 'BMG-05755102', name: 'Amortiguador de Goma Tambor Delantero', brand: 'Bomag Heavy', app: 'Bomag BW 211, BW 213', stock: 12, price: 'USD $165.00' }
-    ];
-
-    var filtered = query ? partsDatabase.filter(function(p) {
-      return p.code.toLowerCase().includes(query) || p.name.toLowerCase().includes(query) || p.app.toLowerCase().includes(query);
-    }) : partsDatabase;
-
-    container.innerHTML = `
-      <div class="tmd-table-wrap">
-        <table class="tmd-data-table">
-          <thead>
-            <tr>
-              <th>Código OEM</th>
-              <th>Descripción del Repuesto</th>
-              <th>Marca</th>
-              <th>Aplicación</th>
-              <th>Disponibilidad Km 22</th>
-              <th>Precio Venta</th>
-              <th>Despacho</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${filtered.map(function(p) {
-              return `
-                <tr>
-                  <td><strong style="color:#facc15;font-family:'JetBrains Mono',monospace;">${p.code}</strong></td>
-                  <td><strong>${p.name}</strong></td>
-                  <td>${p.brand}</td>
-                  <td style="color:#9ca3af;">${p.app}</td>
-                  <td><span class="tmd-badge-pill tmd-badge-green">${p.stock} EN ALMACÉN</span></td>
-                  <td><strong style="color:#fff;">${p.price}</strong></td>
-                  <td>
-                    <a href="https://api.whatsapp.com/send/?phone=18098262222&text=Deseo%20solicitar%20el%20repuesto%20OEM%20codigo%20${p.code}" target="_blank" class="tmd-chip" style="text-decoration:none;">
-                      Solicitar →
-                    </a>
-                  </td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
+  window.tmdOpenNewRequestModal = function() {
+    window.tmdSwitchNav('nav-booking');
   };
 
   window.tmdSubmitBooking = function(e) {
@@ -1363,138 +1075,83 @@
     var machine = document.getElementById('tmd-book-machine').value;
     var service = document.getElementById('tmd-book-service').value;
     var date = document.getElementById('tmd-book-date').value;
-    var bay = document.getElementById('tmd-book-bay').value;
 
-    alert('¡Turno de Bahía Agendado con Éxito!\n\nEquipo: ' + machine + '\nServicio: ' + service + '\nFecha: ' + date + '\nBahía: ' + bay + '\n\nUn asesor técnico del Km 22 se comunicará por WhatsApp para confirmar la hora de recepción.');
+    alert('¡Turno de Bahía Agendado con Éxito!\n\nEquipo: ' + machine + '\nServicio: ' + service + '\nFecha: ' + date + '\n\nUn asesor técnico del Km 22 se comunicará por WhatsApp para confirmar la recepción en patio.');
+    window.tmdSwitchNav('nav-workflow');
   };
 
-  window.tmdAdvanceStage = function(woId) {
-    if (_activeWO && _activeWO.id === woId) {
-      if (_activeWO.stage < 5) {
-        _activeWO.stage += 1;
-        renderWOView(_activeWO.id);
-        alert('Etapa avanzada correctamente para ' + woId + '. Nueva fase: ' + _activeWO.stage + ' de 5.');
-      } else {
-        alert('La orden ' + woId + ' ya se encuentra en la etapa final: Lista para Retiro.');
-      }
+  // ─── OPEN / CLOSE / ROLE SWITCHER ───
+  window.tmdOpenClientPortal = function() {
+    initFullWorkspaceDOM();
+    var modal = document.getElementById('tmd-client-portal-modal');
+    if (modal) {
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.tmdCloseClientPortal = function() {
+    var modal = document.getElementById('tmd-client-portal-modal');
+    if (modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.tmdShowRoleSelector = function() {
+    var pin = prompt('Ingrese PIN de Acceso (2222 para Taller Km 22, 9999 para Consola TI, o Enter para Cliente):');
+    if (pin === STAFF_PIN) {
+      alert('Acceso a Mesa Técnica & Taller Km 22 Autorizado (18 Bahías Fullbay).');
+      window.tmdSwitchNav('nav-orders');
+    } else if (pin === ADMIN_PIN) {
+      alert('Acceso a Consola TI & Administración Web Autorizado.');
+      window.tmdOpenAdminPanel();
     } else {
-      alert('Avanzando etapa de la orden ' + woId + ' en Fullbay ERP...');
+      window.tmdSwitchNav('nav-workflow');
     }
   };
 
-  window.tmdNotifyClientWhatsApp = function(woId) {
-    var msg = 'Estimado cliente Consorcio Malespin, le informamos que su Excavadora JCB JS220SC (Orden ' + woId + ') ha superado con exito la calibracion hidraulica a 348 Bar en el Km 22 y esta lista para entrega.';
-    window.open('https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(msg), '_blank');
+  window.tmdOpenAdminPanel = function() {
+    var particlesActive = localStorage.getItem('tmd_particles_active') !== 'false';
+    var mouseGlow = localStorage.getItem('tmd_mouse_glow') !== 'false';
+    var glowLvl = localStorage.getItem('tmd_glow_level') || 'medium';
+
+    var msg = 'CONSOLA TI & ADMINISTRACIÓN WEB:\n\n' +
+              '1. Partículas y Constelaciones: ' + (particlesActive ? 'ACTIVADAS' : 'DESACTIVADAS') + '\n' +
+              '2. Mouse Glow 1:1: ' + (mouseGlow ? 'ACTIVADO' : 'DESACTIVADO') + '\n' +
+              '3. Nivel de Resplandor: ' + glowLvl + '\n\n' +
+              '¿Desea alternar el efecto de partículas en tiempo real?';
+
+    if (confirm(msg)) {
+      window.tmdToggleParticles(!particlesActive);
+    }
   };
-
-  // Métodos de Control Administrativo TI
-  function syncAdminConsoleState() {
-    var chkPart = document.getElementById('tmd-toggle-particles');
-    var chkGlow = document.getElementById('tmd-toggle-mouse-glow');
-    var selMode = document.getElementById('tmd-select-particle-mode');
-    var selGlow = document.getElementById('tmd-select-glow-level');
-    var chkAPI = document.getElementById('tmd-toggle-live-api');
-
-    var canvas = document.getElementById('tmd-ambient-canvas');
-    if (chkPart && canvas) {
-      chkPart.checked = (canvas.style.display !== 'none');
-    }
-    if (chkGlow) {
-      chkGlow.checked = (localStorage.getItem('tmd_mouse_glow') !== 'false');
-    }
-    if (selGlow) {
-      selGlow.value = localStorage.getItem('tmd_glow_level') || 'medium';
-    }
-    if (chkAPI && window.TMD_API_CONFIG) {
-      chkAPI.checked = window.TMD_API_CONFIG.USE_LIVE_API;
-    }
-  }
 
   window.tmdToggleParticles = function(active) {
     var canvas = document.getElementById('tmd-ambient-canvas');
-    if (canvas) {
-      canvas.style.display = active ? 'block' : 'none';
-    }
+    if (canvas) canvas.style.display = active ? 'block' : 'none';
     if (window.__TMD_ANIMATION_ENGINE && typeof window.__TMD_ANIMATION_ENGINE.setParticlesActive === 'function') {
       window.__TMD_ANIMATION_ENGINE.setParticlesActive(active);
     }
     localStorage.setItem('tmd_particles_active', active ? 'true' : 'false');
-    showAdminSavedNotice();
+    alert('Partículas ' + (active ? 'activadas' : 'desactivadas') + ' en tiempo real.');
   };
 
-  window.tmdToggleMouseGlow = function(active) {
-    window.__TMD_MOUSE_GLOW = active;
-    localStorage.setItem('tmd_mouse_glow', active ? 'true' : 'false');
-    showAdminSavedNotice();
-  };
-
-  window.tmdSetParticleMode = function(mode) {
-    var canvas = document.getElementById('tmd-ambient-canvas');
-    if (canvas) {
-      canvas.className = 'mode-' + mode;
-    }
-    if (window.__TMD_ANIMATION_ENGINE && typeof window.__TMD_ANIMATION_ENGINE.setParticleMode === 'function') {
-      window.__TMD_ANIMATION_ENGINE.setParticleMode(mode);
-    }
-    localStorage.setItem('tmd_particle_mode', mode);
-    showAdminSavedNotice();
-  };
-
-  window.tmdSetGlowLevel = function(lvl) {
-    window.__TMD_GLOW_LEVEL = lvl;
-    localStorage.setItem('tmd_glow_level', lvl);
-    showAdminSavedNotice();
-  };
-
-  window.tmdToggleLiveAPI = function(active) {
-    if (window.TMD_API_CONFIG) {
-      window.TMD_API_CONFIG.USE_LIVE_API = active;
-      var statusBadge = document.getElementById('tmd-api-status-text');
-      if (statusBadge) {
-        statusBadge.innerText = active ? 'FULLBAY API · LIVE CONECTADO' : 'FULLBAY READY · STAGING MOCK';
+  // Keyboard shortcut Esc
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var sigModal = document.getElementById('tmd-sig-modal');
+      if (sigModal && sigModal.style.display === 'flex') {
+        window.tmdCloseSignatureModal();
+      } else {
+        window.tmdCloseClientPortal();
       }
     }
-    showAdminSavedNotice();
-  };
+  });
 
-  window.tmdSaveAPIConfig = function() {
-    if (window.TMD_API_CONFIG) {
-      window.TMD_API_CONFIG.FULLBAY_STORE_ID = document.getElementById('tmd-cfg-fullbay-store').value;
-      window.TMD_API_CONFIG.FULLBAY_API_KEY = document.getElementById('tmd-cfg-fullbay-key').value;
-    }
-    showAdminSavedNotice();
-  };
-
-  window.tmdResetConfigDefaults = function() {
-    if (confirm('¿Desea restablecer todas las configuraciones a los valores iniciales de fábrica?')) {
-      window.tmdToggleParticles(true);
-      window.tmdToggleMouseGlow(true);
-      window.tmdToggleLiveAPI(false);
-      window.tmdSetGlowLevel('medium');
-      syncAdminConsoleState();
-      alert('Valores de fábrica restablecidos correctamente.');
-    }
-  };
-
-  function showAdminSavedNotice() {
-    var el = document.getElementById('tmd-admin-save-notice');
-    if (el) {
-      el.style.display = 'inline-block';
-      setTimeout(function() { el.style.display = 'none'; }, 2500);
-    }
-  }
-
-  // Auto-init
+  // Auto-init on page ready
   document.addEventListener('DOMContentLoaded', function() {
-    initPortalDOM();
-    // Interceptar clics en botones de portal
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('[onclick*="tmdOpenClientPortal"], [data-path*="portal"]');
-      if (btn && !e.defaultPrevented) {
-        e.preventDefault();
-        window.tmdOpenClientPortal();
-      }
-    });
+    initFullWorkspaceDOM();
   });
 
 })(window);
