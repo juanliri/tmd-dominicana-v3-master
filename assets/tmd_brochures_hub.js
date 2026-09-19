@@ -88,11 +88,11 @@
     const filteredDocs = BROCHURE_DOCS.filter(d => currentCategory === 'all' || d.category === currentCategory);
 
     return `
-      <div id="tmd-brochures-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(4, 6, 12, 0.85) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
-        <div class="relative w-full max-w-[1140px] max-h-[92vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.90) 0%, rgba(8, 11, 19, 0.88) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;">
+      <div id="tmd-brochures-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.92) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
+        <div class="relative w-full max-w-[1140px] max-h-[92vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 14, 16, 0.95) 0%, rgba(8, 8, 10, 0.92) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
           
           <!-- Header Bar -->
-          <div class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 24, 38, 0.86) 0%, rgba(11, 16, 26, 0.82) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
+          <div class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 18, 20, 0.92) 0%, rgba(11, 11, 13, 0.90) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-[12px] bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                 <span class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
@@ -112,7 +112,7 @@
           </div>
 
           <!-- Category Filter Bar -->
-          <div class="px-6 py-3 border-b border-neutral-800 flex items-center gap-2 overflow-x-auto text-xs font-mono" style="background: rgba(14, 19, 30, 0.82) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
+          <div class="px-6 py-3 border-b border-neutral-800 flex items-center gap-2 overflow-x-auto text-xs font-mono" style="background: rgba(12, 12, 14, 0.92) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
             <span class="text-neutral-400 uppercase text-[11px] mr-1 flex-shrink-0">Filtrar:</span>
             ${[
               { key: 'all', label: 'Todas las Fichas' },
@@ -131,7 +131,7 @@
           <!-- Document Grid List -->
           <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             ${filteredDocs.map(doc => `
-              <div class="p-5 rounded-[20px] transition-all duration-300 flex flex-col justify-between group shadow-sm hover:border-amber-500/50" style="background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
+              <div class="p-5 rounded-[20px] transition-all duration-300 flex flex-col justify-between group shadow-sm hover:border-amber-500/50" style="background: linear-gradient(145deg, rgba(18, 18, 22, 0.88) 0%, rgba(10, 10, 14, 0.85) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(255, 255, 255, 0.09) !important; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;">
                 <div>
                   <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-2">
                     <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-amber-400 font-bold">${doc.categoryLabel}</span>

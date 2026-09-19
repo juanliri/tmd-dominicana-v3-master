@@ -867,19 +867,28 @@
             La orden de ingreso ha sido emitida y transferida a <strong class="text-primary-container">Fullbay
               ERP</strong>. El equipo de recepción en Km 22 Autopista Duarte está notificado para la fecha solicitada.
           </p>
-          <div class="p-3 rounded-xl bg-black/60 font-telemetry-data-md text-caption text-primary">
-            TICKET DE INGRESO: #TMD-2025-0894
+          <div id="tmd-service-ticket-display" class="p-3 rounded-xl bg-black/60 font-telemetry-data-md text-caption text-primary border border-amber-500/30">
+            TICKET DE INGRESO FULLBAY: #TMD-2026-0894
           </div>
+          <a
+            id="tmd-booking-wa-btn"
+            href="https://api.whatsapp.com/send/?phone=18098262222&text=Hola%20TMD%20Dominicana,%20he%20confirmado%20la%20reserva%20de%20bah%C3%ADa%20en%20Taller%20Km%2022%20(Ticket%20%23TMD-2026-0894)."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-headline-sm text-caption font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+            <span>Confirmar por WhatsApp con Taller</span>
+          </a>
           <button
             class="w-full py-3 rounded-xl bg-primary-container text-on-primary font-headline-sm text-caption font-bold uppercase tracking-wider"
             onclick="document.getElementById('reservationSuccessModal').classList.add('hidden')">
-            Aceptar y Volver
+            Cerrar Ventana
           </button>
         </div>
       </div>
       <script>
         function dispatchAlert(unitName) {
-          alert("⚠️ DESPACHO DE EMERGENCIA ACTIVADO PARA: " + unitName + "\\n\\nSe ha emitido la señal satelital a la tripulación técnica en ruta. La unidad cambiará su estado operativo en telemetría de inmediato.");
+          var msg = '⚠️ *AUXILIO VIAL 24/7 EN FAENA* ⚠️\nUnidad / Equipo: ' + unitName + '\nSolicito asistencia de emergencia con brigada técnica de Taller Km 22.';
+          window.open('https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(msg), '_blank');
         }
 
         function calculateAndShowQuote() {
@@ -941,9 +950,8 @@
 `;
 
   window.dispatchAlert = function (unitName) {
-    var msg = 'Hola TMD Dominicana, deseo solicitar el despacho de emergencia de ' + unitName + ' para asistencia técnica inmediata en obra.';
+    var msg = '⚠️ *AUXILIO VIAL 24/7 EN FAENA* ⚠️\nUnidad / Equipo: ' + unitName + '\nSolicito asistencia de emergencia con brigada técnica de Taller Km 22.';
     var waUrl = 'https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(msg);
-    alert('⚠️ DESPACHO DE EMERGENCIA ACTIVADO PARA: ' + unitName + '\n\nSe ha emitido la señal satelital a la tripulación técnica en ruta. A continuación se abrirá WhatsApp con la central de operaciones.');
     window.open(waUrl, '_blank');
   };
 
@@ -1010,7 +1018,11 @@
     if (modal) {
       modal.classList.remove('hidden');
     } else {
-      alert('¡Bahía Reservada Exitosamente! Su orden ha sido transferida a Fullbay ERP (Ticket #TMD-2026-0894).');
+      if (typeof window.tmdShowToast === 'function') {
+        window.tmdShowToast('¡Bahía Reservada! Orden transferida a Fullbay ERP (Ticket #TMD-2026-0894).', 'success');
+      }
+      var waMsg = 'Hola TMD Dominicana, he reservado una bahía de taller en Km 22 (Ticket TMD-2026-0894). Favor confirmar recepción.';
+      window.open('https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(waMsg), '_blank');
     }
   };
 

@@ -203,11 +203,10 @@
     _dviApproved = true;
     var btn = document.getElementById('tmd-approve-wo-btn');
     if (btn) {
-      btn.innerHTML = '✓ Orden Aprobada por el Contratista';
+      btn.innerHTML = '✓ Orden Aprobada por el Contratista (Fullbay Sincronizado)';
       btn.classList.remove('bg-amber-500', 'text-black');
       btn.classList.add('bg-emerald-500', 'text-black');
     }
-    alert('Orden de Trabajo WO-4482 aprobada con éxito. El taller central Km 22 ha sido notificado para proceder al ensamblaje final y prueba en dinamómetro.');
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -243,10 +242,14 @@
             </h2>
             <p class="text-xs text-neutral-400 font-mono mt-1">Haga clic sobre cualquier número en el plano o en la tabla para consultar disponibilidad en Almacén Km 22.</p>
           </div>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center flex-wrap gap-3">
+            <button onclick="if(typeof window.tmdOpenPartsSerialEngine==='function') window.tmdOpenPartsSerialEngine()" class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-mono font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md shadow-amber-500/20">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Búsqueda por Serial / VIN</span>
+            </button>
             <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              STOCK SINCRONIZADO EN TIEMPO REAL
+              STOCK ALMACÉN KM 22
             </span>
           </div>
         </div>

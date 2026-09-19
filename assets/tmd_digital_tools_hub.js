@@ -9,11 +9,11 @@
 
   function buildDigitalToolsHTML() {
     return `
-      <div id="tmd-digital-tools-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(4, 6, 12, 0.85) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
-        <div class="relative w-full max-w-[1280px] max-h-[94vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.90) 0%, rgba(8, 11, 19, 0.88) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;">
+      <div id="tmd-digital-tools-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.92) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
+        <div class="relative w-full max-w-[1280px] max-h-[94vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 14, 16, 0.95) 0%, rgba(8, 8, 10, 0.92) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
           
           <!-- Header Bar -->
-          <div class="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 px-6 py-5 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 24, 38, 0.86) 0%, rgba(11, 16, 26, 0.82) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
+          <div class="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 px-6 py-5 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 18, 20, 0.92) 0%, rgba(11, 11, 13, 0.90) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
             <div class="flex items-center gap-3">
               <div class="w-11 h-11 rounded-[14px] bg-gradient-to-br from-amber-500/20 to-emerald-500/20 border border-amber-500/30 flex items-center justify-center text-amber-500">
                 <span class="material-symbols-outlined text-[26px]">terminal</span>
@@ -40,7 +40,7 @@
 
           <!-- Hero Institutional Banner -->
           <div class="px-6 pt-6 pb-2">
-            <div class="p-6 rounded-[22px] relative overflow-hidden" style="background: linear-gradient(135deg, rgba(16, 22, 34, 0.84) 0%, rgba(21, 29, 44, 0.80) 50%, rgba(13, 18, 28, 0.86) 100%) !important; backdrop-filter: blur(18px) !important; -webkit-backdrop-filter: blur(18px) !important; border: 1px solid rgba(255, 184, 0, 0.25) !important;">
+            <div class="p-6 rounded-[22px] relative overflow-hidden" style="background: linear-gradient(135deg, rgba(16, 16, 18, 0.90) 0%, rgba(10, 10, 12, 0.92) 100%) !important; backdrop-filter: blur(18px) !important; -webkit-backdrop-filter: blur(18px) !important; border: 1px solid rgba(255, 184, 0, 0.25) !important;">
               <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
               
               <div class="max-w-3xl relative z-10">
@@ -56,7 +56,7 @@
               </div>
 
               <!-- Quick Stats Bar -->
-              <div class="mt-5 pt-4 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono" style="background: rgba(11, 15, 24, 0.78) !important; backdrop-filter: blur(14px) !important; border-radius: 14px; padding: 12px 16px; border: 1px solid rgba(255, 255, 255, 0.06);">
+              <div class="mt-5 pt-4 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono" style="background: rgba(10, 10, 12, 0.85) !important; backdrop-filter: blur(14px) !important; border-radius: 14px; padding: 12px 16px; border: 1px solid rgba(255, 255, 255, 0.06);">
                 <div>
                   <div class="text-neutral-500 uppercase text-[10px]">Unidades Monitoreadas</div>
                   <div class="text-sm font-bold text-emerald-400">44 Máquinas Activas</div>
@@ -81,7 +81,7 @@
           <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             <!-- PILLAR 1: TMD Operations Center™ -->
-            <div class="rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 group shadow-lg" style="background: linear-gradient(145deg, rgba(20, 28, 44, 0.82) 0%, rgba(12, 18, 30, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(16, 185, 129, 0.25) !important;">
+            <div class="rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 group shadow-lg" style="background: linear-gradient(145deg, rgba(14, 18, 14, 0.88) 0%, rgba(8, 10, 8, 0.92) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(16, 185, 129, 0.25) !important;">
               <div>
                 <div class="w-14 h-14 rounded-[18px] bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-105 transition-transform">
                   <span class="material-symbols-outlined text-[32px]">satellite_alt</span>
@@ -185,7 +185,7 @@
             </div>
 
             <!-- PILLAR 3: TMD Equipment Intelligence™ -->
-            <div class="rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 group shadow-lg" style="background: linear-gradient(145deg, rgba(20, 28, 44, 0.82) 0%, rgba(12, 18, 30, 0.78) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(6, 182, 212, 0.25) !important;">
+            <div class="rounded-[22px] p-6 flex flex-col justify-between transition-all duration-300 group shadow-lg" style="background: linear-gradient(145deg, rgba(14, 16, 18, 0.88) 0%, rgba(8, 9, 10, 0.92) 100%) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid rgba(6, 182, 212, 0.25) !important;">
               <div>
                 <div class="w-14 h-14 rounded-[18px] bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-105 transition-transform">
                   <span class="material-symbols-outlined text-[32px]">manage_search</span>

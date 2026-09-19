@@ -172,11 +172,11 @@
     const detectedSerial = SERIAL_DIRECTORY[activeFilterQuery.toUpperCase().trim()];
 
     return `
-      <div id="tmd-parts-serial-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(4, 6, 12, 0.85) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
-        <div class="relative w-full max-w-[1260px] max-h-[94vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.90) 0%, rgba(8, 11, 19, 0.88) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;">
+      <div id="tmd-parts-serial-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.92) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
+        <div class="relative w-full max-w-[1260px] max-h-[94vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 14, 16, 0.95) 0%, rgba(8, 8, 10, 0.92) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
           
           <!-- Header Bar -->
-          <div class="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 px-6 py-4 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 24, 38, 0.86) 0%, rgba(11, 16, 26, 0.82) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
+          <div class="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 px-6 py-4 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 18, 20, 0.92) 0%, rgba(11, 11, 13, 0.90) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-[14px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
                 <span class="material-symbols-outlined text-[24px]">plumbing</span>
@@ -202,7 +202,7 @@
           </div>
 
           <!-- Live Search Bar & Serial Decoders -->
-          <div class="p-6 pb-4 bg-[#101520]/80 border-b border-neutral-800/80">
+          <div class="p-6 pb-4 bg-[#0c0c0e]/90 border-b border-neutral-800/80">
             <div class="relative max-w-3xl">
               <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-amber-500 text-[22px]">search</span>
               <input 

@@ -18,6 +18,32 @@
   var STAFF_PIN = '2222';
   var ADMIN_PIN = '9999';
 
+  function tmdShowToast(message, type) {
+    var toast = document.getElementById('tmd-global-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'tmd-global-toast';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999999;max-width:400px;padding:14px 20px;border-radius:10px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:0.84rem;font-weight:600;line-height:1.4;box-shadow:0 12px 36px rgba(0,0,0,0.85);backdrop-filter:blur(12px);transition:opacity 0.25s ease;pointer-events:none;opacity:0;';
+      document.body.appendChild(toast);
+    }
+    var border = type === 'error' ? 'rgba(239,68,68,0.6)' : (type === 'success' ? 'rgba(16,185,129,0.6)' : 'rgba(250,204,21,0.6)');
+    var bg = 'rgba(12,12,14,0.96)';
+    var color = type === 'error' ? '#fca5a5' : (type === 'success' ? '#6ee7b7' : '#fef08a');
+    var icon = type === 'error' ? '⚠️ ' : (type === 'success' ? '✓ ' : 'ℹ️ ');
+    
+    toast.style.border = '1px solid ' + border;
+    toast.style.background = bg;
+    toast.style.color = color;
+    toast.innerHTML = icon + message;
+    toast.style.opacity = '1';
+
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function() {
+      toast.style.opacity = '0';
+    }, 4200);
+  }
+  window.tmdShowToast = tmdShowToast;
+
   // Client Session State
   var _clientLoggedIn = false;
   var _activeClientNav = 'nav-workflow';
@@ -318,7 +344,7 @@
                 <div class="tmd-doc-sheet">
                   <div class="tmd-doc-topbar">
                     <button class="tmd-btn-outline" onclick="window.tmdSwitchClientNav('nav-workflow')">← Volver</button>
-                    <button class="tmd-btn-outline" onclick="alert('Descargando Cotización #11555 formal en formato PDF oficial TMD Dominicana...')">📥 Descargar PDF</button>
+                    <button class="tmd-btn-outline" onclick="window.tmdShowToast('Descargando Cotización #11555 formal en PDF oficial TMD...', 'info')">📥 Descargar PDF</button>
                   </div>
 
                   <div class="tmd-doc-meta-grid">
@@ -414,7 +440,7 @@
             <section id="cpane-fleet" class="tmd-client-pane" style="display:none;">
               <div style="padding:0 28px 40px;">
                 <!-- Telematics Fleet KPI Header -->
-                <div style="background:linear-gradient(135deg, #0e131d 0%, #141c2c 100%);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+                <div style="background:linear-gradient(135deg, #111114 0%, #08080a 100%);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
                   <div>
                     <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
                       <span class="tmd-dot"></span>
@@ -424,7 +450,7 @@
                     <p style="margin:4px 0 0 0;font-size:0.75rem;color:#a1a1aa;">Telemetría en tiempo real: Presión hidráulica (hasta 350 Bar), geocercas en proyectos RD, análisis de fluidos SOS y conteo de horas.</p>
                   </div>
                   <div style="display:flex;gap:10px;">
-                    <button class="tmd-btn-pay-primary" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){window.tmdOpenTelematicsCockpit();}else{alert('Abriendo Cockpit...');}" style="padding:10px 18px;font-size:0.78rem;">
+                    <button class="tmd-btn-pay-primary" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){window.tmdOpenTelematicsCockpit();}else{window.tmdShowToast('Cargando telemetría LiveLink...', 'info');}" style="padding:10px 18px;font-size:0.78rem;">
                       🛰️ Abrir Cockpit Telemetría Completo
                     </button>
                   </div>
@@ -649,6 +675,82 @@
                 </div>
               </div>
             </section>
+
+            <!-- STAFF VIEW 2: FULLBAY ÓRDENES ACTIVAS -->
+            <section id="spane-orders" class="tmd-staff-pane" style="display:none;padding:24px 28px;">
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div style="background:#09090b;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tmd-status-tag tmd-tag-amber font-mono">WO-8501</span>
+                      <strong style="color:#ffffff;font-size:1rem;">JCB JS220SC — Overhaul Tren de Fuerza</strong>
+                    </div>
+                    <div style="font-size:0.75rem;color:#a1a1aa;margin-top:4px;">Cliente: Constructora Rizek · Técnico: Téc. Rafael Valdez · Bahía 01</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#10b981;font-weight:700;">85% AVANCE</span>
+                    <button class="tmd-btn-outline" style="padding:6px 14px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenDviTracker==='function') window.tmdOpenDviTracker('WO-8501');">Ver DVI</button>
+                  </div>
+                </div>
+
+                <div style="background:#09090b;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tmd-status-tag tmd-tag-amber font-mono">WO-8488</span>
+                      <strong style="color:#ffffff;font-size:1rem;">LiuGong 856H — Ajuste de Rodillos y Zapatas</strong>
+                    </div>
+                    <div style="font-size:0.75rem;color:#a1a1aa;margin-top:4px;">Cliente: Agregados del Caribe · Técnico: Ing. Kelvin De León · Bahía 02</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#facc15;font-weight:700;">60% AVANCE</span>
+                    <button class="tmd-btn-outline" style="padding:6px 14px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenDviTracker==='function') window.tmdOpenDviTracker('WO-8488');">Ver DVI</button>
+                  </div>
+                </div>
+
+                <div style="background:#09090b;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span class="tmd-status-tag tmd-tag-green font-mono">WO-8492</span>
+                      <strong style="color:#ffffff;font-size:1rem;">JCB 3CX Eco — Calibración Hidráulica 350 Bar</strong>
+                    </div>
+                    <div style="font-size:0.75rem;color:#a1a1aa;margin-top:4px;">Cliente: Consorcio Malespín S.R.L. · Banco de Presión · Bahía 03</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#10b981;font-weight:700;">95% FINALIZADO</span>
+                    <button class="tmd-btn-outline" style="padding:6px 14px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenDviTracker==='function') window.tmdOpenDviTracker('WO-4482');">Ver DVI</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- STAFF VIEW 3: DVI 40 PUNTOS -->
+            <section id="spane-dvi" class="tmd-staff-pane" style="display:none;padding:24px 28px;">
+              <div style="background:#09090b;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                  <div>
+                    <h3 style="color:#ffffff;font-size:1.1rem;margin:0 0 4px 0;">Inspección Digital de Bahía (Fullbay DVI 40 Puntos)</h3>
+                    <p style="font-size:0.75rem;color:#a1a1aa;margin:0;">Checklist técnico obligatorio previo a entrega de equipo al contratista.</p>
+                  </div>
+                  <button class="tmd-btn-outline" style="color:#10b981;border-color:rgba(16,185,129,0.3);" onclick="if(typeof window.tmdOpenDviTracker==='function') window.tmdOpenDviTracker('WO-4482');">
+                    Abrir Auditoría Digital Completa
+                  </button>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">
+                  <div style="padding:10px;background:#111114;border-radius:8px;border:1px solid rgba(255,255,255,0.05);font-size:0.75rem;color:#ffffff;display:flex;align-items:center;gap:8px;">
+                    <span style="color:#10b981;">✓</span> <span>01. Nivel Aceite Hidráulico ISO 68</span>
+                  </div>
+                  <div style="padding:10px;background:#111114;border-radius:8px;border:1px solid rgba(255,255,255,0.05);font-size:0.75rem;color:#ffffff;display:flex;align-items:center;gap:8px;">
+                    <span style="color:#10b981;">✓</span> <span>02. Presión Cilindros 350 Bar</span>
+                  </div>
+                  <div style="padding:10px;background:#111114;border-radius:8px;border:1px solid rgba(255,255,255,0.05);font-size:0.75rem;color:#ffffff;display:flex;align-items:center;gap:8px;">
+                    <span style="color:#10b981;">✓</span> <span>03. Desgaste Orugas / Zapatas</span>
+                  </div>
+                  <div style="padding:10px;background:#111114;border-radius:8px;border:1px solid rgba(255,255,255,0.05);font-size:0.75rem;color:#ffffff;display:flex;align-items:center;gap:8px;">
+                    <span style="color:#10b981;">✓</span> <span>04. Filtro Primario y Ciclónico</span>
+                  </div>
+                </div>
+              </div>
+            </section>
           </main>
         </div>
       </div>
@@ -701,7 +803,7 @@
 
     c.innerHTML = FLEET_ASSETS.map(function(eq) {
       return `
-        <div style="background:#0c1017;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color 0.2s, transform 0.2s;box-shadow:0 10px 25px rgba(0,0,0,0.5);" onmouseover="this.style.borderColor='rgba(255,184,0,0.3)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='none'">
+        <div style="background:#0a0a0c;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color 0.2s, box-shadow 0.2s;box-shadow:0 10px 25px rgba(0,0,0,0.5);" onmouseover="this.style.borderColor='rgba(255,184,0,0.35)';this.style.boxShadow='0 0 20px rgba(255,184,0,0.15)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.boxShadow='0 10px 25px rgba(0,0,0,0.5)'">
           <div>
             <!-- Header -->
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:12px;">
@@ -715,26 +817,26 @@
             
             <!-- Telemetry Metrics Grid -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
-              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+              <div style="background:#111114;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
                 <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Horómetro Motor</div>
                 <div style="font-size:0.95rem;font-weight:800;color:#facc15;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.hours}</div>
               </div>
-              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+              <div style="background:#111114;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
                 <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Presión Hidráulica</div>
                 <div style="font-size:0.95rem;font-weight:800;color:#10b981;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.hydraulicPressure}</div>
               </div>
-              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+              <div style="background:#111114;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
                 <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Diésel en Tanque</div>
                 <div style="font-size:0.95rem;font-weight:800;color:#38bdf8;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.fuel}% · ${eq.coolantTemp}</div>
               </div>
-              <div style="background:#121722;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
+              <div style="background:#111114;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:10px;">
                 <div style="font-size:0.65rem;color:#71717a;font-family:'JetBrains Mono',monospace;text-transform:uppercase;">Voltaje Batería</div>
                 <div style="font-size:0.95rem;font-weight:800;color:#cbd5e1;font-family:'JetBrains Mono',monospace;margin-top:2px;">${eq.batteryVoltage}</div>
               </div>
             </div>
 
             <!-- Health & Geo Diagnostics -->
-            <div style="font-size:0.75rem;color:#a1a1aa;line-height:1.6;background:#080b11;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:12px;margin-bottom:14px;">
+            <div style="font-size:0.75rem;color:#a1a1aa;line-height:1.6;background:#060608;border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:12px;margin-bottom:14px;">
               <div>📍 <strong>Ubicación:</strong> <span>${eq.location}</span> (${eq.gpsCoords})</div>
               <div>🛡️ <strong>Geocerca:</strong> <span style="color:#10b981;">${eq.geofence}</span></div>
               <div>🧪 <strong>Análisis SOS:</strong> <span style="color:#ffb800;">${eq.sosFluid}</span></div>
@@ -744,10 +846,10 @@
 
           <!-- Action Buttons Bar -->
           <div style="display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;">
-            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){window.tmdOpenTelematicsCockpit('${eq.vin}');}else{alert('Abriendo telemetría para ${eq.name}...');}">
+            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){window.tmdOpenTelematicsCockpit('${eq.vin}');}">
               🛰️ Telemetría
             </button>
-            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenPartsSerialEngine==='function'){window.tmdOpenPartsSerialEngine('${eq.vin}');}else{alert('Buscando despiece para ${eq.vin}...');}">
+            <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;" onclick="if(typeof window.tmdOpenPartsSerialEngine==='function'){window.tmdOpenPartsSerialEngine('${eq.vin}');}">
               ⚙️ Despiece VIN
             </button>
             <button class="tmd-btn-outline" style="flex:1;justify-content:center;padding:8px 10px;font-size:0.72rem;color:#ffb800;border-color:rgba(255,184,0,0.3);" onclick="document.getElementById('tmd-book-machine').value='${eq.name}';window.tmdSwitchClientNav('nav-booking');">
@@ -778,7 +880,7 @@
           </div>
           <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;">
             <span style="font-size:0.7rem;color:#a1a1aa;font-family:'JetBrains Mono',monospace;">${d.size}</span>
-            <button class="tmd-btn-outline" style="padding:4px 10px;font-size:0.72rem;" onclick="alert('Descargando ${d.title} en formato PDF oficial TMD...')">
+            <button class="tmd-btn-outline" style="padding:4px 10px;font-size:0.72rem;" onclick="window.tmdShowToast('Descargando ' + '${d.title}' + ' (PDF oficial TMD)...', 'info')">
               Descargar PDF
             </button>
           </div>
@@ -829,13 +931,13 @@
       var count = document.getElementById('tmd-cart-count');
       if (badge) badge.innerText = _cartItems.length;
       if (count) count.innerText = _cartItems.length;
-      alert('Pieza ' + item.partNo + ' agregada al carrito de requisición.');
+      window.tmdShowToast('Pieza ' + item.partNo + ' agregada al pedido.', 'success');
     }
   };
 
   window.tmdCheckoutCart = function() {
     if (_cartItems.length === 0) {
-      alert('El carrito de requisición está vacío. Seleccione piezas del catálogo.');
+      window.tmdShowToast('El carrito de requisición está vacío. Seleccione piezas del catálogo.', 'error');
       return;
     }
     var list = _cartItems.map(function(p) { return '• ' + p.partNo + ' (' + p.desc + ') - $' + p.price; }).join('\n');
@@ -918,7 +1020,7 @@
 
   window.tmdConfirmSignature = function() {
     window.tmdCloseSignatureModal();
-    alert('¡Cotización #11555 Aprobada Exitosamente!\n\nSe ha emitido el anticipo por USD $1,000.00 vía Square Web Payments y bloqueado la Bahía 3 del Km 22.\n\nNotificación enviada a Don Eduardo.');
+    window.tmdShowToast('¡Cotización #11555 Aprobada! Anticipo Square procesado y Bahía 3 reservada en Km 22.', 'success');
     window.tmdSwitchClientNav('nav-orders');
   };
 
@@ -944,7 +1046,7 @@
 
   window.tmdClientLogout = function() {
     window.tmdCloseClientPortal();
-    alert('Sesión de cliente cerrada correctamente.');
+    window.tmdShowToast('Sesión de cliente cerrada correctamente.', 'info');
   };
 
   window.tmdSwitchClientNav = function(navId) {
@@ -984,22 +1086,25 @@
     var btnCC = document.getElementById('btn-pay-cc');
     var btnBank = document.getElementById('btn-pay-bank');
     if (m === 'cc') {
-      btnCC.classList.add('active');
-      btnBank.classList.remove('active');
+      if (btnCC) btnCC.classList.add('active');
+      if (btnBank) btnBank.classList.remove('active');
     } else {
-      btnBank.classList.add('active');
-      btnCC.classList.remove('active');
-      alert('Datos Bancarios TMD:\n\nBanco: Banco de Reservas (Banreservas)\nCuenta Corriente: 960-249201-1\nBeneficiario: Tecnomaquinarias Diesel S.R.L.\nRNC: 1-31-84920-1');
+      if (btnBank) btnBank.classList.add('active');
+      if (btnCC) btnCC.classList.remove('active');
     }
   };
 
   window.tmdSubmitBooking = function(e) {
-    e.preventDefault();
-    var machine = document.getElementById('tmd-book-machine').value;
-    var service = document.getElementById('tmd-book-service').value;
-    var date = document.getElementById('tmd-book-date').value;
+    if (e && e.preventDefault) e.preventDefault();
+    var machineEl = document.getElementById('tmd-book-machine');
+    var serviceEl = document.getElementById('tmd-book-service');
+    var dateEl = document.getElementById('tmd-book-date');
+    var machine = machineEl ? machineEl.value : 'JCB 3CX Eco';
+    var service = serviceEl ? serviceEl.value : 'Mantenimiento Preventivo 500h';
+    var date = dateEl ? dateEl.value : '2026-10-01';
 
-    alert('¡Turno de Bahía Agendado con Éxito!\n\nEquipo: ' + machine + '\nServicio: ' + service + '\nFecha: ' + date + '\n\nConfirmación inmediata enviada por WhatsApp al Km 22.');
+    var waMsg = 'Hola TMD Dominicana, he solicitado una reserva de bahía en Taller Km 22:\n• Equipo: ' + machine + '\n• Servicio: ' + service + '\n• Fecha: ' + date;
+    window.open('https://api.whatsapp.com/send/?phone=18098262222&text=' + encodeURIComponent(waMsg), '_blank');
     window.tmdSwitchClientNav('nav-workflow');
   };
 
@@ -1016,7 +1121,7 @@
         document.body.style.overflow = 'hidden';
       }
     } else if (pin !== null) {
-      alert('PIN de personal incorrecto. Acceso denegado a la Mesa Técnica.');
+      window.tmdShowToast('PIN de personal incorrecto. Acceso denegado a la Mesa Técnica.', 'error');
     }
   };
 
@@ -1030,7 +1135,31 @@
 
   window.tmdSwitchStaffNav = function(navId) {
     _activeStaffNav = navId;
-    alert('Navegando en Mesa Técnica: ' + navId);
+    document.querySelectorAll('.tmd-staff-pane').forEach(function(pane) {
+      pane.style.display = 'none';
+    });
+    document.querySelectorAll('[data-snav]').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+
+    var activeBtn = document.querySelector('[data-snav="' + navId + '"]');
+    if (activeBtn) activeBtn.classList.add('active');
+
+    var paneId = 'spane-bays';
+    var title = '18 Bahías de Taller';
+    if (navId === 'staff-orders') {
+      paneId = 'spane-orders';
+      title = 'Órdenes Fullbay ERP';
+    } else if (navId === 'staff-dvi') {
+      paneId = 'spane-dvi';
+      title = 'Inspección DVI 40 Puntos';
+    }
+
+    var pane = document.getElementById(paneId);
+    if (pane) pane.style.display = 'block';
+
+    var titleEl = document.getElementById('tmd-staff-active-title');
+    if (titleEl) titleEl.innerText = title;
   };
 
   /* ══════════════════════════════════════════════════════════════════ */
@@ -1053,7 +1182,7 @@
         window.tmdToggleParticles(!particlesActive);
       }
     } else if (pin !== null) {
-      alert('PIN de Administrador TI incorrecto.');
+      window.tmdShowToast('PIN de Administrador TI incorrecto.', 'error');
     }
   };
 
@@ -1064,7 +1193,7 @@
       window.__TMD_ANIMATION_ENGINE.setParticlesActive(active);
     }
     localStorage.setItem('tmd_particles_active', active ? 'true' : 'false');
-    alert('Efecto de partículas ' + (active ? 'activado' : 'desactivado') + ' en tiempo real.');
+    window.tmdShowToast('Efecto de partículas ' + (active ? 'activado' : 'desactivado') + ' en tiempo real.', 'info');
   };
 
   // Keyboard shortcut Esc

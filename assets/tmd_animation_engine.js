@@ -28,7 +28,6 @@
     const currentY = window.scrollY;
     scrollVelocity = Math.abs(currentY - lastScrollY);
     lastScrollY = currentY;
-    document.documentElement.style.setProperty('--scroll-y', `${currentY}px`);
     ticking = false;
     evaluateAmbienceContext();
   }
@@ -247,10 +246,6 @@
       const isDark = document.documentElement.classList.contains('dark');
       const particleRgb = isDark ? '245, 158, 11' : '217, 119, 6';
 
-      // Subtle scroll velocity: gentle acceleration when scrolling
-      scrollVelocity *= 0.92;
-      const velocityDrift = Math.min(scrollVelocity * 0.03, 1.8);
-
       // ── AMBIENT AURORA BLOOM PURGED: Pure uniform obsidian black background (zero half-screen split) ──
 
       // ── SPECULAR MOUSE CURSOR GLOW (todobuild.store Cursor Spotlight 1:1) ──
@@ -297,7 +292,7 @@
 
         // Gentle organic sway + upward drift
         p.x += (p.dx + Math.sin(p.pulseVal * 0.7) * 0.25) * spd;
-        p.y += (p.dy * spd) - velocityDrift;
+        p.y += (p.dy * spd);
         p.pulseVal += p.pulseSpeed;
 
         // Gentle cursor push without drawing distracting lines

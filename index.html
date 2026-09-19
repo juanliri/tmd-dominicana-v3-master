@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="scroll-smooth dark">
+<html lang="es" class="dark">
   <head>
     <script>
       // Synchronize with React state: tmd-theme in localStorage with smart auto-detect
@@ -272,6 +272,15 @@
         });
         if (anyQuoteBtn) anyQuoteBtn.click();
       };
+      window.tmdShowQuoteModal = window.tmdTriggerQuoteModal;
+
+      if (window.location.search && window.location.search.indexOf('quote=true') !== -1) {
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            if (typeof window.tmdTriggerQuoteModal === 'function') window.tmdTriggerQuoteModal();
+          }, 900);
+        });
+      }
 
     })();
     </script>
@@ -2489,11 +2498,11 @@ html:not(.dark) #socios .group:hover {
         --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
         /* Enterprise Dark Theme Palette Tokens (John Deere / Caterpillar Tier-1) */
-        --surface-canvas: #07090e;
-        --surface-card: #0c1017;
-        --surface-raised: #111622;
-        --surface-overlay: #172030;
-        --surface-active: #1d273a;
+        --surface-canvas: #000000;
+        --surface-card: #0a0a0c;
+        --surface-raised: #121215;
+        --surface-overlay: #18181c;
+        --surface-active: #222228;
         --border-subtle: rgba(255, 255, 255, 0.08);
         --border-hover: rgba(255, 184, 0, 0.4);
         --accent-gold: #ffb800;
@@ -5183,14 +5192,18 @@ html:not(.dark) #socios .group:hover {
     <script>
     /* ─── PRINTING PERMANENTLY DISABLED ─── */
     window.print = function() {
-      alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+      if (typeof window.tmdShowToast === 'function') {
+        window.tmdShowToast('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.', 'error');
+      }
       return false;
     };
     window.addEventListener('keydown', function(e) {
       if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
         e.preventDefault();
         e.stopPropagation();
-        alert('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.');
+        if (typeof window.tmdShowToast === 'function') {
+          window.tmdShowToast('Impresión deshabilitada por motivos de confidencialidad y derechos de autor TMD.', 'error');
+        }
         return false;
       }
     }, true);

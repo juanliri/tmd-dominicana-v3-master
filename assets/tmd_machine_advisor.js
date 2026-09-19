@@ -106,11 +106,11 @@
     const matched = matchEquipment();
 
     return `
-      <div id="tmd-advisor-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(4, 6, 12, 0.85) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
-        <div class="relative w-full max-w-[960px] max-h-[92vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.90) 0%, rgba(8, 11, 19, 0.88) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;">
+      <div id="tmd-advisor-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300" style="background: rgba(0, 0, 0, 0.92) !important; backdrop-filter: blur(24px) saturate(140%) !important; -webkit-backdrop-filter: blur(24px) saturate(140%) !important;">
+        <div class="relative w-full max-w-[960px] max-h-[92vh] overflow-y-auto rounded-[24px] text-neutral-200 flex flex-col" style="background: linear-gradient(165deg, rgba(14, 14, 16, 0.95) 0%, rgba(8, 8, 10, 0.92) 100%) !important; backdrop-filter: blur(28px) saturate(150%) !important; -webkit-backdrop-filter: blur(28px) saturate(150%) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
           
           <!-- Header Bar -->
-          <div class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 24, 38, 0.86) 0%, rgba(11, 16, 26, 0.82) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
+          <div class="sticky top-0 z-30 flex items-center justify-between px-6 py-4 rounded-t-[24px]" style="background: linear-gradient(180deg, rgba(18, 18, 20, 0.92) 0%, rgba(11, 11, 13, 0.90) 100%) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-[12px] bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
                 <span class="material-symbols-outlined text-[24px]">psychology</span>
@@ -130,7 +130,7 @@
           </div>
 
           <!-- Stepper Indicator Bar -->
-          <div class="px-6 py-3.5 border-b border-neutral-800/80 flex items-center justify-between" style="background: rgba(14, 19, 30, 0.82) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
+          <div class="px-6 py-3.5 border-b border-neutral-800/80 flex items-center justify-between" style="background: rgba(12, 12, 14, 0.88) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;">
             <div class="flex items-center gap-4 text-xs font-mono">
               <span class="flex items-center gap-1.5 ${currentStep >= 1 ? 'text-amber-400 font-bold' : 'text-neutral-500'}">
                 <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] ${currentStep >= 1 ? 'bg-amber-500 text-black' : 'bg-neutral-800'}">1</span>
@@ -164,7 +164,7 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                   
-                  <div onclick="window.tmdAdvisorSelect('faena', 'cantera', 2)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('faena', 'cantera', 2)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5 group-hover:scale-110 transition-transform">terrain</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Cantera de Caliza / Tosca / Minería</div>
@@ -172,7 +172,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('faena', 'urbana', 2)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('faena', 'urbana', 2)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5 group-hover:scale-110 transition-transform">location_city</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Obras Civiles Urbanas & Zanjas</div>
@@ -180,7 +180,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('faena', 'vial', 2)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('faena', 'vial', 2)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5 group-hover:scale-110 transition-transform">add_road</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Construcción Vial & Carreteras</div>
@@ -188,7 +188,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('faena', 'agro', 2)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('faena', 'agro', 2)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5 group-hover:scale-110 transition-transform">agriculture</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Agricultura / Arrozales / Cañaveral</div>
@@ -196,7 +196,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('faena', 'demolicion', 2)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group sm:col-span-2">
+                  <div onclick="window.tmdAdvisorSelect('faena', 'demolicion', 2)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group sm:col-span-2">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5 group-hover:scale-110 transition-transform">home_repair_service</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Sótanos, Demolición & Espacios Reducidos</div>
@@ -218,7 +218,7 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                   
-                  <div onclick="window.tmdAdvisorSelect('exigencia', 'versatil', 3)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('exigencia', 'versatil', 3)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5">handyman</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Versatilidad Media (4 a 8 Toneladas)</div>
@@ -226,7 +226,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('exigencia', 'profunda', 3)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('exigencia', 'profunda', 3)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5">foundation</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Excavación Masiva Pesada (20+ Toneladas)</div>
@@ -234,7 +234,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('exigencia', 'compacto', 3)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('exigencia', 'compacto', 3)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5">fullscreen_exit</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Maniobrabilidad Compacta (&lt; 3 Toneladas)</div>
@@ -242,7 +242,7 @@
                     </div>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('exigencia', 'compactacion', 3)" class="p-4 rounded-[16px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
+                  <div onclick="window.tmdAdvisorSelect('exigencia', 'compactacion', 3)" class="p-4 rounded-[16px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex items-start gap-3 group">
                     <span class="material-symbols-outlined text-amber-500 text-[28px] mt-0.5">roller_shades</span>
                     <div>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Compactación Vibratoria & Pavimentación</div>
@@ -270,7 +270,7 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
                   
-                  <div onclick="window.tmdAdvisorSelect('modalidad', 'renta', 4)" class="p-5 rounded-[18px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex flex-col justify-between group text-center">
+                  <div onclick="window.tmdAdvisorSelect('modalidad', 'renta', 4)" class="p-5 rounded-[18px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex flex-col justify-between group text-center">
                     <div>
                       <span class="material-symbols-outlined text-amber-500 text-[32px] mb-2">calendar_today</span>
                       <div class="text-sm font-bold text-white group-hover:text-amber-400">Renta Corporativa</div>
@@ -279,7 +279,7 @@
                     <span class="mt-4 px-3 py-1 rounded-[8px] bg-neutral-900 border border-neutral-800 text-[11px] font-mono text-amber-400 font-bold">Cero Inversión Capital</span>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('modalidad', 'compra', 4)" class="p-5 rounded-[18px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex flex-col justify-between group text-center">
+                  <div onclick="window.tmdAdvisorSelect('modalidad', 'compra', 4)" class="p-5 rounded-[18px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex flex-col justify-between group text-center">
                     <div>
                       <span class="material-symbols-outlined text-emerald-400 text-[32px] mb-2">local_shipping</span>
                       <div class="text-sm font-bold text-white group-hover:text-emerald-400">Compra 0 Km (Km 22)</div>
@@ -288,7 +288,7 @@
                     <span class="mt-4 px-3 py-1 rounded-[8px] bg-neutral-900 border border-neutral-800 text-[11px] font-mono text-emerald-400 font-bold">Activo Propio</span>
                   </div>
 
-                  <div onclick="window.tmdAdvisorSelect('modalidad', 'leasing', 4)" class="p-5 rounded-[18px] bg-[#111622] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex flex-col justify-between group text-center">
+                  <div onclick="window.tmdAdvisorSelect('modalidad', 'leasing', 4)" class="p-5 rounded-[18px] bg-[#111114] hover:bg-amber-500/10 border border-neutral-800 hover:border-amber-500/60 cursor-pointer transition-all flex flex-col justify-between group text-center">
                     <div>
                       <span class="material-symbols-outlined text-cyan-400 text-[32px] mb-2">account_balance</span>
                       <div class="text-sm font-bold text-white group-hover:text-cyan-400">Leasing Bancario</div>
