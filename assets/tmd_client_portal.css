@@ -1,0 +1,651 @@
+/**
+ * TMD Dominicana — Multi-Role Client, Staff & IT Portal Stylesheet
+ * Tecnomaquinarias Diesel S.R.L. — Taller Central Km 22 Autopista Duarte
+ */
+
+:root {
+  --tmd-portal-bg: #090d16;
+  --tmd-portal-card: #121826;
+  --tmd-portal-card-border: rgba(245, 158, 11, 0.22);
+  --tmd-portal-card-hover: rgba(245, 158, 11, 0.45);
+  --tmd-portal-gold: #facc15;
+  --tmd-portal-amber: #f59e0b;
+  --tmd-portal-green: #10b981;
+  --tmd-portal-blue: #38bdf8;
+  --tmd-portal-red: #ef4444;
+  --tmd-portal-text: #f3f4f6;
+  --tmd-portal-muted: #9ca3af;
+}
+
+/* Modal Backdrop */
+#tmd-client-portal-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(4, 7, 13, 0.92);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  overflow-y: auto;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--tmd-portal-text);
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+#tmd-client-portal-modal.tmd-active {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  animation: tmdPortalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tmdPortalFadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Modal Container */
+.tmd-portal-container {
+  width: 100%;
+  max-width: 1280px;
+  height: 92vh;
+  min-height: 600px;
+  background: var(--tmd-portal-bg);
+  border: 1px solid var(--tmd-portal-card-border);
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(245, 158, 11, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header Bar */
+.tmd-portal-header {
+  padding: 14px 24px;
+  background: #0f1422;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.tmd-portal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tmd-portal-logo-badge {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #090d16;
+  font-weight: 900;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tmd-portal-headings h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+}
+
+.tmd-portal-headings p {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  color: var(--tmd-portal-muted);
+}
+
+.tmd-portal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tmd-portal-api-mode-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tmd-portal-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.tmd-portal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #ef4444;
+}
+
+/* Switch Role Button in Header */
+.tmd-switch-role-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #d1d5db;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tmd-switch-role-btn:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: #facc15;
+  color: #facc15;
+}
+
+/* ROLE SELECTOR SCREEN */
+.tmd-role-select-screen {
+  padding: 36px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tmd-role-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+  text-align: left;
+}
+
+.tmd-role-card {
+  background: var(--tmd-portal-card);
+  border: 1px solid var(--tmd-portal-card-border);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.tmd-role-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--tmd-portal-gold);
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
+}
+
+.tmd-role-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.tmd-role-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 6px 0;
+}
+
+.tmd-role-desc {
+  font-size: 0.8rem;
+  color: var(--tmd-portal-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.tmd-role-pin-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.2em;
+  margin-top: 8px;
+  outline: none;
+}
+
+.tmd-role-pin-input:focus {
+  border-color: #facc15;
+}
+
+/* Tabs Bar */
+.tmd-portal-tabs {
+  background: #0d121e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  flex-shrink: 0;
+  padding: 0 16px;
+  gap: 8px;
+}
+
+.tmd-portal-tab {
+  padding: 12px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.tmd-portal-tab:hover {
+  color: #f3f4f6;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tmd-portal-tab.active {
+  color: #facc15;
+  border-bottom-color: #facc15;
+  background: rgba(250, 204, 21, 0.05);
+}
+
+/* Main Content Area */
+.tmd-portal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.03) 0%, transparent 60%), #090d16;
+}
+
+.tmd-portal-pane {
+  display: none;
+}
+
+.tmd-portal-pane.active {
+  display: block;
+  animation: tmdPaneFade 0.2s ease-in-out;
+}
+
+@keyframes tmdPaneFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Universal Buttons & Inputs */
+.tmd-search-btn {
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  color: #090d16;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: transform 0.15s;
+}
+
+.tmd-search-btn:hover {
+  transform: translateY(-1px);
+}
+
+.tmd-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #facc15;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  transition: all 0.15s;
+}
+
+.tmd-chip:hover {
+  background: rgba(250, 204, 21, 0.15);
+  border-color: #facc15;
+}
+
+/* Panels */
+.tmd-card-panel {
+  background: var(--tmd-portal-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.tmd-card-panel h4 {
+  margin: 0 0 14px 0;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 10px;
+}
+
+/* Stepper */
+.tmd-stepper-container {
+  background: var(--tmd-portal-card);
+  border: 1px solid var(--tmd-portal-card-border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.tmd-stepper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  gap: 8px;
+}
+
+.tmd-stepper::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  right: 30px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.tmd-step-item {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.tmd-step-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #1a2234;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+.tmd-step-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  line-height: 1.25;
+}
+
+.tmd-step-item.completed .tmd-step-circle {
+  background: #10b981;
+  border-color: #10b981;
+  color: #090d16;
+}
+
+.tmd-step-item.completed .tmd-step-label {
+  color: #34d399;
+}
+
+.tmd-step-item.active .tmd-step-circle {
+  background: #facc15;
+  border-color: #facc15;
+  color: #090d16;
+  box-shadow: 0 0 16px rgba(250, 204, 21, 0.6);
+  animation: tmdPulseCircle 2s infinite;
+}
+
+.tmd-step-item.active .tmd-step-label {
+  color: #facc15;
+  font-weight: 800;
+}
+
+@keyframes tmdPulseCircle {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
+  70% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(250, 204, 21, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+}
+
+/* Grids */
+.tmd-wo-details-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .tmd-wo-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tmd-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.tmd-meta-label {
+  color: var(--tmd-portal-muted);
+}
+
+.tmd-meta-val {
+  font-weight: 700;
+  color: #f3f4f6;
+  text-align: right;
+}
+
+/* Fleet & Parts Grids */
+.tmd-fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.tmd-fleet-card {
+  background: var(--tmd-portal-card);
+  border: 1px solid var(--tmd-portal-card-border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.tmd-fleet-card:hover {
+  transform: translateY(-2px);
+  border-color: #facc15;
+}
+
+.tmd-parts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.tmd-part-card {
+  background: var(--tmd-portal-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tmd-part-card:hover {
+  border-color: rgba(250, 204, 21, 0.4);
+}
+
+.tmd-stock-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.tmd-stock-in {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+/* IT & ADMIN CONSOLE STYLES */
+.tmd-admin-console-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tmd-console-card {
+  background: var(--tmd-portal-card);
+  border: 1px solid var(--tmd-portal-card-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.tmd-console-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tmd-console-row:last-child {
+  border-bottom: none;
+}
+
+.tmd-console-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.tmd-console-desc {
+  font-size: 0.75rem;
+  color: var(--tmd-portal-muted);
+  margin-top: 2px;
+}
+
+/* Toggle Switch */
+.tmd-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.tmd-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tmd-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #374151;
+  transition: 0.25s;
+  border-radius: 34px;
+}
+
+.tmd-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.25s;
+  border-radius: 50%;
+}
+
+input:checked + .tmd-slider {
+  background-color: #f59e0b;
+}
+
+input:checked + .tmd-slider:before {
+  transform: translateX(22px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tmd-portal-container {
+    height: 98vh;
+    border-radius: 12px;
+  }
+  .tmd-portal-header {
+    padding: 12px 16px;
+  }
+  .tmd-portal-body {
+    padding: 16px;
+  }
+  .tmd-stepper {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .tmd-stepper::before {
+    display: none;
+  }
+  .tmd-step-item {
+    flex-direction: row;
+    gap: 14px;
+    align-items: center;
+    text-align: left;
+  }
+}

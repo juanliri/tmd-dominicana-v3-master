@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMD - Checklist Tecnico de Onboarding y Accesos</title>
+  <style>
+    /* ── RESET & BASE SETUP ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── EXACT US LETTER SPECIFICATION (8.5 x 11 in) ── */
+    @page {
+      size: letter portrait;
+      margin: 0.42in 0.5in 0.42in 0.5in;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 9pt;
+      line-height: 1.34;
+      color: #1f2937;
+      background-color: #f3f4f6;
+      padding: 16px 8px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── ON-SCREEN FLOATING ACTION BAR (HIDES ON PRINT) ── */
+    .screen-actions {
+      max-width: 800px;
+      margin: 0 auto 14px auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 18px;
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .screen-actions .title {
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .screen-actions .desc {
+      font-size: 7.5pt;
+      color: #9ca3af;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .btn-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-action {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 7px 14px;
+      font-size: 9pt;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: background 0.15s ease;
+    }
+
+    .btn-action:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #374151;
+    }
+    .btn-secondary:hover {
+      background: #4b5563;
+    }
+
+    /* ── MASTER PAGE SHEET CONTAINERS (STRICT 2 PAGES) ── */
+    .page-sheet {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px 32px 18px 32px;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    /* ── STRICT PAGE BREAK ── */
+    .page-break {
+      break-before: page !important;
+      page-break-before: always !important;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* ── HEADER BLOCK ── */
+    .header-box {
+      border-bottom: 2px solid #111827;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header-left h1 {
+      font-size: 13.5pt;
+      font-weight: 900;
+      color: #111827;
+      text-transform: uppercase;
+      letter-spacing: -0.3px;
+      line-height: 1.15;
+    }
+
+    .header-left h2 {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-left .meta-sub {
+      font-size: 7.5pt;
+      color: #4b5563;
+      margin-top: 2px;
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 7.5pt;
+      color: #4b5563;
+      font-family: Consolas, Monaco, monospace;
+      line-height: 1.3;
+    }
+
+    .badge-tier {
+      display: inline-block;
+      background: #111827;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 7pt;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      padding: 7px 10px;
+      margin-bottom: 7px;
+      background: #ffffff;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    .section-title {
+      font-size: 9pt;
+      font-weight: 800;
+      color: #111827;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 3px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-num {
+      background: #111827;
+      color: #ffffff;
+      font-size: 7pt;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: Consolas, monospace;
+      margin-right: 5px;
+    }
+
+    .instruction-note {
+      font-size: 7.5pt;
+      color: #6b7280;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    /* ── FORM FIELDS & INTERACTIVE INPUTS ── */
+    .field-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 10px;
+      margin-bottom: 4px;
+    }
+
+    .field-row {
+      margin-bottom: 4px;
+    }
+
+    .field-label {
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: #374151;
+      text-transform: uppercase;
+      margin-bottom: 1px;
+      display: block;
+    }
+
+    /* REAL FILLABLE INPUT STYLES */
+    .fill-input {
+      width: 100%;
+      height: 22px;
+      border: 1px solid #9ca3af;
+      border-radius: 3px;
+      font-size: 8.5pt;
+      padding: 1px 6px;
+      font-family: inherit;
+      color: #111827;
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .fill-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+      background: #eff6ff;
+    }
+
+    /* ── INTERACTIVE CHECKBOXES ── */
+    .option-card {
+      border: 1px dashed #d1d5db;
+      border-radius: 4px;
+      padding: 5px 7px;
+      margin-bottom: 5px;
+      background: #fafafa;
+    }
+
+    .option-header {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .real-checkbox {
+      width: 13px;
+      height: 13px;
+      accent-color: #2563eb;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 3px;
+    }
+
+    .checklist-list li {
+      font-size: 7.5pt;
+      color: #374151;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    /* ── SIGNATURE CARD WITH CANVAS DRAWING ── */
+    .sign-card {
+      border: 1.5px solid #111827;
+      border-radius: 5px;
+      padding: 8px 12px;
+      margin-top: 6px;
+      background: #fafafa;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    .sign-card .title {
+      font-size: 8pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #111827;
+      margin-bottom: 3px;
+    }
+
+    .sign-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .canvas-wrap {
+      border: 1px dashed #9ca3af;
+      border-radius: 4px;
+      background: #ffffff;
+      position: relative;
+    }
+
+    #sigCanvas {
+      width: 100%;
+      height: 48px;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .canvas-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    .btn-clear {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 7pt;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-family: Consolas, monospace;
+    }
+    .btn-clear:hover {
+      text-decoration: underline;
+    }
+
+    .sign-caption {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: #4b5563;
+      text-transform: uppercase;
+    }
+
+    /* ── EXACT MATCHING FOOTER (IDENTICAL TO PDF CANVAS) ── */
+    .print-footer {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 5px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7pt;
+      color: #6b7280;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .print-footer .footer-brand {
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    .print-footer .footer-page {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    /* ── PRINT MEDIA RULES (CLEAN, SHARP, STRICT 2 PAGES) ── */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .no-print, .screen-actions, .canvas-tools {
+        display: none !important;
+      }
+
+      .page-sheet {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        height: auto !important;
+      }
+
+      .section-card {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        border: 1px solid #9ca3af !important;
+        background: #ffffff !important;
+        margin-bottom: 5pt !important;
+        padding: 5pt 8pt !important;
+      }
+
+      .header-box {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        border-bottom: 1.5pt solid #000000 !important;
+        margin-bottom: 6pt !important;
+      }
+
+      .sign-card {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        border: 1.2pt solid #000000 !important;
+        background: #ffffff !important;
+        padding: 6pt 8pt !important;
+        margin-top: 5pt !important;
+      }
+
+      .fill-input {
+        border: 0.5pt solid #6b7280 !important;
+        background: #ffffff !important;
+        height: 18pt !important;
+      }
+
+      .option-card {
+        border: 0.75pt dashed #9ca3af !important;
+        background: #ffffff !important;
+      }
+
+      .print-footer {
+        border-top: 0.5pt solid #d1d5db !important;
+        padding-top: 3pt !important;
+        margin-top: 6pt !important;
+      }
+    }
+  
+    /* ── POPUP SECURITY MODAL & EXPORT BUTTONS (SCREEN ONLY) ── */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(3, 7, 18, 0.78);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      max-width: 530px;
+      width: 100%;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid #ef4444;
+    }
+
+    .modal-shield {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .modal-supertitle {
+      font-size: 7pt;
+      font-weight: 800;
+      color: #f87171;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: Consolas, monospace;
+    }
+
+    .modal-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+
+    .modal-body {
+      padding: 20px;
+      font-size: 8.5pt;
+      color: #334155;
+      line-height: 1.48;
+    }
+
+    .modal-alert-box {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      border-left: 4px solid #e11d48;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      color: #9f1239;
+      font-size: 8pt;
+    }
+
+    .modal-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px 0;
+    }
+
+    .modal-list li {
+      margin-bottom: 9px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .modal-list li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      color: #dc2626;
+      font-weight: bold;
+      font-size: 11pt;
+      line-height: 1;
+    }
+
+    .modal-footer {
+      background: #f8fafc;
+      padding: 12px 20px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-modal-secure {
+      background: #059669;
+      color: #ffffff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 8.5pt;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+
+    .btn-modal-secure:hover {
+      background: #047857;
+    }
+
+    .btn-modal-print {
+      background: #475569;
+      color: #ffffff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 8pt;
+      cursor: pointer;
+    }
+
+    .btn-modal-print:hover {
+      background: #334155;
+    }
+
+    .btn-modal-cancel {
+      background: #e2e8f0;
+      color: #334155;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 8pt;
+      cursor: pointer;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-secure-header {
+      background: #059669 !important;
+      border: 1px solid #10b981 !important;
+    }
+    .btn-secure-header:hover {
+      background: #047857 !important;
+    }
+
+    @media print {
+      .modal-backdrop, .screen-actions, .no-print {
+        display: none !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ON-SCREEN FLOATING ACTION BAR (HIDDEN IN PRINT) -->
+  <div class="screen-actions no-print">
+    <div>
+      <div class="title">TMD Heavy Equipment &bull; Formulario Digital Rellenable</div>
+      <div class="desc">Rellena los campos directamente en pantalla o firma con el mouse/dedo antes de imprimir &bull; Exactamente 2 Paginas</div>
+    </div>
+    <div class="btn-actions">
+      <button type="button" class="btn-action btn-secure-header" onclick="exportEncryptedPayload()" title="Descarga sus respuestas protegidas bajo cifrado militar AES-256 sin dejar archivos planos">
+        🔒 Guardar Archivo Cifrado (Recomendado)
+      </button>
+      <button type="button" class="btn-action" onclick="openPrintSecurityModal()">
+        🖨️ Imprimir / Guardar PDF
+      </button>
+      <button type="button" class="btn-action btn-secondary" onclick="resetForm()">
+        Limpiar
+      </button>
+    </div>
+  </div>
+
+  <form id="onboardingForm">
+    <!-- ═══════════════════ PAGE SHEET 1 (SECTIONS 1, 2, 3) ═══════════════════ -->
+    <div class="page-sheet">
+
+      <!-- HEADER BLOCK -->
+      <div class="header-box">
+        <div class="header-left">
+          <span class="badge-tier">Tier 2 Fullbay Connected</span>
+          <h1>Checklist de Onboarding y Accesos</h1>
+          <h2>TodoBuild Technologies Inc. &bull; Division Tech</h2>
+          <div class="meta-sub">Proyecto: Ecosistema Digital TMD Heavy Equipment | Don Eduardo</div>
+        </div>
+        <div class="header-right">
+          <div><strong>Doc ID:</strong> TMD-ONBOARD-2026</div>
+          <div><strong>Fecha Emision:</strong> 17/09/2026</div>
+          <div><strong>Plazo Ejecucion:</strong> ~21 dias laborables</div>
+          <div><strong>Soporte Directo:</strong> (646) 580-3090</div>
+        </div>
+      </div>
+
+      <!-- SECCION 1 -->
+      <div class="section-card">
+        <div class="section-title">
+          <span><span class="section-num">01</span> Datos Fiscales y de Contacto para Contrato (MSA)</span>
+        </div>
+        <div class="field-grid-2">
+          <div class="field-row">
+            <label class="field-label">Nombre Comercial o Razon Social:</label>
+            <input type="text" name="empresa_razon_social" class="fill-input" placeholder="TMD Heavy Equipment SRL">
+          </div>
+          <div class="field-row">
+            <label class="field-label">RNC o Cedula del Titular:</label>
+            <input type="text" name="rnc_cedula" class="fill-input" placeholder="1-30-XXXXX-X">
+          </div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field-row">
+            <label class="field-label">Nombre del Firmante Autorizado:</label>
+            <input type="text" name="firmante_nombre" class="fill-input" placeholder="Don Eduardo">
+          </div>
+          <div class="field-row">
+            <label class="field-label">Cargo o Posicion en la Empresa:</label>
+            <input type="text" name="firmante_cargo" class="fill-input" placeholder="Gerente General / Propietario">
+          </div>
+        </div>
+        <div class="field-grid-2">
+          <div class="field-row">
+            <label class="field-label">Direccion Fisica / Taller Operativo:</label>
+            <input type="text" name="direccion_taller" class="fill-input" placeholder="Autopista Duarte Km 22, Santo Domingo">
+          </div>
+          <div class="field-row">
+            <label class="field-label">Telefono / WhatsApp Oficial:</label>
+            <input type="text" name="telefono_whatsapp" class="fill-input" placeholder="(809) XXX-XXXX">
+          </div>
+        </div>
+        <div class="field-row" style="margin-bottom: 0;">
+          <label class="field-label">Correo Electronico Principal para Recepcion de Factura y Documentos:</label>
+          <input type="email" name="correo_facturacion" class="fill-input" placeholder="administracion@tmd.do">
+        </div>
+      </div>
+
+      <!-- SECCION 2 -->
+      <div class="section-card">
+        <div class="section-title">
+          <span><span class="section-num">02</span> Acceso a Fullbay (Sistema de Taller y Repuestos)</span>
+        </div>
+        <div class="instruction-note">
+          Seleccione UNA de las siguientes opciones segun la estructura tecnica de su taller:
+        </div>
+
+        <div class="option-card">
+          <label class="option-header">
+            <input type="checkbox" name="fullbay_opcion_a" class="real-checkbox">
+            <strong>OPCION A: Generar API Key directa en Fullbay (Recomendada con departamento de sistemas)</strong>
+          </label>
+          <div class="field-grid-2">
+            <div class="field-row">
+              <label class="field-label">Fullbay Shop / Store ID:</label>
+              <input type="text" name="fullbay_shop_id" class="fill-input">
+            </div>
+            <div class="field-row">
+              <label class="field-label">Fullbay App ID / Client ID:</label>
+              <input type="text" name="fullbay_app_id" class="fill-input">
+            </div>
+          </div>
+          <div class="field-row" style="margin-bottom: 0;">
+            <label class="field-label">Fullbay API Key (Token Secreto):</label>
+            <input type="text" name="fullbay_api_key" class="fill-input">
+          </div>
+        </div>
+
+        <div class="option-card">
+          <label class="option-header">
+            <input type="checkbox" name="fullbay_opcion_b" class="real-checkbox">
+            <strong>OPCION B: Crear usuario tecnico temporal en Fullbay para nuestro equipo</strong>
+          </label>
+          <div style="font-size: 7.5pt; color: #4b5563; margin-bottom: 2px;">
+            Invitar al correo: <strong>juan@todobuild.com</strong> &bull; Rol: <strong>Administrator</strong> o <strong>Integrations Manager</strong>.
+          </div>
+          <ul class="checklist-list">
+            <li>
+              <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="checkbox" name="fullbay_invitacion_enviada" class="real-checkbox"> Ya fue enviada la invitacion por correo electronico.
+              </label>
+            </li>
+            <li>
+              <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="checkbox" name="fullbay_coordinar_anydesk" class="real-checkbox"> Prefiero coordinar una sesion remota (AnyDesk / Zoom) para crearlo en conjunto.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="option-card" style="margin-bottom: 0;">
+          <label class="option-header" style="margin-bottom: 0;">
+            <input type="checkbox" name="fullbay_opcion_c" class="real-checkbox">
+            <span><strong>OPCION C: Fullbay en configuracion</strong> (Autorizo a montar base de datos en Staging)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- SECCION 3 -->
+      <div class="section-card" style="margin-bottom: 0;">
+        <div class="section-title">
+          <span><span class="section-num">03</span> Dominio Web y Administracion de DNS</span>
+        </div>
+        <div class="field-grid-2">
+          <div class="field-row">
+            <label class="field-label">Nombre del Dominio Oficial:</label>
+            <input type="text" name="dominio_nombre" class="fill-input" placeholder="tmd.do / tmdheavy.com">
+          </div>
+          <div class="field-row">
+            <label class="field-label">Proveedor de Registro Actual:</label>
+            <input type="text" name="dominio_proveedor" class="fill-input" placeholder="GoDaddy / Namecheap / NIC.DO">
+          </div>
+        </div>
+
+        <div class="option-card" style="margin-top: 3px;">
+          <label class="option-header">
+            <input type="checkbox" name="dominio_delegado_godaddy" class="real-checkbox">
+            <strong>Acceso Delegado Tecnico en GoDaddy (Recomendado sin compartir claves)</strong>
+          </label>
+          <div style="font-size: 7.5pt; color: #4b5563;">
+            Invitar a: <strong>admin@todobuild.org</strong> con permiso de <em>Productos y Dominios</em> (no incluye tarjetas).
+          </div>
+        </div>
+        <div class="option-card" style="margin-bottom: 0;">
+          <label class="option-header">
+            <input type="checkbox" name="dominio_envio_dns" class="real-checkbox">
+            <strong>Envio de Registros DNS para que su webmaster los agregue:</strong>
+          </label>
+          <div class="field-grid-2">
+            <div class="field-row">
+              <label class="field-label">Correo Encargado DNS:</label>
+              <input type="text" name="dns_encargado_correo" class="fill-input">
+            </div>
+            <div class="field-row">
+              <label class="field-label">Telefono Encargado:</label>
+              <input type="text" name="dns_encargado_telefono" class="fill-input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATCHING PAGE 1 FOOTER -->
+      <div class="print-footer">
+        <div class="footer-brand">TodoBuild Technologies Inc. | Tech Division &bull; (888) 401-3090 &bull; tech@todobuild.com</div>
+        <div class="footer-page">Pagina 1 de 2</div>
+      </div>
+
+    </div>
+
+    <!-- STRICT PAGE BREAK -->
+    <div class="page-break"></div>
+
+    <!-- ═══════════════════ PAGE SHEET 2 (SECTIONS 4, 5, 6 & SIGNATURE) ═══════════════════ -->
+    <div class="page-sheet" style="margin-top: 14px;">
+
+      <!-- SECCION 4 -->
+      <div class="section-card">
+        <div class="section-title">
+          <span><span class="section-num">04</span> Pasarela de Pagos para Rentas y Repuestos en Linea</span>
+        </div>
+        <div class="instruction-note">
+          Seleccione el estado actual de cobros digitales en Republica Dominicana:
+        </div>
+
+        <div class="option-card">
+          <label class="option-header">
+            <input type="checkbox" name="pago_azul" class="real-checkbox">
+            <strong>AZUL (Banco Popular Dominicano)</strong>
+          </label>
+          <div class="field-grid-2">
+            <div class="field-row">
+              <label class="field-label">Merchant ID (Numero de Comercio):</label>
+              <input type="text" name="azul_merchant_id" class="fill-input">
+            </div>
+            <div class="field-row">
+              <label class="field-label">Auth Key / Certificado API:</label>
+              <input type="text" name="azul_auth_key" class="fill-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="option-card">
+          <label class="option-header">
+            <input type="checkbox" name="pago_cardnet" class="real-checkbox">
+            <strong>Cardnet Dominicana</strong>
+          </label>
+          <div class="field-grid-2">
+            <div class="field-row">
+              <label class="field-label">Merchant Terminal ID:</label>
+              <input type="text" name="cardnet_terminal_id" class="fill-input">
+            </div>
+            <div class="field-row">
+              <label class="field-label">Clave Secreta de Integracion:</label>
+              <input type="text" name="cardnet_clave" class="fill-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="option-card" style="margin-bottom: 0;">
+          <label class="option-header">
+            <input type="checkbox" name="pago_sin_pasarela" class="real-checkbox">
+            <strong>Aun no tenemos pasarela bancaria local aprobada</strong>
+          </label>
+          <ul class="checklist-list">
+            <li>
+              <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="checkbox" name="pago_internacional_todobuild" class="real-checkbox"> Cobro provisional de depositos mediante pasarela internacional de TodoBuild.
+              </label>
+            </li>
+            <li>
+              <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+                <input type="checkbox" name="pago_solo_cotizar" class="real-checkbox"> Deseo cotizar exclusivamente via PDF descargable y WhatsApp sin cobro en linea al inicio.
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SECCION 5 -->
+      <div class="section-card">
+        <div class="section-title">
+          <span><span class="section-num">05</span> Telematica y GPS de Maquinaria (JCB LiveLink / Horometros)</span>
+        </div>
+        <div class="instruction-note">
+          Aplica para el modulo de lectura de horometros y mantenimiento preventivo automatizado:
+        </div>
+
+        <div class="option-card">
+          <label class="option-header">
+            <input type="checkbox" name="telematica_jcb_activo" class="real-checkbox">
+            <strong>JCB LiveLink Activo en Flota</strong>
+          </label>
+          <div class="field-grid-2">
+            <div class="field-row">
+              <label class="field-label">Usuario del Portal LiveLink:</label>
+              <input type="text" name="jcb_usuario" class="fill-input">
+            </div>
+            <div class="field-row">
+              <label class="field-label">Token AEMP / Clave Desarrollador:</label>
+              <input type="text" name="jcb_token_aemp" class="fill-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="option-card" style="margin-bottom: 0;">
+          <label class="option-header" style="margin-bottom: 0;">
+            <input type="checkbox" name="telematica_sin_gps" class="real-checkbox">
+            <span><strong>Sin Telematica en Vivo</strong> (Calculo por horas de taller Km 22 en cada Orden de Trabajo)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- SECCION 6 -->
+      <div class="section-card">
+        <div class="section-title">
+          <span><span class="section-num">06</span> Archivos de Marca, Fotos de Equipos e Inventario</span>
+        </div>
+        <div class="field-row">
+          <label class="field-label">Enlace Compartido (Google Drive / OneDrive / Dropbox):</label>
+          <input type="text" name="archivos_drive_link" class="fill-input" placeholder="https://drive.google.com/drive/folders/...">
+        </div>
+        <div class="instruction-note" style="margin-top: 3px;">
+          Favor incluir en la carpeta los siguientes elementos clave:
+        </div>
+        <ul class="checklist-list">
+          <li>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+              <input type="checkbox" name="check_logo_oficial" class="real-checkbox"> <strong>Logo oficial de TMD</strong> en alta resolucion (formato PNG transparente, SVG o vectorial AI).
+            </label>
+          </li>
+          <li>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+              <input type="checkbox" name="check_fotos_maquinaria" class="real-checkbox"> <strong>Fotos reales en angulo 3/4</strong> de la flota (excavadoras, rodillos, retroexcavadoras) para recorte transparente (PNG cutout).
+            </label>
+          </li>
+          <li>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+              <input type="checkbox" name="check_tarifas_renta" class="real-checkbox"> <strong>Tarifas base y aditamentos</strong> (dia/semana/mes, martillo hidraulico, baldes) para la calculadora interactiva de renta.
+            </label>
+          </li>
+          <li>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+              <input type="checkbox" name="check_repuestos_excel" class="real-checkbox"> <strong>Catalogo de repuestos y filtros frecuentes</strong> con numeros de parte y stock fisico en Km 22 para el buscador rapido.
+            </label>
+          </li>
+          <li>
+            <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
+              <input type="checkbox" name="check_fotos_instalaciones" class="real-checkbox"> <strong>Fotos del Km 22 y numero de WhatsApp de despacho</strong> para la barra fija de contacto rapido en celulares de obra.
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- SIGNATURE & DIGITAL CANVAS AUTHORIZATION BLOCK -->
+      <div class="sign-card">
+        <div class="title">Autorizacion de Inicio y Conformidad de Alcance</div>
+        <div style="font-size: 7pt; color: #4b5563; line-height: 1.3;">
+          El cliente confirma que los datos y accesos suministrados corresponden a la operacion legitima de TMD Heavy Equipment y autoriza al equipo de ingenieria de TodoBuild Technologies Inc. a realizar las tareas de integracion, despliegue y pruebas correspondientes al paquete Tier 2. El plazo estimado de ~21 dias laborables entra en vigencia a partir de la confirmacion del deposito inicial (50%) y la entrega valida de las credenciales de desarrollo.
+        </div>
+
+        <div style="margin-top: 4px; padding: 4px 8px; background: #fffbeb; border: 1px solid #fde68a; border-left: 3px solid #d97706; border-radius: 3px; font-size: 6.8pt; color: #92400e; line-height: 1.32;">
+          <strong>AVISO DE SEGURIDAD OBLIGATORIO:</strong> Una vez completado este formulario con sus accesos y contrasenas tecnicas, envielo directamente al equipo tecnico de TodoBuild (tech@todobuild.com / WhatsApp corporativo). <u>NO conserve copias planas sin contrasena en su escritorio ni descargas</u> para evitar filtraciones locales. Se recomienda utilizar la funcion de exportacion cifrada.
+        </div>
+
+        <div class="sign-grid">
+          <!-- Canvas Digital Signature Pad -->
+          <div class="sign-line-box">
+            <div class="canvas-wrap">
+              <canvas id="sigCanvas"></canvas>
+              <img id="sigImgFallback" style="display:none; width:100%; height:48px; object-fit:contain;" alt="Firma Digital">
+            </div>
+            <div class="canvas-tools">
+              <span class="sign-caption">Firma Digital (Dibuja con mouse o dedo)</span>
+              <button type="button" class="btn-clear" onclick="clearSignature()">Limpiar Firma</button>
+            </div>
+          </div>
+
+          <div class="sign-line-box">
+            <label class="field-label" style="margin-top: 10px;">Aclaracion de Nombre:</label>
+            <input type="text" name="aclaracion_nombre" class="fill-input" placeholder="Don Eduardo">
+            <span class="sign-caption">Nombre en Letra de Molde</span>
+          </div>
+
+          <div class="sign-line-box">
+            <label class="field-label" style="margin-top: 10px;">Fecha de Aprobacion:</label>
+            <input type="text" name="fecha_firma" class="fill-input" value="17/09/2026">
+            <span class="sign-caption">Fecha (DD/MM/AAAA)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATCHING PAGE 2 FOOTER -->
+      <div class="print-footer">
+        <div class="footer-brand">TodoBuild Technologies Inc. | Tech Division &bull; (888) 401-3090 &bull; tech@todobuild.com</div>
+        <div class="footer-page">Pagina 2 de 2</div>
+      </div>
+
+    </div>
+  
+    <!-- ═══════════════════ SECURITY WARNING MODAL (INTERCEPTOR ON PRINT) ═══════════════════ -->
+    <div id="printSecurityModal" class="modal-backdrop no-print" style="display: none;">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="modal-shield">🛡️</div>
+          <div>
+            <div class="modal-supertitle">TodoBuild Security Protocol • Aviso de Prevencion</div>
+            <h3 class="modal-title">Protocolo de Resguardo de Credenciales</h3>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-alert-box">
+            <strong>ADVERTENCIA DE SEGURIDAD OBLIGATORIA:</strong><br>
+            Ha seleccionado la opcion de impresion o guardado estandar en PDF. Tenga en cuenta que este metodo del navegador puede generar un archivo <u>en texto plano sin contrasena</u> en su computador.
+          </div>
+          <ul class="modal-list">
+            <li><strong>Envio Inmediato:</strong> Una vez llenado, el archivo debe enviarse directamente a TodoBuild (<code>tech@todobuild.com</code> o canal de WhatsApp oficial).</li>
+            <li><strong>Prohibido Guardar en Escritorio:</strong> <u>NO deje copias planas sin contrasena en su escritorio o carpeta de descargas</u>, ya que expondria las credenciales de hosting, dominio y APIs a cualquier atacante o software espia local.</li>
+            <li><strong>Opcion 100% Blindada:</strong> Recomendamos usar el boton <strong>"Exportar Archivo Cifrado"</strong>, el cual genera un archivo protegido con cifrado militar <strong>AES-256</strong> con contrasena, sin dejar rastro desprotegido en su disco duro.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-secure" onclick="closePrintSecurityModal(); exportEncryptedPayload();">
+            🔒 Guardar Archivo Cifrado (Recomendado)
+          </button>
+          <button type="button" class="btn-modal-print" onclick="proceedToRawPrint()">
+            Continuar con Impresion Plana
+          </button>
+          <button type="button" class="btn-modal-cancel" onclick="closePrintSecurityModal()">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ SUCCESS EXPORT TOAST MODAL ═══════════════════ -->
+    <div id="successExportModal" class="modal-backdrop no-print" style="display: none;">
+      <div class="modal-box" style="max-width: 460px;">
+        <div class="modal-header" style="background: #064e3b; border-bottom: 2px solid #10b981;">
+          <div class="modal-shield" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.5);">🔐</div>
+          <div>
+            <div class="modal-supertitle" style="color: #6ee7b7;">Cifrado Exitoso • AES-256-GCM</div>
+            <h3 class="modal-title">Archivo Protegido Generado</h3>
+          </div>
+        </div>
+        <div class="modal-body">
+          <p style="margin-bottom: 10px;">
+            Se ha descargado su archivo: <strong><code>TMD_CLIENT_ACCESS_CHECKLIST_RESPUESTA_ENCRYPTED.html</code></strong>.
+          </p>
+          <p style="color: #065f46; background: #ecfdf5; padding: 8px 12px; border-radius: 6px; font-size: 8pt; border: 1px solid #a7f3d0;">
+            ✔ Sus respuestas, selecciones y firma han sido selladas criptograficamente.<br>
+            ✔ Ninguna copia plana sin clave fue guardada en su disco.<br>
+            ✔ Ya puede enviar este archivo con total seguridad a <strong>tech@todobuild.com</strong>.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-secure" onclick="document.getElementById('successExportModal').style.display='none'">
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- SCRIPT FOR DIGITAL CANVAS SIGNATURE & FORM RESET -->
+  <script>
+    const canvas = document.getElementById('sigCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let hasSigned = false;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#111827';
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('load', resizeCanvas);
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function startDraw(e) {
+      isDrawing = true;
+      hasSigned = true;
+      const pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+      e.preventDefault();
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      e.preventDefault();
+    }
+
+    function stopDraw() {
+      isDrawing = false;
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    window.addEventListener('touchend', stopDraw);
+
+
+    // ── SECURITY PRINT INTERCEPTOR & MODAL CONTROL ──
+    function openPrintSecurityModal() {
+      var modal = document.getElementById('printSecurityModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closePrintSecurityModal() {
+      var modal = document.getElementById('printSecurityModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function proceedToRawPrint() {
+      closePrintSecurityModal();
+      window.print();
+    }
+
+    // Intercept Ctrl+P / Cmd+P
+    window.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        openPrintSecurityModal();
+      }
+    });
+
+    // Helper: Uint8Array to Base64
+    function uint8ToBase64(u8) {
+      var binary = '';
+      var len = u8.byteLength;
+      for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(u8[i]);
+      }
+      return btoa(binary);
+    }
+
+    // ── CLIENT-SIDE AES-256-GCM RE-ENCRYPTION EXPORT ──
+    async function exportEncryptedPayload() {
+      try {
+        // 1. Synchronize all input values into DOM attributes so they clone properly
+        var textInputs = document.querySelectorAll('#onboardingForm input[type="text"]');
+        for (var i = 0; i < textInputs.length; i++) {
+          textInputs[i].setAttribute('value', textInputs[i].value);
+        }
+
+        var checkboxes = document.querySelectorAll('#onboardingForm input[type="checkbox"]');
+        for (var j = 0; j < checkboxes.length; j++) {
+          if (checkboxes[j].checked) {
+            checkboxes[j].setAttribute('checked', 'checked');
+          } else {
+            checkboxes[j].removeAttribute('checked');
+          }
+        }
+
+        // 2. Persist canvas digital signature into an embedded static image
+        var sigImg = document.getElementById('sigImgFallback');
+        if (hasSigned && canvas && sigImg) {
+          try {
+            var sigData = canvas.toDataURL('image/png');
+            sigImg.src = sigData;
+            sigImg.style.display = 'block';
+            canvas.style.display = 'none';
+          } catch(errSig) {
+            console.warn("Signature capture warning:", errSig);
+          }
+        }
+
+        // 3. Prompt user for password
+        var pass = prompt(
+          "Defina la contrasena para proteger este archivo cifrado:\n(Presione Aceptar para usar la clave por defecto: 'welcometotodobuild')",
+          "welcometotodobuild"
+        );
+        if (!pass) return;
+
+        // 4. Capture current HTML source
+        var docHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+        // 5. Encrypt with WebCrypto AES-256-GCM + PBKDF2 (100,000 rounds SHA-256)
+        var enc = new TextEncoder();
+        var salt = window.crypto.getRandomValues(new Uint8Array(16));
+        var iv = window.crypto.getRandomValues(new Uint8Array(12));
+
+        var baseKey = await window.crypto.subtle.importKey(
+          "raw",
+          enc.encode(pass),
+          { name: "PBKDF2" },
+          false,
+          ["deriveKey"]
+        );
+
+        var derivedKey = await window.crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 100000,
+            hash: "SHA-256"
+          },
+          baseKey,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["encrypt"]
+        );
+
+        var ciphertextBuffer = await window.crypto.subtle.encrypt(
+          { name: "AES-GCM", iv: iv },
+          derivedKey,
+          enc.encode(docHtml)
+        );
+
+        var saltB64 = uint8ToBase64(salt);
+        var ivB64 = uint8ToBase64(iv);
+        var cipherB64 = uint8ToBase64(new Uint8Array(ciphertextBuffer));
+
+        // 6. Build the standalone TodoBuild Security Vault HTML
+        var vaultHtml = '<!DOCTYPE html>\n' +
+'<html lang="es">\n' +
+'<head>\n' +
+'  <meta charset="UTF-8">\n' +
+'  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'  <title>TodoBuild Security Vault • Respuestas Cifradas TMD</title>\n' +
+'  <style>\n' +
+'    * { box-sizing: border-box; margin: 0; padding: 0; }\n' +
+'    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: radial-gradient(circle at top, #111827 0%, #030712 100%); color: #f9fafb; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }\n' +
+'    .vault-card { background: rgba(17, 24, 39, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px); border-radius: 16px; padding: 36px 32px; max-width: 440px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); text-align: center; }\n' +
+'    .shield-icon { width: 56px; height: 56px; margin: 0 auto 16px auto; border-radius: 14px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); display: flex; align-items: center; justify-content: center; font-size: 24px; }\n' +
+'    .company-title { font-size: 8.5pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #34d399; margin-bottom: 6px; font-family: Consolas, monospace; }\n' +
+'    .vault-title { font-size: 15pt; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; color: #ffffff; }\n' +
+'    .vault-desc { font-size: 9pt; color: #9ca3af; line-height: 1.45; margin-bottom: 22px; }\n' +
+'    .input-label { font-size: 8pt; font-weight: 700; color: #9ca3af; text-transform: uppercase; margin-bottom: 6px; display: block; text-align: left; }\n' +
+'    .password-input { width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(3, 7, 18, 0.6); color: #ffffff; font-size: 11pt; outline: none; margin-bottom: 16px; }\n' +
+'    .password-input:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25); }\n' +
+'    .btn-unlock { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #059669; color: #ffffff; font-size: 10pt; font-weight: 700; text-transform: uppercase; cursor: pointer; }\n' +
+'    .btn-unlock:hover { background: #047857; }\n' +
+'    .error-msg { color: #f87171; font-size: 8.5pt; font-weight: 600; margin-top: 12px; display: none; }\n' +
+'    .vault-footer { font-size: 7.5pt; color: #6b7280; margin-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 12px; font-family: Consolas, monospace; }\n' +
+'  </style>\n' +
+'</head>\n' +
+'<body>\n' +
+'  <div class="vault-card">\n' +
+'    <div class="shield-icon">🔐</div>\n' +
+'    <div class="company-title">TodoBuild Technologies Inc. &bull; Security Vault</div>\n' +
+'    <h1 class="vault-title">Respuestas Protegidas</h1>\n' +
+'    <p class="vault-desc">Este archivo contiene las respuestas y credenciales completadas para TMD Heavy Equipment. Ingrese la contrasena para abrir el documento.</p>\n' +
+'    <label class="input-label" for="vaultPass">Contrasena de Apertura</label>\n' +
+'    <input type="password" id="vaultPass" class="password-input" placeholder="Ingrese la contrasena..." autofocus autocomplete="off">\n' +
+'    <button class="btn-unlock" onclick="attemptDecryptRespuestas()">Desbloquear Documento</button>\n' +
+'    <div class="error-msg" id="vaultError">Contrasena incorrecta. Acceso denegado.</div>\n' +
+'    <div class="vault-footer">AES-256-GCM &bull; PBKDF2 100,000 Rounds &bull; TodoBuild Technologies Inc.</div>\n' +
+'  </div>\n' +
+'  <script>\n' +
+'    var SALT_B64 = "' + saltB64 + '";\n' +
+'    var IV_B64 = "' + ivB64 + '";\n' +
+'    var CIPHERTEXT_B64 = "' + cipherB64 + '";\n' +
+'    function b64ToU8(b) { var bin = atob(b); var u = new Uint8Array(bin.length); for(var k=0; k<bin.length; k++) u[k]=bin.charCodeAt(k); return u; }\n' +
+'    document.getElementById("vaultPass").addEventListener("keydown", function(ev){ if(ev.key==="Enter") attemptDecryptRespuestas(); });\n' +
+'    async function attemptDecryptRespuestas() {\n' +
+'      var p = document.getElementById("vaultPass").value;\n' +
+'      var err = document.getElementById("vaultError");\n' +
+'      err.style.display = "none";\n' +
+'      if(!p) return;\n' +
+'      try {\n' +
+'        var s = b64ToU8(SALT_B64);\n' +
+'        var v = b64ToU8(IV_B64);\n' +
+'        var c = b64ToU8(CIPHERTEXT_B64);\n' +
+'        var encoder = new TextEncoder();\n' +
+'        var bKey = await window.crypto.subtle.importKey("raw", encoder.encode(p), {name:"PBKDF2"}, false, ["deriveKey"]);\n' +
+'        var dKey = await window.crypto.subtle.deriveKey({name:"PBKDF2", salt:s, iterations:100000, hash:"SHA-256"}, bKey, {name:"AES-GCM", length:256}, false, ["decrypt"]);\n' +
+'        var dec = await window.crypto.subtle.decrypt({name:"AES-GCM", iv:v}, dKey, c);\n' +
+'        var decoder = new TextDecoder("utf-8");\n' +
+'        document.open();\n' +
+'        document.write(decoder.decode(dec));\n' +
+'        document.close();\n' +
+'      } catch(ex) { err.style.display="block"; }\n' +
+'    }\n' +
+'  <' + '/script>\n' +
+'</body>\n' +
+'</html>';
+
+        // 7. Trigger download of the encrypted file
+        var blob = new Blob([vaultHtml], { type: "text/html;charset=utf-8" });
+        var downloadUrl = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = downloadUrl;
+        a.download = "TMD_CLIENT_ACCESS_CHECKLIST_RESPUESTA_ENCRYPTED.html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function() { URL.revokeObjectURL(downloadUrl); }, 2000);
+
+        // 8. Show confirmation modal
+        var successModal = document.getElementById('successExportModal');
+        if (successModal) successModal.style.display = 'flex';
+
+      } catch (err) {
+        console.error("Export error:", err);
+        alert("Error al exportar de forma cifrada: " + err.message);
+      }
+    }
+
+    function clearSignature() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hasSigned = false;
+      const fb = document.getElementById('sigImgFallback'); if (fb) { fb.src=''; fb.style.display='none'; } if (canvas) canvas.style.display='block';
+    }
+
+    function resetForm() {
+      document.getElementById('onboardingForm').reset();
+      clearSignature();
+    }
+  </script>
+
+</body>
+</html>

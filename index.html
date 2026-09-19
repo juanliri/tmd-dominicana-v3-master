@@ -16,13 +16,8 @@
         }
       })();
       window.tmdShowPortalPINPrompt = function() {
-        var modal = document.getElementById('tmd-exec-portal-pin-modal');
-        if (modal) {
-          modal.style.display = 'flex';
-          var inp = document.getElementById('tmd-portal-pin-input');
-          if (inp) { inp.value = ''; inp.focus(); }
-          var err = document.getElementById('tmd-portal-pin-error');
-          if (err) { err.style.display = 'none'; }
+        if (typeof window.tmdOpenClientPortal === 'function') {
+          window.tmdOpenClientPortal();
         }
       };
     </script>
@@ -184,7 +179,7 @@
     <link rel="preload" as="image" href="/assets/team_hd/brito_fuentes_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/leonardo_encarnacion_hd.jpg">
     <link rel="preload" as="image" href="/assets/team_hd/perkin_soriano_hd.jpg">
-    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260913_particles_restored_v17"></script>
+    <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260919_restored_v2"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=1789230245">
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
@@ -192,8 +187,10 @@
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <style id="tmd-header-clearance-fix">
       /* ─── TRUE VIEWPORT FIXED MODAL FIX ─── */
+      #root,
       #root > div {
         transform: none !important;
+        background-color: transparent !important;
       }
       [role="dialog"],
       div[role="dialog"] {
@@ -419,6 +416,12 @@
           border: none;
           cursor: pointer;
           box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+        }
+        .tmd-portal-btn {
+          background: rgba(250, 204, 21, 0.12);
+          color: #facc15 !important;
+          border: 1px solid rgba(250, 204, 21, 0.35);
+          cursor: pointer;
         }
         #tmd-ai-chat-btn {
           bottom: 72px !important;
@@ -3074,6 +3077,7 @@ html:not(.dark) #socios .group:hover {
 
     </style>
         <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260913_particles_restored_v17" />
+        <link rel="stylesheet" href="/assets/tmd_client_portal.css?v=20260919_multirole_v3" />
 
 </head>
   <body class="text-neutral-900 antialiased dark:text-neutral-100 transition-colors duration-200" style="background:transparent;">
@@ -3084,86 +3088,17 @@ html:not(.dark) #socios .group:hover {
     <div id="root"></div>
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
-    <!-- 4. FLOATING VIP CLIENT & FLEET PORTAL TRIGGER & PIN GATE          -->
+    <!-- 4. FLOATING CLIENT & FLEET PORTAL TRIGGER                         -->
     <!-- ══════════════════════════════════════════════════════════════════ -->
 
-    <!-- Floating VIP Portal Trigger (Positioned safely on bottom-left, responsive) -->
-    <div id="todobuild-exec-portal-trigger" title="Portal VIP Clientes & Flota TMD" onclick="window.tmdShowPortalPINPrompt ? window.tmdShowPortalPINPrompt() : openExecPortal()">
-      <span style="font-size:1.15rem;line-height:1;">💼</span>
+    <!-- Floating Portal Trigger (Positioned safely on bottom-left, mobile & desktop optimized) -->
+    <div id="todobuild-exec-portal-trigger" title="Portal de Clientes & Flota TMD" onclick="typeof window.tmdOpenClientPortal === 'function' ? window.tmdOpenClientPortal() : null">
+      <span style="font-size:1.15rem;line-height:1;">🚜</span>
       <div style="text-align:left;line-height:1.2;">
-        <div class="exec-trigger-title" style="font-size:0.75rem;font-weight:800;letter-spacing:0.02em;">PORTAL VIP CLIENTES</div>
-        <div class="exec-trigger-sub" style="font-size:0.65rem;font-weight:700;">Dossier 720°, Flota & MSA</div>
+        <div class="exec-trigger-title" style="font-size:0.75rem;font-weight:800;letter-spacing:0.02em;">PORTAL CLIENTES &amp; FLOTA</div>
+        <div class="exec-trigger-sub" style="font-size:0.65rem;font-weight:700;">Rastreo WO, Bahías &amp; Repuestos</div>
       </div>
-      <span style="background:#f59e0b;color:#0f172a;font-size:0.68rem;font-weight:900;padding:3px 8px;border-radius:12px;margin-left:4px;letter-spacing:0.02em;">VER</span>
-    </div>
-
-    <!-- PIN Prompt Modal -->
-    <div id="tmd-exec-portal-pin-modal" style="
-      display:none; position:fixed; inset:0; z-index:100002;
-      background:rgba(0,0,0,0.92); backdrop-filter:blur(14px);
-      align-items:center; justify-content:center; padding:24px; box-sizing:border-box;
-    ">
-      <div style="
-        width:100%; max-width:340px;
-        background:linear-gradient(145deg,#111,#181818);
-        border:1px solid rgba(245,158,11,0.5);
-        border-radius:20px; padding:32px 28px;
-        box-shadow:0 30px 70px rgba(0,0,0,0.9), 0 0 30px rgba(245,158,11,0.12);
-        text-align:center; font-family:'Inter',sans-serif; color:#fff;
-        position:relative;
-      ">
-        <button onclick="document.getElementById('tmd-exec-portal-pin-modal').style.display='none';" style="
-          position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;
-          background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
-          color:#a3a3a3;font-size:0.9rem;cursor:pointer;
-          display:flex;align-items:center;justify-content:center;
-        ">✕</button>
-        <div style="font-size:1.8rem; margin-bottom:10px;">🔐</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:800;color:#f59e0b;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">ACCESO RESTRINGIDO</div>
-        <h3 style="font-size:1.15rem;font-weight:900;margin:0 0 6px;color:#fff;">Portal Ejecutivo TMD</h3>
-        <p style="font-size:0.8rem;color:#a3a3a3;margin:0 0 20px;">Ingrese su PIN confidencial de 4 dígitos para desbloquear la sesión corporativa.</p>
-        <input id="tmd-portal-pin-input" type="password" maxlength="4" placeholder="• • • •"
-          style="
-            width:100%; box-sizing:border-box;
-            background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2);
-            border-radius:12px; padding:12px 16px; color:#fff;
-            font-size:1.5rem; font-weight:900; text-align:center; letter-spacing:0.4em;
-            outline:none; transition:border-color 0.2s;
-          "
-          onfocus="this.style.borderColor='#f59e0b'"
-          onblur="this.style.borderColor='rgba(255,255,255,0.2)'"
-          oninput="if(this.value.length===4){tmdCheckPortalPIN(this.value);}"
-        />
-        <div id="tmd-portal-pin-error" style="
-          display:none; color:#ef4444; font-size:0.75rem;
-          font-weight:700; margin-top:8px;
-        ">PIN incorrecto. Intente de nuevo.</div>
-        <button onclick="tmdCheckPortalPIN(document.getElementById('tmd-portal-pin-input').value)" style="
-          margin-top:16px; width:100%; padding:12px;
-          background:linear-gradient(135deg,#f59e0b,#d97706);
-          border:none; border-radius:12px; color:#0a0a0a;
-          font-size:0.88rem; font-weight:900; text-transform:uppercase;
-          letter-spacing:0.04em; cursor:pointer;
-          box-shadow:0 6px 20px rgba(245,158,11,0.35);
-        ">INGRESAR →</button>
-      </div>
-    </div>
-
-    <!-- FULLSCREEN MODAL FOR EXECUTIVE DOSSIER (ULTRA-COMPACT EXECUTIVE COCKPIT) -->
-    <div id="todobuild-exec-portal-modal" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.96); backdrop-filter:blur(10px); padding:6px; box-sizing:border-box;">
-      <div style="width:100%; height:100%; max-width:1440px; margin:0 auto; background:#0a0a0a; border:1px solid rgba(245,158,11,0.4); border-radius:12px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,0.85);">
-        <div style="padding:6px 14px; background:#141414; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center; min-height:34px;">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="background:rgba(245,158,11,0.15); color:#f59e0b; border:1px solid rgba(245,158,11,0.4); font-size:0.68rem; font-weight:800; padding:2px 8px; border-radius:9999px;">DOCUMENTACIÓN COMERCIAL TMD</span>
-            <span style="font-size:0.75rem; font-weight:800; color:#fff;">Dossier Ejecutivo 720°, Matriz de 3 Niveles, Upgrades & Acuerdo MSA</span>
-          </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <a href="/dossier.html" target="_blank" style="font-size:0.72rem; color:#f59e0b; text-decoration:none; font-weight:700;">↗ Ventana Completa</a>
-            <button onclick="closeExecPortal()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:0.9rem; width:26px; height:26px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
-          </div>
-        </div>
-        <iframe id="todobuild-exec-portal-iframe" src="/dossier.html?v=obsidian_gold_2026" style="width:100%; height:100%; border:none; background:#0a0a0c;"></iframe>
-      </div>
+      <span style="background:#facc15;color:#090d16;font-size:0.68rem;font-weight:900;padding:3px 8px;border-radius:12px;margin-left:4px;letter-spacing:0.02em;">ABRIR</span>
     </div>
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
@@ -3404,44 +3339,29 @@ html:not(.dark) #socios .group:hover {
     </style>
 
     <script>
-      // ─── EXECUTIVE PORTAL PIN GATE ───────────────────────────────────
-      var _TMD_PORTAL_PIN = '0909';
-      var _tmdPortalFooterVisible = false;
-
+      // ─── TMD CLIENT & FLEET PORTAL CONTROLLER ────────────────────────
       window.tmdShowPortalPINPrompt = function tmdShowPortalPINPrompt() {
-        var pm = document.getElementById('tmd-exec-portal-pin-modal');
-        if (pm) {
-          pm.style.display = 'flex';
-          var inp = document.getElementById('tmd-portal-pin-input');
-          if (inp) { inp.value = ''; inp.focus(); }
-          var err = document.getElementById('tmd-portal-pin-error');
-          if (err) err.style.display = 'none';
+        if (typeof window.tmdOpenClientPortal === 'function') {
+          window.tmdOpenClientPortal();
         }
-      }
+      };
 
       function tmdCheckPortalPIN(val) {
-        var err = document.getElementById('tmd-portal-pin-error');
-        if (val === _TMD_PORTAL_PIN) {
-          document.getElementById('tmd-exec-portal-pin-modal').style.display = 'none';
-          openExecPortal();
-        } else {
-          if (err) { err.style.display = 'block'; }
-          var inp = document.getElementById('tmd-portal-pin-input');
-          if (inp) { inp.value = ''; inp.focus(); }
+        if (typeof window.tmdOpenClientPortal === 'function') {
+          window.tmdOpenClientPortal();
         }
       }
-
-
 
       function openExecPortal() {
-        var iframe = document.getElementById('todobuild-exec-portal-iframe');
-        if (iframe) {
-          iframe.src = '/dossier.html?v=obsidian_gold_' + Date.now();
+        if (typeof window.tmdOpenClientPortal === 'function') {
+          window.tmdOpenClientPortal();
         }
-        document.getElementById('todobuild-exec-portal-modal').style.display = 'block';
       }
+
       function closeExecPortal() {
-        document.getElementById('todobuild-exec-portal-modal').style.display = 'none';
+        if (typeof window.tmdCloseClientPortal === 'function') {
+          window.tmdCloseClientPortal();
+        }
       }
       function openStaffModal(data) {
         document.getElementById('staff-modal-img').src = data.img;
@@ -4936,6 +4856,8 @@ html:not(.dark) #socios .group:hover {
     })();
     </script>
     <script src="/assets/tmd_animation_engine.js?v=20260913_particles_restored_v17"></script>
+    <script src="/assets/tmd_api_adapter.js?v=20260919_api_ready_v1"></script>
+    <script src="/assets/tmd_client_portal.js?v=20260919_multirole_v3"></script>
 
     <script>
     /* ─── PRINTING PERMANENTLY DISABLED ─── */
@@ -4974,6 +4896,10 @@ html:not(.dark) #socios .group:hover {
       <button onclick="window.tmdTriggerQuoteModal()" class="tmd-mobile-bar-btn tmd-quote-btn" title="Cotizar Maquinaria">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         <span>Cotizar</span>
+      </button>
+      <button onclick="typeof window.tmdOpenClientPortal === 'function' ? window.tmdOpenClientPortal() : null" class="tmd-mobile-bar-btn tmd-portal-btn" title="Portal de Clientes & Flota TMD" style="color:#facc15;">
+        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        <span>Portal</span>
       </button>
     </div>
 

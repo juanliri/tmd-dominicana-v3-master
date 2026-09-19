@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMD Tier 2 Fullbay Connected — Master Delivery Checklist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Cinzel:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #07090E;
+      --bg-secondary: #0D121F;
+      --bg-tertiary: #131B2E;
+      --card-bg: rgba(19, 27, 46, 0.72);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      
+      --tmd-gold: #F59E0B;
+      --tmd-gold-glow: rgba(245, 158, 11, 0.25);
+      
+      --tech-blue: #0070F3;
+      --tech-blue-glow: rgba(0, 112, 243, 0.25);
+      
+      --success-green: #10B981;
+      --success-green-glow: rgba(16, 185, 129, 0.2);
+      
+      --pending-amber: #F59E0B;
+      --alert-rose: #E11D48;
+      
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-serif: 'Cinzel', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 40px 20px 80px;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(0, 112, 243, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* TOP ACTION BAR */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 8px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      color: #fff;
+      border-color: var(--tmd-gold);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    /* HEADER */
+    .checklist-header {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-bottom: 36px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .checklist-header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--tmd-gold), var(--tech-blue), var(--success-green));
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-gold { background: rgba(245, 158, 11, 0.15); color: var(--tmd-gold); border: 1px solid rgba(245, 158, 11, 0.35); }
+    .badge-tech { background: rgba(0, 112, 243, 0.15); color: #38BDF8; border: 1px solid rgba(0, 112, 243, 0.35); }
+    .badge-success { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); }
+
+    .header-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #CBD5E1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 820px;
+      margin-bottom: 20px;
+    }
+
+    /* KPIS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+    @media (max-width: 840px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr; } }
+
+    .kpi-card {
+      background: rgba(10, 14, 24, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px 18px;
+    }
+    .kpi-label {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .kpi-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .kpi-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* PROGRESS BAR */
+    .progress-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .progress-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-main);
+    }
+    .progress-percent {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--tmd-gold);
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 48%;
+      background: linear-gradient(90deg, var(--success-green), var(--tmd-gold));
+      border-radius: 9999px;
+      transition: width 0.4s ease;
+    }
+
+    /* PHASE SECTIONS */
+    .phase-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .phase-block.phase-0 { border-left: 4px solid var(--tmd-gold); }
+    .phase-block.phase-1 { border-left: 4px solid var(--tech-blue); }
+    .phase-block.phase-2 { border-left: 4px solid var(--success-green); }
+    .phase-block.phase-3 { border-left: 4px solid #A855F7; }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .phase-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .phase-number {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+    .phase-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .phase-status {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+    .status-active { background: rgba(245, 158, 11, 0.15); color: var(--tmd-gold); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-pending { background: rgba(100, 116, 139, 0.2); color: var(--text-muted); border: 1px solid var(--border-color); }
+    .status-completed { background: rgba(16, 185, 129, 0.15); color: var(--success-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    /* CHECKLIST ITEMS */
+    .checklist-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checklist-card {
+      background: rgba(10, 14, 24, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: all 0.2s ease;
+    }
+    .checklist-card:hover {
+      border-color: var(--border-hover);
+      background: rgba(15, 21, 36, 0.7);
+    }
+    .checklist-card.completed {
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .custom-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .custom-check.checked {
+      background: var(--success-green);
+      border-color: var(--success-green);
+      box-shadow: 0 0 10px var(--success-green-glow);
+    }
+    .custom-check.checked::after {
+      content: "✓";
+      color: #000;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .custom-check.in-dev {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--tmd-gold);
+    }
+    .custom-check.in-dev::after {
+      content: "⋯";
+      color: var(--tmd-gold);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .item-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-dim);
+    }
+
+    .subtasks-list {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 34px;
+    }
+    .subtask-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+    .subtask-check {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1.5px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .subtask-check.checked {
+      background: var(--success-green);
+      border-color: var(--success-green);
+    }
+    .subtask-check.checked::after {
+      content: "✓";
+      color: #000;
+      font-size: 9px;
+      font-weight: 900;
+    }
+    .subtask-text {
+      flex: 1;
+    }
+    .subtask-text.done {
+      color: var(--text-main);
+    }
+
+    /* AUDIT CALLOUT BOX */
+    .audit-box {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 30px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .audit-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--tmd-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .audit-body {
+      font-size: 0.85rem;
+      color: #CBD5E1;
+      line-height: 1.6;
+    }
+    .audit-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .audit-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #FCD34D;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    /* FOOTER */
+    .checklist-footer {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- TOP NAVIGATION -->
+    <div class="top-bar">
+      <a href="index.html" class="back-btn">← Volver al Showroom V1</a>
+      <div style="display:flex; gap:10px;">
+        <a href="index.html#/home" class="back-btn">🚜 Portal de Clientes &amp; Flota TMD</a>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="checklist-header">
+      <div class="meta-badges">
+        <span class="badge badge-gold">🚜 CLIENTE: TECNOMAQUINARIAS DIESEL S.R.L. (TMD)</span>
+        <span class="badge badge-tech">⚡ SCOPE: TIER 2 FULLBAY CONNECTED</span>
+        <span class="badge badge-success">🛡️ ZERO-DOWNTIME SUBDOMAIN</span>
+      </div>
+      <h1 class="header-title">Master Delivery Checklist</h1>
+      <p class="header-subtitle">
+        Matriz de control y seguimiento en tiempo real para las 10 especificaciones de entrega de la plataforma web corporativa, enlace telemático JCB LiveLink y sincronización con Fullbay Heavy Shop ERP.
+      </p>
+
+      <!-- KPIS -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">INVERSIÓN TOTAL</div>
+          <div class="kpi-value" style="color:var(--tmd-gold);">$2,850 USD</div>
+          <div class="kpi-sub">RD$ 169,575 (@ 59.50)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">ANTICIPO 50% (HITO 1)</div>
+          <div class="kpi-value" style="color:#fff;">$1,425 USD</div>
+          <div class="kpi-sub">RD$ 84,788 al firmar</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">VIP RETAINER / SLA</div>
+          <div class="kpi-value" style="color:var(--success-green);">$150/mes</div>
+          <div class="kpi-sub">Cloud + Fullbay Sync</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">ENTORNO DE DESPLIEGUE</div>
+          <div class="kpi-value" style="color:#38BDF8;">Vercel + Edge</div>
+          <div class="kpi-sub">Subdominio seguro Km 22</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-title">Progreso Global de Implementación Técnica</span>
+        <span class="progress-percent" id="globalProgressPercent">48% COMPLETADO</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="globalProgressBar" style="width: 48%;"></div>
+      </div>
+    </div>
+
+    <!-- TECHNICAL AUDIT NOTICE -->
+    <div class="audit-box">
+      <div class="audit-title">
+        <span>🔍 AUDITORÍA DE ENLACES &amp; TELEMETRÍA (ESTADO SIN DATOS REALES)</span>
+      </div>
+      <div class="audit-body">
+        La versión V1 actual cuenta con catálogo completo interactivo, motor horario dominicano UTC-4, mesa directiva y cotizador. Como los accesos a <strong>Fullbay API</strong> y <strong>JCB LiveLink</strong> requieren las credenciales privadas del cliente (tras el abono del 50%), el entorno local opera mediante un <strong>Mock Telematics &amp; Work Order Staging Engine</strong> con datos simulados que garantizan un desarrollo continuo sin interrupciones.
+      </div>
+      <div class="audit-tags">
+        <span class="audit-tag">✓ Mock Work Orders (WO-4482 / WO-3914)</span>
+        <span class="audit-tag">✓ Mock LiveLink AEMP Telematics (JCB 3CX 350 Bar)</span>
+        <span class="audit-tag">✓ Subdomain Isolation (alquiler.tmd.com.do)</span>
+        <span class="audit-tag">✓ Square API Staging Sync</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PHASE 0: ONBOARDING & ADMINISTRATION                                      -->
+    <!-- ========================================================================= -->
+    <div class="phase-block phase-0">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-number">FASE 0</span>
+          <h2 class="phase-title">Onboarding Administrativo &amp; Blindaje Legal</h2>
+        </div>
+        <span class="phase-status status-active">EN EJECUCIÓN (ESPERANDO FIRMA/PAGO)</span>
+      </div>
+
+      <div class="checklist-group">
+
+        <!-- 1. MSA -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">1. Master Services Agreement (MSA) — Tier 2 Fullbay Connected</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Ref: MSA-TDB-TMD-2026-DR · Cláusulas de IP, SLA 99.5% y subdominio</div>
+              </div>
+            </div>
+            <span class="item-badge">Doc Configurado</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Redacción de términos de propiedad intelectual (TECH 003) y exclusividad TMD.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Generación del contrato standalone interactivo (fullbay-proposal-agreement.html).</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Firma electrónica del cliente Don Eduardo (Square Contracts).</div></div>
+          </div>
+        </div>
+
+        <!-- 2. Financial Setup -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">2. Estructura Financiera &amp; Facturación Square</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Factura Setup $2,850 · Anticipo $1,425 (50%) · Serie Retainer $150/mes</div>
+              </div>
+            </div>
+            <span class="item-badge">Factura Borrador Lista</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Creación de factura canónica en Square (#009957 / #000201) con desglose 50/50.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Abono del depósito de $1,425.00 USD por parte del cliente.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Configuración de la serie recurrente de $150/mo con Card-on-File.</div></div>
+          </div>
+        </div>
+
+        <!-- 3. NDA -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">3. Non-Disclosure Agreement (NDA) — Protección de Datos Técnicos</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Protección de esquemas Fullbay, llaves API y cartera de clientes de construcción</div>
+              </div>
+            </div>
+            <span class="item-badge">NDA Preparado</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Redacción de cláusulas de estricta confidencialidad para telemetría y ERP.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Recepción del NDA firmado por parte de TMD.</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PHASE 1: A. PLATAFORMA WEB PRINCIPAL (DIGITAL SHOWROOM)                   -->
+    <!-- ========================================================================= -->
+    <div class="phase-block phase-1">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-number">FASE 1</span>
+          <h2 class="phase-title">Plataforma Web Principal &amp; Digital Showroom</h2>
+        </div>
+        <span class="phase-status status-active">80% EN PROTOTIPO V1</span>
+      </div>
+
+      <div class="checklist-group">
+
+        <!-- 1. Catálogo Transaccional -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check checked"></div>
+              <div>
+                <div class="item-name">1. Catálogo Transaccional (Renta vs Venta 0 Km)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">44 equipos scrapeados · Specs técnicos · Toggle interactivo de modalidad</div>
+              </div>
+            </div>
+            <span class="item-badge" style="color:var(--success-green);">✓ V1 Funcional</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Scraping de las 44 unidades activas del sitio original de TMD con fichas técnicas.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Implementación del interruptor dinámico Renta ($/día) vs Venta 0 Km.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Generación de enlaces directos contextuales a WhatsApp por cada máquina.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Conexión a base de datos de producción (Supabase Postgres) para control de inventario en vivo.</div></div>
+          </div>
+        </div>
+
+        <!-- 2. Mega Menú Visual -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check checked"></div>
+              <div>
+                <div class="item-name">2. Mega Menú Visual &amp; Navegación de Marcas</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Fotos de estudio HD · Marcas (JCB, LiuGong, Ammann, LS) · Mesa técnica</div>
+              </div>
+            </div>
+            <span class="item-badge" style="color:var(--success-green);">✓ V1 Funcional</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Estructuración de la navegación limpia con topbar anclada y horario UTC-4.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Carga de las fotos de los 12 miembros del equipo directivo y mesa técnica en Km 22.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Integración del modal de Ficha &amp; Bio de cada ejecutivo con ruteo celular.</div></div>
+          </div>
+        </div>
+
+        <!-- 3. Motor Cotizador -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check checked"></div>
+              <div>
+                <div class="item-name">3. Motor Cotizador (Calculadora) con Exportación PDF</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Estimación de días, operador diésel y flete a obra con membrete oficial</div>
+              </div>
+            </div>
+            <span class="item-badge" style="color:var(--success-green);">✓ V1 Funcional</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Modal interactivo de cotización por máquina con cálculo automático.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Generación de PDF formal descargable con membrete corporativo TMD y firma.</div></div>
+          </div>
+        </div>
+
+        <!-- 4. Pasarela de Pagos Local -->
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check"></div>
+              <div>
+                <div class="item-name">4. Pasarela de Pagos &amp; Depósitos (Square / AZUL / PayPal)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Reserva de maquinaria en línea con cobro de anticipo con tarjeta</div>
+              </div>
+            </div>
+            <span class="item-badge">Pendiente Credenciales</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Integración de pasarela de pago Square SDK para cobro de depósitos.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Configuración de llaves de producción AZUL / Square provistas por TMD.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Pruebas en sandbox de autorización de tarjetas de crédito locales dominicanas.</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PHASE 2: B. INTEGRACIÓN Y PORTALES (FULLBAY FLEET & LIVELINK)              -->
+    <!-- ========================================================================= -->
+    <div class="phase-block phase-2">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-number">FASE 2</span>
+          <h2 class="phase-title">Integración Fullbay Fleet &amp; Telemática LiveLink</h2>
+        </div>
+        <span class="phase-status status-pending">STAGING CON MOCK DATA ACTIVO</span>
+      </div>
+
+      <div class="checklist-group">
+
+        <!-- 5. Sincronización API Fullbay -->
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">5. Sincronización API con Fullbay (Lectura)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Endpoints: GET /workorders, GET /parts/inventory, GET /customers</div>
+              </div>
+            </div>
+            <span class="item-badge">Staging Mock</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Diseño del esquema de mapeo de órdenes Fullbay a estados web amigables.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Obtención de API Key y Store ID de Fullbay tras firma del NDA y depósito.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Despliegue de Supabase Edge Function con cron de actualización cada 30 min.</div></div>
+          </div>
+        </div>
+
+        <!-- 6. Rastreador Live WO -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check checked"></div>
+              <div>
+                <div class="item-name">6. Rastreador en Vivo de Órdenes de Trabajo (WO)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Búsqueda por número WO o Chasis · Barra visual: Diagnóstico ➔ Bahía ➔ Listo</div>
+              </div>
+            </div>
+            <span class="item-badge" style="color:var(--success-green);">✓ V2/V3 UI Lista</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Construcción del componente Cockpit de búsqueda de WO en tiempo real.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Mapeo visual con barras de progreso (Ingreso PDI ➔ Desarme ➔ Banco 350 Bar ➔ Despacho).</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Conexión de la consulta del input al webhook de Fullbay en producción.</div></div>
+          </div>
+        </div>
+
+        <!-- 7. Agendamiento de Bahías -->
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">7. Agendamiento de Bahías (Reservas Taller Km 22)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Calendario de citas para camiones y tractores sin llamadas a recepción</div>
+              </div>
+            </div>
+            <span class="item-badge">UI Diseñada</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Interfaz de selección de fecha, tipo de maquinaria y descripción del síntoma.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Creación automática del Service Request en Fullbay vía POST API.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Alerta inmediata vía WhatsApp al Jefe de Taller en Km 22 con confirmación.</div></div>
+          </div>
+        </div>
+
+        <!-- 8. Buscador de Repuestos -->
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">8. Buscador de Repuestos en Almacén Km 22</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Búsqueda por número de parte OEM (JCB, Cummins, Perkins, Yanmar)</div>
+              </div>
+            </div>
+            <span class="item-badge">Indexación Lista</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Indexación de números de parte principales y filtros de alta rotación.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Sincronización diaria de stock físico disponible en el almacén de Km 22.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Botón de compra/reserva en WhatsApp con código de pieza precargado.</div></div>
+          </div>
+        </div>
+
+        <!-- 9. Portal VIP de Grandes Contratistas -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check checked"></div>
+              <div>
+                <div class="item-name">9. Portal VIP de Grandes Contratistas (B2B Fleet Cockpit)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Autenticación Supabase por RNC/Cliente · Flotas activas · Reportes fotográficos DVI de fugas</div>
+              </div>
+            </div>
+            <span class="item-badge" style="color:var(--success-green);">✓ V1/V3 Operativo</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">PIN Gate blindado y selector interactivo de Dossier para clientes institucionales.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Estructura de galería DVI para fotos de inspección de maquinaria antes y después de la renta.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Aprobación digital con firma en pantalla de presupuestos y repuestos adicionales.</div></div>
+          </div>
+        </div>
+
+        <!-- 10. Portal de Personal Interno Km 22 -->
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check in-dev"></div>
+              <div>
+                <div class="item-name">10. Portal de Mesa Técnica &amp; Personal Interno (Staff Km 22)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Tablero de bahías · Asignación de mecánicos Fullbay · 1-clic aviso WhatsApp "Máquina Lista"</div>
+              </div>
+            </div>
+            <span class="item-badge">En Desarrollo</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Mapeo de los 12 miembros del equipo directivo y mesa técnica en Km 22.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Tablero visual de distribución de bahías en el taller central para supervisores.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Disparador de notificación por WhatsApp al cliente al marcar "Trabajo Concluido".</div></div>
+          </div>
+        </div>
+
+        <!-- 11. JCB LiveLink API -->
+        <div class="checklist-card completed">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check checked"></div>
+              <div>
+                <div class="item-name">11. Integración Telemática JCB LiveLink &amp; AEMP (GPS &amp; Horómetros)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Estándar AEMP · Presión hidráulica 350 Bar · RPM · Diésel · Geocercas en República Dominicana</div>
+              </div>
+            </div>
+            <span class="item-badge" style="color:var(--success-green);">✓ V2/V3 HUD Listo</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Construcción del Cockpit Telemático interactivo con 4 sensores en vivo (RPM, Diésel, Temp, Bar).</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Sparkline vectorial de presión hidráulica a 350 Bar y contador de mantenimiento preventivo.</div></div>
+            <div class="subtask-item"><div class="subtask-check checked"></div><div class="subtask-text done">Simulador satelital AEMP con geocercas activas en República Dominicana.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Conexión al endpoint LiveLink Developer API una vez provista la autorización de JCB.</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PHASE 3: POST-DEPOSIT API CONVERSION & PRODUCTION GO-LIVE                 -->
+    <!-- ========================================================================= -->
+    <div class="phase-block phase-3">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-number">FASE 3</span>
+          <h2 class="phase-title">Reemplazo Post-Depósito, Despliegue &amp; Retainer VIP</h2>
+        </div>
+        <span class="phase-status status-pending">PLANIFICADO (POST-ANTICIPO 50%)</span>
+      </div>
+
+      <div class="checklist-group">
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check"></div>
+              <div>
+                <div class="item-name">12. Arquitectura de Reemplazo Post-Depósito (Staging ➔ Live API)</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Sustitución de JSONs mock por Supabase Edge Functions con llaves de producción de Fullbay y JCB</div>
+              </div>
+            </div>
+            <span class="item-badge">Pendiente Depósito</span>
+          </div>
+          <div class="subtasks-list">
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Carga de credenciales Fullbay API provistas por TMD en Supabase Vault encriptado.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Conexión de telemetría en vivo JCB LiveLink mapeando los seriales de la flota de renta.</div></div>
+            <div class="subtask-item"><div class="subtask-check"></div><div class="subtask-text">Reemplazo de pasarela de pruebas por credenciales de cobro de depósito en producción.</div></div>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check"></div>
+              <div>
+                <div class="item-name">13. Configuración de Subdominio Seguro (Zero-Downtime) &amp; SSL</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">CNAME alquiler.tmd.com.do apuntando a Vercel Edge sin tocar Office 365 ni correos</div>
+              </div>
+            </div>
+            <span class="item-badge">Pendiente DNS</span>
+          </div>
+        </div>
+        <div class="checklist-card">
+          <div class="card-head">
+            <div class="checkbox-wrap">
+              <div class="custom-check"></div>
+              <div>
+                <div class="item-name">14. Capacitación al Personal Km 22, Entrega de Código &amp; Retainer VIP</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Liquidación del Hito 2 ($1,425 USD), entrega del código fuente (TECH 003) y activación del retainer ($150/mes)</div>
+              </div>
+            </div>
+            <span class="item-badge">Hito Final</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ⏱️ CRONOGRAMA MAESTRO DE 14 DÍAS & CORRESPONDENCIA CONTRACTUAL SQUARE -->
+    <!-- ========================================================================= -->
+    <div class="phase-block" style="border: 1px solid rgba(245, 158, 11, 0.3); background: rgba(19, 27, 46, 0.85);">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-number" style="background: rgba(245, 158, 11, 0.15); color: var(--tmd-gold); border-color: rgba(245, 158, 11, 0.3);">⏱️ CRONOGRAMA</span>
+          <h2 class="phase-title">Cronograma Maestro de Entrega en 14 Días &amp; Hitos Contractuales</h2>
+        </div>
+        <span class="phase-status status-ready">VINCULADO A CONTRATOS SQUARE</span>
+      </div>
+
+      <div style="padding: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 25px;">
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-top: 3px solid var(--tmd-gold); border-radius: 12px; padding: 16px;">
+            <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--tmd-gold); font-weight: 700;">DÍA 1 – 2</div>
+            <div style="font-weight: 800; color: #FFF; font-size: 0.95rem; margin: 4px 0;">Hito 1: Kick-off</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Firma MSA/NDA + 50% Depósito ($1,425 USD). Recepción de llaves Fullbay.</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-top: 3px solid var(--tech-blue); border-radius: 12px; padding: 16px;">
+            <div style="font-size: 0.72rem; font-family: var(--font-mono); color: #38BDF8; font-weight: 700;">DÍAS 3 – 5</div>
+            <div style="font-weight: 800; color: #FFF; font-size: 0.95rem; margin: 4px 0;">Provisión Cloud</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Configuración de CNAME DNS seguro, base Supabase y Edge Functions.</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-top: 3px solid var(--success-green); border-radius: 12px; padding: 16px;">
+            <div style="font-size: 0.72rem; font-family: var(--font-mono); color: #34D399; font-weight: 700;">DÍAS 6 – 10</div>
+            <div style="font-weight: 800; color: #FFF; font-size: 0.95rem; margin: 4px 0;">Ensamblaje 3 Pilares</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Sincronización Dealer 0 Km + Renta 44 + WO Tracker y LiveLink.</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-top: 3px solid var(--alert-rose); border-radius: 12px; padding: 16px;">
+            <div style="font-size: 0.72rem; font-family: var(--font-mono); color: #FB7185; font-weight: 700;">DÍAS 11 – 12</div>
+            <div style="font-weight: 800; color: #FFF; font-size: 0.95rem; margin: 4px 0;">Pruebas UAT en Vivo</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Validación en vivo con Don Eduardo y personal de taller Km 22.</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-top: 3px solid #A855F7; border-radius: 12px; padding: 16px;">
+            <div style="font-size: 0.72rem; font-family: var(--font-mono); color: #C084FC; font-weight: 700;">DÍAS 13 – 14</div>
+            <div style="font-weight: 800; color: #FFF; font-size: 0.95rem; margin: 4px 0;">Hito 2: Go-Live</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Pase a producción oficial, saldo final $1,425 y entrega de código fuente (TECH 003).</div>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto; border: 1px solid var(--border-color); border-radius: 12px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: left;">
+            <thead>
+              <tr style="background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--border-color); color: #FFF;">
+                <th style="padding: 12px 16px;">Hito / Fase</th>
+                <th style="padding: 12px 16px;">Plazo</th>
+                <th style="padding: 12px 16px;">Entregables Técnicos Clave</th>
+                <th style="padding: 12px 16px;">Instrumento Legal Square</th>
+                <th style="padding: 12px 16px;">Desembolso</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-muted);">
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 12px 16px; color: #FFF; font-weight: 700;">Hito 0: Formalización</td>
+                <td style="padding: 12px 16px;">Día 1</td>
+                <td style="padding: 12px 16px;">Firma de confidencialidad y términos del servicio.</td>
+                <td style="padding: 12px 16px; color: var(--tmd-gold); font-family: var(--font-mono);">NDA (#000202) &amp; MSA (#000201)</td>
+                <td style="padding: 12px 16px; color: var(--text-dim);">$0.00</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color); background: rgba(16, 185, 129, 0.03);">
+                <td style="padding: 12px 16px; color: #34D399; font-weight: 700;">Hito 1: Setup (50%)</td>
+                <td style="padding: 12px 16px;">Día 1 – 2</td>
+                <td style="padding: 12px 16px;">Despliegue staging Vercel, provisión DB y llaves API Fullbay.</td>
+                <td style="padding: 12px 16px; color: #34D399; font-family: var(--font-mono);">Setup Invoice (50% Deposit)</td>
+                <td style="padding: 12px 16px; color: #34D399; font-weight: 800;">$1,425.00 USD <span style="font-size:0.75rem;">(RD$ 84,788)</span></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 12px 16px; color: #FFF; font-weight: 700;">Integración Técnica</td>
+                <td style="padding: 12px 16px;">Días 3 – 10</td>
+                <td style="padding: 12px 16px;">Sincronización catálogo 3 pilares, WO Tracker y LiveLink.</td>
+                <td style="padding: 12px 16px; font-family: var(--font-mono);">Anexo Técnico SOW-720</td>
+                <td style="padding: 12px 16px; color: var(--text-dim);">En Ejecución</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color); background: rgba(0, 112, 243, 0.03);">
+                <td style="padding: 12px 16px; color: #38BDF8; font-weight: 700;">Pruebas UAT</td>
+                <td style="padding: 12px 16px;">Días 11 – 12</td>
+                <td style="padding: 12px 16px;">Validación con Don Eduardo y personal de taller Km 22.</td>
+                <td style="padding: 12px 16px; font-family: var(--font-mono);">Acta de UAT Sign-off</td>
+                <td style="padding: 12px 16px; color: var(--text-dim);">Aprobación Técnica</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color); background: rgba(245, 158, 11, 0.03);">
+                <td style="padding: 12px 16px; color: var(--tmd-gold); font-weight: 700;">Hito 2: Go-Live (50%)</td>
+                <td style="padding: 12px 16px;">Días 13 – 14</td>
+                <td style="padding: 12px 16px;">Pase a producción oficial, retiro PIN Gate y entrega código fuente.</td>
+                <td style="padding: 12px 16px; color: var(--tmd-gold); font-family: var(--font-mono);">Final Balance Settlement</td>
+                <td style="padding: 12px 16px; color: var(--tmd-gold); font-weight: 800;">$1,425.00 USD <span style="font-size:0.75rem;">(RD$ 84,788)</span></td>
+              </tr>
+              <tr style="background: rgba(168, 85, 247, 0.03);">
+                <td style="padding: 12px 16px; color: #C084FC; font-weight: 700;">Retainer VIP Mensual</td>
+                <td style="padding: 12px 16px;">Día 30+</td>
+                <td style="padding: 12px 16px;">Monitoreo 24/7 API Fullbay, SSL, servidores y soporte técnico.</td>
+                <td style="padding: 12px 16px; color: #C084FC; font-family: var(--font-mono);">VIP Retainer (MNT-011 / #000203)</td>
+                <td style="padding: 12px 16px; color: #C084FC; font-weight: 800;">$150.00 USD / mes <span style="font-size:0.75rem;">(Recurrente)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="checklist-footer">
+      <p>TODOBUILD TECHNOLOGIES INC. · SOLUCIONES DE INFRAESTRUCTURA DIGITAL PARA FLOTAS PESADAS</p>
+      <p style="margin-top:6px; color:var(--text-muted);">Nueva York · Autopista Duarte Km 22, Santo Domingo Oeste, R.D. · Soporte: (646) 580-3090 / (809) 826-2222</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
