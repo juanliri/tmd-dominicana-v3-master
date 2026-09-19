@@ -7,7 +7,7 @@
   'use strict';
 
   window.TMD_V2_SERVICE_HTML = `
-<div id="tmd-v2-full-service-page" class="w-full text-on-surface bg-slate-50 dark:bg-black selection:bg-primary-container selection:text-on-primary-container transition-colors duration-200">
+<div id="tmd-v2-full-service-page" class="w-full text-on-surface bg-slate-50 dark:bg-black selection:bg-primary-container selection:text-on-primary-container transition-colors duration-200 pt-24 md:pt-28">
   
     <div
       class="flex flex-col w-full text-on-surface bg-black selection:bg-primary-container selection:text-on-primary-container">

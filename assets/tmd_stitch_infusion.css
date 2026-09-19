@@ -6,15 +6,42 @@
 ═════════════════════════════════════════════════════════════════════════════ */
 
 /* ── 0. GLOBAL STRICT ZERO-SQUARE-CORNERS ENGINE (2px - 20px) ── */
-/* Absolute Rule: No single square corner (0px) anywhere in the entire site */
+/* Absolute Rule: No single square corner (0px) anywhere on any card, button, input, modal, or badge */
 
-/* Universal fallback for bordered & surfaced containers: never 0px */
-div[class*="border"],
+/* Protect full-bleed edge-to-edge layout containers (screen-edge bars) */
+html,
+body,
+#root,
+#root > div,
+header,
+footer,
+nav.fixed,
+div.fixed.top-0,
+div.fixed.top-0 > div {
+  border-radius: 0 !important;
+}
+
+/* Base interactive elements: 10px - 14px */
+button:not(.rounded-full):not([class*="rounded-full"]), 
+.btn:not(.rounded-full), 
+input,
+select, 
+textarea {
+  border-radius: 12px !important;
+}
+
+/* Pills, circular indicators, avatars & chat FAB: true rounded-full */
+.rounded-full,
+[class*="rounded-full"] {
+  border-radius: 9999px !important;
+}
+
+/* Universal fallback for inner bordered cards & panels (excluding headers/footers/page wrappers) */
+div[class*="border"]:not(#root):not(header):not(footer):not(.fixed):not([class*="w-screen"]):not([class*="min-h-screen"]):not([class*="border-b"]):not([class*="border-t"]),
 section[class*="border"],
 article[class*="border"],
 aside[class*="border"],
-form[class*="border"],
-main[class*="border"] {
+form[class*="border"] {
   border-radius: 18px !important;
 }
 
@@ -25,15 +52,6 @@ label[class*="border"] {
 span[class*="border"],
 span.font-label-badge {
   border-radius: 8px !important;
-}
-
-/* Base interactive elements: 10px - 14px */
-button, 
-.btn, 
-input,
-select, 
-textarea {
-  border-radius: 12px !important;
 }
 
 /* Force every single arbitrary Tailwind rounded class (from 2px to 20px) */
@@ -55,7 +73,7 @@ textarea {
 [class*="rounded-\[50px\]"] { border-radius: 20px !important; }
 
 /* Standard Tailwind rounded classes */
-.rounded-none { border-radius: 12px !important; }
+.rounded-none:not(header):not(footer):not(.fixed) { border-radius: 12px !important; }
 .rounded-sm { border-radius: 8px !important; }
 .rounded { border-radius: 10px !important; }
 .rounded-md { border-radius: 12px !important; }
@@ -63,7 +81,6 @@ textarea {
 .rounded-xl { border-radius: 16px !important; }
 .rounded-2xl { border-radius: 18px !important; }
 .rounded-3xl { border-radius: 20px !important; }
-.rounded-full { border-radius: 20px !important; }
 
 /* Backdrop blurs support */
 [class*="backdrop-blur"] {

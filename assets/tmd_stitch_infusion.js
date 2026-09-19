@@ -1582,197 +1582,274 @@
   // ─────────────────────────────────────────────────────────────────────────────
   // 12. ROUTE OBSERVER & SECTIONS INJECTION DISPATCHER
   // ─────────────────────────────────────────────────────────────────────────────
-  function checkAndInfuseSections() {
-    injectTopBarLink();
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 12. CLEANUP & ACTIVE ROUTE DETERMINATION (STRICT SINGLE-PAGE ENFORCEMENT)
+  // ─────────────────────────────────────────────────────────────────────────────
+  function getActiveRoute() {
+    var raw = (window.location.hash || '').replace(/^#\/?/, '').toLowerCase().trim();
+    if (!raw || raw === '' || raw === 'inicio' || raw === 'home') return 'home';
+    if (raw === 'vehicles' || raw === 'modelos' || raw === 'catalogo' || ['construccion','agricolas','industriales','mineria'].includes(raw)) return 'vehicles';
+    if (raw.startsWith('vehicle/') || raw.startsWith('maquinaria/')) return 'vehicle-detail';
+    if (raw.startsWith('configurator') || raw.startsWith('studio-3d')) return 'configurator';
+    if (raw === 'service' || raw === 'servicios' || raw === 'taller') return 'service';
+    if (raw === 'parts' || raw === 'repuestos') return 'parts';
+    if (raw === 'magazine' || raw === 'revista') return 'magazine';
+    if (raw === 'about' || raw === 'empresa' || raw === 'nosotros' || raw === 'contacto') return 'about';
+    return 'home';
+  }
 
-    var hash = window.location.hash || '';
+  function cleanupInjectedSections(activeRoute) {
+    // 1. TCO Estimator: ONLY on 'home'
+    if (activeRoute !== 'home') {
+      var el = document.getElementById('tmd-tco-estimator-infusion');
+      if (el) el.remove();
+    }
 
-    // A. SERVICE PAGE (#/service, #/servicios, #/taller)
-    // COMPLETE INNER OVERHAUL: Replace inner broken sections with Full Stitch V2 Suite
-    if (hash.includes('service') || hash.includes('servicios') || hash.includes('taller')) {
-      if (!document.getElementById('tmd-v2-full-service-page') && window.TMD_V2_SERVICE_HTML) {
-        var serviceOuter = document.querySelector('#root > div > div.bg-slate-50') ||
-                           document.querySelector('#root > div > div.dark\\:bg-neutral-950') ||
-                           document.querySelector('#root main');
-        if (serviceOuter) {
-          serviceOuter.innerHTML = window.TMD_V2_SERVICE_HTML;
-          window.scrollTo({ top: 0, behavior: 'instant' });
+    // 2. Industry Filters: ONLY on 'vehicles'
+    if (activeRoute !== 'vehicles') {
+      var el = document.getElementById('tmd-industry-filters-infusion');
+      if (el) el.remove();
+    }
 
-          var bookingForm = serviceOuter.querySelector('form');
-          if (bookingForm && bookingForm.id !== 'dtcServiceForm') {
-            bookingForm.onsubmit = function (e) {
-              e.preventDefault();
-              window.tmdSubmitBookingForm();
-            };
-          }
-        }
-      }
-      // Also ensure National Coverage is available on Service page
-      if (!document.getElementById('tmd-national-coverage-infusion')) {
-        var sPage = document.getElementById('tmd-v2-full-service-page');
-        if (sPage) {
-          var wrapperCoverage = document.createElement('div');
-          wrapperCoverage.innerHTML = renderNationalCoverageModule();
-          sPage.appendChild(wrapperCoverage.firstElementChild);
-        }
+    // 3. Parts Schematic: ONLY on 'parts'
+    if (activeRoute !== 'parts') {
+      var el = document.getElementById('tmd-schematic-infusion-container');
+      if (el) el.remove();
+    }
+
+    // 4. Standalone National Coverage: ONLY on 'about' (on 'service' it's embedded inside the service suite)
+    if (activeRoute !== 'about') {
+      var el = document.getElementById('tmd-national-coverage-infusion');
+      if (el && el.parentElement && el.parentElement.id !== 'tmd-v2-full-service-page') {
+        el.remove();
       }
     }
 
-    // B. HOME PAGE (#/home, #/, or empty)
-    if (!hash || hash === '#/' || hash === '#/home' || hash === '#') {
-      if (!document.getElementById('tmd-tco-estimator-infusion')) {
-        var homeMain = document.querySelector('#root main') || document.querySelector('#root > div > div');
-        if (homeMain) {
-          var wrapperTco = document.createElement('div');
-          wrapperTco.innerHTML = renderTcoEstimatorModule();
-          homeMain.appendChild(wrapperTco.firstElementChild);
-          window.tmdUpdateTcoCalc();
-        }
-      }
+    // 5. Vehicle Detail Infusions: ONLY on 'vehicle-detail'
+    if (activeRoute !== 'vehicle-detail') {
+      var e1 = document.getElementById('tmd-vehicle-360-infusion');
+      if (e1) e1.remove();
+      var e2 = document.getElementById('tmd-tropical-engineering-infusion');
+      if (e2) e2.remove();
+      var e3 = document.getElementById('tmd-leasing-infusion-container');
+      if (e3 && activeRoute !== 'configurator') e3.remove();
     }
 
-    // C. ABOUT US / LA EMPRESA (#/about, #/empresa)
-    if (hash.includes('about') || hash.includes('empresa')) {
-      if (!document.getElementById('tmd-national-coverage-infusion')) {
-        var aboutMain = document.querySelector('#root main') || document.querySelector('#root .max-w-7xl');
-        if (aboutMain) {
-          var wrapperCov = document.createElement('div');
-          wrapperCov.innerHTML = renderNationalCoverageModule();
-          aboutMain.appendChild(wrapperCov.firstElementChild);
-        }
-      }
+    // 6. Port Lots: ONLY on 'magazine'
+    if (activeRoute !== 'magazine') {
+      var el = document.getElementById('tmd-port-lots-infusion');
+      if (el) el.remove();
     }
 
-    // D. VEHICLES CATALOG (#/vehicles, #/maquinaria) - exclude individual vehicle detail
-    if ((hash.includes('vehicles') || hash.includes('maquinaria')) && !hash.includes('vehicle/')) {
-      if (!document.getElementById('tmd-industry-filters-infusion')) {
-        var catMain = document.querySelector('#root main') || document.querySelector('#root .max-w-7xl');
-        if (catMain) {
-          var wrapperInd = document.createElement('div');
-          wrapperInd.innerHTML = renderIndustryB2BFiltersModule();
-          var gridTarget = catMain.querySelector('div.grid') || catMain.firstElementChild;
-          if (gridTarget && gridTarget.parentNode) {
-            gridTarget.parentNode.insertBefore(wrapperInd.firstElementChild, gridTarget);
-          } else {
-            catMain.appendChild(wrapperInd.firstElementChild);
-          }
-        }
-      }
-    }
-
-    // E. PARTS PAGE (#/parts, #/repuestos)
-    if (hash.includes('parts') || hash.includes('repuestos')) {
-      if (!document.getElementById('tmd-schematic-infusion-container')) {
-        var partsContainer = document.querySelector('#root main') || document.querySelector('#root .max-w-7xl');
-        if (partsContainer) {
-          var wrapper = document.createElement('div');
-          wrapper.innerHTML = renderSchematicModule();
-          var targetInsertion = partsContainer.querySelector('div.grid') || partsContainer.lastElementChild;
-          if (targetInsertion) {
-            targetInsertion.parentNode.insertBefore(wrapper.firstElementChild, targetInsertion);
-          } else {
-            partsContainer.appendChild(wrapper.firstElementChild);
-          }
-        }
-      }
-    }
-
-    // F. VEHICLE DETAIL PAGE (#/vehicle/...)
-    if (hash.includes('vehicle/') || hash.includes('maquinaria/')) {
-      var h1El = document.querySelector('h1');
-      if (h1El) _currentMachineName = h1El.innerText.trim();
-
-      // 360 Inspector
-      if (!document.getElementById('tmd-vehicle-360-infusion')) {
-        var vehicleMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
-        if (vehicleMain) {
-          var wrapper360 = document.createElement('div');
-          wrapper360.innerHTML = renderVehicleDetailInfusion(_currentMachineName);
-          vehicleMain.appendChild(wrapper360.firstElementChild);
-        }
-      }
-
-      // Tropicalized Engineering Package
-      if (!document.getElementById('tmd-tropical-engineering-infusion')) {
-        var vehicleMainTrop = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
-        if (vehicleMainTrop) {
-          var wrapperTrop = document.createElement('div');
-          wrapperTrop.innerHTML = renderTropicalizedEngineeringModule(_currentMachineName);
-          vehicleMainTrop.appendChild(wrapperTrop.firstElementChild);
-        }
-      }
-
-      // Leasing & Tax Shield Module
-      if (!document.getElementById('tmd-leasing-infusion-container')) {
-        var vehicleMain2 = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
-        if (vehicleMain2) {
-          var wrapperLeasing = document.createElement('div');
-          wrapperLeasing.innerHTML = renderLeasingModule();
-          vehicleMain2.appendChild(wrapperLeasing.firstElementChild);
-        }
-      }
-    }
-
-    // G. CONFIGURATOR PAGE (#/configurator, #/studio-3d)
-    if (hash.includes('configurator') || hash.includes('studio-3d')) {
-      if (!document.getElementById('tmd-leasing-infusion-container')) {
-        var configMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main') || document.querySelector('#root > div > div');
-        if (configMain) {
-          var wrapperLeasing = document.createElement('div');
-          wrapperLeasing.innerHTML = renderLeasingModule();
-          configMain.appendChild(wrapperLeasing.firstElementChild);
-        }
-      }
-    }
-
-    // H. MAGAZINE / VIP PRIVÉ PAGE (#/magazine, #/revista)
-    if (hash.includes('magazine') || hash.includes('revista')) {
-      if (!document.getElementById('tmd-port-lots-infusion')) {
-        var magMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
-        if (magMain) {
-          var wrapperLots = document.createElement('div');
-          wrapperLots.innerHTML = renderPortLotsModule();
-          magMain.appendChild(wrapperLots.firstElementChild);
-        }
-      }
-    }
-
-    // I. GLOBAL QUOTE MODAL ENHANCEMENT (Inject DGII Fiscal Connector)
-    var quoteModal = document.querySelector('[role="dialog"]');
-    if (quoteModal && !quoteModal.querySelector('#tmd-dgii-fiscal-panel')) {
-      var modalBody = quoteModal.querySelector('form') || quoteModal.querySelector('div.space-y-4') || quoteModal.firstElementChild;
-      if (modalBody) {
-        var dgiiDiv = document.createElement('div');
-        dgiiDiv.innerHTML = renderDgiiFiscalConnector();
-        var submitBtn = modalBody.querySelector('button[type="submit"]') || modalBody.lastElementChild;
-        if (submitBtn && submitBtn.parentNode) {
-          submitBtn.parentNode.insertBefore(dgiiDiv.firstElementChild, submitBtn);
-        } else {
-          modalBody.appendChild(dgiiDiv.firstElementChild);
-        }
-      }
+    // 7. Service Suite: ONLY on 'service'
+    if (activeRoute !== 'service') {
+      var el = document.getElementById('tmd-v2-full-service-page');
+      if (el) el.remove();
     }
   }
 
-  // Event Listeners & Periodic Sync
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 13. ROUTE-SPECIFIC INFUSION DISPATCHER (NO LEAKS, NO DUPLICATES)
+  // ─────────────────────────────────────────────────────────────────────────────
+  var _isInfusing = false;
+
+  function checkAndInfuseSections() {
+    if (_isInfusing) return;
+    _isInfusing = true;
+
+    try {
+      var currentRoute = getActiveRoute();
+
+      // Top utility bar tracking link (persistent across all pages)
+      injectTopBarLink();
+
+      // Prune any sections from other routes to prevent duplication/leaks
+      cleanupInjectedSections(currentRoute);
+
+      var mainEl = document.querySelector('#root main');
+
+      // A. SERVICE PAGE (#/service)
+      if (currentRoute === 'service') {
+        if (!document.getElementById('tmd-v2-full-service-page') && window.TMD_V2_SERVICE_HTML) {
+          if (mainEl) {
+            // Replace ONLY what is inside <main>, leaving Header, Topbar, and Footer 100% intact!
+            mainEl.innerHTML = window.TMD_V2_SERVICE_HTML;
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            var bookingForm = mainEl.querySelector('form');
+            if (bookingForm && bookingForm.id !== 'dtcServiceForm') {
+              bookingForm.onsubmit = function (e) {
+                e.preventDefault();
+                window.tmdSubmitBookingForm();
+              };
+            }
+
+            // Append National Coverage Radar at bottom of service page
+            var sPage = document.getElementById('tmd-v2-full-service-page');
+            if (sPage && !sPage.querySelector('#tmd-national-coverage-infusion')) {
+              var wrapperCoverage = document.createElement('div');
+              wrapperCoverage.innerHTML = renderNationalCoverageModule();
+              sPage.appendChild(wrapperCoverage.firstElementChild);
+            }
+          }
+        }
+      }
+
+      // B. HOME PAGE (#/home)
+      else if (currentRoute === 'home') {
+        if (!document.getElementById('tmd-tco-estimator-infusion') && mainEl) {
+          var wrapperTco = document.createElement('div');
+          wrapperTco.innerHTML = renderTcoEstimatorModule();
+          mainEl.appendChild(wrapperTco.firstElementChild);
+          window.tmdUpdateTcoCalc();
+        }
+      }
+
+      // C. ABOUT US / LA EMPRESA (#/about)
+      else if (currentRoute === 'about') {
+        if (!document.getElementById('tmd-national-coverage-infusion') && mainEl) {
+          var aboutContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
+          var wrapperCov = document.createElement('div');
+          wrapperCov.innerHTML = renderNationalCoverageModule();
+          aboutContainer.appendChild(wrapperCov.firstElementChild);
+        }
+      }
+
+      // D. VEHICLES CATALOG (#/vehicles)
+      else if (currentRoute === 'vehicles') {
+        if (!document.getElementById('tmd-industry-filters-infusion') && mainEl) {
+          var gridTarget = mainEl.querySelector('div.grid');
+          var wrapperInd = document.createElement('div');
+          wrapperInd.innerHTML = renderIndustryB2BFiltersModule();
+          if (gridTarget && gridTarget.parentNode) {
+            gridTarget.parentNode.insertBefore(wrapperInd.firstElementChild, gridTarget);
+          } else {
+            mainEl.appendChild(wrapperInd.firstElementChild);
+          }
+        }
+      }
+
+      // E. PARTS CATALOG (#/parts)
+      else if (currentRoute === 'parts') {
+        // On parts page, keep original 390+ OEM parts list 100% visible and interactive!
+        // Place the interactive SVG exploded schematic neatly AFTER the parts grid
+        if (!document.getElementById('tmd-schematic-infusion-container') && mainEl) {
+          var partsContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
+          var wrapperSchematic = document.createElement('div');
+          wrapperSchematic.innerHTML = renderSchematicModule();
+          // Append after the catalog grid so search and products remain first!
+          partsContainer.appendChild(wrapperSchematic.firstElementChild);
+        }
+      }
+
+      // F. VEHICLE DETAIL (#/vehicle/:slug)
+      else if (currentRoute === 'vehicle-detail') {
+        var h1El = document.querySelector('h1');
+        if (h1El) _currentMachineName = h1El.innerText.trim();
+
+        if (mainEl) {
+          var vehicleContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
+
+          // 1. Tropicalized Engineering Package
+          if (!document.getElementById('tmd-tropical-engineering-infusion')) {
+            var wrapperTrop = document.createElement('div');
+            wrapperTrop.innerHTML = renderTropicalizedEngineeringModule(_currentMachineName);
+            vehicleContainer.appendChild(wrapperTrop.firstElementChild);
+          }
+
+          // 2. 360 Inspector
+          if (!document.getElementById('tmd-vehicle-360-infusion')) {
+            var wrapper360 = document.createElement('div');
+            wrapper360.innerHTML = renderVehicleDetailInfusion(_currentMachineName);
+            vehicleContainer.appendChild(wrapper360.firstElementChild);
+          }
+
+          // 3. Leasing & Tax Shield
+          if (!document.getElementById('tmd-leasing-infusion-container')) {
+            var wrapperLeasing = document.createElement('div');
+            wrapperLeasing.innerHTML = renderLeasingModule();
+            vehicleContainer.appendChild(wrapperLeasing.firstElementChild);
+          }
+        }
+      }
+
+      // G. MAGAZINE (#/magazine)
+      else if (currentRoute === 'magazine') {
+        if (!document.getElementById('tmd-port-lots-infusion') && mainEl) {
+          var magContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
+          var wrapperLots = document.createElement('div');
+          wrapperLots.innerHTML = renderPortLotsModule();
+          magContainer.appendChild(wrapperLots.firstElementChild);
+        }
+      }
+
+      // H. CONFIGURATOR (#/configurator)
+      else if (currentRoute === 'configurator') {
+        if (!document.getElementById('tmd-leasing-infusion-container') && mainEl) {
+          var configContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
+          var wrapperLeas = document.createElement('div');
+          wrapperLeas.innerHTML = renderLeasingModule();
+          configContainer.appendChild(wrapperLeas.firstElementChild);
+        }
+      }
+
+      // I. GLOBAL QUOTE MODAL ENHANCEMENT (DGII)
+      var quoteModal = document.querySelector('[role="dialog"]');
+      if (quoteModal && !quoteModal.querySelector('#tmd-dgii-fiscal-panel')) {
+        var modalBody = quoteModal.querySelector('form') || quoteModal.querySelector('div.space-y-4') || quoteModal.firstElementChild;
+        if (modalBody) {
+          var dgiiDiv = document.createElement('div');
+          dgiiDiv.innerHTML = renderDgiiFiscalConnector();
+          var submitBtn = modalBody.querySelector('button[type="submit"]') || modalBody.lastElementChild;
+          if (submitBtn && submitBtn.parentNode) {
+            submitBtn.parentNode.insertBefore(dgiiDiv.firstElementChild, submitBtn);
+          } else {
+            modalBody.appendChild(dgiiDiv.firstElementChild);
+          }
+        }
+      }
+
+    } catch (err) {
+      console.warn('TMD Infusion Dispatch error:', err);
+    } finally {
+      _isInfusing = false;
+    }
+  }
+
+  // Event Listeners & Controlled Debounced Sync
+  var _routeDebounceTimer = null;
+  function triggerInfuseDebounced(delay) {
+    if (_routeDebounceTimer) clearTimeout(_routeDebounceTimer);
+    _routeDebounceTimer = setTimeout(function () {
+      checkAndInfuseSections();
+    }, delay || 100);
+  }
+
   window.addEventListener('hashchange', function () {
-    setTimeout(checkAndInfuseSections, 150);
+    triggerInfuseDebounced(100);
   });
 
-  var observer = new MutationObserver(function () {
-    checkAndInfuseSections();
+  // Observe navigation changes on #root without self-triggering loops
+  var observer = new MutationObserver(function (mutations) {
+    if (_isInfusing) return;
+    for (var i = 0; i < mutations.length; i++) {
+      var m = mutations[i];
+      // Only react to major structural changes, not our own infused elements
+      if (m.target && m.target.id && m.target.id.startsWith('tmd-')) continue;
+      triggerInfuseDebounced(150);
+      break;
+    }
   });
 
   document.addEventListener('DOMContentLoaded', function () {
     var rootEl = document.getElementById('root');
     if (rootEl) {
-      observer.observe(rootEl, { childList: true, subtree: true });
+      observer.observe(rootEl, { childList: true, subtree: false });
     }
-    setTimeout(checkAndInfuseSections, 600);
-    setTimeout(checkAndInfuseSections, 1800);
+    triggerInfuseDebounced(300);
   });
 
-  setTimeout(checkAndInfuseSections, 1000);
+  triggerInfuseDebounced(400);
 
 })();
 
