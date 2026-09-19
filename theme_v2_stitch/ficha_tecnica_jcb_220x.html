@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary":"#412d00","canvas-offwhite":"#F8FAFC","surface-bright":"#37393d","outline-variant":"#514532","outline":"#9e8f78","primary":"#ffdca1","alert-critical":"#EF4444","tertiary":"#6cf9bb","on-primary-container":"#6b4c00","on-secondary-fixed-variant":"#424752","surface-tint":"#ffba20","tertiary-container":"#4bdca1","error":"#ffb4ab","on-surface":"#e2e2e6","on-secondary-fixed":"#171c25","surface-charcoal":"#14171D","surface":"#111317","on-tertiary-container":"#005d3f","on-tertiary-fixed-variant":"#005236","surface-container-low":"#1a1c1f","tertiary-fixed":"#6ffbbe","surface-dim":"#111317","telemetry-emerald":"#10B981","on-error":"#690005","on-background":"#e2e2e6","on-surface-variant":"#d5c4ab","surface-container-highest":"#333538","inverse-primary":"#7c5800","surface-container-lowest":"#0c0e11","background":"#111317","inverse-surface":"#e2e2e6","tertiary-fixed-dim":"#4edea3","on-secondary":"#2b303b","error-container":"#93000a","inverse-on-surface":"#2f3034","primary-container":"#ffb800","hazard-gold-active":"#E5A500","on-primary-fixed-variant":"#5e4200","secondary":"#c2c6d3","on-primary-fixed":"#271900","surface-elevated":"#1A1F26","hazard-gold-glow":"rgba(255, 184, 0, 0.15)","primary-fixed-dim":"#ffba20","surface-container-high":"#282a2d","surface-variant":"#333538","border-structural":"#2E3646","surface-container":"#1e2023","telemetry-emerald-glow":"rgba(16, 185, 129, 0.15)","text-muted":"#94A3B8","secondary-container":"#424752","on-secondary-container":"#b0b5c2","secondary-fixed":"#dee2f0","on-tertiary-fixed":"#002113","on-error-container":"#ffdad6","border-subtle":"#222733","primary-fixed":"#ffdea8","secondary-fixed-dim":"#c2c6d3","on-tertiary":"#003824"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"2rem","gutter":"1.5rem","space-xl":"2.5rem","space-lg":"1.5rem","space-md":"1rem","space-xs":"0.25rem","space-sm":"0.5rem"},"fontFamily":{"headline-xl":["Space Grotesk"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-lg":["Space Grotesk"],"display-lg":["Space Grotesk"],"telemetry-data-lg":["JetBrains Mono"],"headline-sm":["Space Grotesk"],"caption":["Inter"],"label-badge":["JetBrains Mono"],"display-lg-mobile":["Space Grotesk"],"headline-xl-mobile":["Space Grotesk"],"body-md":["Inter"],"telemetry-data-md":["JetBrains Mono"]},"fontSize":{"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"telemetry-data-lg":["28px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"caption":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"label-badge":["11px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"600"}],"display-lg-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"telemetry-data-md":["16px",{"lineHeight":"22px","letterSpacing":"-0.01em","fontWeight":"500"}]}}}};</script></head><body class="bg-[#0c0e11]  font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 bg-[#000000] border-b border-primary-container/20 shadow-[0_4px_24px_rgba(0,0,0,0.6)]"><div class="h-20 w-full px-6 lg:px-8 flex items-center justify-between gap-4"><div class="flex items-center gap-4 shrink-0"><img alt="Image from https://www.tmd.com.do/wp-content/uploads/2023/07/logo.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VA9lXrksvsphvsVJV2p9VPantEDAE0QXYc7JhlNdji1GF8PZHnaq7lcbvfGtuGv4MjiXJppk1ZrsZTKymyOQ37JSp5MeGesQRdRL7qcLLlsPb6-AcREt2N_jQj4INyoJ9tOcUEeliLzLngn8Q7cA35BHRv-1Avy-ETnUYbYuZ2ZQgTiFd4jBJYfqGt2Zv1NAnjZqkRAvNvDiBEUKt50dsHQoNQiJXGzag3HRXcrZ_T8PLKK-NxQb-7ov_a"/><div class="hidden xl:flex flex-col border-l border-border-structural pl-4"><div class="flex items-center gap-2"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-telemetry-emerald opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-telemetry-emerald"></span></span><span class="font-label-badge text-label-badge text-tertiary-container tracking-wider uppercase">LIVELINK GPS ONLINE</span></div><span class="font-caption text-caption text-text-muted">Km 22 Duarte • Soporte 24/7</span></div></div><nav class="hidden 2xl:flex items-center gap-1 xl:gap-2 px-2 py-1" data-active-classes="bg-surface-container text-primary-container font-semibold rounded"><a aria-current="page" class="px-3 py-2 transition-colors tracking-tight whitespace-nowrap bg-surface-container text-primary-container font-semibold rounded" data-path="maquinaria-nueva-0-km" href="tienda_maquinaria_repuestos.html">Maquinaria Nueva 0 Km</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-body-sm font-body-sm tracking-tight whitespace-nowrap" data-path="renta-de-flota" href="tienda_maquinaria_repuestos.html#renta-section">Renta de Flota</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-body-sm font-body-sm tracking-tight whitespace-nowrap" data-path="repuestos-oem" href="catalogo_repuestos_diagramas.html">Repuestos OEM</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-body-sm font-body-sm tracking-tight whitespace-nowrap" data-path="taller-km-22-overhaul" href="#">Taller Km 22 &amp; Overhaul</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-body-sm font-body-sm tracking-tight whitespace-nowrap" data-path="telemetria-livelink" href="livelink_soporte_satelital_24_7.html">Telemetría LiveLink</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-body-sm font-body-sm tracking-tight whitespace-nowrap" data-path="portal-staff" href="#">Portal Staff</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors text-body-sm font-body-sm tracking-tight whitespace-nowrap" data-path="contacto-asesor" href="livelink_soporte_satelital_24_7.html#sosFormSection">Contacto Asesor</a></nav><div class="flex items-center gap-3 shrink-0"><a class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 rounded bg-surface-charcoal border border-border-structural text-canvas-offwhite hover:bg-surface-container-high hover:text-on-surface transition-all font-headline-sm text-caption tracking-wider uppercase font-semibold" data-path="portal-clientes-vip" href="#">Portal Clientes VIP</a><a class="inline-flex items-center justify-center px-5 py-2.5 rounded bg-primary-container text-on-primary font-headline-sm text-caption font-bold tracking-wider uppercase shadow-[0_0_16px_rgba(255,184,0,0.25)] hover:bg-hazard-gold-active transition-all" data-path="cotizar-flota-0-km" href="checkout_square_terminal.html">Cotizar Flota 0 Km</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-transparent min-h-screen"><div class="flex flex-col w-full">
+<section class="relative w-full overflow-hidden px-4 sm:px-6 lg:px-12 py-8 lg:py-12 bg-surface-container-lowest">
+<div class="max-w-[1360px] mx-auto flex flex-col gap-10">
+<!-- Encabezado de Unidad y Badges de Disponibilidad Inmediata -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+<div class="flex flex-col gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container/15 text-primary-container font-label-badge text-label-badge uppercase tracking-wider shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+              JCB Heavy Line 2026
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-container/15 text-tertiary font-label-badge text-label-badge uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-telemetry-emerald animate-pulse"></span>
+              Lote Portuario Haina Aprobado
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-badge text-label-badge uppercase">
+<span class="material-symbols-outlined text-[14px] text-primary-container">verified</span>
+              Tropicalizada República Dominicana
+            </span>
+</div>
+<h1 class="font-display-lg text-display-lg text-canvas-offwhite tracking-tight">
+            Excavadora Hidráulica <span class="text-primary-container">JCB 220X</span>
+</h1>
+<p class="font-body-md text-body-md text-text-muted max-w-2xl">
+            Edición tropicalizada para trabajo pesado con radiador sobredimensionado para altas temperaturas caribeñas, filtrado ciclónico de combustible y sistema hidráulico optimizado Kawasaki de flujo dual.
+          </p>
+</div>
+<!-- Badges Flotantes de Estado Inmediato -->
+<div class="flex flex-wrap items-center gap-3">
+<div class="px-4 py-3 rounded-xl bg-surface-container-high/80 backdrop-blur-md shadow-md flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-[24px]">warehouse</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted">Stock Físico</span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite">PATIO KM 22 • LISTA PARA SALIDA</span>
+</div>
+</div>
+<div class="px-4 py-3 rounded-xl bg-surface-container-high/80 backdrop-blur-md shadow-md flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[24px]">speed</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted">Estado del Motor</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-tertiary">0.0 HORAS (0 KM)</span>
+</div>
+</div>
+<div class="px-4 py-3 rounded-xl bg-surface-container-high/80 backdrop-blur-md shadow-md flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-[24px]">security</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted">Garantía Premier</span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite">3 AÑOS O 5,000 HORAS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Layout: 60% Galería + Especificaciones / 40% Configurador Financiero y Cierre -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Columna Izquierda: Galería Interactiva + Telemetría + Specs (7 cols desktop) -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<!-- Visor de Estudio 4K & Ángulos 360 -->
+<div class="relative rounded-2xl overflow-hidden bg-surface-charcoal/90 backdrop-blur-xl shadow-xl">
+<!-- Imagen Principal Interactiva -->
+<div class="relative w-full aspect-[16/10] bg-surface-container-lowest overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="High quality studio shot of a brand new JCB 220X hydraulic crawler excavator, bright yellow and obsidian black body, heavy-duty bucket, hydraulic hoses, clean industrial studio lighting with subtle amber rim light reflection on metallic panels" id="mainViewImage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8jiOlTnQMQcMIt5wObpSisz8Z9Vo0sctuDU9M8eZ9evUsotrMhy59PDI4nxJmj1QxwNWNJvWcYN-bEO81xgNR2gs4_-6LYc15hk7G84Z8-WA7QdQP1zbXJN1yntdLCGrw_qilSf_pXyF-6QbeGPZzSHxvqxx-SOyLrQCHqDcfLV1g41wFb_ghWwdPRfg16BYjBcb5Qzf1DA5r_QlgKpSHeZLp0sTlC5NPoDB_eMSUxkxjGRJAa2955g"/>
+<!-- Hotspot Telemático Overlay -->
+<div class="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-lowest/80 backdrop-blur-md shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-telemetry-emerald animate-ping"></span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite uppercase">Sensor GPS N-32 Activo</span>
+</div>
+<div class="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-lowest/85 backdrop-blur-md font-label-badge text-label-badge text-primary-container uppercase">
+                  Chasis VIN: JCB-220X-DR-2026-904
+                </span>
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-lowest/85 backdrop-blur-md font-caption text-caption text-canvas-offwhite flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container">360</span> Vista 360° Activa
+                </span>
+</div>
+</div>
+<!-- Selector de Vistas de Estudio 4K -->
+<div class="p-4 sm:p-5 bg-surface-charcoal/60 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-3">
+<span class="font-caption text-caption text-text-muted self-start sm:self-center">Vistas de Estudio:</span>
+<div class="grid grid-cols-4 gap-2 w-full sm:w-auto">
+<button class="view-btn active px-3 py-2 rounded-xl bg-primary-container text-on-primary font-label-badge text-label-badge uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 shadow-sm" onclick="switchView('frente', this)">
+<span class="material-symbols-outlined text-[14px]">front_loader</span> Frente
+                </button>
+<button class="view-btn px-3 py-2 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-badge text-label-badge uppercase tracking-wider transition-all flex items-center justify-center gap-1.5" onclick="switchView('brazo', this)">
+<span class="material-symbols-outlined text-[14px]">precision_manufacturing</span> Brazo
+                </button>
+<button class="view-btn px-3 py-2 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-badge text-label-badge uppercase tracking-wider transition-all flex items-center justify-center gap-1.5" onclick="switchView('cabina', this)">
+<span class="material-symbols-outlined text-[14px]">airline_seat_recline_extra</span> Cabina
+                </button>
+<button class="view-btn px-3 py-2 rounded-xl bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-badge text-label-badge uppercase tracking-wider transition-all flex items-center justify-center gap-1.5" onclick="switchView('motor', this)">
+<span class="material-symbols-outlined text-[14px]">engineering</span> Motor
+                </button>
+</div>
+</div>
+</div>
+<!-- Módulo Telemático LiveLink en Tiempo Real -->
+<div class="rounded-2xl bg-surface-charcoal/80 backdrop-blur-xl p-6 shadow-xl flex flex-col gap-5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-telemetry-emerald animate-pulse"></div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite tracking-tight">Telemetría LiveLink Satelital</span>
+<span class="font-caption text-caption text-text-muted">Conexión directa vía red GSM/Iridium en República Dominicana</span>
+</div>
+</div>
+<span class="font-label-badge text-label-badge text-tertiary px-3 py-1 rounded-full bg-tertiary-container/10">CONECTADO: NODO KM 22</span>
+</div>
+<!-- Grilla de Parámetros Telemáticos -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Ubicación GPS</span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite truncate">18.5711° N, 70.0489° W</span>
+<span class="font-caption text-caption text-telemetry-emerald flex items-center gap-1 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-telemetry-emerald"></span> Patio Central Km 22
+                </span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Combustible</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite">100.0%</span>
+<div class="w-full h-1.5 rounded-full bg-surface-container-high mt-1.5 overflow-hidden">
+<div class="h-full bg-telemetry-emerald rounded-full w-full"></div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Temp. Hidráulica</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container">42.4 °C</span>
+<span class="font-caption text-caption text-text-muted mt-1">Rango Óptimo (&lt;85°)</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Batería &amp; ECU</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-tertiary">27.8 V</span>
+<span class="font-caption text-caption text-telemetry-emerald mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> 0 Códigos DTC
+                </span>
+</div>
+</div>
+<!-- Sparkline Visual de Presión Hidráulica y Salud de Sistema -->
+<div class="p-4 rounded-xl bg-surface-container-lowest/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-[20px]">monitor_heart</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Auto-Diagnóstico de Válvulas Kawasaki</span>
+<span class="font-caption text-caption text-text-muted">Presión del circuito principal calibrada a 343 bar sin anomalías</span>
+</div>
+</div>
+<!-- Mini SVG Line Chart -->
+<div class="w-36 h-8 shrink-0">
+<svg class="w-full h-full text-telemetry-emerald" fill="none" stroke="currentColor" viewbox="0 0 144 32">
+<path d="M0 20 L24 20 L36 10 L48 24 L60 16 L84 16 L96 6 L108 22 L120 18 L144 18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Consola de Especificaciones Técnicas Certificadas -->
+<div class="rounded-2xl bg-surface-charcoal/80 backdrop-blur-xl p-6 shadow-xl flex flex-col gap-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">Especificaciones Certificadas de Fábrica</span>
+<span class="font-caption text-caption text-text-muted">Homologación MOPC y estándar internacional ISO 6015</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container-high text-primary-container font-label-badge text-label-badge">
+                NORMA TIER 4 FINAL / STAGE V
+              </span>
+</div>
+<!-- Cuadrícula de Parámetros Clave -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Potencia Neta Motor</span>
+<span class="font-headline-sm text-headline-sm text-primary-container">173 HP</span>
+<span class="font-caption text-caption text-on-surface-variant">JCB EcoMAX 4.8L Turbo (129 kW)</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Peso Operativo</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">22,000 kg</span>
+<span class="font-caption text-caption text-on-surface-variant">22 Toneladas Métricas listas</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Capacidad Balde Heavy Duty</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">1.25 m³</span>
+<span class="font-caption text-caption text-on-surface-variant">Labio Hardox 450 antiabrasión</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Profundidad Máxima Excavación</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">6.70 m</span>
+<span class="font-caption text-caption text-on-surface-variant">Alcance a nivel de suelo: 9.87 m</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Fuerza de Desgarre de Balde</span>
+<span class="font-headline-sm text-headline-sm text-primary-container">150 kN</span>
+<span class="font-caption text-caption text-on-surface-variant">Potencia de penetración de roca</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 flex flex-col gap-1 shadow-sm">
+<span class="font-caption text-caption text-text-muted">Caudal Hidráulico Dual</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">2 × 228 L/min</span>
+<span class="font-caption text-caption text-on-surface-variant">Bombas de pistones axiales Kawasaki</span>
+</div>
+</div>
+<!-- Descargas de Documentación Oficial -->
+<div class="flex flex-col gap-3 pt-2">
+<span class="font-caption text-caption text-text-muted uppercase font-semibold">Documentación Técnica Descargable:</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<a class="p-3.5 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors flex items-center justify-between group shadow-sm" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[20px]">picture_as_pdf</span>
+<div class="flex flex-col text-left">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Ficha de Fábrica</span>
+<span class="font-caption text-caption text-text-muted">PDF oficial (4.2 MB)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary-container transition-colors text-[18px]">download</span>
+</a>
+<a class="p-3.5 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors flex items-center justify-between group shadow-sm" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[20px]">trending_down</span>
+<div class="flex flex-col text-left">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Consumo &amp; Diésel</span>
+<span class="font-caption text-caption text-text-muted">Curvas de Rendimiento</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-tertiary transition-colors text-[18px]">download</span>
+</a>
+<a class="p-3.5 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors flex items-center justify-between group shadow-sm" href="#">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[20px]">menu_book</span>
+<div class="flex flex-col text-left">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Manual de Operación</span>
+<span class="font-caption text-caption text-text-muted">Normativa MOPC RD</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary-container transition-colors text-[18px]">download</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Columna Derecha: Configurador Transaccional Dual & Cierre Comercial (5 cols desktop sticky) -->
+<div class="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24">
+<div class="rounded-2xl bg-surface-charcoal/90 backdrop-blur-xl p-6 sm:p-7 shadow-2xl flex flex-col gap-6">
+<!-- Selector de Modalidad: Compra vs Renta -->
+<div class="flex flex-col gap-3">
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Modalidad Comercial</span>
+<div class="grid grid-cols-2 gap-2 p-1.5 rounded-xl bg-surface-container-lowest">
+<button class="px-4 py-3 rounded-lg bg-primary-container text-on-primary font-headline-sm text-caption font-bold uppercase transition-all shadow-sm" id="tabCompra" onclick="switchMode('compra')">
+                  Compra Directa 0 Km
+                </button>
+<button class="px-4 py-3 rounded-lg text-on-surface hover:bg-surface-container-high font-headline-sm text-caption font-bold uppercase transition-all" id="tabRenta" onclick="switchMode('renta')">
+                  Renta con Opción
+                </button>
+</div>
+</div>
+<!-- Panel Compra Directa -->
+<div class="flex flex-col gap-4" id="panelCompra">
+<div class="p-4 rounded-xl bg-surface-container-lowest/90 flex flex-col gap-2">
+<div class="flex items-baseline justify-between">
+<span class="font-caption text-caption text-text-muted">Precio Base CIF Sto Dgo</span>
+<span class="font-headline-xl text-headline-xl text-primary-container tracking-tight" id="precioTotalCompra">$186,500 <span class="text-body-sm font-normal text-text-muted">USD</span></span>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-text-muted border-t border-transparent pt-1">
+<span>Equivalente estimado RD$:</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite" id="precioDopCompra">RD$ 11,190,000</span>
+</div>
+</div>
+<!-- Financiamiento Bancario Pre-Aprobado Banreservas/BHD -->
+<div class="p-4 rounded-xl bg-surface-container-high/60 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-canvas-offwhite uppercase flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[16px]">account_balance</span>
+                    Leasing Banreservas / BHD
+                  </span>
+<span class="font-caption text-caption text-telemetry-emerald font-semibold">Tasa Preferencial 6.95%</span>
+</div>
+<div class="flex items-baseline justify-between">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted">Cuota mensual estimada:</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite" id="cuotaLeasing">$2,850 <span class="text-caption font-normal text-text-muted">USD/mes</span></span>
+</div>
+<span class="font-caption text-caption text-text-muted">Plazo: 60 Meses • 20% Inicial</span>
+</div>
+</div>
+</div>
+<!-- Panel Renta Corporativa (Inicialmente oculto) -->
+<div class="hidden flex flex-col gap-4" id="panelRenta">
+<div class="p-4 rounded-xl bg-surface-container-lowest/90 flex flex-col gap-2">
+<div class="flex items-baseline justify-between">
+<span class="font-caption text-caption text-text-muted">Tarifa Diaria Corporativa</span>
+<span class="font-headline-xl text-headline-xl text-primary-container tracking-tight" id="precioTotalRenta">$340 <span class="text-body-sm font-normal text-text-muted">USD/día</span></span>
+</div>
+<span class="font-caption text-caption text-tertiary">Descuento de -15% aplicado para contratos de +30 días calendario</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-high/60 flex flex-col gap-2">
+<div class="flex items-center gap-2 text-canvas-offwhite font-label-badge text-label-badge">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">local_shipping</span>
+                  Despacho en Batea en 24 Horas
+                </div>
+<p class="font-caption text-caption text-text-muted">
+                  Logística a cualquier punto del país (Santiago, Punta Cana, Pedernales, Puerto Plata) con operador capacitado opcional.
+                </p>
+</div>
+</div>
+<!-- Selector de Implementos Opcionales -->
+<div class="flex flex-col gap-3">
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Implementos Hidráulicos Auxiliares</span>
+<div class="flex flex-col gap-2">
+<!-- Implemento 1: Martillo Hidráulico -->
+<label class="p-3.5 rounded-xl bg-surface-container-lowest/80 flex items-center justify-between cursor-pointer hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-3">
+<input class="w-4 h-4 rounded accent-primary-container cursor-pointer" id="toolMartillo" onchange="updateCalculations()" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Martillo Hidráulico JCB HM049T</span>
+<span class="font-caption text-caption text-text-muted">Puntero cónico y cincel para roca dura</span>
+</div>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container">+$9,800 USD</span>
+</label>
+<!-- Implemento 2: Enganche Rápido -->
+<label class="p-3.5 rounded-xl bg-surface-container-lowest/80 flex items-center justify-between cursor-pointer hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-3">
+<input checked="" class="w-4 h-4 rounded accent-primary-container cursor-pointer" id="toolEnganche" onchange="updateCalculations()" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Enganche Rápido Hidráulico</span>
+<span class="font-caption text-caption text-text-muted">Cambio de balde sin salir de la cabina</span>
+</div>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container">+$2,450 USD</span>
+</label>
+<!-- Implemento 3: Balde de Limpieza -->
+<label class="p-3.5 rounded-xl bg-surface-container-lowest/80 flex items-center justify-between cursor-pointer hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-3">
+<input class="w-4 h-4 rounded accent-primary-container cursor-pointer" id="toolBalde" onchange="updateCalculations()" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge text-canvas-offwhite">Balde de Talud y Limpieza (1.8m)</span>
+<span class="font-caption text-caption text-text-muted">Perfilado de zanjas y drenajes viales</span>
+</div>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container">+$1,950 USD</span>
+</label>
+</div>
+</div>
+<!-- Resumen Total Final -->
+<div class="p-4 rounded-xl bg-surface-container-high/40 flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-text-muted uppercase">Inversión Final Configurada:</span>
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-canvas-offwhite" id="montoGranTotal">$188,950 USD</span>
+</div>
+<!-- Botones de Acción y Cierre Comercial -->
+<div class="flex flex-col gap-3 pt-2">
+<button class="w-full py-4 px-6 rounded-xl bg-primary-container text-on-primary font-headline-sm text-caption font-bold tracking-wider uppercase shadow-xl hover:bg-hazard-gold-active transition-all flex items-center justify-center gap-2" onclick="openSeparationModal()">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+                Separar Unidad con Fianza ($2,500 USD)
+              </button>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+<button class="py-3 px-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-canvas-offwhite font-label-badge text-label-badge uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-sm" onclick="openRncQuoteModal()">
+<span class="material-symbols-outlined text-primary-container text-[18px]">receipt_long</span>
+                  Cotización RNC
+                </button>
+<a class="py-3 px-4 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-canvas-offwhite font-label-badge text-label-badge uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-sm" href="https://wa.me/18098262222?text=Hola,%20solicito%20atención%20para%20la%20JCB%20220X%20en%20el%20Km%2022" target="_blank">
+<span class="material-symbols-outlined text-telemetry-emerald text-[18px]">support_agent</span>
+                  Hablar con Asesor
+                </a>
+</div>
+</div>
+<!-- Contact Card: Asesor Senior Asignado -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container shrink-0 font-bold font-headline-sm text-caption">
+                MP
+              </div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-canvas-offwhite font-medium">Ing. Marcos Peña • Especialista de Flota</span>
+<span class="font-caption text-caption text-text-muted">Km 22 Duarte • Celular / WhatsApp Directo: (809) 826-2222</span>
+</div>
+</div>
+</div>
+<!-- Banner de Soporte Post-Venta & Talleres Móviles -->
+<div class="rounded-xl p-5 bg-surface-charcoal/70 backdrop-blur-md flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[28px]">home_repair_service</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge text-canvas-offwhite uppercase">Respaldo Técnico en Toda República Dominicana</span>
+<span class="font-caption text-caption text-text-muted">
+                3 talleres móviles equipados para calibración de presiones y atención en sitio en menos de 4 horas a nivel nacional.
+              </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Modal de Fianza Square Terminal (Oculto por defecto) -->
+<div class="fixed inset-0 z-50 bg-transparent/80 backdrop-blur-md hidden flex items-center justify-center p-4" id="separationModal">
+<div class="w-full max-w-lg rounded-2xl bg-surface-charcoal p-6 sm:p-8 flex flex-col gap-6 shadow-2xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">Separación Garantizada de Unidad</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant hover:text-canvas-offwhite flex items-center justify-center" onclick="closeSeparationModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-lowest flex flex-col gap-1">
+<span class="font-caption text-caption text-text-muted">Unidad a Bloquear en Sistema</span>
+<span class="font-headline-sm text-caption text-canvas-offwhite">JCB 220X Serie Heavy 2026 (Patio Km 22)</span>
+<div class="flex items-baseline justify-between mt-2 pt-2 border-t border-transparent">
+<span class="font-caption text-caption text-text-muted">Monto de Fianza Retenida:</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-container">$2,500.00 USD</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">
+        El pago de la fianza retira el chasis de la venta pública durante 72 horas para trámites bancarios o inspección mecánica en sitio. Totalmente reembolsable si la unidad no califica.
+      </p>
+<div class="flex flex-col gap-3">
+<button class="w-full py-3.5 px-4 rounded-xl bg-primary-container text-on-primary font-headline-sm text-caption font-bold uppercase flex items-center justify-center gap-2" onclick="alert('Conexión con pasarela Square Terminal / Tarjetas corporativas iniciada con éxito.')">
+<span class="material-symbols-outlined text-[18px]">credit_card</span> Pagar Fianza con Tarjeta / Square
+        </button>
+<button class="w-full py-3.5 px-4 rounded-xl bg-surface-container-high text-canvas-offwhite font-label-badge text-label-badge uppercase flex items-center justify-center gap-2" onclick="alert('Generando ficha de depósito bancario para Banco BHD / Banreservas...')">
+<span class="material-symbols-outlined text-[18px]">receipt</span> Transferencia Bancaria Local (ACH)
+        </button>
+</div>
+</div>
+</div>
+<!-- Modal de Cotización con RNC para Licitación (Oculto por defecto) -->
+<div class="fixed inset-0 z-50 bg-transparent/80 backdrop-blur-md hidden flex items-center justify-center p-4" id="rncQuoteModal">
+<div class="w-full max-w-lg rounded-2xl bg-surface-charcoal p-6 sm:p-8 flex flex-col gap-6 shadow-2xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined text-[24px]">assignment</span>
+<span class="font-headline-sm text-headline-sm text-canvas-offwhite">Cotización Formal para Licitación</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant hover:text-canvas-offwhite flex items-center justify-center" onclick="closeRncQuoteModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<form class="flex flex-col gap-4" onsubmit="handleQuoteSubmit(event)">
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted">Razón Social de la Empresa Contratista</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-body-sm placeholder:text-text-muted/50 focus:outline-none focus:bg-surface-container-low" placeholder="Ej: Constructora del Caribe S.R.L." required="" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted">RNC Fiscal DGII</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-telemetry-data-md text-telemetry-data-md placeholder:text-text-muted/50 focus:outline-none focus:bg-surface-container-low" placeholder="1-30-XXXXX-X" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted">Teléfono de Compras</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-body-sm placeholder:text-text-muted/50 focus:outline-none focus:bg-surface-container-low" placeholder="(809) 000-0000" required="" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted">Correo Electrónico para envío de PDF con Sello</label>
+<input class="w-full px-4 py-2.5 rounded-xl bg-surface-container-lowest text-canvas-offwhite font-body-sm placeholder:text-text-muted/50 focus:outline-none focus:bg-surface-container-low" placeholder="adquisiciones@empresa.com.do" required="" type="email"/>
+</div>
+<button class="w-full py-3.5 px-4 rounded-xl bg-primary-container text-on-primary font-headline-sm text-caption font-bold uppercase mt-2" type="submit">
+          Emitir Proforma Oficial Inmediata
+        </button>
+</form>
+</div>
+</div>
+<script>
+    let currentMode = 'compra';
+    const basePriceCompra = 186500;
+    const basePriceRenta = 340;
+    const rateUsdDop = 60.00;
+
+    const toolPrices = {
+      toolMartillo: 9800,
+      toolEnganche: 2450,
+      toolBalde: 1950
+    };
+
+    function switchMode(mode) {
+      currentMode = mode;
+      const tabCompra = document.getElementById('tabCompra');
+      const tabRenta = document.getElementById('tabRenta');
+      const panelCompra = document.getElementById('panelCompra');
+      const panelRenta = document.getElementById('panelRenta');
+
+      if (mode === 'compra') {
+        tabCompra.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        tabCompra.classList.remove('text-on-surface');
+        tabRenta.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        tabRenta.classList.add('text-on-surface');
+        panelCompra.classList.remove('hidden');
+        panelRenta.classList.add('hidden');
+      } else {
+        tabRenta.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        tabRenta.classList.remove('text-on-surface');
+        tabCompra.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        tabCompra.classList.add('text-on-surface');
+        panelRenta.classList.remove('hidden');
+        panelCompra.classList.add('hidden');
+      }
+      updateCalculations();
+    }
+
+    function updateCalculations() {
+      let toolsTotal = 0;
+      for (const [id, price] of Object.entries(toolPrices)) {
+        const el = document.getElementById(id);
+        if (el && el.checked) {
+          toolsTotal += price;
+        }
+      }
+
+      if (currentMode === 'compra') {
+        const finalTotal = basePriceCompra + toolsTotal;
+        document.getElementById('montoGranTotal').innerText = '$' + finalTotal.toLocaleString('en-US') + ' USD';
+        document.getElementById('precioDopCompra').innerText = 'RD$ ' + (finalTotal * rateUsdDop).toLocaleString('en-US');
+        
+        // Simulación cuota leasing: 20% inicial, 60 meses, tasa anual 6.95%
+        const balance = finalTotal * 0.8;
+        const monthlyRate = 0.0695 / 12;
+        const cuota = Math.round((balance * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -60)));
+        document.getElementById('cuotaLeasing').innerHTML = '$' + cuota.toLocaleString('en-US') + ' <span class="text-caption font-normal text-text-muted">USD/mes</span>';
+      } else {
+        // En renta, los implementos agregan un fee diario proporcional
+        const dailyTools = Math.round(toolsTotal / 120);
+        const dailyFinal = basePriceRenta + dailyTools;
+        document.getElementById('montoGranTotal').innerText = '$' + dailyFinal.toLocaleString('en-US') + ' USD / día';
+      }
+    }
+
+    function switchView(viewName, btnElement) {
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        btn.classList.add('bg-surface-container-high', 'text-on-surface');
+      });
+      btnElement.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+      btnElement.classList.remove('bg-surface-container-high', 'text-on-surface');
+      
+      const img = document.getElementById('mainViewImage');
+      if (viewName === 'brazo') {
+        img.setAttribute('data-alt', 'Detailed close-up shot of JCB 220X heavy-duty boom arm and bucket cylinder, reinforced structural steel with grease points, clean yellow paint and hydraulic piping against black studio background');
+      } else if (viewName === 'cabina') {
+        img.setAttribute('data-alt', 'Interior pressurized ROPS FOPS cabin of JCB 220X excavator, ergonomic suspension pilot seat, color telemetry display touchscreen, air conditioning vents, premium joystick controls, ultra-modern industrial finish');
+      } else if (viewName === 'motor') {
+        img.setAttribute('data-alt', 'JCB 220X heavy equipment engine compartment showing JCB EcoMAX 4.8L diesel engine, heavy cooling radiator, tropicalized filtration system, pristine clean machinery mechanics in high resolution');
+      } else {
+        img.setAttribute('data-alt', 'High quality studio shot of a brand new JCB 220X hydraulic crawler excavator, bright yellow and obsidian black body, heavy-duty bucket, hydraulic hoses, clean industrial studio lighting with subtle amber rim light reflection on metallic panels');
+      }
+    }
+
+    function openSeparationModal() {
+      document.getElementById('separationModal').classList.remove('hidden');
+    }
+    function closeSeparationModal() {
+      document.getElementById('separationModal').classList.add('hidden');
+    }
+
+    function openRncQuoteModal() {
+      document.getElementById('rncQuoteModal').classList.remove('hidden');
+    }
+    function closeRncQuoteModal() {
+      document.getElementById('rncQuoteModal').classList.add('hidden');
+    }
+
+    function handleQuoteSubmit(e) {
+      e.preventDefault();
+      alert('Cotización proforma con RNC timbrado generada y enviada a su correo exitosamente.');
+      closeRncQuoteModal();
+    }
+
+    // Inicializar cálculos en carga
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCalculations();
+    });
+    // Llamada inmediata para asegurar valores correctos
+    updateCalculations();
+  </script>
+</div></main><footer class="w-full bg-[#08090C]/40 backdrop-blur-xl border-t border-border-subtle pt-16 pb-12 text-on-surface-variant"><div class="max-w-7xl mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14"><div><div class="font-headline-sm text-headline-sm text-canvas-offwhite uppercase tracking-tight mb-4">TMD Dominicana</div><p class="font-body-sm text-body-sm text-text-muted mb-4">Tecnomaquinarias Diesel S.R.L. Distribuidor y centro maestro de maquinaria pesada industrial y construcción civil.</p><div class="p-3 rounded bg-surface-charcoal border border-border-subtle"><div class="font-label-badge text-label-badge text-text-muted uppercase mb-1">Registro Fiscal</div><div class="font-telemetry-data-md text-telemetry-data-md text-primary">RNC 1-30-88492-1</div></div></div><div><div class="font-headline-sm text-headline-sm text-canvas-offwhite uppercase tracking-tight mb-4">Líneas Oficiales OEM</div><p class="font-body-sm text-body-sm text-text-muted mb-3">Garantía directa de fábrica y certificación técnica internacional:</p><div class="grid grid-cols-2 gap-2 font-label-badge text-label-badge text-canvas-offwhite"><div class="p-2.5 rounded bg-surface-charcoal border border-border-subtle flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-primary-container"></span>JCB Heavy</div><div class="p-2.5 rounded bg-surface-charcoal border border-border-subtle flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-primary-container"></span>LiuGong</div><div class="p-2.5 rounded bg-surface-charcoal border border-border-subtle flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-primary-container"></span>LS Tractor</div><div class="p-2.5 rounded bg-surface-charcoal border border-border-subtle flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-primary-container"></span>Ammann Compaction</div></div></div><div><div class="font-headline-sm text-headline-sm text-canvas-offwhite uppercase tracking-tight mb-4">Taller Km 22 &amp; Overhaul</div><p class="font-body-sm text-body-sm text-text-muted mb-3">Infraestructura técnica de alta precisión sobre Autopista Duarte:</p><ul class="space-y-2 font-body-sm text-body-sm text-on-surface"><li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-container text-[18px]">precision_manufacturing</span>18 bahías de servicio simultáneo</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-container text-[18px]">build_circle</span>Grúa puente de 25 toneladas</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-container text-[18px]">biotech</span>Laboratorio de inyección diésel OEM</li></ul></div><div><div class="font-headline-sm text-headline-sm text-canvas-offwhite uppercase tracking-tight mb-4">Monitoreo Nacional GPS</div><p class="font-body-sm text-body-sm text-text-muted mb-3">Nodos LiveLink de telemetría y respuesta de campo 24/7:</p><div class="space-y-2 font-label-badge text-label-badge"><div class="flex items-center justify-between p-2 rounded bg-surface-charcoal border border-border-subtle"><span class="text-canvas-offwhite">Santo Domingo (Matriz Km 22)</span><span class="text-telemetry-emerald">ACTIVO</span></div><div class="flex items-center justify-between p-2 rounded bg-surface-charcoal border border-border-subtle"><span class="text-canvas-offwhite">Santiago • Hub Norte</span><span class="text-telemetry-emerald">ACTIVO</span></div><div class="flex items-center justify-between p-2 rounded bg-surface-charcoal border border-border-subtle"><span class="text-canvas-offwhite">Punta Cana • Nodo Este</span><span class="text-telemetry-emerald">ACTIVO</span></div><div class="flex items-center justify-between p-2 rounded bg-surface-charcoal border border-border-subtle"><span class="text-canvas-offwhite">Barahona • Base Sur</span><span class="text-telemetry-emerald">ACTIVO</span></div></div></div></div><div class="pt-8 border-t border-border-structural flex flex-col lg:flex-row items-center justify-between gap-4"><div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left"><div class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-surface-charcoal border border-primary-container/30"><span class="material-symbols-outlined text-primary-container text-[18px]">support_agent</span><span class="font-telemetry-data-md text-telemetry-data-md text-canvas-offwhite">+1 809 826-2222</span></div><span class="font-caption text-caption text-text-muted">© 2024 Tecnomaquinarias Diesel S.R.L. Km 22 Autopista Duarte. Todos los derechos reservados.</span></div><div class="flex items-center gap-6 font-caption text-caption text-text-muted"><a class="hover:text-primary transition-colors" href="#">Política de Telemetría IoT</a><a class="hover:text-primary transition-colors" href="#">Normativas MOPC &amp; RNC</a><a class="hover:text-primary transition-colors" href="#">Términos de Garantía OEM</a></div></div></div></footer>  <script src="../../tmd-dominicana-v1-original/assets/tmd_animation_engine.js"></script>
+</body></html>

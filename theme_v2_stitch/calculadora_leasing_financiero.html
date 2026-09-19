@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Calculadora Financiera de Leasing Comercial y Amortización Bancaria - TMD Dominicana</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#fafff9",
+            "surface-container-lowest": "#0c0e11",
+            "primary-fixed": "#ffdea7",
+            "canvas-offwhite": "#F8FAFC",
+            "surface-dim": "#111317",
+            "secondary-fixed-dim": "#c2c6d3",
+            "alert-critical": "#EF4444",
+            "surface-container-highest": "#333539",
+            "surface-container-high": "#282a2e",
+            "on-tertiary-fixed-variant": "#005236",
+            "primary-container": "#ffdca1",
+            "surface-container-low": "#1a1c20",
+            "on-secondary-container": "#b4b8c5",
+            "surface-bright": "#37393d",
+            "secondary-fixed": "#dee2f0",
+            "surface-container": "#1e2024",
+            "hazard-gold-active": "#E5A500",
+            "telemetry-emerald": "#10B981",
+            "secondary": "#c2c6d3",
+            "on-error-container": "#ffdad6",
+            "error-container": "#93000a",
+            "inverse-primary": "#745a2b",
+            "surface": "#111317",
+            "inverse-on-surface": "#2f3035",
+            "secondary-container": "#444954",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-tertiary": "#003824",
+            "on-surface-variant": "#d0c5b6",
+            "outline": "#9e8f78",
+            "surface-elevated": "#1A1F26",
+            "on-surface": "#e2e2e6",
+            "outline-variant": "#4d463a",
+            "on-background": "#e2e2e8",
+            "tertiary-container": "#6dfabc",
+            "on-tertiary-container": "#00724d",
+            "on-secondary": "#2c303a",
+            "background": "#111317",
+            "on-primary": "#412d02",
+            "on-error": "#690005",
+            "tertiary-fixed": "#6ffbbd",
+            "primary-fixed-dim": "#e3c289",
+            "surface-tint": "#e3c289",
+            "primary": "#fffdff",
+            "surface-variant": "#333539",
+            "on-primary-fixed": "#271900",
+            "error": "#ffb4ab",
+            "on-tertiary-fixed": "#002113",
+            "border-structural": "#2E3646",
+            "on-primary-container": "#795f30",
+            "on-primary-fixed-variant": "#5a4316",
+            "inverse-surface": "#e2e2e8",
+            "surface-charcoal": "#14171D",
+            "on-secondary-fixed": "#171c25",
+            "border-subtle": "#222733",
+            "on-secondary-fixed-variant": "#424751",
+            "text-muted": "#94A3B8"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "telemetry-data-md": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "telemetry-data-lg": ["JetBrains Mono"],
+            "display-lg": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "body-sm": ["Inter"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "caption": ["Inter"],
+            "headline-xl": ["Space Grotesk"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-badge": ["JetBrains Mono"],
+            "display-lg-mobile": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "telemetry-data-md": ["16px", {"lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+            "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "telemetry-data-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600"}],
+            "body-sm": ["13px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "headline-xl-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "caption": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+            "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-md": ["15px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "label-badge": ["11px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+            "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      background: #E5A500;
+      border: 2px solid #0B0D10;
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(229, 165, 0, 0.4);
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      background: #E5A500;
+      border: 2px solid #0B0D10;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #111317;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #2E3646;
+      border-radius: 2px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #E5A500;
+    }
+  </style>
+</head>
+<body class="bg-surface-dim text-on-surface antialiased selection:bg-hazard-gold-active selection:text-surface-dim min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TOP INDUSTRIAL TICKER -->
+<div class="w-full bg-surface-container-lowest border-b border-border-subtle py-1.5 px-4 text-text-muted font-label-badge text-label-badge overflow-x-auto flex items-center justify-between gap-6 whitespace-nowrap">
+<div class="flex items-center gap-4">
+<span class="inline-flex items-center gap-1.5 text-hazard-gold-active font-bold">
+<span class="w-2 h-2 rounded-full bg-hazard-gold-active animate-pulse"></span>
+        ALMACÉN CENTRAL KM 22
+      </span>
+<span class="text-border-structural">|</span>
+<span>DESPACHO 24/7 AUTOPISTA DUARTE KM 22, STO. DGO. OESTE</span>
+<span class="text-border-structural">|</span>
+<span class="text-canvas-offwhite font-telemetry-data-md text-caption">TASA SPOT BHD/BANRESERVAS: 1 USD = 60.00 DOP</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-telemetry-emerald text-sm">support_agent</span>
+<span class="text-telemetry-emerald">ASESORÍA FINANCIERA LEASING ACTIVA (809) 826-2222</span>
+</div>
+</div>
+<!-- SHARED COMPONENT: TopNavBar -->
+<header class="docked full-width top-0 sticky z-50 shadow-md bg-surface-charcoal border-b border-border-structural">
+<div class="flex justify-between items-center w-full px-6 py-3.5 border-b border-border-structural bg-surface-charcoal">
+<!-- Brand Anchor -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-hazard-gold-active text-surface-dim flex items-center justify-center font-black font-headline-sm rounded">
+          JCB
+        </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm tracking-wider uppercase text-hazard-gold-active">TMD DOMINICANA</span>
+<span class="font-label-badge text-label-badge text-text-muted">DISTRIBUIDOR OFICIAL JCB &amp; HEAVY EQUIPMENT</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-text-muted hover:text-canvas-offwhite transition-colors duration-150 font-body-sm text-body-sm" href="ficha_tecnica_jcb_3cx.html">Maquinaria Nueva</a>
+<a class="text-text-muted hover:text-canvas-offwhite transition-colors duration-150 font-body-sm text-body-sm" href="ficha_tecnica_jcb_3cx.html">Configurador JCB</a>
+<a class="text-text-muted hover:text-canvas-offwhite transition-colors duration-150 font-body-sm text-body-sm" href="livelink_soporte_satelital_24_7.html">Telemetría LiveLink</a>
+<a class="border-b-2 border-hazard-gold-active text-hazard-gold-active font-bold pb-1 font-body-sm text-body-sm" href="#">Financiamiento</a>
+<a class="text-text-muted hover:text-canvas-offwhite transition-colors duration-150 font-body-sm text-body-sm" href="servicio_tecnico_overhaul_km22.html">Taller Km 22</a>
+</nav>
+<!-- Trailing Primary & Icons -->
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center gap-2 border border-border-structural bg-surface-dim px-2.5 py-1 rounded">
+<span class="material-symbols-outlined text-telemetry-emerald text-sm">sensors</span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite">LIVELINK IoT ONLINE</span>
+</div>
+<button class="bg-surface-elevated text-text-muted hover:text-canvas-offwhite border border-border-structural px-3 py-1.5 rounded font-label-badge text-label-badge flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-sm">call</span>
+<span>Soporte Flota</span>
+</button>
+<button class="bg-hazard-gold-active hover:bg-yellow-500 text-surface-dim font-headline-sm text-sm px-4 py-2 rounded font-bold transition-all duration-150 shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">description</span>
+<span>Cotizar Proforma</span>
+</button>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-grow w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-6 space-y-6">
+<!-- BREADCRUMBS & CONTEXT HEADER -->
+<section class="space-y-2 border-b border-border-subtle pb-5">
+<div class="flex flex-wrap items-center gap-2 text-text-muted font-label-badge text-label-badge tracking-wider">
+<a class="hover:text-hazard-gold-active transition-colors" href="#">PORTAL FINANCIERO</a>
+<span>/</span>
+<a class="hover:text-hazard-gold-active transition-colors" href="#">LEASING &amp; CRÉDITO CORPORATIVO</a>
+<span>/</span>
+<span class="text-hazard-gold-active">SIMULADOR BANCARIO DE MAQUINARIA PESADA</span>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pt-1">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-canvas-offwhite tracking-tight uppercase">
+            SIMULADOR DE LEASING COMERCIAL &amp; AMORTIZACIÓN BANCARIA
+          </h1>
+<p class="font-body-md text-body-md text-text-muted max-w-3xl mt-1">
+            Estructure su línea de adquisición de flota con amortización acelerada, deducibilidad 100% de cuota y beneficios fiscales bajo Ley de Fomento Industrial 392-07 (Proindustria).
+          </p>
+</div>
+<!-- Telemetry Status Pills -->
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 bg-surface-charcoal border border-telemetry-emerald/40 px-3 py-1.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-telemetry-emerald animate-pulse"></span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald">PRE-APROBACIÓN 24 HORAS</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-charcoal border border-border-structural px-3 py-1.5 rounded">
+<span class="material-symbols-outlined text-hazard-gold-active text-sm">verified_user</span>
+<span class="font-label-badge text-label-badge text-canvas-offwhite">GARANTÍA EXTENDIDA 2 AÑOS</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-charcoal border border-border-structural px-3 py-1.5 rounded">
+<span class="material-symbols-outlined text-text-muted text-sm">account_balance</span>
+<span class="font-label-badge text-label-badge text-text-muted">TASA PREFERENCIAL PYMES</span>
+</div>
+</div>
+</div>
+</section>
+<!-- TWO-COLUMN WORKSPACE: 65% CONFIG & TABLES | 35% PROFORMA & FORM -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT COLUMN: 65% (8/12 Desktop) -->
+<div class="lg:col-span-8 space-y-6">
+<!-- SECTION A: EQUIPMENT SELECTION BAR -->
+<div class="bg-surface-charcoal border border-border-structural rounded p-5 space-y-4">
+<div class="flex items-center justify-between border-b border-border-subtle pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-hazard-gold-active">construction</span>
+<h2 class="font-headline-sm text-headline-sm text-canvas-offwhite tracking-wide uppercase">
+                1. Selección de Maquinaria y Valor del Activo
+              </h2>
+</div>
+<div class="flex items-center gap-2 text-text-muted font-label-badge text-label-badge">
+<span>MONEDA BASE:</span>
+<span class="text-hazard-gold-active font-bold" id="currency-tag">USD</span>
+</div>
+</div>
+<!-- Preset Equipment Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="equipment-selector">
+<!-- Card 1 (Active by default) -->
+<button class="equip-btn text-left p-3.5 rounded border border-hazard-gold-active bg-surface-elevated relative group transition-all duration-150" onclick="setEquipment(84500, 'JCB 3CX Eco 4x4 Tier-3', this)">
+<div class="flex justify-between items-start">
+<span class="font-headline-sm text-sm text-canvas-offwhite font-bold group-hover:text-hazard-gold-active">JCB 3CX Eco 4x4 Tier-3</span>
+<span class="equip-indicator w-2 h-2 rounded-full bg-hazard-gold-active"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted mt-0.5">Retroexcavadora 92 HP / Motor JCB Dieselmax</p>
+<div class="mt-2 flex items-baseline justify-between">
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">$84,500 USD</span>
+<span class="font-telemetry-data-md text-caption text-text-muted">RD$ 5,070,000</span>
+</div>
+</button>
+<!-- Card 2 -->
+<button class="equip-btn text-left p-3.5 rounded border border-border-structural bg-surface-dim hover:border-border-structural relative group transition-all duration-150" onclick="setEquipment(175000, 'Excavadora JCB 220X Heavy Duty', this)">
+<div class="flex justify-between items-start">
+<span class="font-headline-sm text-sm text-canvas-offwhite font-bold group-hover:text-hazard-gold-active">Excavadora JCB 220X HD</span>
+<span class="equip-indicator w-2 h-2 rounded-full bg-transparent"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted mt-0.5">Oruga 22 Toneladas / Cuchara 1.25 m³</p>
+<div class="mt-2 flex items-baseline justify-between">
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">$175,000 USD</span>
+<span class="font-telemetry-data-md text-caption text-text-muted">RD$ 10,500,000</span>
+</div>
+</button>
+<!-- Card 3 -->
+<button class="equip-btn text-left p-3.5 rounded border border-border-structural bg-surface-dim hover:border-border-structural relative group transition-all duration-150" onclick="setEquipment(128000, 'Cargador Frontal LiuGong 856H MAX', this)">
+<div class="flex justify-between items-start">
+<span class="font-headline-sm text-sm text-canvas-offwhite font-bold group-hover:text-hazard-gold-active">Cargador LiuGong 856H MAX</span>
+<span class="equip-indicator w-2 h-2 rounded-full bg-transparent"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted mt-0.5">Capacidad Balde 3.0 m³ / Cummins QSB 6.7</p>
+<div class="mt-2 flex items-baseline justify-between">
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">$128,000 USD</span>
+<span class="font-telemetry-data-md text-caption text-text-muted">RD$ 7,680,000</span>
+</div>
+</button>
+<!-- Card 4 -->
+<button class="equip-btn text-left p-3.5 rounded border border-border-structural bg-surface-dim hover:border-border-structural relative group transition-all duration-150" onclick="setEquipment(62000, 'Tractor Agrícola LS MT7', this)">
+<div class="flex justify-between items-start">
+<span class="font-headline-sm text-sm text-canvas-offwhite font-bold group-hover:text-hazard-gold-active">Tractor Agrícola LS MT7</span>
+<span class="equip-indicator w-2 h-2 rounded-full bg-transparent"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted mt-0.5">Potencia 101 HP / Transmisión Power Shuttle</p>
+<div class="mt-2 flex items-baseline justify-between">
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">$62,000 USD</span>
+<span class="font-telemetry-data-md text-caption text-text-muted">RD$ 3,720,000</span>
+</div>
+</button>
+</div>
+<!-- Custom Numeric Value Input Box -->
+<div class="bg-surface-dim border border-border-subtle p-3 rounded flex flex-col sm:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-sm">tune</span>
+<span class="font-body-sm text-body-sm text-text-muted">O ingrese un valor de activo personalizado:</span>
+</div>
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<span class="font-telemetry-data-md text-hazard-gold-active font-bold">$</span>
+<input class="bg-surface-charcoal border border-border-structural focus:border-hazard-gold-active text-canvas-offwhite font-telemetry-data-md text-sm px-3 py-1.5 rounded focus:outline-none w-36 text-right" id="custom-amount-input" max="1000000" min="20000" oninput="onCustomAmountChange(this.value)" step="500" type="number" value="84500"/>
+<span class="font-label-badge text-label-badge text-text-muted">USD CIF</span>
+</div>
+</div>
+</div>
+<!-- SECTION B: BANK PARTNER TABS -->
+<div class="bg-surface-charcoal border border-border-structural rounded p-5 space-y-4">
+<div class="flex items-center justify-between border-b border-border-subtle pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-hazard-gold-active">account_balance</span>
+<h2 class="font-headline-sm text-headline-sm text-canvas-offwhite tracking-wide uppercase">
+                2. Entidad Bancaria &amp; Tasa Preferencial
+              </h2>
+</div>
+<span class="font-label-badge text-label-badge text-telemetry-emerald bg-telemetry-emerald/10 border border-telemetry-emerald/30 px-2 py-0.5 rounded">
+              CONVENIO ACTIVO 2026
+            </span>
+</div>
+<!-- Bank Selection Tabs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2.5" id="bank-tabs">
+<!-- Bank 1 (Active) -->
+<button class="bank-tab p-3 text-left border border-hazard-gold-active bg-surface-elevated rounded transition-all" onclick="setBank(9.50, 'Banreservas - Fondo Fomper Pyme', 'Tasa fija preferencial sectorial, 0% comisión de prepago a partir del mes 24. Aprobación simplificada con RNC comercial.', this)">
+<div class="flex justify-between items-center mb-1">
+<span class="font-headline-sm text-xs text-hazard-gold-active font-bold">BANRESERVAS</span>
+<span class="w-1.5 h-1.5 rounded-full bg-telemetry-emerald"></span>
+</div>
+<p class="font-body-sm text-caption text-canvas-offwhite truncate">Fondo Fomper Pyme</p>
+<div class="mt-2 text-right">
+<span class="font-telemetry-data-md text-xs text-text-muted">TASA: </span>
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">9.50%</span>
+</div>
+</button>
+<!-- Bank 2 -->
+<button class="bank-tab p-3 text-left border border-border-structural bg-surface-dim hover:border-border-structural rounded transition-all" onclick="setBank(9.80, 'Banco BHD - Leasing Industrial Verde', 'Financiamiento estructurado con bonificación de tasa para motores Tier-3 y reducción de emisiones CO2. 0% comisión de cierre.', this)">
+<div class="flex justify-between items-center mb-1">
+<span class="font-headline-sm text-xs text-canvas-offwhite font-bold">BANCO BHD</span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-structural"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted truncate">Leasing Industrial</p>
+<div class="mt-2 text-right">
+<span class="font-telemetry-data-md text-xs text-text-muted">TASA: </span>
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">9.80%</span>
+</div>
+</button>
+<!-- Bank 3 -->
+<button class="bank-tab p-3 text-left border border-border-structural bg-surface-dim hover:border-border-structural rounded transition-all" onclick="setBank(10.20, 'Banco Popular Dominicano - Crédito Productivo', 'Flexibilidad de hasta 60 días de gracia para el primer vencimiento. Cobertura nacional de tesorería empresarial.', this)">
+<div class="flex justify-between items-center mb-1">
+<span class="font-headline-sm text-xs text-canvas-offwhite font-bold">POPULAR</span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-structural"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted truncate">Crédito Productivo</p>
+<div class="mt-2 text-right">
+<span class="font-telemetry-data-md text-xs text-text-muted">TASA: </span>
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">10.20%</span>
+</div>
+</button>
+<!-- Bank 4 -->
+<button class="bank-tab p-3 text-left border border-border-structural bg-surface-dim hover:border-border-structural rounded transition-all" onclick="setBank(11.00, 'Crédito Directo TMD Dominicana', 'Línea de crédito comercial interna TMD. Pre-aprobación en 24 horas hábiles directo en taller Km 22 sin burocracia bancaria.', this)">
+<div class="flex justify-between items-center mb-1">
+<span class="font-headline-sm text-xs text-canvas-offwhite font-bold">DIRECTO TMD</span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-structural"></span>
+</div>
+<p class="font-body-sm text-caption text-text-muted truncate">Línea Interna Km 22</p>
+<div class="mt-2 text-right">
+<span class="font-telemetry-data-md text-xs text-text-muted">TASA: </span>
+<span class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">11.00%</span>
+</div>
+</button>
+</div>
+<!-- Active Bank Description Box -->
+<div class="bg-surface-dim border-l-2 border-hazard-gold-active p-3 text-caption font-body-sm text-text-muted flex items-start gap-2.5">
+<span class="material-symbols-outlined text-hazard-gold-active text-base">info</span>
+<div>
+<span class="text-canvas-offwhite font-bold" id="bank-name-display">Banreservas - Fondo Fomper Pyme</span>: 
+              <span id="bank-terms-display">Tasa fija preferencial sectorial, 0% comisión de prepago a partir del mes 24. Aprobación simplificada con RNC comercial.</span>
+<span class="block mt-1 text-label-badge font-label-badge text-telemetry-emerald">REQUISITOS: RNC Vigente + 6 Últimos Estados de Cuenta Bancarios + Declaración IR-2.</span>
+</div>
+</div>
+</div>
+<!-- SECTION C: INTERACTIVE PARAMETER CONTROLS -->
+<div class="bg-surface-charcoal border border-border-structural rounded p-5 space-y-6">
+<div class="flex items-center justify-between border-b border-border-subtle pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-hazard-gold-active">sliders</span>
+<h2 class="font-headline-sm text-headline-sm text-canvas-offwhite tracking-wide uppercase">
+                3. Condiciones y Parámetros del Crédito
+              </h2>
+</div>
+<!-- Dual Currency Switcher -->
+<div class="flex items-center bg-surface-dim border border-border-structural p-1 rounded">
+<button class="px-2.5 py-0.5 rounded text-xs font-label-badge bg-hazard-gold-active text-surface-dim font-bold transition-all" id="curr-usd-btn" onclick="setCurrency('USD')">USD ($)</button>
+<button class="px-2.5 py-0.5 rounded text-xs font-label-badge text-text-muted hover:text-canvas-offwhite transition-all" id="curr-dop-btn" onclick="setCurrency('DOP')">DOP (RD$)</button>
+</div>
+</div>
+<!-- Down Payment Slider -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-body-sm text-body-sm text-canvas-offwhite font-medium flex items-center gap-1.5">
+<span>Inicial / Enganche Requerido:</span>
+<span class="text-hazard-gold-active font-telemetry-data-md font-bold" id="downpayment-percent-label">25%</span>
+</label>
+<div class="text-right">
+<span class="text-text-muted font-body-sm text-caption">Monto Aportado: </span>
+<span class="font-telemetry-data-md text-hazard-gold-active font-bold" id="downpayment-val-label">$21,125.00 USD</span>
+</div>
+</div>
+<input class="w-full h-2 bg-surface-dim rounded appearance-none cursor-pointer accent-hazard-gold-active" id="downpayment-slider" max="50" min="15" oninput="onDownpaymentChange(this.value)" step="5" type="range" value="25"/>
+<!-- Quick Select Pills -->
+<div class="flex flex-wrap gap-2 pt-1">
+<button class="dp-pill px-2 py-1 rounded bg-surface-dim border border-border-structural hover:border-hazard-gold-active text-xs font-label-badge text-text-muted transition-colors" onclick="setDownpaymentPill(15)">15% Mínimo</button>
+<button class="dp-pill px-2 py-1 rounded bg-surface-dim border border-border-structural hover:border-hazard-gold-active text-xs font-label-badge text-text-muted transition-colors" onclick="setDownpaymentPill(20)">20%</button>
+<button class="dp-pill px-2 py-1 rounded bg-surface-elevated border border-hazard-gold-active text-xs font-label-badge text-hazard-gold-active font-bold transition-colors" onclick="setDownpaymentPill(25)">25% Recomendado</button>
+<button class="dp-pill px-2 py-1 rounded bg-surface-dim border border-border-structural hover:border-hazard-gold-active text-xs font-label-badge text-text-muted transition-colors" onclick="setDownpaymentPill(30)">30%</button>
+<button class="dp-pill px-2 py-1 rounded bg-surface-dim border border-border-structural hover:border-hazard-gold-active text-xs font-label-badge text-text-muted transition-colors" onclick="setDownpaymentPill(40)">40%</button>
+<button class="dp-pill px-2 py-1 rounded bg-surface-dim border border-border-structural hover:border-hazard-gold-active text-xs font-label-badge text-text-muted transition-colors" onclick="setDownpaymentPill(50)">50%</button>
+</div>
+</div>
+<!-- Financing Term (Plazo en meses) -->
+<div class="space-y-2 pt-2 border-t border-border-subtle">
+<div class="flex justify-between items-center">
+<label class="font-body-sm text-body-sm text-canvas-offwhite font-medium">Plazo de Financiamiento / Contrato Leasing:</label>
+<span class="font-telemetry-data-md text-hazard-gold-active font-bold text-sm" id="term-display-label">36 Meses</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="term-buttons">
+<button class="term-btn py-2 px-3 text-center border border-border-structural bg-surface-dim hover:border-border-structural rounded font-telemetry-data-md text-xs text-text-muted transition-all" onclick="setTerm(12, this)">
+                12 Meses
+              </button>
+<button class="term-btn py-2 px-3 text-center border border-border-structural bg-surface-dim hover:border-border-structural rounded font-telemetry-data-md text-xs text-text-muted transition-all" onclick="setTerm(24, this)">
+                24 Meses
+              </button>
+<button class="term-btn py-2 px-3 text-center border border-hazard-gold-active bg-surface-elevated rounded font-telemetry-data-md text-xs text-hazard-gold-active font-bold transition-all shadow-sm" onclick="setTerm(36, this)">
+                36 Meses (Std)
+              </button>
+<button class="term-btn py-2 px-3 text-center border border-border-structural bg-surface-dim hover:border-border-structural rounded font-telemetry-data-md text-xs text-text-muted transition-all" onclick="setTerm(48, this)">
+                48 Meses
+              </button>
+<button class="term-btn py-2 px-3 text-center border border-border-structural bg-surface-dim hover:border-border-structural rounded font-telemetry-data-md text-xs text-text-muted transition-all" onclick="setTerm(60, this)">
+                60 Meses
+              </button>
+</div>
+</div>
+<!-- Add-on Services Checkboxes -->
+<div class="pt-3 border-t border-border-subtle space-y-2.5">
+<span class="font-label-badge text-label-badge text-text-muted">SERVICIOS &amp; SEGURO INDUSTRIAL INCLUIDOS EN LA CUOTA:</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+<label class="flex items-start gap-2.5 p-2.5 rounded bg-surface-dim border border-border-subtle cursor-pointer hover:border-border-structural transition-colors">
+<input checked="" class="mt-1 rounded bg-surface-charcoal border-border-structural text-hazard-gold-active focus:ring-0" id="check-insurance" onchange="recalculateAll()" type="checkbox"/>
+<div class="text-caption font-body-sm">
+<span class="font-bold text-canvas-offwhite block">Seguro Todo Riesgo Maquinaria Pesada</span>
+<span class="text-text-muted">Endoso a favor del banco, cobertura de vuelco, colisión y desastre natural.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2.5 rounded bg-surface-dim border border-border-subtle cursor-pointer hover:border-border-structural transition-colors">
+<input checked="" class="mt-1 rounded bg-surface-charcoal border-border-structural text-hazard-gold-active focus:ring-0" id="check-telemetry" onchange="recalculateAll()" type="checkbox"/>
+<div class="text-caption font-body-sm">
+<span class="font-bold text-canvas-offwhite block">Telemetría LiveLink + Mantenimiento Km 22</span>
+<span class="text-text-muted">Monitoreo satelital 24/7 y servicio preventivo programado con técnicos JCB.</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- SECTION D: FULL AMORTIZATION TABLE -->
+<div class="bg-surface-charcoal border border-border-structural rounded p-5 space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-subtle pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-hazard-gold-active">table_chart</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-canvas-offwhite tracking-wide uppercase">
+                  4. Tabla de Amortización Mensual Detallada
+                </h2>
+<p class="font-body-sm text-caption text-text-muted">Sistema Francés con cuota constante e impuestos fiscales desglosados</p>
+</div>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-elevated border border-border-structural hover:border-hazard-gold-active text-hazard-gold-active text-xs font-label-badge transition-colors" onclick="downloadExcelMock()">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Descargar Tabla (.xlsx / CSV)</span>
+</button>
+</div>
+<!-- Table Container with Horizontal Scroll -->
+<div class="overflow-x-auto custom-scroll border border-border-subtle rounded">
+<table class="w-full text-left font-telemetry-data-md text-xs border-collapse">
+<thead>
+<tr class="bg-surface-dim text-text-muted border-b border-border-structural uppercase tracking-wider">
+<th class="py-2.5 px-3"># Mes</th>
+<th class="py-2.5 px-3 text-right">Balance Inicial</th>
+<th class="py-2.5 px-3 text-right">Cuota Capital</th>
+<th class="py-2.5 px-3 text-right">Cuota Interés</th>
+<th class="py-2.5 px-3 text-right">Seguro / Telemetría</th>
+<th class="py-2.5 px-3 text-right text-hazard-gold-active font-bold">Cuota Total</th>
+<th class="py-2.5 px-3 text-right">Balance Final</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle text-canvas-offwhite" id="amortization-table-body">
+<!-- Javascript will inject 12 preview rows dynamically -->
+</tbody>
+</table>
+</div>
+<!-- Pagination / View indicator -->
+<div class="flex items-center justify-between text-caption font-body-sm text-text-muted pt-1">
+<span>Mostrando primeros 12 meses del período contractual seleccionado (<span id="table-term-caption">36</span> meses totales).</span>
+<span class="font-label-badge text-label-badge text-telemetry-emerald flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-telemetry-emerald"></span>
+              CÁLCULO MATEMÁTICO AUDITADO DGII
+            </span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: 35% (4/12 Desktop) - STICKY PROFORMA & FORM -->
+<div class="lg:col-span-4 space-y-6">
+<!-- PROFORMA LIVE CARD -->
+<div class="bg-surface-charcoal border-2 border-hazard-gold-active rounded p-5 space-y-5 shadow-2xl relative">
+<!-- Top badge -->
+<div class="flex items-center justify-between border-b border-border-structural pb-3">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-telemetry-emerald animate-pulse"></span>
+<span class="font-label-badge text-label-badge text-hazard-gold-active font-bold">COTIZACIÓN FINANCIERA EN VIVO</span>
+</div>
+<span class="font-label-badge text-caption text-text-muted">FOLIO: TMD-LSE-2026-892</span>
+</div>
+<!-- Hero Metric: Cuota Mensual -->
+<div class="bg-surface-dim p-4 rounded border border-border-subtle text-center space-y-1">
+<span class="font-label-badge text-label-badge text-text-muted tracking-widest block uppercase">CUOTA MENSUAL ESTIMADA</span>
+<div class="flex items-baseline justify-center gap-1">
+<span class="font-telemetry-data-lg text-hazard-gold-active font-bold text-xl" id="hero-currency-symbol">$</span>
+<span class="font-telemetry-data-lg text-hazard-gold-active font-bold text-3xl sm:text-4xl tracking-tight" id="hero-monthly-quote">2,185.40</span>
+</div>
+<span class="font-telemetry-data-md text-xs text-text-muted block" id="hero-quote-secondary">RD$ 131,124.00 DOP / mes</span>
+</div>
+<!-- Metric Breakdown List -->
+<div class="space-y-2.5 font-telemetry-data-md text-xs">
+<div class="flex justify-between items-center text-text-muted">
+<span>Valor del Activo:</span>
+<span class="text-canvas-offwhite font-bold" id="summary-asset-val">$84,500.00</span>
+</div>
+<div class="flex justify-between items-center text-text-muted">
+<span>Inicial Aportado (<span id="summary-dp-pct">25</span>%):</span>
+<span class="text-hazard-gold-active font-bold" id="summary-dp-val">-$21,125.00</span>
+</div>
+<div class="flex justify-between items-center text-text-muted border-b border-border-subtle pb-2">
+<span>Monto Neto Financiado:</span>
+<span class="text-canvas-offwhite font-bold" id="summary-net-financed">$63,375.00</span>
+</div>
+<!-- Detailed Monthly Itemization -->
+<div class="space-y-1.5 pt-1 text-caption text-text-muted font-body-sm">
+<div class="flex justify-between">
+<span>• Capital Mensual Promedio:</span>
+<span class="font-telemetry-data-md text-canvas-offwhite" id="breakdown-capital">$1,524.30</span>
+</div>
+<div class="flex justify-between">
+<span>• Interés Mensual (<span id="breakdown-rate">9.50</span>%):</span>
+<span class="font-telemetry-data-md text-canvas-offwhite" id="breakdown-interest">$511.10</span>
+</div>
+<div class="flex justify-between">
+<span>• Seguro Todo Riesgo:</span>
+<span class="font-telemetry-data-md text-canvas-offwhite" id="breakdown-insurance">$150.00</span>
+</div>
+<div class="flex justify-between">
+<span>• ITBIS Deducible (18% serv.):</span>
+<span class="font-telemetry-data-md text-canvas-offwhite" id="breakdown-tax">$91.99</span>
+</div>
+</div>
+</div>
+<!-- Industrial Tax Shield Callout Box -->
+<div class="bg-surface-elevated border border-telemetry-emerald/50 p-3.5 rounded space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-telemetry-emerald text-base">shield_with_heart</span>
+<span class="font-headline-sm text-xs text-telemetry-emerald uppercase font-bold tracking-wide">
+                ESCUDO FISCAL DGII (LEY 392-07)
+              </span>
+</div>
+<div class="space-y-1 font-body-sm text-caption text-text-muted">
+<p>Ahorro Fiscal Estimado en Impuesto sobre la Renta (ISR 27%):</p>
+<p class="font-telemetry-data-md text-sm text-telemetry-emerald font-bold" id="tax-shield-value">$22,815.00 USD acumulados</p>
+<p class="text-[11px] leading-tight text-text-muted/80">Deducibilidad al 100% de la cuota como gasto operativo y depreciación acelerada en Categoría 2.</p>
+</div>
+</div>
+<!-- INSTANT PRE-QUALIFICATION DRAWER WITH RNC -->
+<div class="border-t border-border-structural pt-4 space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-hazard-gold-active text-lg">badge</span>
+<h3 class="font-headline-sm text-sm text-canvas-offwhite uppercase tracking-wider font-bold">
+                Pre-Calificación Instantánea RNC
+              </h3>
+</div>
+<form class="space-y-3" onsubmit="handlePreQualify(event)">
+<div>
+<label class="font-label-badge text-label-badge text-text-muted block mb-1">RNC O CÉDULA DE LA EMPRESA</label>
+<input class="w-full bg-surface-dim border border-border-structural focus:border-hazard-gold-active text-canvas-offwhite font-telemetry-data-md text-xs px-3 py-2 rounded focus:outline-none placeholder:text-surface-container-highest" placeholder="Ej: 1-30-49281-9" required="" type="text"/>
+</div>
+<div>
+<label class="font-label-badge text-label-badge text-text-muted block mb-1">RAZÓN SOCIAL / EMPRESA</label>
+<input class="w-full bg-surface-dim border border-border-structural focus:border-hazard-gold-active text-canvas-offwhite font-body-sm text-xs px-3 py-2 rounded focus:outline-none placeholder:text-surface-container-highest" placeholder="Ej: Constructora del Caribe S.R.L." required="" type="text"/>
+</div>
+<div>
+<label class="font-label-badge text-label-badge text-text-muted block mb-1">TELÉFONO O WHATSAPP COMERCIAL</label>
+<input class="w-full bg-surface-dim border border-border-structural focus:border-hazard-gold-active text-canvas-offwhite font-telemetry-data-md text-xs px-3 py-2 rounded focus:outline-none placeholder:text-surface-container-highest" placeholder="(809) 000-0000" required="" type="text"/>
+</div>
+<!-- Action Buttons -->
+<div class="space-y-2 pt-1">
+<button class="w-full py-3 px-4 bg-hazard-gold-active hover:bg-yellow-500 text-surface-dim font-headline-sm text-xs uppercase tracking-wider font-bold rounded flex items-center justify-center gap-2 transition-transform active:scale-[0.98] shadow-lg" type="submit">
+<span class="w-2 h-2 rounded-full bg-surface-dim animate-ping"></span>
+<span>SOLICITAR APROBACIÓN BANCARIA KM 22</span>
+</button>
+<button class="w-full py-2.5 px-4 bg-surface-dim hover:bg-surface-elevated text-canvas-offwhite border border-border-structural hover:border-hazard-gold-active font-headline-sm text-xs uppercase tracking-wider font-bold rounded flex items-center justify-center gap-2 transition-colors" onclick="generatePdfMock()" type="button">
+<span class="material-symbols-outlined text-hazard-gold-active text-sm">picture_as_pdf</span>
+<span>DESCARGAR PROFORMA FORMAL PDF</span>
+</button>
+</div>
+</form>
+<div class="pt-2 text-[11px] font-body-sm text-text-muted/70 leading-relaxed">
+<span class="material-symbols-outlined text-xs inline align-middle text-telemetry-emerald">lock</span>
+              Datos encriptados bajo protocolo bancario seguro. Alianza directa Banreservas, Banco BHD y Banco Popular. Consulta sujeta a verificación de crédito en Buró TransUnion / DataCrédito.
+            </div>
+</div>
+</div>
+<!-- QUICK ASSISTANCE TICKET KM 22 -->
+<div class="bg-surface-charcoal border border-border-subtle p-4 rounded flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-hazard-gold-active/10 border border-hazard-gold-active flex items-center justify-center text-hazard-gold-active">
+<span class="material-symbols-outlined">headset_mic</span>
+</div>
+<div>
+<p class="font-headline-sm text-xs text-canvas-offwhite font-bold uppercase">Mesa de Dinero Km 22</p>
+<p class="font-body-sm text-caption text-text-muted">Oficial asignado: Lic. Carlos Henríquez</p>
+</div>
+</div>
+<span class="font-telemetry-data-md text-xs text-telemetry-emerald font-bold">DISPONIBLE</span>
+</div>
+</div>
+</div>
+</main>
+<!-- SHARED COMPONENT: Footer -->
+<footer class="docked full-width bottom-0 w-full px-8 py-12 border-t border-border-structural bg-surface-container-lowest mt-12">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+<!-- Col 1: TMD Info -->
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 bg-hazard-gold-active text-surface-dim flex items-center justify-center font-bold text-xs rounded">
+            JCB
+          </div>
+<span class="font-headline-sm text-headline-sm tracking-wider uppercase text-canvas-offwhite">TMD DOMINICANA</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">
+          Distribuidor Oficial de Maquinaria Pesada JCB y Equipos de Construcción en la República Dominicana. Centro de excelencia y logística industrial en Autopista Duarte Km 22.
+        </p>
+<div class="flex items-center gap-2 text-label-badge font-label-badge text-hazard-gold-active">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>CERTIFICACIÓN JCB MASTER CARE 2026</span>
+</div>
+</div>
+<!-- Col 2: Bancas Aliadas -->
+<div class="space-y-3">
+<h3 class="font-headline-sm text-sm text-canvas-offwhite uppercase tracking-wider font-bold">Bancas Aliadas</h3>
+<ul class="space-y-2 font-body-sm text-body-sm text-text-muted">
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-gold-active"></span>
+<span>Banreservas Pymes &amp; Fondos Especiales</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-gold-active"></span>
+<span>Banco BHD División Leasing Industrial</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-gold-active"></span>
+<span>Banco Popular Dominicano Crédito Productivo</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-hazard-gold-active"></span>
+<span>Línea Directa TMD Capital Partners</span>
+</li>
+</ul>
+</div>
+<!-- Col 3: Asesoría de Flotas Km 22 -->
+<div class="space-y-3">
+<h3 class="font-headline-sm text-sm text-canvas-offwhite uppercase tracking-wider font-bold">Asesoría de Flotas Km 22</h3>
+<p class="font-body-sm text-body-sm text-text-muted">
+          Autopista Duarte Km 22, Santo Domingo Oeste, Rep. Dominicana.
+        </p>
+<p class="font-body-sm text-body-sm text-text-muted">
+          Mesa de Dinero &amp; Evaluación de Créditos:<br/>
+<span class="text-canvas-offwhite font-telemetry-data-md text-xs">Lunes a Viernes: 8:00 AM – 6:00 PM</span><br/>
+<span class="text-canvas-offwhite font-telemetry-data-md text-xs">Sábados: 8:30 AM – 1:00 PM</span>
+</p>
+<p class="font-telemetry-data-md text-sm text-hazard-gold-active font-bold">
+          TEL: (809) 826-2222 | FLOTA@TMD.COM.DO
+        </p>
+</div>
+<!-- Col 4: Marco Legal y Tributario -->
+<div class="space-y-3">
+<h3 class="font-headline-sm text-sm text-canvas-offwhite uppercase tracking-wider font-bold">Marco Legal &amp; Tributario</h3>
+<ul class="space-y-2 font-body-sm text-body-sm text-text-muted">
+<li><a class="hover:text-hazard-gold-active transition-colors" href="#">Ley 392-07 Proindustria &amp; Incentivos</a></li>
+<li><a class="hover:text-hazard-gold-active transition-colors" href="#">Régimen DGII Comprobantes B14 / B15</a></li>
+<li><a class="hover:text-hazard-gold-active transition-colors" href="#">Contrato de Leasing Operativo vs Financiero</a></li>
+<li><a class="hover:text-hazard-gold-active transition-colors" href="#">Aviso de Privacidad y Términos TMD</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Separation & Copyright -->
+<div class="max-w-[1400px] mx-auto pt-6 border-t border-border-structural flex flex-col sm:flex-row items-center justify-between gap-4 text-text-muted font-body-sm text-caption">
+<div>
+        © 2026 TMD Dominicana S.R.L. Distribuidor Oficial JCB. Autopista Duarte Km 22, Santo Domingo Oeste, República Dominicana. Todos los derechos reservados.
+      </div>
+<div class="font-label-badge text-label-badge text-hazard-gold-active">
+        SISTEMA FINANCIERO DE TELEMETRÍA v3.4 | ENGINE JCB LIVELINK CONECTADO
+      </div>
+</div>
+</footer>
+<!-- NOTIFICATION TOAST CONTAINER -->
+<div class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-surface-charcoal border border-hazard-gold-active text-canvas-offwhite p-4 rounded shadow-2xl flex items-center gap-3" id="toast">
+<span class="material-symbols-outlined text-hazard-gold-active">check_circle</span>
+<div>
+<h4 class="font-headline-sm text-xs font-bold uppercase" id="toast-title">Solicitud Procesada</h4>
+<p class="font-body-sm text-caption text-text-muted" id="toast-msg">Un oficial financiero se comunicará vía WhatsApp.</p>
+</div>
+</div>
+<!-- JAVASCRIPT: FINANCIAL ENGINE & MICRO-INTERACTIONS -->
+<script>
+    // State store
+    let currentAssetValue = 84500;
+    let currentCurrency = 'USD'; // USD or DOP
+    const FX_RATE = 60.00; // 1 USD = 60 DOP
+    let currentBankRate = 9.50; // Annual %
+    let currentBankName = 'Banreservas - Fondo Fomper Pyme';
+    let currentDownpaymentPct = 25; // %
+    let currentTermMonths = 36; // Months
+    let includeInsurance = true;
+    let includeTelemetry = true;
+
+    // Format helper
+    function fmt(num, currency = currentCurrency) {
+      if (currency === 'DOP') {
+        const dopVal = num * FX_RATE;
+        return 'RD$ ' + dopVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Equipment selector handler
+    function setEquipment(amountUSD, name, el) {
+      currentAssetValue = amountUSD;
+      document.getElementById('custom-amount-input').value = amountUSD;
+      
+      // Update styling
+      document.querySelectorAll('.equip-btn').forEach(btn => {
+        btn.classList.remove('border-hazard-gold-active', 'bg-surface-elevated');
+        btn.classList.add('border-border-structural', 'bg-surface-dim');
+        const dot = btn.querySelector('.equip-indicator');
+        if (dot) dot.classList.replace('bg-hazard-gold-active', 'bg-transparent');
+      });
+
+      el.classList.add('border-hazard-gold-active', 'bg-surface-elevated');
+      el.classList.remove('border-border-structural', 'bg-surface-dim');
+      const activeDot = el.querySelector('.equip-indicator');
+      if (activeDot) activeDot.classList.replace('bg-transparent', 'bg-hazard-gold-active');
+
+      recalculateAll();
+    }
+
+    function onCustomAmountChange(val) {
+      const num = parseFloat(val);
+      if (!isNaN(num) && num > 0) {
+        currentAssetValue = num;
+        // Unhighlight preset cards
+        document.querySelectorAll('.equip-btn').forEach(btn => {
+          btn.classList.remove('border-hazard-gold-active', 'bg-surface-elevated');
+          btn.classList.add('border-border-structural', 'bg-surface-dim');
+        });
+        recalculateAll();
+      }
+    }
+
+    // Bank tab handler
+    function setBank(rate, name, terms, el) {
+      currentBankRate = rate;
+      currentBankName = name;
+      document.getElementById('bank-name-display').innerText = name;
+      document.getElementById('bank-terms-display').innerText = terms;
+      document.getElementById('breakdown-rate').innerText = rate.toFixed(2);
+
+      // Tab styles
+      document.querySelectorAll('.bank-tab').forEach(b => {
+        b.classList.remove('border-hazard-gold-active', 'bg-surface-elevated');
+        b.classList.add('border-border-structural', 'bg-surface-dim');
+      });
+      el.classList.add('border-hazard-gold-active', 'bg-surface-elevated');
+      el.classList.remove('border-border-structural', 'bg-surface-dim');
+
+      recalculateAll();
+    }
+
+    // Currency Switcher
+    function setCurrency(curr) {
+      currentCurrency = curr;
+      const usdBtn = document.getElementById('curr-usd-btn');
+      const dopBtn = document.getElementById('curr-dop-btn');
+      const currTag = document.getElementById('currency-tag');
+      const heroSymbol = document.getElementById('hero-currency-symbol');
+
+      if (curr === 'USD') {
+        usdBtn.className = 'px-2.5 py-0.5 rounded text-xs font-label-badge bg-hazard-gold-active text-surface-dim font-bold transition-all';
+        dopBtn.className = 'px-2.5 py-0.5 rounded text-xs font-label-badge text-text-muted hover:text-canvas-offwhite transition-all';
+        currTag.innerText = 'USD';
+        heroSymbol.innerText = '$';
+      } else {
+        dopBtn.className = 'px-2.5 py-0.5 rounded text-xs font-label-badge bg-hazard-gold-active text-surface-dim font-bold transition-all';
+        usdBtn.className = 'px-2.5 py-0.5 rounded text-xs font-label-badge text-text-muted hover:text-canvas-offwhite transition-all';
+        currTag.innerText = 'DOP (RD$)';
+        heroSymbol.innerText = 'RD$';
+      }
+
+      recalculateAll();
+    }
+
+    // Downpayment controls
+    function onDownpaymentChange(val) {
+      currentDownpaymentPct = parseInt(val);
+      updateDownpaymentUI();
+      recalculateAll();
+    }
+
+    function setDownpaymentPill(pct) {
+      currentDownpaymentPct = pct;
+      document.getElementById('downpayment-slider').value = pct;
+      updateDownpaymentUI();
+      recalculateAll();
+    }
+
+    function updateDownpaymentUI() {
+      document.getElementById('downpayment-percent-label').innerText = currentDownpaymentPct + '%';
+      document.getElementById('summary-dp-pct').innerText = currentDownpaymentPct;
+
+      document.querySelectorAll('.dp-pill').forEach(pill => {
+        if (pill.innerText.includes(currentDownpaymentPct + '%')) {
+          pill.className = 'dp-pill px-2 py-1 rounded bg-surface-elevated border border-hazard-gold-active text-xs font-label-badge text-hazard-gold-active font-bold transition-colors';
+        } else {
+          pill.className = 'dp-pill px-2 py-1 rounded bg-surface-dim border border-border-structural hover:border-hazard-gold-active text-xs font-label-badge text-text-muted transition-colors';
+        }
+      });
+    }
+
+    // Term controls
+    function setTerm(months, el) {
+      currentTermMonths = months;
+      document.getElementById('term-display-label').innerText = months + ' Meses';
+      document.getElementById('table-term-caption').innerText = months;
+
+      document.querySelectorAll('.term-btn').forEach(btn => {
+        btn.className = 'term-btn py-2 px-3 text-center border border-border-structural bg-surface-dim hover:border-border-structural rounded font-telemetry-data-md text-xs text-text-muted transition-all';
+      });
+      el.className = 'term-btn py-2 px-3 text-center border border-hazard-gold-active bg-surface-elevated rounded font-telemetry-data-md text-xs text-hazard-gold-active font-bold transition-all shadow-sm';
+
+      recalculateAll();
+    }
+
+    // CORE FINANCIAL MATH ENGINE
+    function recalculateAll() {
+      includeInsurance = document.getElementById('check-insurance').checked;
+      includeTelemetry = document.getElementById('check-telemetry').checked;
+
+      const downpaymentUSD = currentAssetValue * (currentDownpaymentPct / 100);
+      const financedUSD = currentAssetValue - downpaymentUSD;
+
+      // Monthly Interest Rate (French Amortization System)
+      const monthlyRate = (currentBankRate / 100) / 12;
+      const n = currentTermMonths;
+
+      // Base French Monthly Payment for Capital + Interest
+      let monthlyBasePayment = 0;
+      if (monthlyRate > 0) {
+        monthlyBasePayment = financedUSD * (monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+      } else {
+        monthlyBasePayment = financedUSD / n;
+      }
+
+      // Add-on fees
+      const monthlyInsurance = includeInsurance ? (currentAssetValue * 0.0018) : 0;
+      const monthlyTelemetry = includeTelemetry ? 65.00 : 0;
+      const addOnsTotal = monthlyInsurance + monthlyTelemetry;
+
+      // ITBIS 18% over interest and services as per DGII Dominican tax code
+      const approxMonthlyInterest = monthlyBasePayment - (financedUSD / n);
+      const itbisDeductible = (approxMonthlyInterest + addOnsTotal) * 0.18;
+
+      const totalMonthlyQuoteUSD = monthlyBasePayment + addOnsTotal + itbisDeductible;
+
+      // Update UI displays
+      document.getElementById('downpayment-val-label').innerText = fmt(downpaymentUSD, 'USD');
+      document.getElementById('summary-asset-val').innerText = fmt(currentAssetValue, 'USD');
+      document.getElementById('summary-dp-val').innerText = '-' + fmt(downpaymentUSD, 'USD');
+      document.getElementById('summary-net-financed').innerText = fmt(financedUSD, 'USD');
+
+      // Breakdown in Proforma
+      document.getElementById('breakdown-capital').innerText = fmt(financedUSD / n, 'USD');
+      document.getElementById('breakdown-interest').innerText = fmt(approxMonthlyInterest, 'USD');
+      document.getElementById('breakdown-insurance').innerText = fmt(addOnsTotal, 'USD');
+      document.getElementById('breakdown-tax').innerText = fmt(itbisDeductible, 'USD');
+
+      // Hero Quote (Respecting active currency)
+      if (currentCurrency === 'USD') {
+        document.getElementById('hero-monthly-quote').innerText = totalMonthlyQuoteUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('hero-quote-secondary').innerText = fmt(totalMonthlyQuoteUSD, 'DOP') + ' / mes';
+      } else {
+        const quoteDOP = totalMonthlyQuoteUSD * FX_RATE;
+        document.getElementById('hero-monthly-quote').innerText = quoteDOP.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('hero-quote-secondary').innerText = fmt(totalMonthlyQuoteUSD, 'USD') + ' / mes';
+      }
+
+      // Tax Shield (ISR 27% over contract lifecycle)
+      const totalContractPayments = totalMonthlyQuoteUSD * n;
+      const taxShieldBenefit = totalContractPayments * 0.27;
+      document.getElementById('tax-shield-value').innerText = fmt(taxShieldBenefit, 'USD') + ' acumulados';
+
+      // Render Amortization Table Preview (12 Rows)
+      renderAmortizationTable(financedUSD, monthlyRate, monthlyBasePayment, addOnsTotal + itbisDeductible);
+    }
+
+    function renderAmortizationTable(principal, monthlyRate, monthlyBasePayment, addOnsAndTax) {
+      const tbody = document.getElementById('amortization-table-body');
+      tbody.innerHTML = '';
+
+      let balance = principal;
+      const rowsToShow = Math.min(12, currentTermMonths);
+
+      for (let month = 1; month <= rowsToShow; month++) {
+        const interest = balance * monthlyRate;
+        const capital = monthlyBasePayment - interest;
+        const finalBalance = Math.max(0, balance - capital);
+        const totalMonthly = capital + interest + addOnsAndTax;
+
+        const row = document.createElement('tr');
+        row.className = (month % 2 === 0) ? 'bg-surface-charcoal/60 hover:bg-surface-elevated transition-colors' : 'bg-surface-dim hover:bg-surface-elevated transition-colors';
+
+        row.innerHTML = `
+          <td class="py-2.5 px-3 font-bold text-text-muted">${month < 10 ? '0' + month : month}</td>
+          <td class="py-2.5 px-3 text-right text-text-muted">${fmt(balance)}</td>
+          <td class="py-2.5 px-3 text-right text-canvas-offwhite font-medium">${fmt(capital)}</td>
+          <td class="py-2.5 px-3 text-right text-text-muted">${fmt(interest)}</td>
+          <td class="py-2.5 px-3 text-right text-text-muted">${fmt(addOnsAndTax)}</td>
+          <td class="py-2.5 px-3 text-right text-hazard-gold-active font-bold">${fmt(totalMonthly)}</td>
+          <td class="py-2.5 px-3 text-right font-medium text-canvas-offwhite">${fmt(finalBalance)}</td>
+        `;
+
+        tbody.appendChild(row);
+        balance = finalBalance;
+      }
+    }
+
+    // Pre-qualification form submission mock
+    function handlePreQualify(e) {
+      e.preventDefault();
+      showToast('Pre-Calificación Enviada', 'Su solicitud RNC fue remitida a la mesa de crédito Km 22. Un oficial le contactará.');
+    }
+
+    function generatePdfMock() {
+      showToast('Generando Proforma Oficial', 'Descargando documento PDF con membrete JCB TMD Dominicana y folios bancarios...');
+    }
+
+    function downloadExcelMock() {
+      showToast('Exportación Exitosa', 'Tabla de amortización exportada en formato Microsoft Excel (.xlsx).');
+    }
+
+    function showToast(title, message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-title').innerText = title;
+      document.getElementById('toast-msg').innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 4000);
+    }
+
+    // Initial boot calculation
+    window.addEventListener('DOMContentLoaded', () => {
+      recalculateAll();
+    });
+  </script>
+</body></html>

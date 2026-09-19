@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador Avanzado y Diagrama de Repuestos OEM - TMD Dominicana</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: {
+              pitch: '#000000',
+              charcoal: '#0C0E12',
+              card: '#12151B',
+              elevated: '#181C24',
+              highlight: '#202632'
+            },
+            hazard: {
+              gold: '#FFB800',
+              active: '#E5A500',
+              dark: '#996E00',
+              glow: 'rgba(255, 184, 0, 0.15)',
+              dim: '#332500'
+            },
+            telemetry: {
+              emerald: '#10B981',
+              glow: 'rgba(16, 185, 129, 0.15)',
+              dim: '#064E3B'
+            },
+            border: {
+              subtle: '#1C222C',
+              structural: '#27303E',
+              bright: '#3E4B5E'
+            },
+            text: {
+              main: '#F1F5F9',
+              muted: '#8A99AD',
+              faint: '#4C586A'
+            }
+          },
+          fontFamily: {
+            headline: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'hazard-glow': '0 0 20px rgba(255, 184, 0, 0.25)',
+            'emerald-glow': '0 0 16px rgba(16, 185, 129, 0.25)',
+            'panel': '0 4px 20px rgba(0, 0, 0, 0.6)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0C0E12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27303E;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FFB800;
+    }
+
+    /* Pulse animation */
+    @keyframes ping-slow {
+      0% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.4); opacity: 0; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .animate-ping-slow {
+      animation: ping-slow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Hotspot callout badge styling */
+    .schematic-hotspot {
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .schematic-hotspot:hover circle.marker-bg {
+      fill: #FFB800;
+      stroke: #FFFFFF;
+      filter: drop-shadow(0 0 8px rgba(255, 184, 0, 0.8));
+    }
+    .schematic-hotspot:hover text.marker-text {
+      fill: #000000;
+      font-weight: 800;
+    }
+    .schematic-hotspot.active circle.marker-bg {
+      fill: #FFB800;
+      stroke: #FFF;
+      filter: drop-shadow(0 0 12px rgba(255, 184, 0, 1));
+    }
+    .schematic-hotspot.active text.marker-text {
+      fill: #000000;
+      font-weight: 800;
+    }
+    .tr-selected {
+      background-color: rgba(255, 184, 0, 0.12) !important;
+      border-color: #FFB800 !important;
+    }
+    .tr-highlight {
+      background-color: rgba(255, 184, 0, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-surface-pitch text-text-main font-body antialiased min-h-screen flex flex-col selection:bg-hazard-gold selection:text-black">
+
+  <!-- 1. TOP TICKER / LIVE STATUS BAR -->
+  <aside aria-label="Alerta de Operaciones" class="bg-surface-charcoal border-b border-border-subtle text-[11px] font-mono px-4 py-1.5 flex flex-wrap justify-between items-center text-text-muted gap-2">
+    <div class="flex items-center space-x-4">
+      <span class="inline-flex items-center gap-1.5 text-hazard-gold font-bold">
+        <span class="inline-block w-2 h-2 rounded-full bg-hazard-gold"></span>
+        ALMACÉN CENTRAL KM 22
+      </span>
+      <span class="hidden md:inline">|</span>
+      <span class="hidden md:inline text-text-muted">DISPATCH 24/7 AUTOPISTA DUARTE KM 22, STO. DGO. OESTE</span>
+      <span class="hidden lg:inline">|</span>
+      <span class="hidden lg:inline text-telemetry-emerald flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-telemetry-emerald animate-pulse"></span>
+        STOCK TELEMÉTRICO SINCRONIZADO (SAP OEM S/4HANA)
+      </span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="text-text-muted">TASA SPOT: <strong class="text-white">1 USD = 60.00 DOP</strong></span>
+      <span class="text-hazard-gold font-bold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px]">phone_in_talk</span> (809) 826-2222
+      </span>
+    </div>
+  </aside>
+
+  <!-- 1. HEADER NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-surface-charcoal/95 backdrop-blur-md border-b border-border-structural">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        <!-- Logo Brand -->
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-hazard-gold flex items-center justify-center rounded-[3px] font-headline font-bold text-black text-xl shadow-hazard-glow">
+            T
+          </div>
+          <div>
+            <div class="flex items-baseline gap-1.5">
+              <span class="font-headline font-bold text-lg tracking-wider text-white">TMD</span>
+              <span class="font-headline font-semibold text-xs tracking-widest text-hazard-gold">DOMINICANA</span>
+            </div>
+            <div class="text-[9px] font-mono tracking-widest text-text-muted uppercase">Distribuidor Oficial JCB & OEM Parts</div>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="hidden xl:flex items-center space-x-6 text-xs font-headline uppercase tracking-wider text-text-muted">
+          <a href="#" class="hover:text-white transition-colors">Maquinaria 0 Km</a>
+          <a href="tienda_maquinaria_repuestos.html#renta-section" class="hover:text-white transition-colors">Renta de Flota</a>
+          <a href="#" class="text-hazard-gold font-bold border-b-2 border-hazard-gold pb-1 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[15px]">precision_manufacturing</span>
+            Repuestos OEM
+          </a>
+          <a href="#" class="hover:text-white transition-colors flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-telemetry-emerald"></span>
+            Telemetría LiveLink
+          </a>
+          <a href="servicio_tecnico_overhaul_km22.html" class="hover:text-white transition-colors">Taller Km 22</a>
+        </nav>
+
+        <!-- Trailing Actions -->
+        <div class="flex items-center space-x-3">
+          <button class="hidden sm:flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-[3px] border border-border-structural bg-surface-card text-text-muted hover:text-white hover:border-border-bright transition-all">
+            <span class="material-symbols-outlined text-sm text-hazard-gold">badge</span>
+            Portal VIP Contratistas
+          </button>
+          
+          <button onclick="toggleDrawer()" class="relative flex items-center gap-2 bg-hazard-gold hover:bg-hazard-active text-black px-3.5 py-1.5 rounded-[3px] font-headline font-bold text-xs uppercase tracking-wider transition-all shadow-hazard-glow active:scale-95">
+            <span class="material-symbols-outlined text-base">shopping_cart</span>
+            <span>Requisición</span>
+            <span id="requisition-badge" class="bg-black text-hazard-gold text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full border border-hazard-gold">3</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- PAGE HERO & BREADCRUMB -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border-subtle pb-4">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-mono text-text-muted mb-1">
+          <span>CATÁLOGO OEM</span>
+          <span>/</span>
+          <span class="text-hazard-gold">DESPIECE TÉCNICO INTERACTIVO</span>
+          <span>/</span>
+          <span class="text-text-main font-semibold">TREN HIDRÁULICO & BOMBA PRINCIPAL JCB 3CX</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-headline font-bold text-white tracking-tight flex items-center gap-3">
+          BUSCADOR AVANZADO Y DIAGRAMA DE DESPIECE OEM
+          <span class="text-xs font-mono bg-hazard-gold/10 text-hazard-gold border border-hazard-gold/30 px-2 py-0.5 rounded-[2px] font-normal">
+            CHASIS HOMOLOGADO
+          </span>
+        </h1>
+      </div>
+      <div class="flex items-center gap-3 font-mono text-xs">
+        <div class="bg-surface-card border border-border-structural px-3 py-1.5 rounded-[3px] flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm text-telemetry-emerald">verified</span>
+          <span class="text-text-muted">Garantía Certificada:</span>
+          <span class="text-white font-bold">12 Meses OEM</span>
+        </div>
+        <div class="bg-surface-card border border-border-structural px-3 py-1.5 rounded-[3px] flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm text-hazard-gold">speed</span>
+          <span class="text-text-muted">Despacho Obra:</span>
+          <span class="text-hazard-gold font-bold">2 Horas RD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. ADVANCED SEARCH & FILTER BAR -->
+    <section class="bg-surface-card border border-border-structural rounded-[4px] p-4 shadow-panel space-y-3">
+      <!-- Search row & Dropdowns -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <!-- Part Number / VIN Input -->
+        <div class="lg:col-span-5 relative">
+          <label for="search-input" class="block text-[10px] font-mono uppercase tracking-wider text-text-muted mb-1 flex justify-between">
+            <span>Búsqueda por Referencia / VIN / Chasis</span>
+            <span class="text-hazard-gold">Ej: 02/200823, 32/925682, Kit Filtros 3CX</span>
+          </label>
+          <div class="relative flex items-center">
+            <span class="absolute left-3 text-text-muted material-symbols-outlined text-lg">search</span>
+            <input 
+              type="text" 
+              id="search-input"
+              value="02/200823" 
+              placeholder="Ingrese código de parte, serie de chasis o término..." 
+              class="w-full bg-surface-pitch border border-border-structural focus:border-hazard-gold text-white font-mono text-xs pl-9 pr-24 py-2.5 rounded-[3px] focus:outline-none focus:ring-1 focus:ring-hazard-gold placeholder:text-text-faint"
+            >
+            <div class="absolute right-2 flex items-center gap-1">
+              <button class="bg-surface-elevated hover:bg-surface-highlight text-text-muted hover:text-white px-2 py-1 text-[10px] font-mono rounded border border-border-subtle transition-colors">
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brand Selector Dropdown -->
+        <div class="lg:col-span-2">
+          <label for="brand-select" class="block text-[10px] font-mono uppercase tracking-wider text-text-muted mb-1">
+            Marca Homologada
+          </label>
+          <div class="relative">
+            <select id="brand-select" class="w-full bg-surface-pitch border border-border-structural focus:border-hazard-gold text-white font-mono text-xs px-3 py-2.5 rounded-[3px] appearance-none focus:outline-none focus:ring-1 focus:ring-hazard-gold cursor-pointer">
+              <option value="jcb" selected>JCB Genuine Parts</option>
+              <option value="perkins">Perkins Engines</option>
+              <option value="donaldson">Donaldson Filtration</option>
+              <option value="rexroth">Rexroth Bosch Hydraulics</option>
+              <option value="parker">Parker Hannifin</option>
+              <option value="cummins">Cummins Power</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-2.5 top-2.5 text-text-muted pointer-events-none text-base">expand_more</span>
+          </div>
+        </div>
+
+        <!-- Machine Model Dropdown -->
+        <div class="lg:col-span-3">
+          <label for="machine-select" class="block text-[10px] font-mono uppercase tracking-wider text-text-muted mb-1">
+            Modelo de Maquinaria
+          </label>
+          <div class="relative">
+            <select id="machine-select" class="w-full bg-surface-pitch border border-border-structural focus:border-hazard-gold text-white font-mono text-xs px-3 py-2.5 rounded-[3px] appearance-none focus:outline-none focus:ring-1 focus:ring-hazard-gold cursor-pointer">
+              <option value="3cx-tier3" selected>Retroexcavadora JCB 3CX Eco Tier-3</option>
+              <option value="3cx-tier4">Retroexcavadora JCB 3CX Pro Tier-4</option>
+              <option value="4cx">Retroexcavadora JCB 4CX Heavy Duty</option>
+              <option value="js220">Excavadora Orugas JCB JS220 LC</option>
+              <option value="155">Minicargador JCB 155 Radial</option>
+              <option value="535">Manipulador Telescópico Loadall 535-95</option>
+              <option value="vm116">Rodillo Compactador VM116D</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-2.5 top-2.5 text-text-muted pointer-events-none text-base">expand_more</span>
+          </div>
+        </div>
+
+        <!-- Search Action CTA -->
+        <div class="lg:col-span-2 flex items-end">
+          <button class="w-full bg-surface-elevated hover:bg-surface-highlight border border-border-structural hover:border-hazard-gold text-hazard-gold font-headline font-bold text-xs py-2.5 px-4 rounded-[3px] flex items-center justify-center gap-2 transition-all active:scale-95">
+            <span class="material-symbols-outlined text-base">filter_alt</span>
+            <span>CONSULTAR</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Pill Filters -->
+      <div class="pt-2 border-t border-border-subtle flex flex-wrap items-center gap-2">
+        <span class="text-[11px] font-mono uppercase text-text-muted flex items-center gap-1 mr-1">
+          <span class="material-symbols-outlined text-[13px] text-hazard-gold">category</span>
+          Categorías:
+        </span>
+        <button class="bg-hazard-gold text-black font-mono font-bold text-xs px-3 py-1 rounded-[2px] shadow-sm flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-black"></span>
+          Bombas Hidráulicas & Válvulas
+        </button>
+        <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural hover:border-border-bright text-text-muted hover:text-white font-mono text-xs px-3 py-1 rounded-[2px] transition-colors">
+          Filtros & Mantenimiento
+        </button>
+        <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural hover:border-border-bright text-text-muted hover:text-white font-mono text-xs px-3 py-1 rounded-[2px] transition-colors">
+          Frenos & Transmisión
+        </button>
+        <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural hover:border-border-bright text-text-muted hover:text-white font-mono text-xs px-3 py-1 rounded-[2px] transition-colors">
+          Tren de Rodaje & Pines
+        </button>
+        <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural hover:border-border-bright text-text-muted hover:text-white font-mono text-xs px-3 py-1 rounded-[2px] transition-colors">
+          Motores Diésel EcoMAX
+        </button>
+        <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural hover:border-border-bright text-text-muted hover:text-white font-mono text-xs px-3 py-1 rounded-[2px] transition-colors">
+          Cilindros Hidráulicos & Sellos
+        </button>
+        <button class="ml-auto text-[11px] font-mono text-telemetry-emerald flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">inventory_2</span>
+          8 de 8 Partes en Diagrama Activo
+        </button>
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE EXPLODED SCHEMATIC VIEWER (DIAGRAMA DE DESPIECE) -->
+    <section class="bg-surface-card border border-border-structural rounded-[4px] p-4 shadow-panel space-y-3">
+      <!-- Schematic Header & Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-[2px] bg-hazard-gold/10 border border-hazard-gold/40 flex items-center justify-center text-hazard-gold font-mono font-bold text-xs">
+            03
+          </div>
+          <div>
+            <h2 class="font-headline font-bold text-sm text-white tracking-wide uppercase flex items-center gap-2">
+              DIAGRAMA DE DESPIECE OEM: CONJUNTO BOMBA HIDRÁULICA PRINCIPAL (PARKER / JCB)
+              <span class="bg-surface-elevated text-text-muted text-[10px] font-mono px-2 py-0.5 rounded border border-border-subtle">
+                FIG. 20-04A
+              </span>
+            </h2>
+            <p class="text-[11px] font-mono text-text-muted">
+              Pase el cursor sobre los números de llamada (Hotspots 1 al 8) o haga clic para sincronizar y aislar la pieza en la lista de materiales.
+            </p>
+          </div>
+        </div>
+
+        <!-- Zoom & View Tools -->
+        <div class="flex items-center gap-1.5 font-mono text-xs">
+          <span class="text-[10px] text-text-muted uppercase hidden sm:inline mr-1">Herramientas:</span>
+          <button onclick="resetHotspots()" class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural text-text-muted hover:text-white px-2 py-1 rounded text-[11px] flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-sm">filter_none</span> Restablecer
+          </button>
+          <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural text-text-muted hover:text-white px-2 py-1 rounded text-[11px] flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-sm">zoom_in</span> Acercar
+          </button>
+          <button class="bg-surface-pitch hover:bg-surface-elevated border border-border-structural text-text-muted hover:text-white px-2 py-1 rounded text-[11px] flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-sm">fullscreen</span> Pantalla Completa
+          </button>
+          <a href="#" class="bg-hazard-gold/10 hover:bg-hazard-gold/20 border border-hazard-gold/30 text-hazard-gold px-2.5 py-1 rounded text-[11px] font-bold flex items-center gap-1 transition-colors">
+            <span class="material-symbols-outlined text-sm">download</span> PDF Plano CAD
+          </a>
+        </div>
+      </div>
+
+      <!-- Schematic Canvas (High-contrast SVG Vector Blueprint) -->
+      <div class="relative bg-surface-pitch rounded-[3px] border border-border-subtle overflow-hidden p-2 flex flex-col items-center justify-center select-none" style="min-height: 380px;">
+        <!-- Blueprint Grid Pattern Background -->
+        <div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: linear-gradient(#27303E 1px, transparent 1px), linear-gradient(to right, #27303E 1px, #000000 1px); background-size: 24px 24px;"></div>
+
+        <!-- Technical Corner Overlays -->
+        <div class="absolute top-2 left-3 font-mono text-[10px] text-text-faint flex flex-col gap-0.5 pointer-events-none">
+          <span>OEM ASSEMBLY: JCB PART 20/925339-REV D</span>
+          <span>DISPLACEMENT: 165 L/MIN @ 2200 RPM</span>
+          <span>WORKING PRESSURE: 251 BAR (MAX 320 BAR)</span>
+        </div>
+        <div class="absolute top-2 right-3 font-mono text-[10px] text-hazard-gold flex items-center gap-1.5 bg-surface-card/80 px-2 py-1 rounded border border-border-structural">
+          <span class="w-2 h-2 rounded-full bg-telemetry-emerald animate-ping-slow"></span>
+          <span id="active-callout-status">SELECCIONE CUALQUIER NÚMERO DE PIEZA</span>
+        </div>
+
+        <!-- Exploded Assembly SVG Vector Diagram -->
+        <svg viewBox="0 0 1000 480" class="w-full h-auto max-h-[460px] z-10 drop-shadow-lg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Drop shadow filter for callout pins -->
+            <filter id="glow-pin" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#FFB800" flood-opacity="0.8"/>
+            </filter>
+            <filter id="shadow-part" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.9"/>
+            </filter>
+            <linearGradient id="metal-grad-1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#232B38"/>
+              <stop offset="50%" stop-color="#141922"/>
+              <stop offset="100%" stop-color="#0B0E13"/>
+            </linearGradient>
+            <linearGradient id="metal-grad-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#313B4D"/>
+              <stop offset="100%" stop-color="#181F2A"/>
+            </linearGradient>
+            <linearGradient id="brass-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFB800"/>
+              <stop offset="100%" stop-color="#996E00"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Exploded Center Line Axis (Industrial CAD Dashed Trace) -->
+          <line x1="80" y1="240" x2="940" y2="240" stroke="#FFB800" stroke-width="1.5" stroke-dasharray="8,6,2,6" opacity="0.45" />
+
+          <!-- ================== PART 1: EJE CARDÁNICO ESTRIADO (DRIVE SHAFT) ================== -->
+          <g id="schematic-item-1" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <!-- Splined shaft geometry -->
+            <path d="M 80 228 L 130 228 L 130 220 L 210 220 L 210 260 L 130 260 L 130 252 L 80 252 Z" fill="url(#metal-grad-2)" stroke="#3E4B5E" stroke-width="2"/>
+            <!-- Splines lines -->
+            <line x1="85" y1="232" x2="125" y2="232" stroke="#8A99AD" stroke-width="1.5"/>
+            <line x1="85" y1="238" x2="125" y2="238" stroke="#8A99AD" stroke-width="1.5"/>
+            <line x1="85" y1="244" x2="125" y2="244" stroke="#8A99AD" stroke-width="1.5"/>
+            <line x1="85" y1="248" x2="125" y2="248" stroke="#8A99AD" stroke-width="1.5"/>
+            <!-- Shaft Step Ring -->
+            <rect x="180" y="212" width="16" height="56" rx="2" fill="url(#brass-grad)" stroke="#FFB800" stroke-width="1.5"/>
+            <!-- Projection dashed leader -->
+            <path d="M 140 215 L 140 140 L 100 140" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 2: RETÉN DE ALTA PRESIÓN VITÓN (OIL SEAL) ================== -->
+          <g id="schematic-item-2" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <ellipse cx="240" cy="240" rx="14" ry="46" fill="#181F2A" stroke="#10B981" stroke-width="2"/>
+            <ellipse cx="240" cy="240" rx="9" ry="32" fill="#000000" stroke="#10B981" stroke-width="1.5" stroke-dasharray="2,2"/>
+            <!-- Spring garter ring -->
+            <path d="M 235 205 Q 248 240 235 275" fill="none" stroke="#10B981" stroke-width="2"/>
+            <path d="M 240 190 L 240 110 L 210 110" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 3: COJINETE CÓNICO TIMKEN (BEARING) ================== -->
+          <g id="schematic-item-3" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <rect x="275" y="200" width="34" height="80" rx="3" fill="url(#metal-grad-1)" stroke="#3E4B5E" stroke-width="2"/>
+            <!-- Roller pins in bearing cage -->
+            <rect x="281" y="205" width="8" height="18" rx="1" fill="#8A99AD" stroke="#FFF" stroke-width="0.8"/>
+            <rect x="281" y="231" width="8" height="18" rx="1" fill="#8A99AD" stroke="#FFF" stroke-width="0.8"/>
+            <rect x="281" y="257" width="8" height="18" rx="1" fill="#8A99AD" stroke="#FFF" stroke-width="0.8"/>
+            <path d="M 292 195 L 292 90 L 325 90" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 4: CARCASA FRONTAL DE HIERRO NODULAR (FRONT HOUSING) ================== -->
+          <g id="schematic-item-4" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <path d="M 340 160 L 440 150 L 450 180 L 450 300 L 440 330 L 340 320 L 330 290 L 330 190 Z" fill="url(#metal-grad-1)" stroke="#8A99AD" stroke-width="2.5"/>
+            <!-- Flange mounting bolt holes (4 ear flanges) -->
+            <circle cx="355" cy="175" r="7" fill="#000" stroke="#FFB800" stroke-width="1.5"/>
+            <circle cx="355" cy="305" r="7" fill="#000" stroke="#FFB800" stroke-width="1.5"/>
+            <circle cx="430" cy="170" r="7" fill="#000" stroke="#FFB800" stroke-width="1.5"/>
+            <circle cx="430" cy="310" r="7" fill="#000" stroke="#FFB800" stroke-width="1.5"/>
+            <!-- Bore center -->
+            <ellipse cx="395" cy="240" rx="30" ry="45" fill="#0A0D12" stroke="#3E4B5E" stroke-width="2"/>
+            <path d="M 390 145 L 390 70 L 440 70" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 5: ROTOR / BLOQUE DE 9 PISTONES AXIALES (PISTON CYLINDER BLOCK) ================== -->
+          <g id="schematic-item-5" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <!-- Barrel cylinder cylinder -->
+            <rect x="480" y="175" width="85" height="130" rx="4" fill="url(#metal-grad-2)" stroke="#FFB800" stroke-width="2"/>
+            <!-- 9 Piston Chamfered Bores (isometric representation) -->
+            <circle cx="505" cy="195" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <circle cx="505" cy="220" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <circle cx="505" cy="245" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <circle cx="505" cy="270" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <circle cx="540" cy="205" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <circle cx="540" cy="235" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <circle cx="540" cy="265" r="8" fill="#12151B" stroke="#8A99AD" stroke-width="1.5"/>
+            <!-- Center spline drive -->
+            <rect x="515" y="232" width="16" height="16" fill="#000" stroke="#FFB800" stroke-width="1.5"/>
+            <path d="M 522 170 L 522 65 L 560 65" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 6: PLATO OSCILANTE DE CONTROL SWASHPLATE ================== -->
+          <g id="schematic-item-6" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <path d="M 595 180 L 630 160 L 645 165 L 610 315 L 595 310 Z" fill="url(#brass-grad)" stroke="#FFB800" stroke-width="2"/>
+            <!-- Pivot trunnion pin -->
+            <circle cx="615" cy="240" r="10" fill="#1A1F26" stroke="#FFFFFF" stroke-width="2"/>
+            <path d="M 620 155 L 620 65 L 665 65" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 7: PLACA DISTRIBUIDORA LUMBRERAS (VALVE PLATE) ================== -->
+          <g id="schematic-item-7" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <ellipse cx="680" cy="240" rx="16" ry="60" fill="url(#metal-grad-1)" stroke="#3E4B5E" stroke-width="2"/>
+            <!-- Kidney-shaped porting slots (suction & discharge) -->
+            <path d="M 678 200 C 684 210 684 225 678 230" stroke="#10B981" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 678 250 C 684 260 684 275 678 280" stroke="#FFB800" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 685 175 L 685 85 L 730 85" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== PART 8: KIT DE SELLOS TÓRICOS O-RINGS & VÁLVULAS LS ================== -->
+          <g id="schematic-item-8" class="transition-opacity duration-200" filter="url(#shadow-part)">
+            <!-- Outer casing head & regulator block -->
+            <path d="M 725 165 L 820 165 L 820 315 L 725 315 Z" fill="url(#metal-grad-2)" stroke="#8A99AD" stroke-width="2"/>
+            <!-- LS Compensator valve spool -->
+            <rect x="760" y="130" width="30" height="35" rx="2" fill="#1A1F26" stroke="#FFB800" stroke-width="1.5"/>
+            <line x1="775" y1="130" x2="775" y2="120" stroke="#FFB800" stroke-width="2"/>
+            <!-- O-Ring seals colored telemetry emerald -->
+            <circle cx="750" cy="205" r="9" fill="none" stroke="#10B981" stroke-width="3"/>
+            <circle cx="790" cy="205" r="9" fill="none" stroke="#10B981" stroke-width="3"/>
+            <circle cx="770" cy="265" r="14" fill="none" stroke="#10B981" stroke-width="3.5"/>
+            <!-- Port Threads -->
+            <rect x="820" y="225" width="22" height="30" fill="#2E3646" stroke="#FFB800" stroke-width="1.5"/>
+            <line x1="825" y1="232" x2="838" y2="232" stroke="#8A99AD" stroke-width="1"/>
+            <line x1="825" y1="240" x2="838" y2="240" stroke="#8A99AD" stroke-width="1"/>
+            <line x1="825" y1="248" x2="838" y2="248" stroke="#8A99AD" stroke-width="1"/>
+            <path d="M 780 120 L 780 60 L 830 60" stroke="#FFB800" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+          </g>
+
+          <!-- ================== CALLOUT HOTSPOTS (1 to 8 INTERACTIVE PINS) ================== -->
+          <!-- Hotspot 1 -->
+          <g class="schematic-hotspot" data-part="1" onmouseover="highlightPart(1)" onmouseout="clearHighlight()" onclick="selectPart(1)">
+            <circle cx="95" cy="140" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="95" y="145" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">1</text>
+          </g>
+
+          <!-- Hotspot 2 -->
+          <g class="schematic-hotspot" data-part="2" onmouseover="highlightPart(2)" onmouseout="clearHighlight()" onclick="selectPart(2)">
+            <circle cx="205" cy="110" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="205" y="115" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">2</text>
+          </g>
+
+          <!-- Hotspot 3 -->
+          <g class="schematic-hotspot" data-part="3" onmouseover="highlightPart(3)" onmouseout="clearHighlight()" onclick="selectPart(3)">
+            <circle cx="330" cy="90" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="330" y="95" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">3</text>
+          </g>
+
+          <!-- Hotspot 4 -->
+          <g class="schematic-hotspot" data-part="4" onmouseover="highlightPart(4)" onmouseout="clearHighlight()" onclick="selectPart(4)">
+            <circle cx="445" cy="70" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="445" y="75" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">4</text>
+          </g>
+
+          <!-- Hotspot 5 -->
+          <g class="schematic-hotspot" data-part="5" onmouseover="highlightPart(5)" onmouseout="clearHighlight()" onclick="selectPart(5)">
+            <circle cx="565" cy="65" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="565" y="70" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">5</text>
+          </g>
+
+          <!-- Hotspot 6 -->
+          <g class="schematic-hotspot" data-part="6" onmouseover="highlightPart(6)" onmouseout="clearHighlight()" onclick="selectPart(6)">
+            <circle cx="670" cy="65" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="670" y="70" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">6</text>
+          </g>
+
+          <!-- Hotspot 7 -->
+          <g class="schematic-hotspot" data-part="7" onmouseover="highlightPart(7)" onmouseout="clearHighlight()" onclick="selectPart(7)">
+            <circle cx="735" cy="85" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="735" y="90" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">7</text>
+          </g>
+
+          <!-- Hotspot 8 -->
+          <g class="schematic-hotspot" data-part="8" onmouseover="highlightPart(8)" onmouseout="clearHighlight()" onclick="selectPart(8)">
+            <circle cx="835" cy="60" r="16" class="marker-bg" fill="#12151B" stroke="#FFB800" stroke-width="2.5" />
+            <text x="835" y="65" class="marker-text" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#FFB800" text-anchor="middle">8</text>
+          </g>
+        </svg>
+
+        <!-- Dynamic Hover Legend Banner -->
+        <div id="schematic-legend" class="w-full bg-surface-charcoal/90 border-t border-border-structural p-2 px-4 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <span class="text-hazard-gold font-bold">PIEZA DESTACADA:</span>
+            <span id="legend-part-name" class="text-white font-semibold">Pase el cursor sobre los números 1 al 8 para ver detalles técnicos</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] text-text-muted">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-hazard-gold inline-block"></span> Hotspots Activos</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-telemetry-emerald inline-block"></span> En Stock Km 22</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PARTS BOM TABLE (LISTA DE MATERIALES / REPUESTOS OEM) -->
+    <section class="bg-surface-card border border-border-structural rounded-[4px] shadow-panel overflow-hidden">
+      <!-- Section Header with count and actions -->
+      <div class="p-4 border-b border-border-subtle flex flex-wrap items-center justify-between gap-3 bg-surface-charcoal">
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-[2px] bg-telemetry-emerald/10 border border-telemetry-emerald/40 flex items-center justify-center text-telemetry-emerald font-mono font-bold text-xs">
+            04
+          </div>
+          <div>
+            <h2 class="font-headline font-bold text-sm text-white tracking-wide uppercase flex items-center gap-2">
+              LISTA DE PIEZAS HOMOLOGADAS (BOM SPECIFICATION)
+              <span class="text-[10px] font-mono bg-surface-elevated text-text-muted px-2 py-0.5 rounded border border-border-structural">
+                8 COMPONENTES IDENTIFICADOS
+              </span>
+            </h2>
+            <p class="text-[11px] font-mono text-text-muted">
+              Precios oficiales con ITBIS calculado en DOP según tasa spot BHD/Banreservas. Despacho inmediato garantizado.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="addAllInStock()" class="text-xs font-mono px-3 py-1.5 rounded-[3px] border border-hazard-gold/40 text-hazard-gold hover:bg-hazard-gold hover:text-black transition-all font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">playlist_add_check</span>
+            Agregar Todos los Disponibles (8)
+          </button>
+        </div>
+      </div>
+
+      <!-- Table responsive container -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs font-mono border-collapse" id="bom-table">
+          <thead>
+            <tr class="bg-surface-pitch border-b border-border-structural text-text-muted uppercase text-[10px] tracking-wider">
+              <th class="py-3 px-3 text-center w-12"># Fig</th>
+              <th class="py-3 px-4">Número de Parte OEM</th>
+              <th class="py-3 px-4">Descripción Técnica & Fabricante</th>
+              <th class="py-3 px-3">Compatibilidad</th>
+              <th class="py-3 px-4">Stock en Almacén Km 22</th>
+              <th class="py-3 px-4 text-right">Precio Unitario</th>
+              <th class="py-3 px-3 text-center w-24">Cantidad</th>
+              <th class="py-3 px-4 text-right w-44">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border-subtle" id="bom-rows-container">
+            <!-- Row 1 -->
+            <tr id="row-part-1" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(1)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">1</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                20/925339-S
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984401</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Eje Cardánico Estriado Principal 13 Dientes</div>
+                <div class="text-[11px] text-text-muted">Acero forjado cementado templado por inducción. OEM JCB / Rexroth.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  JCB 3CX / 4CX Eco
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  18 unidades
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo C, Gaveta Bin C-04</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $285.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 17,100.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(1, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-1" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(1, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(1, '20/925339-S', 'Eje Cardánico Estriado Principal', 285.00, 'Bin C-04')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr id="row-part-2" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(2)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">2</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                02/200823
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984402</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Retén Labial de Alta Presión en Vitón FKM</div>
+                <div class="text-[11px] text-text-muted">Resistente a fluidos hidráulicos ISO VG 46 y temperaturas hasta 160°C. Parker.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  JCB 3CX / JS200
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  42 unidades
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo A, Gaveta Bin A-12</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $42.50</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 2,550.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(2, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-2" type="text" value="2" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(2, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(2, '02/200823', 'Retén Labial Alta Presión Vitón', 42.50, 'Bin A-12')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr id="row-part-3" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(3)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">3</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                907/08300
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984403</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Juego de Cojinetes de Rodillos Cónicos Timken</div>
+                <div class="text-[11px] text-text-muted">Pista y cono mecanizados de alta carga axial / radial continua.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  Universal JCB Pump
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  12 unidades
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo C, Gaveta Bin C-09</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $115.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 6,900.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(3, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-3" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(3, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(3, '907/08300', 'Cojinetes Rodillos Cónicos Timken', 115.00, 'Bin C-09')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 4 -->
+            <tr id="row-part-4" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(4)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">4</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                20/925340-H
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984404</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Carcasa Frontal SAE B en Hierro Nodular GGG-50</div>
+                <div class="text-[11px] text-text-muted">Tratamiento anticorrosivo para ambiente tropical dominicano. Brida 2 pernos.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  JCB 3CX Tier-3 Eco
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  5 unidades
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Rack Pesado D-01</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $640.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 38,400.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(4, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-4" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(4, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(4, '20/925340-H', 'Carcasa Frontal SAE B GGG-50', 640.00, 'Rack D-01')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 5 -->
+            <tr id="row-part-5" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(5)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">5</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                20/925341-BLK
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984405</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Rotor y Conjunto de 9 Pistones Axiales de Desplazamiento</div>
+                <div class="text-[11px] text-text-muted">Pistones con zapatas de bronce fosforado pulidas a espejo grado aeroespacial.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  JCB 3CX EcoMAX
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  9 kits completos
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo B, Gaveta Bin B-07</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $890.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 53,400.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(5, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-5" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(5, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(5, '20/925341-BLK', 'Rotor + 9 Pistones Axiales', 890.00, 'Bin B-07')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 6 -->
+            <tr id="row-part-6" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(6)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">6</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                20/925342-SW
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984406</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Plato Oscilante de Control de Ángulo Variable (Swashplate)</div>
+                <div class="text-[11px] text-text-muted">Regulación hidráulica variable de flujo 0 a 165 L/min bajo demanda LS.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  JCB 3CX / 4CX
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  7 unidades
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo B, Gaveta Bin B-11</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $475.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 28,500.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(6, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-6" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(6, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(6, '20/925342-SW', 'Plato Swashplate Flujo Variable', 475.00, 'Bin B-11')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 7 -->
+            <tr id="row-part-7" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(7)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">7</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                20/925343-VP
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984407</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Placa Distribuidora de Lumbreras Bimetálica</div>
+                <div class="text-[11px] text-text-muted">Capa de bronce sinterizado antifricción con canales anti-cavitación.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  JCB 3CX Tier-3
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  14 unidades
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo C, Gaveta Bin C-02</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $210.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 12,600.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(7, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-7" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(7, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(7, '20/925343-VP', 'Placa Distribuidora Lumbreras', 210.00, 'Bin C-02')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 8 -->
+            <tr id="row-part-8" class="hover:bg-surface-elevated transition-colors" onmouseover="highlightSchematicHotspot(8)" onmouseout="clearSchematicHotspot()">
+              <td class="py-3.5 px-3 text-center">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-hazard-gold/10 border border-hazard-gold text-hazard-gold font-bold text-xs">8</span>
+              </td>
+              <td class="py-3.5 px-4 font-bold text-white tracking-wide">
+                991/00147
+                <span class="block text-[10px] text-text-muted font-normal">BARCODE: 74210984408</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="text-white font-medium text-[13px]">Kit Completo de Sellos Tóricos, O-Rings & Carrete Válvula LS</div>
+                <div class="text-[11px] text-text-muted">Empaquetadura original Parker con sellos de brida y tapones calibrados.</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <span class="bg-surface-pitch border border-border-structural text-text-muted text-[10px] px-2 py-0.5 rounded">
+                  Línea Completa 3CX
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-1.5 text-telemetry-emerald font-semibold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-telemetry-emerald"></span>
+                  31 kits
+                </div>
+                <div class="text-[10px] text-text-muted font-normal">Pasillo A, Gaveta Bin A-03</div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-white font-bold text-sm">USD $95.00</div>
+                <div class="text-[10px] text-hazard-gold">RD$ 5,700.00</div>
+              </td>
+              <td class="py-3.5 px-3 text-center">
+                <div class="inline-flex items-center border border-border-structural rounded bg-surface-pitch">
+                  <button onclick="adjustQty(8, -1)" class="px-2 py-1 text-text-muted hover:text-white">-</button>
+                  <input id="qty-8" type="text" value="1" readonly class="w-8 text-center bg-transparent text-white text-xs font-bold focus:outline-none">
+                  <button onclick="adjustQty(8, 1)" class="px-2 py-1 text-text-muted hover:text-white">+</button>
+                </div>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="addToRequisition(8, '991/00147', 'Kit Sellos O-Rings y Válvula LS', 95.00, 'Bin A-03')" class="bg-hazard-gold hover:bg-hazard-active text-black px-3 py-1.5 rounded-[3px] font-headline font-bold text-[11px] uppercase tracking-wider transition-all active:scale-95 flex items-center gap-1 ml-auto">
+                  <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+                  + Requisición
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- EXTRA VALUE PROP SECTION: TALLER KM 22 & ASISTENCIA EN CAMPO -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-surface-card border border-border-structural rounded-[4px] p-4 flex items-start gap-3">
+        <div class="p-2.5 rounded bg-hazard-gold/10 border border-hazard-gold/30 text-hazard-gold">
+          <span class="material-symbols-outlined">precision_manufacturing</span>
+        </div>
+        <div>
+          <h3 class="font-headline font-bold text-sm text-white uppercase">Banco de Pruebas Hidráulicas</h3>
+          <p class="text-xs text-text-muted mt-1 font-body">
+            Todas las bombas y componentes reparados se calibran a 350 Bar en nuestro banco computarizado de Km 22 antes de la entrega.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-surface-card border border-border-structural rounded-[4px] p-4 flex items-start gap-3">
+        <div class="p-2.5 rounded bg-telemetry-emerald/10 border border-telemetry-emerald/30 text-telemetry-emerald">
+          <span class="material-symbols-outlined">local_shipping</span>
+        </div>
+        <div>
+          <h3 class="font-headline font-bold text-sm text-white uppercase">Móvil Taller Express 24/7</h3>
+          <p class="text-xs text-text-muted mt-1 font-body">
+            Flota de camionetas 4x4 equipadas para sustitución e instalación de repuestos en minas, puertos y carreteras de todo el país.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-surface-card border border-border-structural rounded-[4px] p-4 flex items-start gap-3">
+        <div class="p-2.5 rounded bg-surface-elevated border border-border-bright text-white">
+          <span class="material-symbols-outlined text-hazard-gold">verified_user</span>
+        </div>
+        <div>
+          <h3 class="font-headline font-bold text-sm text-white uppercase">100% Trazabilidad OEM Directa</h3>
+          <p class="text-xs text-text-muted mt-1 font-body">
+            Piezas importadas directamente desde Rocester, Reino Unido. Cero imitaciones genéricas que comprometan su inversión.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5. REQUISITION SUMMARY DRAWER / MODAL (CARRITO DE TALLER) -->
+  <aside id="requisition-drawer" aria-label="Carrito de Requisición de Taller" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-surface-charcoal border-l border-border-structural shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+    <!-- Drawer Header -->
+    <div class="p-4 border-b border-border-structural bg-surface-pitch flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-hazard-gold">shopping_cart_checkout</span>
+        <div>
+          <h2 class="font-headline font-bold text-sm text-white uppercase tracking-wider">CARRITO DE TALLER & REQUISICIÓN</h2>
+          <span class="text-[10px] font-mono text-text-muted">Cotización Proforma Oficial TMD-DOM</span>
+        </div>
+      </div>
+      <button onclick="toggleDrawer()" class="w-8 h-8 rounded bg-surface-card hover:bg-surface-elevated text-text-muted hover:text-white flex items-center justify-center border border-border-structural transition-colors">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+
+    <!-- Drawer Body / Parts List -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="drawer-items-list">
+      <!-- Item 1 in Cart -->
+      <div class="bg-surface-card border border-border-structural rounded p-3 flex flex-col gap-2 relative" id="cart-item-1">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-[10px] font-mono text-hazard-gold font-bold bg-hazard-gold/10 px-1.5 py-0.2 rounded border border-hazard-gold/30">#1 FIG</span>
+            <h4 class="font-headline font-bold text-xs text-white mt-1">Eje Cardánico Estriado 13T</h4>
+            <div class="text-[11px] font-mono text-text-muted">PN: 20/925339-S (Bin C-04)</div>
+          </div>
+          <button onclick="removeFromCart('cart-item-1', 285.00)" class="text-text-muted hover:text-red-400">
+            <span class="material-symbols-outlined text-sm">delete</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-border-subtle font-mono text-xs">
+          <span class="text-text-muted">1 un x USD $285.00</span>
+          <span class="text-white font-bold">USD $285.00 <span class="text-[10px] text-hazard-gold">(RD$ 17,100.00)</span></span>
+        </div>
+      </div>
+
+      <!-- Item 2 in Cart -->
+      <div class="bg-surface-card border border-border-structural rounded p-3 flex flex-col gap-2 relative" id="cart-item-2">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-[10px] font-mono text-hazard-gold font-bold bg-hazard-gold/10 px-1.5 py-0.2 rounded border border-hazard-gold/30">#2 FIG</span>
+            <h4 class="font-headline font-bold text-xs text-white mt-1">Retén Labial Alta Presión Vitón</h4>
+            <div class="text-[11px] font-mono text-text-muted">PN: 02/200823 (Bin A-12)</div>
+          </div>
+          <button onclick="removeFromCart('cart-item-2', 85.00)" class="text-text-muted hover:text-red-400">
+            <span class="material-symbols-outlined text-sm">delete</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-border-subtle font-mono text-xs">
+          <span class="text-text-muted">2 un x USD $42.50</span>
+          <span class="text-white font-bold">USD $85.00 <span class="text-[10px] text-hazard-gold">(RD$ 5,100.00)</span></span>
+        </div>
+      </div>
+
+      <!-- Item 8 in Cart -->
+      <div class="bg-surface-card border border-border-structural rounded p-3 flex flex-col gap-2 relative" id="cart-item-8">
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="text-[10px] font-mono text-hazard-gold font-bold bg-hazard-gold/10 px-1.5 py-0.2 rounded border border-hazard-gold/30">#8 FIG</span>
+            <h4 class="font-headline font-bold text-xs text-white mt-1">Kit Completo de Sellos O-Rings</h4>
+            <div class="text-[11px] font-mono text-text-muted">PN: 991/00147 (Bin A-03)</div>
+          </div>
+          <button onclick="removeFromCart('cart-item-8', 95.00)" class="text-text-muted hover:text-red-400">
+            <span class="material-symbols-outlined text-sm">delete</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-border-subtle font-mono text-xs">
+          <span class="text-text-muted">1 un x USD $95.00</span>
+          <span class="text-white font-bold">USD $95.00 <span class="text-[10px] text-hazard-gold">(RD$ 5,700.00)</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fulfillment Options & Calculation Section -->
+    <div class="p-4 border-t border-border-structural bg-surface-pitch space-y-3 font-mono">
+      <!-- Fulfillment Radio Options -->
+      <div>
+        <label class="block text-[10px] uppercase tracking-wider text-text-muted mb-1.5 font-bold">
+          Modalidad de Entrega / Despacho
+        </label>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <label class="flex items-center gap-2 p-2 rounded bg-surface-card border border-hazard-gold text-white cursor-pointer">
+            <input type="radio" name="dispatch_type" checked class="text-hazard-gold focus:ring-0">
+            <div>
+              <div class="font-bold text-[11px] text-white">Retiro Mostrador</div>
+              <div class="text-[9px] text-text-muted">Almacén Km 22 (Gratis)</div>
+            </div>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded bg-surface-card border border-border-structural text-text-muted hover:text-white cursor-pointer">
+            <input type="radio" name="dispatch_type" class="text-hazard-gold focus:ring-0">
+            <div>
+              <div class="font-bold text-[11px] text-hazard-gold">Despacho Express</div>
+              <div class="text-[9px] text-text-muted">A Obra en 2 Horas</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Financial Totals with ITBIS -->
+      <div class="space-y-1.5 text-xs pt-2 border-t border-border-subtle">
+        <div class="flex justify-between text-text-muted">
+          <span>Subtotal Partes OEM:</span>
+          <span id="subtotal-usd" class="text-white">USD $465.00</span>
+        </div>
+        <div class="flex justify-between text-text-muted">
+          <span>ITBIS Legal (18%):</span>
+          <span id="itbis-usd" class="text-white">USD $83.70</span>
+        </div>
+        <div class="flex justify-between text-sm font-bold pt-1 border-t border-border-subtle text-white">
+          <span>Total Estimado:</span>
+          <div class="text-right">
+            <div id="total-usd" class="text-hazard-gold text-base font-headline font-bold">USD $548.70</div>
+            <div id="total-dop" class="text-[11px] text-text-muted font-normal">RD$ 32,922.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2 pt-1">
+        <button onclick="sendRequisition('whatsapp')" class="w-full bg-hazard-gold hover:bg-hazard-active text-black py-2.5 px-4 rounded-[3px] font-headline font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-hazard-glow transition-all active:scale-95">
+          <span class="material-symbols-outlined text-base">chat</span>
+          Confirmar y Enviar vía WhatsApp
+        </button>
+        <button onclick="sendRequisition('email')" class="w-full bg-surface-elevated hover:bg-surface-highlight border border-border-structural hover:border-border-bright text-white py-2 px-4 rounded-[3px] font-headline font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+          <span class="material-symbols-outlined text-base">mail</span>
+          Enviar Orden Proforma por Correo
+        </button>
+      </div>
+      <div class="text-[9px] text-text-muted text-center flex items-center justify-center gap-1">
+        <span class="material-symbols-outlined text-xs text-telemetry-emerald">lock</span>
+        Sincronizado con inventario en tiempo real Km 22
+      </div>
+    </div>
+  </aside>
+
+  <!-- 6. FOOTER INDUSTRIAL CON GARANTÍA OEM -->
+  <footer class="bg-surface-pitch border-t border-border-structural mt-12 py-10 font-mono text-xs text-text-muted">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- Col 1: TMD Brand info -->
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-7 h-7 bg-hazard-gold flex items-center justify-center rounded-[2px] font-headline font-bold text-black text-base">
+              T
+            </div>
+            <span class="font-headline font-bold text-sm tracking-wider text-white">TMD DOMINICANA</span>
+          </div>
+          <p class="text-text-muted text-[11px] leading-relaxed mb-3">
+            Distribuidor exclusivo y autorizado de repuestos genuinos para excavadoras, retroexcavadoras y maquinaria pesada JCB en toda la República Dominicana.
+          </p>
+          <div class="flex items-center gap-2 text-hazard-gold text-[11px] font-bold">
+            <span class="material-symbols-outlined text-sm">verified</span>
+            CERTIFICACIÓN JCB MASTER CARE 2026
+          </div>
+        </div>
+
+        <!-- Col 2: Almacén Central Km 22 -->
+        <div>
+          <h4 class="font-headline font-bold text-xs text-white uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm text-hazard-gold">warehouse</span>
+            Almacén & Taller Km 22
+          </h4>
+          <ul class="space-y-1.5 text-[11px]">
+            <li class="flex items-start gap-1.5">
+              <span class="text-hazard-gold font-bold">Dirección:</span>
+              <span>Autopista Duarte Km 22, Santo Domingo Oeste</span>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="text-hazard-gold font-bold">Lunes a Viernes:</span>
+              <span>7:30 AM – 6:00 PM (Mostrador)</span>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="text-hazard-gold font-bold">Sábados:</span>
+              <span>8:00 AM – 1:00 PM</span>
+            </li>
+            <li class="flex items-start gap-1.5 text-telemetry-emerald font-bold">
+              <span class="w-2 h-2 rounded-full bg-telemetry-emerald inline-block mt-1"></span>
+              Despacho de Emergencia: 24 Horas / 365 Días
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Central Telefónica y Contacto -->
+        <div>
+          <h4 class="font-headline font-bold text-xs text-white uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm text-hazard-gold">support_agent</span>
+            Líneas de Atención Inmediata
+          </h4>
+          <div class="space-y-2 text-[11px]">
+            <div>
+              <span class="text-text-muted block text-[10px]">Línea Central Km 22:</span>
+              <a href="tel:8098262222" class="text-white font-bold text-sm hover:text-hazard-gold transition-colors font-headline">
+                (809) 826-2222
+              </a>
+            </div>
+            <div>
+              <span class="text-text-muted block text-[10px]">WhatsApp Repuestos & Flotas:</span>
+              <a href="https://wa.me/18098262222" target="_blank" class="text-telemetry-emerald font-bold hover:underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">chat</span> +1 (809) 826-2222
+              </a>
+            </div>
+            <div>
+              <span class="text-text-muted block text-[10px]">Correo Soporte Técnico:</span>
+              <span class="text-white">repuestos@tmd.com.do</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: Sello de Garantía y Confianza -->
+        <div>
+          <h4 class="font-headline font-bold text-xs text-white uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm text-hazard-gold">shield</span>
+            Sello Genuino OEM
+          </h4>
+          <div class="bg-surface-card border border-border-structural p-3 rounded text-[10px] space-y-2">
+            <div class="flex items-center gap-2 text-white font-bold">
+              <span class="material-symbols-outlined text-hazard-gold text-lg">security</span>
+              <span>12 MESES DE GARANTÍA OFICIAL</span>
+            </div>
+            <p class="text-text-muted leading-tight">
+              Cada repuesto cuenta con código QR serializado antifalsificación y respaldo directo del fabricante británico.
+            </p>
+            <div class="pt-1 text-telemetry-emerald font-semibold flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">local_shipping</span> Entrega en 2h a obras en Gran Sto Dgo
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright bottom -->
+      <div class="pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px]">
+        <div>
+          © 2026 TMD Dominicana S.R.L. Todos los derechos reservados. Distribuidor Autorizado JCB Inc.
+        </div>
+        <div class="flex items-center space-x-4 text-text-muted">
+          <a href="#" class="hover:text-white">Términos de Garantía</a>
+          <a href="#" class="hover:text-white">Aviso de Privacidad</a>
+          <a href="#" class="hover:text-white">Protocolo Taller Km 22</a>
+          <span class="text-telemetry-emerald">● Sistema 100% Operativo</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 left-5 z-50 bg-surface-card border border-hazard-gold text-white px-4 py-2.5 rounded shadow-hazard-glow font-mono text-xs flex items-center gap-2 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <span class="material-symbols-outlined text-hazard-gold text-base">check_circle</span>
+    <span id="toast-message">Pieza agregada a la requisición exitosamente.</span>
+  </div>
+
+  <!-- INTERACTIVITY JAVASCRIPT -->
+  <script>
+    // Parts database
+    const partsData = {
+      1: { name: "Eje Cardánico Estriado Principal 13 Dientes", pn: "20/925339-S", price: 285.00, bin: "Bin C-04", stock: "18 unidades" },
+      2: { name: "Retén Labial de Alta Presión en Vitón FKM", pn: "02/200823", price: 42.50, bin: "Bin A-12", stock: "42 unidades" },
+      3: { name: "Juego de Cojinetes de Rodillos Cónicos Timken", pn: "907/08300", price: 115.00, bin: "Bin C-09", stock: "12 unidades" },
+      4: { name: "Carcasa Frontal SAE B en Hierro Nodular GGG-50", pn: "20/925340-H", price: 640.00, bin: "Rack D-01", stock: "5 unidades" },
+      5: { name: "Rotor y Conjunto de 9 Pistones Axiales", pn: "20/925341-BLK", price: 890.00, bin: "Bin B-07", stock: "9 kits" },
+      6: { name: "Plato Oscilante de Control de Ángulo Variable (Swashplate)", pn: "20/925342-SW", price: 475.00, bin: "Bin B-11", stock: "7 unidades" },
+      7: { name: "Placa Distribuidora de Lumbreras Bimetálica", pn: "20/925343-VP", price: 210.00, bin: "Bin C-02", stock: "14 unidades" },
+      8: { name: "Kit Completo de Sellos Tóricos, O-Rings & Válvula LS", pn: "991/00147", price: 95.00, bin: "Bin A-03", stock: "31 kits" }
+    };
+
+    let cart = [
+      { id: 1, pn: "20/925339-S", name: "Eje Cardánico Estriado 13T", price: 285.00, qty: 1, bin: "Bin C-04" },
+      { id: 2, pn: "02/200823", name: "Retén Labial Alta Presión Vitón", price: 42.50, qty: 2, bin: "Bin A-12" },
+      { id: 8, pn: "991/00147", name: "Kit Completo de Sellos O-Rings", price: 95.00, qty: 1, bin: "Bin A-03" }
+    ];
+
+    const SPOT_RATE = 60.00;
+
+    // Toggle Drawer
+    function toggleDrawer() {
+      const drawer = document.getElementById('requisition-drawer');
+      drawer.classList.toggle('translate-x-full');
+    }
+
+    // Hotspot Hover interaction from Schematic to Table
+    function highlightPart(partId) {
+      const part = partsData[partId];
+      if (!part) return;
+
+      document.getElementById('legend-part-name').innerText = `#${partId} - ${part.name} (PN: ${part.pn} | Stock: ${part.stock} en ${part.bin})`;
+      document.getElementById('active-callout-status').innerText = `CALLOUT #${partId} SELECCIONADO`;
+
+      // Highlight table row
+      const row = document.getElementById(`row-part-${partId}`);
+      if (row) {
+        row.classList.add('tr-highlight');
+      }
+    }
+
+    function clearHighlight() {
+      document.getElementById('legend-part-name').innerText = 'Pase el cursor sobre los números 1 al 8 para ver detalles técnicos';
+      document.getElementById('active-callout-status').innerText = 'SELECCIONE CUALQUIER NÚMERO DE PIEZA';
+
+      for (let i = 1; i <= 8; i++) {
+        const row = document.getElementById(`row-part-${i}`);
+        if (row) row.classList.remove('tr-highlight');
+      }
+    }
+
+    // Click Hotspot to scroll and focus row
+    function selectPart(partId) {
+      for (let i = 1; i <= 8; i++) {
+        const row = document.getElementById(`row-part-${i}`);
+        if (row) row.classList.remove('tr-selected');
+        const hotspot = document.querySelector(`.schematic-hotspot[data-part="${i}"]`);
+        if (hotspot) hotspot.classList.remove('active');
+      }
+
+      const activeHotspot = document.querySelector(`.schematic-hotspot[data-part="${partId}"]`);
+      if (activeHotspot) activeHotspot.classList.add('active');
+
+      const targetRow = document.getElementById(`row-part-${partId}`);
+      if (targetRow) {
+        targetRow.classList.add('tr-selected');
+        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      showToast(`Componente #${partId} (${partsData[partId].pn}) enfocado en la tabla BOM.`);
+    }
+
+    // Hover from Table row to Schematic Hotspot
+    function highlightSchematicHotspot(partId) {
+      const hotspot = document.querySelector(`.schematic-hotspot[data-part="${partId}"]`);
+      if (hotspot) hotspot.classList.add('active');
+      const part = partsData[partId];
+      if (part) {
+        document.getElementById('legend-part-name').innerText = `#${partId} - ${part.name} (Stock: ${part.stock})`;
+        document.getElementById('active-callout-status').innerText = `CALLOUT #${partId} DESTACADO`;
+      }
+    }
+
+    function clearSchematicHotspot() {
+      for (let i = 1; i <= 8; i++) {
+        const hotspot = document.querySelector(`.schematic-hotspot[data-part="${i}"]`);
+        if (hotspot) hotspot.classList.remove('active');
+      }
+      clearHighlight();
+    }
+
+    function resetHotspots() {
+      clearHighlight();
+      clearSchematicHotspot();
+      for (let i = 1; i <= 8; i++) {
+        const row = document.getElementById(`row-part-${i}`);
+        if (row) row.classList.remove('tr-selected');
+      }
+      showToast('Diagrama y tabla restablecidos.');
+    }
+
+    // Quantity selector adjustment in table
+    function adjustQty(partId, delta) {
+      const input = document.getElementById(`qty-${partId}`);
+      if (!input) return;
+      let currentVal = parseInt(input.value) || 1;
+      currentVal = Math.max(1, currentVal + delta);
+      input.value = currentVal;
+    }
+
+    // Add to cart requisition
+    function addToRequisition(partId, pn, name, unitPrice, bin) {
+      const qtyInput = document.getElementById(`qty-${partId}`);
+      const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+
+      const existingIndex = cart.findIndex(item => item.id === partId);
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += qty;
+      } else {
+        cart.push({ id: partId, pn: pn, name: name, price: unitPrice, qty: qty, bin: bin });
+      }
+
+      renderCart();
+      showToast(`+${qty} un. de ${pn} agregadas al Carrito de Taller.`);
+      
+      // Auto open drawer briefly or update badge
+      const badge = document.getElementById('requisition-badge');
+      if (badge) {
+        badge.classList.add('animate-bounce');
+        setTimeout(() => badge.classList.remove('animate-bounce'), 1000);
+      }
+    }
+
+    function addAllInStock() {
+      for (let i = 1; i <= 8; i++) {
+        const p = partsData[i];
+        if (!cart.some(item => item.id === i)) {
+          cart.push({ id: i, pn: p.pn, name: p.name, price: p.price, qty: 1, bin: p.bin });
+        }
+      }
+      renderCart();
+      showToast('Todas las 8 piezas OEM agregadas a la requisición.');
+    }
+
+    function removeFromCart(htmlId, itemTotal) {
+      const element = document.getElementById(htmlId);
+      if (element) {
+        element.remove();
+      }
+      // Re-calculate based on remaining
+      const partNum = parseInt(htmlId.replace('cart-item-', ''));
+      cart = cart.filter(item => item.id !== partNum);
+      renderCart();
+      showToast('Pieza removida del carrito.');
+    }
+
+    function renderCart() {
+      const listContainer = document.getElementById('drawer-items-list');
+      const badge = document.getElementById('requisition-badge');
+      
+      let totalCount = 0;
+      let subtotal = 0;
+
+      listContainer.innerHTML = '';
+
+      if (cart.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-10 font-mono text-xs text-text-muted">
+            <span class="material-symbols-outlined text-3xl text-text-faint block mb-2">remove_shopping_cart</span>
+            No hay piezas agregadas a la requisición aún.
+          </div>
+        `;
+      } else {
+        cart.forEach(item => {
+          totalCount += item.qty;
+          const itemTotal = item.price * item.qty;
+          subtotal += itemTotal;
+
+          const itemEl = document.createElement('div');
+          itemEl.className = 'bg-surface-card border border-border-structural rounded p-3 flex flex-col gap-2 relative';
+          itemEl.id = `cart-item-${item.id}`;
+          itemEl.innerHTML = `
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-hazard-gold font-bold bg-hazard-gold/10 px-1.5 py-0.2 rounded border border-hazard-gold/30">#${item.id} FIG</span>
+                <h4 class="font-headline font-bold text-xs text-white mt-1">${item.name}</h4>
+                <div class="text-[11px] font-mono text-text-muted">PN: ${item.pn} (${item.bin})</div>
+              </div>
+              <button onclick="removeFromCart('cart-item-${item.id}', ${itemTotal})" class="text-text-muted hover:text-red-400">
+                <span class="material-symbols-outlined text-sm">delete</span>
+              </button>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-border-subtle font-mono text-xs">
+              <span class="text-text-muted">${item.qty} un x USD $${item.price.toFixed(2)}</span>
+              <span class="text-white font-bold">USD $${itemTotal.toFixed(2)} <span class="text-[10px] text-hazard-gold">(RD$ ${(itemTotal * SPOT_RATE).toLocaleString('en-US', {minimumFractionDigits:2})})</span></span>
+            </div>
+          `;
+          listContainer.appendChild(itemEl);
+        });
+      }
+
+      if (badge) badge.innerText = totalCount;
+
+      const itbis = subtotal * 0.18;
+      const total = subtotal + itbis;
+      const totalDop = total * SPOT_RATE;
+
+      document.getElementById('subtotal-usd').innerText = `USD $${subtotal.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+      document.getElementById('itbis-usd').innerText = `USD $${itbis.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+      document.getElementById('total-usd').innerText = `USD $${total.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+      document.getElementById('total-dop').innerText = `RD$ ${totalDop.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+    }
+
+    // Send Requisition via WhatsApp or Email
+    function sendRequisition(method) {
+      if (cart.length === 0) {
+        showToast('Su carrito está vacío. Agregue piezas antes de enviar.');
+        return;
+      }
+      
+      let summary = "ORDEN DE REPUESTOS OEM - TMD DOMINICANA (KM 22)%0A";
+      summary += "========================================%0A";
+      let totalUsd = 0;
+      cart.forEach(item => {
+        const itemTot = item.price * item.qty;
+        totalUsd += itemTot;
+        summary += `- [${item.qty} un] ${item.pn}: ${item.name} ($${itemTot.toFixed(2)} USD)%0A`;
+      });
+      const totalConItbis = totalUsd * 1.18;
+      summary += "========================================%0A";
+      summary += `TOTAL ESTIMADO CON ITBIS: $${totalConItbis.toFixed(2)} USD (RD$ ${(totalConItbis * SPOT_RATE).toFixed(2)})%0A`;
+      summary += "Despacho solicitado para Almacén Central Km 22.";
+
+      if (method === 'whatsapp') {
+        window.open(`https://wa.me/18098262222?text=${summary}`, '_blank');
+      } else {
+        window.location.href = `mailto:repuestos@tmd.com.do?subject=Requisicion%20de%20Repuestos%20OEM%20TMD&body=${summary.replace(/%0A/g, '%0D%0A')}`;
+      }
+      showToast('Requisición procesada y lista para despacho en Km 22.');
+    }
+
+    // Toast Notification helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
