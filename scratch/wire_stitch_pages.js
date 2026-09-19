@@ -82,15 +82,19 @@ files.forEach(file => {
   html = html.replace(/href="#"([^>]*>[\s\S]*?JCB 3CX Eco 4x4)/gi, 'href="ficha_tecnica_jcb_3cx.html"$1');
   html = html.replace(/href="#"([^>]*>[\s\S]*?JCB 220X Tracked)/gi, 'href="ficha_tecnica_jcb_220x.html"$1');
   html = html.replace(/href="#"([^>]*>[\s\S]*?Ver Ficha JCB 220X)/gi, 'href="ficha_tecnica_jcb_220x.html"$1');
+  html = html.replace(/href="#"([^>]*>[\s\S]*?LiuGong 922E HD)/gi, 'href="ficha_tecnica_liugong_856h.html"$1');
+  html = html.replace(/href="#"([^>]*>[\s\S]*?LiuGong 856H)/gi, 'href="ficha_tecnica_liugong_856h.html"$1');
+  html = html.replace(/href="#"([^>]*>[\s\S]*?LS MT7 Series)/gi, 'href="ficha_tecnica_ls_mt7.html"$1');
+  html = html.replace(/href="#"([^>]*>[\s\S]*?LS MT7)/gi, 'href="ficha_tecnica_ls_mt7.html"$1');
 
   // 5. Mega Menu hashes
   if (file === 'mega_menu_navegacion.html') {
     html = html.replace(/href="#jcb-220x"/g, 'href="ficha_tecnica_jcb_220x.html"');
     html = html.replace(/href="#jcb-3cx"/g, 'href="ficha_tecnica_jcb_3cx.html"');
-    html = html.replace(/href="#liugong-922e"/g, 'href="tienda_maquinaria_repuestos.html#mineria"');
+    html = html.replace(/href="#liugong-922e"/g, 'href="ficha_tecnica_liugong_856h.html"');
     html = html.replace(/href="#catalogo-completo"/g, 'href="tienda_maquinaria_repuestos.html"');
-    html = html.replace(/href="#ls-mt7"/g, 'href="tienda_maquinaria_repuestos.html#agro"');
-    html = html.replace(/href="#linea-agricola"/g, 'href="tienda_maquinaria_repuestos.html#agro"');
+    html = html.replace(/href="#ls-mt7"/g, 'href="ficha_tecnica_ls_mt7.html"');
+    html = html.replace(/href="#linea-agricola"/g, 'href="ficha_tecnica_ls_mt7.html"');
     html = html.replace(/href="#lab-diesel"/g, 'href="servicio_tecnico_overhaul_km22.html#laboratorio"');
     html = html.replace(/href="#banco-hidraulico"/g, 'href="servicio_tecnico_overhaul_km22.html#banco-pruebas"');
     html = html.replace(/href="#agendar-bahia"/g, 'href="servicio_tecnico_overhaul_km22.html#solicitud-servicio"');
