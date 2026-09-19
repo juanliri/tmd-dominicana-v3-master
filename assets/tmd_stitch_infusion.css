@@ -1,8 +1,99 @@
 /* ═════════════════════════════════════════════════════════════════════════════
-   TMD DOMINICANA 2026 — STITCH V2 SECTIONS INFUSION SUITE
+   TMD DOMINICANA 2026 — MASTER STITCH INFUSION & AESTHETIC ELEVATION SUITE
    Zero-Blues Industrial Architecture | Dark/Light Harmonic Design System
+   Layered Glassmorphism · Ambient Volumetric Depth · Zero Square Corners (2px-20px)
    Hazard Gold (#f59e0b / #ffb800) · Telemetry Emerald (#10b981) · Pure Black (#000000)
 ═════════════════════════════════════════════════════════════════════════════ */
+
+/* ── 0. GLOBAL STRICT ZERO-SQUARE-CORNERS ENGINE (2px - 20px) ── */
+/* Rule: No single square corner anywhere in the entire site */
+html body * {
+  /* Prevent sharp 0px border radius on bordered / surfaced elements */
+}
+
+/* Base interactive elements: 10px - 14px */
+button, 
+.btn, 
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="date"],
+select, 
+textarea {
+  border-radius: 12px !important;
+}
+
+/* Pills, tags and micro badges: 6px - 10px or smooth capsule (max 20px) */
+.font-label-badge,
+.badge,
+.tag,
+span.rounded,
+div.rounded {
+  border-radius: 8px !important;
+}
+
+/* Force elements with rounded-none or rounded-sm to have at least 6px - 12px */
+.rounded-none {
+  border-radius: 10px !important;
+}
+.rounded-sm {
+  border-radius: 8px !important;
+}
+.rounded-md {
+  border-radius: 12px !important;
+}
+.rounded-lg {
+  border-radius: 14px !important;
+}
+.rounded-xl {
+  border-radius: 16px !important;
+}
+.rounded-2xl {
+  border-radius: 18px !important;
+}
+.rounded-3xl,
+.rounded-\[28px\],
+.rounded-\[32px\] {
+  border-radius: 20px !important;
+}
+.rounded-full {
+  border-radius: 20px !important; /* Cap pills at 20px or maintain ergonomic capsule */
+}
+
+/* Cards & Structural Containers: 16px - 20px */
+.machinery-card,
+.tmd-bay-card,
+.tmd-bank-card,
+.bg-surface-charcoal,
+.bg-surface-elevated,
+.bg-surface-container,
+.bg-surface-container-high,
+.bg-surface-container-low,
+.bg-surface-dim,
+div[class*="shadow-lg"],
+div[class*="shadow-xl"],
+div[class*="shadow-2xl"] {
+  border-radius: 18px !important;
+}
+
+/* Modal Windows: Max 20px */
+.tmd-dvi-modal-card,
+[role="dialog"] > div,
+#tmd-client-portal-modal,
+.modal-box {
+  border-radius: 20px !important;
+}
+
+/* Images, Media & Canvas */
+img,
+video,
+canvas,
+.tmd-cad-grid {
+  border-radius: 14px !important;
+}
 
 /* ── 1. STITCH DESIGN TOKEN COMPATIBILITY LAYER ── */
 
@@ -18,28 +109,73 @@
 .font-telemetry-data-md { font-family: 'JetBrains Mono', monospace !important; font-size: 0.88rem !important; }
 .font-telemetry-data-lg { font-family: 'JetBrains Mono', monospace !important; font-size: 1.4rem !important; font-weight: 700 !important; }
 
-/* Color & Surface Tokens (Dark Mode Default) */
-html.dark .bg-surface-container-lowest { background-color: #000000 !important; }
-html.dark .bg-surface-charcoal { background-color: #14171d !important; }
-html.dark .bg-surface-elevated { background-color: #1a1f26 !important; }
-html.dark .bg-surface-container { background-color: #1e2023 !important; }
-html.dark .bg-surface-container-high { background-color: #282a2d !important; }
-html.dark .bg-surface-container-low { background-color: #1a1c1f !important; }
-html.dark .bg-surface-dim { background-color: #111317 !important; }
+/* Layered Glass Surface Tokens (Dark Mode Default) */
+html.dark .bg-surface-container-lowest { 
+  background-color: #06080a !important; 
+}
 
-html.dark .border-border-structural { border-color: rgba(255, 255, 255, 0.12) !important; }
-html.dark .border-border-subtle { border-color: rgba(255, 255, 255, 0.07) !important; }
+html.dark .bg-surface-charcoal { 
+  background: linear-gradient(145deg, rgba(22, 26, 35, 0.78) 0%, rgba(10, 12, 17, 0.9) 100%) !important; 
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.09) !important;
+}
+
+html.dark .bg-surface-elevated { 
+  background: linear-gradient(145deg, rgba(28, 33, 44, 0.75) 0%, rgba(14, 17, 23, 0.85) 100%) !important; 
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .bg-surface-container { 
+  background: rgba(22, 26, 35, 0.7) !important; 
+  backdrop-filter: blur(16px) !important;
+}
+
+html.dark .bg-surface-container-high { 
+  background: rgba(32, 38, 50, 0.75) !important; 
+  backdrop-filter: blur(16px) !important;
+}
+
+html.dark .bg-surface-container-low { 
+  background: rgba(14, 17, 24, 0.65) !important; 
+  backdrop-filter: blur(16px) !important;
+}
+
+html.dark .bg-surface-dim { 
+  background: rgba(9, 11, 15, 0.85) !important; 
+}
+
+/* Subtle, Layered Borders (No harsh lines) */
+html.dark .border-border-structural { 
+  border-color: rgba(255, 255, 255, 0.08) !important; 
+}
+html.dark .border-border-subtle { 
+  border-color: rgba(255, 255, 255, 0.04) !important; 
+}
 
 html.dark .text-canvas-offwhite { color: #f8fafc !important; }
-html.dark .text-on-surface { color: #e2e2e6 !important; }
-html.dark .text-on-surface-variant { color: #d5c4ab !important; }
-html.dark .text-secondary { color: #c2c6d3 !important; }
-html.dark .text-text-muted { color: #94a3b8 !important; }
+html.dark .text-on-surface { color: #f1f5f9 !important; }
+html.dark .text-on-surface-variant { color: #cbd5e1 !important; }
+html.dark .text-secondary { color: #94a3b8 !important; }
+html.dark .text-text-muted { color: #64748b !important; }
 
 /* Color & Surface Tokens (Light Mode Override) */
 html:not(.dark) .bg-surface-container-lowest { background-color: #ffffff !important; }
-html:not(.dark) .bg-surface-charcoal { background-color: #f8fafc !important; }
-html:not(.dark) .bg-surface-elevated { background-color: #ffffff !important; }
+html:not(.dark) .bg-surface-charcoal { 
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%) !important; 
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08) !important;
+}
+html:not(.dark) .bg-surface-elevated { 
+  background: #ffffff !important; 
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
 html:not(.dark) .bg-surface-container { background-color: #f1f5f9 !important; }
 html:not(.dark) .bg-surface-container-high { background-color: #e2e8f0 !important; }
 html:not(.dark) .bg-surface-container-low { background-color: #f8fafc !important; }
@@ -54,28 +190,92 @@ html:not(.dark) .text-on-surface-variant { color: #475569 !important; }
 html:not(.dark) .text-secondary { color: #475569 !important; }
 html:not(.dark) .text-text-muted { color: #64748b !important; }
 
-/* Universal Brand Colors (Zero Blues) */
+/* ── 2. UNIVERSAL BRAND COLORS & SCULPTED BUTTONS (Zero Blues) ── */
 .text-primary-container { color: #f59e0b !important; }
-.bg-primary-container { background-color: #f59e0b !important; color: #000000 !important; }
-.bg-hazard-gold-active { background-color: #d97706 !important; color: #000000 !important; }
+
+/* Sculpted Hazard Gold Buttons (Layered Gradient & Inset Bevel) */
+.bg-primary-container,
+button.bg-primary-container,
+a.bg-primary-container { 
+  background: linear-gradient(135deg, #ffb800 0%, #f59e0b 55%, #d97706 100%) !important; 
+  color: #000000 !important; 
+  font-weight: 700 !important;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bg-primary-container:hover,
+button.bg-primary-container:hover,
+a.bg-primary-container:hover {
+  background: linear-gradient(135deg, #ffc526 0%, #fbbf24 55%, #e6850b 100%) !important;
+  box-shadow: 0 8px 26px rgba(245, 158, 11, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  transform: translateY(-1px);
+}
+
+.bg-primary-container:active,
+button.bg-primary-container:active,
+a.bg-primary-container:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.bg-hazard-gold-active { 
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; 
+  color: #000000 !important; 
+}
 .text-on-primary-container { color: #000000 !important; }
 .text-on-primary { color: #000000 !important; }
 
 .text-telemetry-emerald { color: #10b981 !important; }
-.bg-telemetry-emerald { background-color: #10b981 !important; }
+.bg-telemetry-emerald { 
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important; 
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3) !important;
+}
 .text-tertiary-container { color: #10b981 !important; }
 .text-alert-critical { color: #ef4444 !important; }
 .bg-alert-critical { background-color: #ef4444 !important; color: #ffffff !important; }
 
-/* Spacing tokens */
-.p-space-lg { padding: 1.5rem !important; }
-.p-space-md { padding: 1rem !important; }
-.gap-space-sm { gap: 0.5rem !important; }
-.gap-space-xs { gap: 0.25rem !important; }
-.mt-space-md { margin-top: 1rem !important; }
-.mt-space-xs { margin-top: 0.25rem !important; }
+/* Frosted Form Inputs (No Flat Rectangles) */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="date"],
+select,
+textarea {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
 
-/* ── 2. CAD SCHEMATIC BLUEPRINT STYLES ── */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #f59e0b !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ── 3. CAD SCHEMATIC BLUEPRINT STYLES ── */
 .tmd-cad-grid {
   background-image: 
     linear-gradient(rgba(245, 158, 11, 0.04) 1px, transparent 1px),
@@ -112,32 +312,50 @@ html:not(.dark) .tmd-cad-grid {
 }
 
 .tmd-bom-row {
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  border-radius: 12px !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
 .tmd-bom-row.active {
-  background-color: rgba(245, 158, 11, 0.15) !important;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.05) 100%) !important;
   border-left: 4px solid #f59e0b !important;
 }
 
-html:not(.dark) .tmd-bom-row.active {
-  background-color: rgba(245, 158, 11, 0.12) !important;
-  border-left: 4px solid #d97706 !important;
-}
-
-/* ── 3. 18-BAY WORKSHOP & MOBILE FLEET ── */
+/* ── 4. 18-BAY WORKSHOP & MOBILE FLEET ── */
 .tmd-bay-card {
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 18px !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .tmd-bay-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: rgba(245, 158, 11, 0.6) !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.75), 0 0 25px rgba(245, 158, 11, 0.18) !important;
 }
 
-/* ── 4. DOMINICAN LEASING & TAX SHIELD ENGINE ── */
+/* Radio button card options in booking cockpit */
+.tmd-radio-card {
+  border-radius: 14px !important;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.tmd-radio-card:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+}
+
+.tmd-radio-card.active,
+.tmd-radio-card:has(input:checked) {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.04) 100%) !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2) !important;
+}
+
+/* ── 5. DOMINICAN LEASING & TAX SHIELD ENGINE ── */
 .tmd-bank-card {
+  border-radius: 16px !important;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -145,14 +363,14 @@ html:not(.dark) .tmd-bom-row.active {
 
 .tmd-bank-card.active {
   border-color: #f59e0b !important;
-  background: rgba(245, 158, 11, 0.08) !important;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.03) 100%) !important;
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.25) !important;
 }
 
 html:not(.dark) .tmd-bank-card.active {
-  background: rgba(245, 158, 11, 0.06) !important;
+  background: rgba(245, 158, 11, 0.08) !important;
   border-color: #d97706 !important;
-  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.2);
 }
 
 .tmd-slider {
@@ -160,8 +378,8 @@ html:not(.dark) .tmd-bank-card.active {
   appearance: none;
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 20px !important;
   outline: none;
 }
 
@@ -172,27 +390,27 @@ html:not(.dark) .tmd-slider {
 .tmd-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #f59e0b;
+  width: 22px;
+  height: 22px;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #ffb800 0%, #f59e0b 100%);
   cursor: pointer;
   border: 2px solid #000000;
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
-  transition: transform 0.1s ease;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.7);
+  transition: transform 0.12s ease;
 }
 
 .tmd-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+  transform: scale(1.25);
 }
 
-/* ── 5. PUBLIC DVI WORK ORDER TRACKER MODAL ── */
+/* ── 6. PUBLIC DVI WORK ORDER TRACKER MODAL ── */
 #tmd-dvi-modal-overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 999999;
   display: flex;
   align-items: center;
@@ -213,10 +431,10 @@ html:not(.dark) .tmd-slider {
   max-width: 1100px;
   max-height: 92vh;
   overflow-y: auto;
-  border-radius: 16px;
-  background: #09090b;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.15);
+  border-radius: 20px !important;
+  background: linear-gradient(145deg, rgba(22, 26, 36, 0.96) 0%, rgba(10, 12, 18, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.95), 0 0 40px rgba(245, 158, 11, 0.2);
   transform: scale(0.96);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -231,3 +449,77 @@ html:not(.dark) .tmd-dvi-modal-card {
   color: #0f172a;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
+
+/* ── 7. STITCH TRANSFERRED MODULES STYLING ── */
+
+/* A. TCO Calculator Controls & Receipt */
+.calc-day-btn {
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+.calc-day-btn.active,
+.calc-day-btn[data-active="true"] {
+  background: linear-gradient(135deg, #ffb800 0%, #f59e0b 100%) !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4) !important;
+  border-color: transparent !important;
+}
+
+/* B. Fast Industry Filter Cards */
+.tmd-industry-card {
+  border-radius: 18px !important;
+  background: linear-gradient(145deg, rgba(24, 28, 38, 0.7) 0%, rgba(12, 14, 20, 0.85) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tmd-industry-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(245, 158, 11, 0.15) !important;
+}
+
+.tmd-industry-card.active {
+  border-color: #f59e0b !important;
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.16) 0%, rgba(18, 22, 30, 0.9) 100%) !important;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.25) !important;
+}
+
+/* C. Caribbean Tropicalized Engineering Cards */
+.tmd-tropical-card {
+  border-radius: 16px !important;
+  background: linear-gradient(145deg, rgba(24, 28, 38, 0.65) 0%, rgba(12, 14, 20, 0.82) 100%) !important;
+  backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.5) !important;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tmd-tropical-card:hover {
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  transform: translateY(-2px);
+}
+
+/* D. DGII Fiscal RNC Module */
+.tmd-dgii-card {
+  border-radius: 20px !important;
+  background: linear-gradient(145deg, rgba(26, 30, 42, 0.75) 0%, rgba(12, 15, 22, 0.92) 100%) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* E. Dominican Map Hub Markers */
+.tmd-map-hub-pin {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+.tmd-map-hub-pin:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.8));
+}
+

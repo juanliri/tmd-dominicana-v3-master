@@ -826,7 +826,740 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 6. TOP UTILITY BAR LINK INJECTION
+  // 6. MODULE 1: ESTIMADOR INTELIGENTE DE COSTOS OPERATIVOS (TCO) & ALQUILER
+  // ─────────────────────────────────────────────────────────────────────────────
+  var _tcoDays = 7;
+  var _tcoDailyRate = 220;
+  var _tcoTransport = 250;
+  var _tcoOperator = true;
+  var _tcoFuel = false;
+
+  window.tmdSetTcoDays = function (days) {
+    _tcoDays = parseInt(days, 10);
+    document.querySelectorAll('.calc-day-btn').forEach(function (btn) {
+      if (parseInt(btn.getAttribute('data-days'), 10) === _tcoDays) {
+        btn.classList.add('active');
+        btn.setAttribute('data-active', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.removeAttribute('data-active');
+      }
+    });
+    window.tmdUpdateTcoCalc();
+  };
+
+  window.tmdUpdateTcoCalc = function () {
+    var eqSelect = document.getElementById('calc-equipment');
+    if (eqSelect) {
+      _tcoDailyRate = parseFloat(eqSelect.value) || 220;
+    }
+
+    var distRadio = document.querySelector('input[name="tmd_distance"]:checked');
+    if (distRadio) {
+      _tcoTransport = parseFloat(distRadio.value) || 250;
+    }
+
+    var opCheck = document.getElementById('add-operator');
+    if (opCheck) _tcoOperator = opCheck.checked;
+
+    var fuelCheck = document.getElementById('add-fuel');
+    if (fuelCheck) _tcoFuel = fuelCheck.checked;
+
+    // Calculations
+    var discountPct = _tcoDays >= 30 ? 0.30 : (_tcoDays >= 15 ? 0.20 : (_tcoDays >= 7 ? 0.15 : 0.0));
+    var rawSubtotal = _tcoDailyRate * _tcoDays;
+    var discountAmount = rawSubtotal * discountPct;
+    var netRental = rawSubtotal - discountAmount;
+    var operatorCost = _tcoOperator ? (45 * _tcoDays) : 0;
+    var fuelCost = _tcoFuel ? (125 * _tcoDays) : 0;
+    var totalUsd = Math.round(netRental + _tcoTransport + operatorCost + fuelCost);
+    var totalDop = Math.round(totalUsd * 59.50);
+
+    // Update DOM
+    var elDaily = document.getElementById('rec-daily');
+    if (elDaily) elDaily.innerText = 'US$ ' + _tcoDailyRate.toFixed(2);
+
+    var elDiscount = document.getElementById('rec-discount');
+    var elBadge = document.getElementById('duration-badge');
+    if (elDiscount) {
+      elDiscount.innerText = discountAmount > 0 ? '-US$ ' + discountAmount.toFixed(2) : '$0.00';
+    }
+    if (elBadge) {
+      elBadge.innerText = discountPct > 0 ? '-' + (discountPct * 100) + '% Descuento Aplicado' : 'Tarifa Regular';
+    }
+
+    var elSubLabel = document.getElementById('rec-subtotal-label');
+    if (elSubLabel) elSubLabel.innerText = 'Subtotal Alquiler (' + _tcoDays + ' días):';
+
+    var elSub = document.getElementById('rec-subtotal');
+    if (elSub) elSub.innerText = 'US$ ' + netRental.toFixed(2);
+
+    var elTrans = document.getElementById('rec-transport');
+    if (elTrans) elTrans.innerText = 'US$ ' + _tcoTransport.toFixed(2);
+
+    var elOp = document.getElementById('rec-operator');
+    if (elOp) elOp.innerText = 'US$ ' + operatorCost.toFixed(2);
+
+    var elFuelRow = document.getElementById('fuel-row');
+    var elFuelVal = document.getElementById('rec-fuel-val');
+    if (elFuelRow && elFuelVal) {
+      if (_tcoFuel) {
+        elFuelRow.classList.remove('hidden');
+        elFuelRow.classList.add('flex');
+        elFuelVal.innerText = 'US$ ' + fuelCost.toFixed(2);
+      } else {
+        elFuelRow.classList.add('hidden');
+        elFuelRow.classList.remove('flex');
+      }
+    }
+
+    var elTotal = document.getElementById('rec-total');
+    if (elTotal) elTotal.innerText = '$' + totalUsd.toLocaleString('en-US');
+
+    var elTotalDop = document.getElementById('rec-total-dop');
+    if (elTotalDop) elTotalDop.innerText = '≈ RD$ ' + totalDop.toLocaleString('es-DO');
+  };
+
+  function renderTcoEstimatorModule() {
+    return `
+      <section id="tmd-tco-estimator-infusion" class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-12 my-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-[8px] bg-amber-500/10 border border-amber-500/25 text-amber-500 font-mono text-xs uppercase tracking-widest mb-3">
+            <span class="material-symbols-outlined text-[16px]">calculate</span>
+            Calculadora de Tarifas & Alquiler RD
+          </div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight">
+            Estimador Inteligente de <span class="text-amber-500">Costos Operativos</span>
+          </h2>
+          <p class="text-sm sm:text-base text-neutral-400 mt-2">
+            Calcule al instante el costo de arrendamiento de equipos pesados con transporte Lowboy, operador certificado TMD y combustible diésel.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Controls (7 cols) -->
+          <div class="lg:col-span-7 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#181c26]/90 to-[#0b0d13]/95 backdrop-blur-[24px] border border-white/8 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.1)] flex flex-col gap-6">
+            <!-- 1. Equipo -->
+            <div class="flex flex-col gap-2">
+              <label class="text-xs font-mono uppercase text-neutral-400">1. Seleccione el Equipo Deseado</label>
+              <select id="calc-equipment" onchange="window.tmdUpdateTcoCalc()" class="w-full px-4 py-3.5 rounded-[12px] bg-white/[0.04] backdrop-blur-md border border-white/10 text-white font-body-sm focus:border-amber-500 focus:outline-none transition-all shadow-inner">
+                <option value="380">Excavadora Hidráulica 22 Ton (LiuGong 922E / CAT 320) — US$380/día</option>
+                <option value="220" selected>Retroexcavadora 4x4 JCB 3CX Eco (92 HP) — US$220/día</option>
+                <option value="290">Rodillo Compactador Monocilíndrico 12 Ton — US$290/día</option>
+                <option value="340">Telehandler Telescópico JCB 531-70 (3.1 Ton) — US$340/día</option>
+                <option value="190">Tractor Agrícola Doble Tracción LS MT7 140HP — US$190/día</option>
+              </select>
+              <span class="text-xs text-amber-500 flex items-center gap-1.5 pt-0.5">
+                <span class="material-symbols-outlined text-[14px]">info</span>
+                Recomendado para corte de terrenos, zanjeado industrial y canteras de agregados.
+              </span>
+            </div>
+
+            <!-- 2. Duración -->
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-mono uppercase text-neutral-400">2. Duración del Alquiler</label>
+                <span id="duration-badge" class="px-2.5 py-0.5 rounded-[6px] bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold border border-emerald-500/30">
+                  -15% Descuento Aplicado
+                </span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                <button type="button" data-days="3" onclick="window.tmdSetTcoDays(3)" class="calc-day-btn py-3 px-2 rounded-[12px] bg-white/[0.03] hover:bg-white/[0.08] text-white text-xs font-bold text-center transition-all cursor-pointer">
+                  3 Días
+                </button>
+                <button type="button" data-days="7" data-active="true" onclick="window.tmdSetTcoDays(7)" class="calc-day-btn active py-3 px-2 rounded-[12px] text-black text-xs font-bold text-center transition-all cursor-pointer">
+                  7 Días (-15%)
+                </button>
+                <button type="button" data-days="15" onclick="window.tmdSetTcoDays(15)" class="calc-day-btn py-3 px-2 rounded-[12px] bg-white/[0.03] hover:bg-white/[0.08] text-white text-xs font-bold text-center transition-all cursor-pointer">
+                  15 Días (-20%)
+                </button>
+                <button type="button" data-days="30" onclick="window.tmdSetTcoDays(30)" class="calc-day-btn py-3 px-2 rounded-[12px] bg-white/[0.03] hover:bg-white/[0.08] text-white text-xs font-bold text-center transition-all cursor-pointer">
+                  30+ Días (-30%)
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Transporte Lowboy -->
+            <div class="flex flex-col gap-2">
+              <label class="text-xs font-mono uppercase text-neutral-400">3. Distancia Transporte Lowboy (Ida y Retorno desde Km 22)</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <label class="tmd-radio-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
+                  <input type="radio" name="tmd_distance" value="250" checked onchange="window.tmdUpdateTcoCalc()" class="accent-primary-container w-4 h-4">
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white">Gran Santo Domingo</span>
+                    <span class="text-[11px] text-neutral-400">15-30km (+US$250)</span>
+                  </div>
+                </label>
+                <label class="tmd-radio-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
+                  <input type="radio" name="tmd_distance" value="550" onchange="window.tmdUpdateTcoCalc()" class="accent-primary-container w-4 h-4">
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white">Santiago / Cibao</span>
+                    <span class="text-[11px] text-neutral-400">140km (+US$550)</span>
+                  </div>
+                </label>
+                <label class="tmd-radio-card p-3 rounded-[14px] flex items-center gap-2.5 cursor-pointer">
+                  <input type="radio" name="tmd_distance" value="700" onchange="window.tmdUpdateTcoCalc()" class="accent-primary-container w-4 h-4">
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white">Punta Cana / Este</span>
+                    <span class="text-[11px] text-neutral-400">190km (+US$700)</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- 4. Servicios Auxiliares -->
+            <div class="flex flex-col gap-2 pt-1">
+              <label class="text-xs font-mono uppercase text-neutral-400">4. Servicios Auxiliares en Obra</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="p-3.5 rounded-[14px] bg-white/[0.03] border border-white/8 hover:border-amber-500/40 flex items-center gap-3 cursor-pointer transition-all">
+                  <input type="checkbox" id="add-operator" checked onchange="window.tmdUpdateTcoCalc()" class="w-4 h-4 accent-primary-container">
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white">Operador Certificado TMD</span>
+                    <span class="text-[11px] text-neutral-400">+US$ 45 / día de faena</span>
+                  </div>
+                </label>
+                <label class="p-3.5 rounded-[14px] bg-white/[0.03] border border-white/8 hover:border-amber-500/40 flex items-center gap-3 cursor-pointer transition-all">
+                  <input type="checkbox" id="add-fuel" onchange="window.tmdUpdateTcoCalc()" class="w-4 h-4 accent-primary-container">
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold text-white">Suministro Diario Diésel 1</span>
+                    <span class="text-[11px] text-neutral-400">50 gal / día (tarifa MICM)</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Receipt Sidebar (5 cols) -->
+          <div class="lg:col-span-5 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#1c2230]/90 to-[#0d1017]/95 backdrop-blur-[24px] border border-amber-500/30 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.12)] flex flex-col justify-between gap-6">
+            <div class="flex flex-col gap-5">
+              <div class="flex items-center justify-between pb-4 border-b border-white/8">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span class="text-xs font-mono font-bold uppercase text-white tracking-wider">Presupuesto Estimado</span>
+                </div>
+                <span class="text-[11px] font-mono text-neutral-400">VALIDEZ: 48 HORAS</span>
+              </div>
+
+              <!-- Breakdown Table -->
+              <div class="flex flex-col gap-3 font-mono text-xs text-neutral-300">
+                <div class="flex items-center justify-between">
+                  <span>Tarifa Diaria Base:</span>
+                  <span id="rec-daily" class="font-bold text-white">US$ 220.00</span>
+                </div>
+                <div class="flex items-center justify-between text-emerald-400 font-semibold">
+                  <span>Descuento Volumen (15%):</span>
+                  <span id="rec-discount">-US$ 231.00</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span id="rec-subtotal-label">Subtotal Alquiler (7 días):</span>
+                  <span id="rec-subtotal" class="font-bold text-white">US$ 1,309.00</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Transporte Cama Baja:</span>
+                  <span id="rec-transport" class="font-bold text-white">US$ 250.00</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Operador TMD Certificado:</span>
+                  <span id="rec-operator" class="font-bold text-white">US$ 315.00</span>
+                </div>
+                <div id="fuel-row" class="hidden items-center justify-between text-amber-400">
+                  <span>Combustible Diésel Previsto:</span>
+                  <span id="rec-fuel-val" class="font-bold">US$ 0.00</span>
+                </div>
+              </div>
+
+              <!-- Total Callout -->
+              <div class="p-5 rounded-[16px] bg-white/[0.04] border border-amber-500/25 flex flex-col items-center justify-center text-center shadow-inner">
+                <span class="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">Inversión Total Estimada</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span id="rec-total" class="text-3xl sm:text-4xl font-extrabold text-amber-400 font-mono tracking-tight">$1,874</span>
+                  <span class="text-xs font-mono text-neutral-400 font-bold">USD</span>
+                </div>
+                <span id="rec-total-dop" class="text-xs font-mono text-emerald-400 mt-1 font-semibold">≈ RD$ 111,503 DOP</span>
+                <span class="text-[10px] text-neutral-400 mt-2">No incluye ITBIS (18%) • Facturación electrónica con Crédito Fiscal e-CF B01 disponible.</span>
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-col gap-3 pt-2">
+              <button type="button" onclick="window.tmdTriggerQuoteModal()" class="w-full py-4 px-6 rounded-[14px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs font-bold uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2 cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                <span>Reservar Flota / Agendar Alquiler</span>
+              </button>
+              <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, solicito una Proforma Oficial para alquiler de equipo según el Estimador Web.')}" target="_blank" class="w-full py-3 px-4 rounded-[12px] bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs font-mono uppercase text-center border border-white/10 transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">file_download</span>
+                <span>Solicitar Proforma Oficial PDF</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 7. MODULE 2: RADAR NACIONAL DE COBERTURA 32 PROVINCIAS & TELEMETRÍA LIVELINK
+  // ─────────────────────────────────────────────────────────────────────────────
+  var _hubsData = {
+    km22: {
+      title: 'Sede Central & Taller Principal Km 22',
+      address: 'Autopista Duarte Km 22, La Guáyiga, Santo Domingo Oeste',
+      eta: '< 2 Horas en Gran Santo Domingo',
+      phone: '(809) 826-2222',
+      services: ['Showroom principal 0km', 'Banco hidrostático 6,000 PSI', 'Almacén central repuestos Bin C-04', '18 Bahías de servicio pesado'],
+      latTop: '52%',
+      latLeft: '54%'
+    },
+    santiago: {
+      title: 'Hub Norte Cibao (Santiago)',
+      address: 'Autopista Joaquín Balaguer Km 3, Santiago de los Caballeros',
+      eta: '< 2.5 Horas en Valle del Cibao',
+      phone: '(809) 826-2223',
+      services: ['Base móvil para canteras y minería', 'Especialistas en tractores agrícolas LS', 'Diagnóstico LiveLink in situ', 'Taller rápido de mangueras hidráulicas'],
+      latTop: '35%',
+      latLeft: '45%'
+    },
+    puntacana: {
+      title: 'Hub Este (Punta Cana / Verón)',
+      address: 'Boulevard Turístico del Este Km 14, Punta Cana',
+      eta: '< 3 Horas en Corredor Hotelero',
+      phone: '(809) 826-2224',
+      services: ['Soporte a proyectos viales y aeroportuarios', 'Generadores y telehandlers JCB', 'Camioneta 4x4 con crimpadora 2"', 'Despacho nocturno programado'],
+      latTop: '50%',
+      latLeft: '82%'
+    },
+    sur: {
+      title: 'Hub Sur (Haina & Barahona)',
+      address: 'Carretera Sánchez Km 12, Haina / Enlace Barahona',
+      eta: '< 3.5 Horas en Región Suroeste',
+      phone: '(809) 826-2225',
+      services: ['Atención a canteras de caliza y yeso', 'Excavadoras de minería LiuGong 22T', 'Monitoreo satelital continuo', 'Flota móvil de auxilio 24/7'],
+      latTop: '60%',
+      latLeft: '48%'
+    }
+  };
+
+  window.tmdSelectMapHub = function (hubKey) {
+    var data = _hubsData[hubKey];
+    if (!data) return;
+
+    var elTitle = document.getElementById('tmd-hub-title');
+    var elAddr = document.getElementById('tmd-hub-address');
+    var elEta = document.getElementById('tmd-hub-eta');
+    var elPhone = document.getElementById('tmd-hub-phone');
+    var elServices = document.getElementById('tmd-hub-services');
+
+    if (elTitle) elTitle.innerText = data.title;
+    if (elAddr) elAddr.innerText = data.address;
+    if (elEta) elEta.innerText = data.eta;
+    if (elPhone) elPhone.innerText = data.phone;
+
+    if (elServices) {
+      elServices.innerHTML = data.services.map(function (s) {
+        return `<div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>${s}</div>`;
+      }).join('');
+    }
+
+    document.querySelectorAll('.tmd-hub-marker-btn').forEach(function (btn) {
+      if (btn.getAttribute('data-hub') === hubKey) {
+        btn.classList.add('ring-2', 'ring-amber-500');
+      } else {
+        btn.classList.remove('ring-2', 'ring-amber-500');
+      }
+    });
+  };
+
+  function renderNationalCoverageModule() {
+    return `
+      <section id="tmd-national-coverage-infusion" class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-12 my-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-[8px] bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-xs uppercase tracking-widest mb-3">
+            <span class="material-symbols-outlined text-[16px]">map</span>
+            Cobertura & Logística Nacional
+          </div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight">
+            Red de Servicio en Toda la <span class="text-amber-500">República Dominicana</span>
+          </h2>
+          <p class="text-sm sm:text-base text-neutral-400 mt-2">
+            Garantizamos tiempos de respuesta mínimos ante emergencias mecánicas y despacho continuo de repuestos a las 32 provincias.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <!-- Graphic Map Stage (7 cols) -->
+          <div class="lg:col-span-7 p-6 rounded-[20px] bg-gradient-to-b from-[#181c26]/90 to-[#0b0d13]/95 backdrop-blur-[24px] border border-white/8 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.1)] flex flex-col gap-4 relative overflow-hidden">
+            <div class="flex items-center justify-between z-10">
+              <span class="text-xs font-mono font-bold uppercase text-white flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-amber-500 text-[18px]">hub</span>
+                Puntos de Presencia & Patios TMD
+              </span>
+              <span class="px-2.5 py-0.5 rounded-[6px] bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold border border-emerald-500/30">
+                100% COBERTURA REGIONAL
+              </span>
+            </div>
+
+            <!-- DR Map with Pins -->
+            <div class="w-full h-84 rounded-[16px] bg-cover bg-center relative overflow-hidden flex items-center justify-center border border-white/10" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYg3b5VayorCy0GK58I7HJNRKBsfW6cskIId5WOUUxQ_4qKOeU9l-RnVQNP22URGj-ej3JFZ7im0B2-_q8_pCBSEjEwcqyMIgDLCzDJp5WCTDkpnfqmL9ikzZPlRl1avvCRSmxudmMKvLBbOlXcMiKOpepAX1UA6SDtFexcDz8gf4evLWcpSM1LylxDdt9sZnAO-5zB93xKiSMmkZ5BqKJvMUPvc7TG57coSBsUqUbCw0l0oeLoMX60w');">
+              <div class="absolute inset-0 bg-black/70 backdrop-blur-[2px]"></div>
+
+              <!-- Santiago Pin -->
+              <div class="tmd-hub-marker-btn absolute top-[35%] left-[45%] flex flex-col items-center group cursor-pointer" data-hub="santiago" onclick="window.tmdSelectMapHub('santiago')">
+                <div class="px-2.5 py-1 bg-black/80 text-white rounded-[8px] border border-white/20 font-mono text-[10px] font-bold uppercase shadow-lg">Santiago</div>
+                <span class="w-3.5 h-3.5 rounded-full bg-amber-500 animate-ping mt-1"></span>
+              </div>
+
+              <!-- Km 22 Santo Domingo Pin -->
+              <div class="tmd-hub-marker-btn ring-2 ring-amber-500 absolute top-[52%] left-[54%] flex flex-col items-center group cursor-pointer scale-110" data-hub="km22" onclick="window.tmdSelectMapHub('km22')">
+                <div class="px-3 py-1 bg-primary-container text-black font-mono text-[11px] font-bold uppercase rounded-[8px] shadow-xl">
+                  Sede Km 22 (Central)
+                </div>
+                <span class="w-4 h-4 rounded-full bg-emerald-500 border-2 border-black mt-1"></span>
+              </div>
+
+              <!-- Punta Cana Pin -->
+              <div class="tmd-hub-marker-btn absolute top-[50%] left-[82%] flex flex-col items-center group cursor-pointer" data-hub="puntacana" onclick="window.tmdSelectMapHub('puntacana')">
+                <div class="px-2.5 py-1 bg-black/80 text-white rounded-[8px] border border-white/20 font-mono text-[10px] font-bold uppercase shadow-lg">Punta Cana</div>
+                <span class="w-3.5 h-3.5 rounded-full bg-amber-500 mt-1"></span>
+              </div>
+
+              <!-- Sur Pin -->
+              <div class="tmd-hub-marker-btn absolute top-[62%] left-[46%] flex flex-col items-center group cursor-pointer" data-hub="sur" onclick="window.tmdSelectMapHub('sur')">
+                <div class="px-2.5 py-1 bg-black/80 text-white rounded-[8px] border border-white/20 font-mono text-[10px] font-bold uppercase shadow-lg">Sur / Haina</div>
+                <span class="w-3.5 h-3.5 rounded-full bg-amber-500 mt-1"></span>
+              </div>
+            </div>
+
+            <!-- Regional Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-center font-mono text-xs">
+              <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
+                <span class="text-amber-500 font-bold text-base block">100%</span>
+                <span class="text-[10px] text-neutral-400 uppercase">Cobertura País</span>
+              </div>
+              <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
+                <span class="text-emerald-400 font-bold text-base block">&lt; 2-4h</span>
+                <span class="text-[10px] text-neutral-400 uppercase">Respuesta Faena</span>
+              </div>
+              <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
+                <span class="text-white font-bold text-base block">15+</span>
+                <span class="text-[10px] text-neutral-400 uppercase">Vans Taller 4x4</span>
+              </div>
+              <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
+                <span class="text-amber-500 font-bold text-base block">45+</span>
+                <span class="text-[10px] text-neutral-400 uppercase">Técnicos Cert.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Node Breakdown Panel (5 cols) -->
+          <div class="lg:col-span-5 p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#1c2230]/90 to-[#0d1017]/95 backdrop-blur-[24px] border border-amber-500/25 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] flex flex-col justify-between gap-6">
+            <div class="flex flex-col gap-4">
+              <span class="text-xs font-mono text-amber-500 uppercase tracking-wider">Información de la Sede Seleccionada</span>
+              <h3 id="tmd-hub-title" class="text-xl font-extrabold text-white uppercase leading-snug">Sede Central & Taller Principal Km 22</h3>
+              <p id="tmd-hub-address" class="text-xs text-neutral-300 flex items-start gap-1.5">
+                <span class="material-symbols-outlined text-[16px] text-amber-500 shrink-0">pin_drop</span>
+                Autopista Duarte Km 22, La Guáyiga, Santo Domingo Oeste
+              </p>
+
+              <div class="flex flex-col gap-2 pt-2 font-mono text-xs">
+                <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Capacidades & Servicios:</span>
+                <div id="tmd-hub-services" class="space-y-1.5">
+                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Showroom principal de equipos 0km</div>
+                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Banco de pruebas hidrostático 6,000 PSI</div>
+                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Almacén central repuestos OEM Bin C-04</div>
+                  <div class="flex items-center gap-2 text-white"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>18 Bahías de servicio pesado y dinamómetro</div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
+                <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
+                  <span class="text-[10px] text-neutral-400 uppercase block">Tiempo Respuesta:</span>
+                  <span id="tmd-hub-eta" class="font-bold text-amber-400 text-[11px] block mt-0.5">&lt; 2 Horas Gran Santo Domingo</span>
+                </div>
+                <div class="p-3 rounded-[12px] bg-white/[0.03] border border-white/8">
+                  <span class="text-[10px] text-neutral-400 uppercase block">Línea Directa:</span>
+                  <span id="tmd-hub-phone" class="font-bold text-white text-[11px] block mt-0.5">(809) 826-2222</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo agendar una visita técnica o servicio en la Sede seleccionada.')}" target="_blank" class="w-full py-4 px-6 rounded-[14px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs font-bold uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+              <span>Agendar Servicio en Esta Sede</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 8. MODULE 3: FILTROS RÁPIDOS POR INDUSTRIA / FAENA B2B (#/vehicles)
+  // ─────────────────────────────────────────────────────────────────────────────
+  window.tmdFilterByIndustry = function (industryKey) {
+    document.querySelectorAll('.tmd-industry-card').forEach(function (card) {
+      if (card.getAttribute('data-industry') === industryKey) {
+        card.classList.add('active', 'border-amber-500');
+      } else {
+        card.classList.remove('active', 'border-amber-500');
+      }
+    });
+
+    // Filter cards on the page if present
+    var machineCards = document.querySelectorAll('.machinery-card, #root [class*="card"]');
+    if (machineCards.length > 0 && industryKey !== 'all') {
+      machineCards.forEach(function (mc) {
+        var text = mc.innerText.toLowerCase();
+        var match = false;
+        if (industryKey === 'construccion' && (text.includes('excavadora') || text.includes('retro') || text.includes('jcb') || text.includes('compactador'))) match = true;
+        if (industryKey === 'agricola' && (text.includes('tractor') || text.includes('ls') || text.includes('kubota') || text.includes('agrícola'))) match = true;
+        if (industryKey === 'industrial' && (text.includes('telehandler') || text.includes('loadall') || text.includes('montacarga') || text.includes('generador'))) match = true;
+        if (industryKey === 'mineria' && (text.includes('220x') || text.includes('liugong') || text.includes('oruga') || text.includes('pesada') || text.includes('cantera'))) match = true;
+        if (industryKey === 'repuestos' && (text.includes('filtro') || text.includes('repuesto') || text.includes('bomba') || text.includes('cilindro'))) match = true;
+
+        if (match) {
+          mc.style.display = '';
+        } else {
+          mc.style.display = 'none';
+        }
+      });
+    } else {
+      machineCards.forEach(function (mc) { mc.style.display = ''; });
+    }
+  };
+
+  function renderIndustryB2BFiltersModule() {
+    return `
+      <section id="tmd-industry-filters-infusion" class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2 font-mono text-xs uppercase text-neutral-400">
+            <span class="material-symbols-outlined text-amber-500 text-[18px]">filter_alt</span>
+            <span>Filtrar por Faena & Aplicación Operativa:</span>
+          </div>
+          <button onclick="window.tmdFilterByIndustry('all')" class="text-xs font-mono text-amber-500 hover:underline cursor-pointer">
+            Ver Todo el Stock
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+          <!-- Construcción -->
+          <div data-industry="construccion" onclick="window.tmdFilterByIndustry('construccion')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
+                  <span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">46 Unid.</span>
+              </div>
+              <h4 class="text-sm font-bold text-white uppercase mb-1">Construcción</h4>
+              <p class="text-[11px] text-neutral-400">Retroexcavadoras 3CX, excavadoras de oruga y rodillos.</p>
+            </div>
+            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
+              <span>Filtrar Stock</span>
+              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Agrícola -->
+          <div data-industry="agricola" onclick="window.tmdFilterByIndustry('agricola')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
+                  <span class="material-symbols-outlined text-[22px]">agriculture</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">28 Unid.</span>
+              </div>
+              <h4 class="text-sm font-bold text-white uppercase mb-1">Agrícola</h4>
+              <p class="text-[11px] text-neutral-400">LS Tractor MT7, Kubota y rastras para arroz y caña.</p>
+            </div>
+            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
+              <span>Filtrar Stock</span>
+              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Industrial -->
+          <div data-industry="industrial" onclick="window.tmdFilterByIndustry('industrial')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
+                  <span class="material-symbols-outlined text-[22px]">factory</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">35 Unid.</span>
+              </div>
+              <h4 class="text-sm font-bold text-white uppercase mb-1">Industrial</h4>
+              <p class="text-[11px] text-neutral-400">Telehandlers Loadall y montacargas de alta capacidad.</p>
+            </div>
+            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
+              <span>Filtrar Stock</span>
+              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Minería & Canteras -->
+          <div data-industry="mineria" onclick="window.tmdFilterByIndustry('mineria')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
+                  <span class="material-symbols-outlined text-[22px]">landslide</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">19 Unid.</span>
+              </div>
+              <h4 class="text-sm font-bold text-white uppercase mb-1">Minería & Canteras</h4>
+              <p class="text-[11px] text-neutral-400">Excavadoras LiuGong 22T HD y trituradoras de roca.</p>
+            </div>
+            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
+              <span>Filtrar Stock</span>
+              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </div>
+          </div>
+
+          <!-- Repuestos Express -->
+          <div data-industry="repuestos" onclick="location.hash = '#/parts'" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group border-amber-500/30">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-[10px] bg-primary-container text-black font-bold flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[22px]">build_circle</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-[6px] bg-primary-container/20 text-amber-400 font-mono text-[10px] font-bold">EXPRESS 24H</span>
+              </div>
+              <h4 class="text-sm font-bold text-white uppercase mb-1">Repuestos OEM</h4>
+              <p class="text-[11px] text-neutral-400">Kits hidráulicos 6,000 PSI y filtros originales JCB.</p>
+            </div>
+            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
+              <span>Ver Catálogo CAD</span>
+              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">search</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 9. MODULE 4: PAQUETE TROPICALIZADO CARIBE & CONDICIONES EXTREMAS (#/vehicle/:slug)
+  // ─────────────────────────────────────────────────────────────────────────────
+  function renderTropicalizedEngineeringModule(machineName) {
+    return `
+      <section id="tmd-tropical-engineering-infusion" class="w-full max-w-7xl mx-auto px-6 py-8 my-6">
+        <div class="p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#181c26]/90 to-[#0b0d13]/95 backdrop-blur-[24px] border border-white/8 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-amber-500 font-mono text-xs tracking-widest uppercase font-bold">EQUIPAMIENTO DE SERIE PROFESIONAL</span>
+            <span class="h-px bg-white/10 flex-1"></span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white uppercase mb-6">
+            PAQUETE TROPICALIZADO PARA EL CARIBE & CONDICIONES EXTREMAS RD
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- 1. Cabina Tropicalizada -->
+            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+              <div>
+                <div class="text-amber-500 mb-2.5">
+                  <span class="material-symbols-outlined text-[28px]">ac_unit</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Cabina Tropicalizada 38°C+</h4>
+                <p class="text-xs text-neutral-400">
+                  Compresor de A/C sobredimensionado para altas temperaturas. Aislamiento acústico a 72 dB(A), asiento neumático y visión panorámica 360°.
+                </p>
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">CERTIFICADO CLIMA CARIBE</span>
+            </div>
+
+            <!-- 2. Radiador Anti-Bagazo -->
+            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+              <div>
+                <div class="text-amber-500 mb-2.5">
+                  <span class="material-symbols-outlined text-[28px]">mode_fan</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Radiador Anti-Bagazo & Salitre</h4>
+                <p class="text-xs text-neutral-400">
+                  Paso ancho de aletas para evitar taponamientos en zafra azucarera y polvo de cantera, con tratamiento anticorrosivo marino para zonas costeras.
+                </p>
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">PROTECCIÓN MARINA MICM</span>
+            </div>
+
+            <!-- 3. Filtro Ciclónico Dual -->
+            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+              <div>
+                <div class="text-amber-500 mb-2.5">
+                  <span class="material-symbols-outlined text-[28px]">filter_drama</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Pre-Filtro Ciclónico Donaldson</h4>
+                <p class="text-xs text-neutral-400">
+                  Separación centrífuga de hasta 99.4% de partículas abrasivas previo al paso por los elementos de aire primario y secundario.
+                </p>
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">CALIDAD SEVERE-DUTY</span>
+            </div>
+
+            <!-- 4. Telemetría LiveLink RTK -->
+            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+              <div>
+                <div class="text-amber-500 mb-2.5">
+                  <span class="material-symbols-outlined text-[28px]">satellite_alt</span>
+                </div>
+                <h4 class="text-sm font-bold text-white mb-1">Pre-instalación Auto-Steer RTK</h4>
+                <p class="text-xs text-neutral-400">
+                  Arnés ISOBUS de fábrica y sensor de ángulo de giro homologado para antenas Trimble y guiado satelital submétrico de 2.5 cm.
+                </p>
+              </div>
+              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">CONEXIÓN CAN BUS SATELITAL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 10. MODULE 5: FACTURACIÓN FISCAL DGII & COMPROBANTE NCF B01/B02/B15
+  // ─────────────────────────────────────────────────────────────────────────────
+  function renderDgiiFiscalConnector() {
+    return `
+      <div id="tmd-dgii-fiscal-panel" class="tmd-dgii-card p-5 sm:p-6 rounded-[20px] my-4">
+        <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/8">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-[8px] bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white uppercase">Facturación Electrónica DGII (República Dominicana)</h4>
+              <span class="text-[11px] font-mono text-neutral-400">Comprobante Fiscal Autorizado con Crédito ITBIS</span>
+            </div>
+          </div>
+          <span class="font-mono text-[10px] uppercase font-bold text-emerald-400 px-2.5 py-1 rounded-[6px] bg-emerald-500/20 border border-emerald-500/30">
+            e-CF Certificado
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block text-[11px] font-mono text-neutral-400 uppercase mb-1">RNC de la Constructora / Empresa</label>
+            <div class="relative">
+              <input type="text" id="dgii-rnc-input" value="1-30-89642-1" class="w-full px-3.5 py-2.5 rounded-[12px] bg-white/[0.04] border border-white/10 text-white font-mono text-xs focus:border-amber-500 focus:outline-none" placeholder="RNC de 9 o 11 dígitos">
+              <span class="absolute right-3 top-2.5 text-[10px] font-mono text-emerald-400 font-bold">✓ VÁLIDO DGII</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-neutral-400 uppercase mb-1">Tipo de Comprobante Requerido</label>
+            <select class="w-full px-3.5 py-2.5 rounded-[12px] bg-[#12151e] border border-white/10 text-white font-body-sm text-xs focus:border-amber-500 focus:outline-none">
+              <option value="B01" selected>Crédito Fiscal (NCF B01) — Deducción 100%</option>
+              <option value="B02">Consumidor Final (NCF B02)</option>
+              <option value="B15">Gubernamental / Obras Públicas MOPC (NCF B15)</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-[11px] font-mono text-neutral-400 uppercase mb-1">Razón Social Fiscal Registrada</label>
+            <input type="text" value="CONSORCIO MALESPIN CONSTRUCTORA S.A." class="w-full px-3.5 py-2.5 rounded-[12px] bg-white/[0.04] border border-white/10 text-white font-body-sm text-xs uppercase focus:border-amber-500 focus:outline-none" placeholder="Nombre según DGII">
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 11. TOP UTILITY BAR LINK INJECTION
   // ─────────────────────────────────────────────────────────────────────────────
   function injectTopBarLink() {
     var topBar = document.querySelector('#root div.fixed.top-0 > div:first-child');
@@ -835,7 +1568,7 @@
       if (rightContainer) {
         var btn = document.createElement('button');
         btn.id = 'tmd-topbar-dvi-btn';
-        btn.className = 'text-xs font-mono font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1.5 transition-colors';
+        btn.className = 'text-xs font-mono font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1.5 transition-colors cursor-pointer';
         btn.innerHTML = '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;box-shadow:0 0 6px #f59e0b;"></span>🔍 Rastrear Orden WO / DVI';
         btn.onclick = function (e) {
           e.preventDefault();
@@ -847,7 +1580,7 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 7. ROUTE OBSERVER & SECTIONS INJECTION DISPATCHER
+  // 12. ROUTE OBSERVER & SECTIONS INJECTION DISPATCHER
   // ─────────────────────────────────────────────────────────────────────────────
   function checkAndInfuseSections() {
     injectTopBarLink();
@@ -874,9 +1607,60 @@
           }
         }
       }
+      // Also ensure National Coverage is available on Service page
+      if (!document.getElementById('tmd-national-coverage-infusion')) {
+        var sPage = document.getElementById('tmd-v2-full-service-page');
+        if (sPage) {
+          var wrapperCoverage = document.createElement('div');
+          wrapperCoverage.innerHTML = renderNationalCoverageModule();
+          sPage.appendChild(wrapperCoverage.firstElementChild);
+        }
+      }
     }
 
-    // B. PARTS PAGE (#/parts, #/repuestos)
+    // B. HOME PAGE (#/home, #/, or empty)
+    if (!hash || hash === '#/' || hash === '#/home' || hash === '#') {
+      if (!document.getElementById('tmd-tco-estimator-infusion')) {
+        var homeMain = document.querySelector('#root main') || document.querySelector('#root > div > div');
+        if (homeMain) {
+          var wrapperTco = document.createElement('div');
+          wrapperTco.innerHTML = renderTcoEstimatorModule();
+          homeMain.appendChild(wrapperTco.firstElementChild);
+          window.tmdUpdateTcoCalc();
+        }
+      }
+    }
+
+    // C. ABOUT US / LA EMPRESA (#/about, #/empresa)
+    if (hash.includes('about') || hash.includes('empresa')) {
+      if (!document.getElementById('tmd-national-coverage-infusion')) {
+        var aboutMain = document.querySelector('#root main') || document.querySelector('#root .max-w-7xl');
+        if (aboutMain) {
+          var wrapperCov = document.createElement('div');
+          wrapperCov.innerHTML = renderNationalCoverageModule();
+          aboutMain.appendChild(wrapperCov.firstElementChild);
+        }
+      }
+    }
+
+    // D. VEHICLES CATALOG (#/vehicles, #/maquinaria) - exclude individual vehicle detail
+    if ((hash.includes('vehicles') || hash.includes('maquinaria')) && !hash.includes('vehicle/')) {
+      if (!document.getElementById('tmd-industry-filters-infusion')) {
+        var catMain = document.querySelector('#root main') || document.querySelector('#root .max-w-7xl');
+        if (catMain) {
+          var wrapperInd = document.createElement('div');
+          wrapperInd.innerHTML = renderIndustryB2BFiltersModule();
+          var gridTarget = catMain.querySelector('div.grid') || catMain.firstElementChild;
+          if (gridTarget && gridTarget.parentNode) {
+            gridTarget.parentNode.insertBefore(wrapperInd.firstElementChild, gridTarget);
+          } else {
+            catMain.appendChild(wrapperInd.firstElementChild);
+          }
+        }
+      }
+    }
+
+    // E. PARTS PAGE (#/parts, #/repuestos)
     if (hash.includes('parts') || hash.includes('repuestos')) {
       if (!document.getElementById('tmd-schematic-infusion-container')) {
         var partsContainer = document.querySelector('#root main') || document.querySelector('#root .max-w-7xl');
@@ -893,11 +1677,12 @@
       }
     }
 
-    // C. VEHICLE DETAIL PAGE (#/vehicle/...)
+    // F. VEHICLE DETAIL PAGE (#/vehicle/...)
     if (hash.includes('vehicle/') || hash.includes('maquinaria/')) {
       var h1El = document.querySelector('h1');
       if (h1El) _currentMachineName = h1El.innerText.trim();
 
+      // 360 Inspector
       if (!document.getElementById('tmd-vehicle-360-infusion')) {
         var vehicleMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
         if (vehicleMain) {
@@ -907,6 +1692,17 @@
         }
       }
 
+      // Tropicalized Engineering Package
+      if (!document.getElementById('tmd-tropical-engineering-infusion')) {
+        var vehicleMainTrop = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
+        if (vehicleMainTrop) {
+          var wrapperTrop = document.createElement('div');
+          wrapperTrop.innerHTML = renderTropicalizedEngineeringModule(_currentMachineName);
+          vehicleMainTrop.appendChild(wrapperTrop.firstElementChild);
+        }
+      }
+
+      // Leasing & Tax Shield Module
       if (!document.getElementById('tmd-leasing-infusion-container')) {
         var vehicleMain2 = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
         if (vehicleMain2) {
@@ -917,7 +1713,7 @@
       }
     }
 
-    // D. CONFIGURATOR PAGE (#/configurator, #/studio-3d)
+    // G. CONFIGURATOR PAGE (#/configurator, #/studio-3d)
     if (hash.includes('configurator') || hash.includes('studio-3d')) {
       if (!document.getElementById('tmd-leasing-infusion-container')) {
         var configMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main') || document.querySelector('#root > div > div');
@@ -929,7 +1725,7 @@
       }
     }
 
-    // E. MAGAZINE / VIP PRIVÉ PAGE (#/magazine, #/revista)
+    // H. MAGAZINE / VIP PRIVÉ PAGE (#/magazine, #/revista)
     if (hash.includes('magazine') || hash.includes('revista')) {
       if (!document.getElementById('tmd-port-lots-infusion')) {
         var magMain = document.querySelector('#root .max-w-7xl') || document.querySelector('#root main');
@@ -937,6 +1733,22 @@
           var wrapperLots = document.createElement('div');
           wrapperLots.innerHTML = renderPortLotsModule();
           magMain.appendChild(wrapperLots.firstElementChild);
+        }
+      }
+    }
+
+    // I. GLOBAL QUOTE MODAL ENHANCEMENT (Inject DGII Fiscal Connector)
+    var quoteModal = document.querySelector('[role="dialog"]');
+    if (quoteModal && !quoteModal.querySelector('#tmd-dgii-fiscal-panel')) {
+      var modalBody = quoteModal.querySelector('form') || quoteModal.querySelector('div.space-y-4') || quoteModal.firstElementChild;
+      if (modalBody) {
+        var dgiiDiv = document.createElement('div');
+        dgiiDiv.innerHTML = renderDgiiFiscalConnector();
+        var submitBtn = modalBody.querySelector('button[type="submit"]') || modalBody.lastElementChild;
+        if (submitBtn && submitBtn.parentNode) {
+          submitBtn.parentNode.insertBefore(dgiiDiv.firstElementChild, submitBtn);
+        } else {
+          modalBody.appendChild(dgiiDiv.firstElementChild);
         }
       }
     }
@@ -956,10 +1768,11 @@
     if (rootEl) {
       observer.observe(rootEl, { childList: true, subtree: true });
     }
-    setTimeout(checkAndInfuseSections, 800);
-    setTimeout(checkAndInfuseSections, 2000);
+    setTimeout(checkAndInfuseSections, 600);
+    setTimeout(checkAndInfuseSections, 1800);
   });
 
-  setTimeout(checkAndInfuseSections, 1200);
+  setTimeout(checkAndInfuseSections, 1000);
 
 })();
+

@@ -136,61 +136,66 @@
                 </div>
               </div>
             </div>
-            <!-- Right 5 Cols: Agendamiento Directo de Bahía Card -->
+            <!-- Right 5 Cols: Agendamiento Directo de Bahía Card (Layered Glass & Sculpted Hazard Gold) -->
             <div class="lg:col-span-5 w-full">
               <div
-                class="relative p-6 sm:p-8 rounded-[30px] bg-white/[0.04] backdrop-blur-[20px] border border-primary-container/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
-                <div class="flex items-center justify-between pb-5 mb-5 border-b border-white/10">
+                class="relative p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#181c26]/90 to-[#0b0d13]/95 backdrop-blur-[24px] border border-amber-500/25 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.12)]">
+                <div class="flex items-center justify-between pb-5 mb-5 border-b border-white/8">
                   <div class="flex items-center gap-2.5">
-                    <span class="material-symbols-outlined text-primary-container text-[26px]">calendar_add_on</span>
-                    <span class="font-headline-sm text-headline-sm text-canvas-offwhite">Reserva de Bahía Km 22</span>
+                    <div class="w-9 h-9 rounded-[10px] bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500">
+                      <span class="material-symbols-outlined text-[22px]">calendar_add_on</span>
+                    </div>
+                    <div>
+                      <span class="font-headline-sm text-headline-sm text-canvas-offwhite block">Reserva de Bahía Km 22</span>
+                      <span class="text-[11px] font-mono text-text-muted">Despacho Oficial a Taller Pesado</span>
+                    </div>
                   </div>
                   <span
-                    class="font-label-badge text-label-badge text-primary-container uppercase px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/30">ERP
+                    class="font-label-badge text-label-badge text-primary-container uppercase px-2.5 py-1 rounded-[8px] bg-primary-container/10 border border-primary-container/30">ERP
                     GATEWAY</span>
                 </div>
                 <form class="space-y-4" id="bayReservationForm"
                   onsubmit="event.preventDefault(); document.getElementById('reservationSuccessModal').classList.remove('hidden');">
                   <div>
-                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">1. Categoría
+                    <label class="block font-label-badge text-label-badge text-secondary uppercase mb-2">1. Categoría
                       de Equipo Pesado</label>
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-2.5">
                       <label
-                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
-                        <input checked="" class="accent-primary-container" name="machine_cat" type="radio"
+                        class="tmd-radio-card flex items-center gap-2.5 p-3 rounded-[14px] bg-white/[0.03] backdrop-blur-md border border-white/8 hover:border-amber-500/50 cursor-pointer transition-all shadow-inner">
+                        <input checked="" class="accent-primary-container w-4 h-4" name="machine_cat" type="radio"
                           value="excavadora" />
-                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Excavadora 20T+</span>
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite font-medium">Excavadora 20T+</span>
                       </label>
                       <label
-                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
-                        <input class="accent-primary-container" name="machine_cat" type="radio" value="retro" />
-                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Retroexcavadora</span>
+                        class="tmd-radio-card flex items-center gap-2.5 p-3 rounded-[14px] bg-white/[0.03] backdrop-blur-md border border-white/8 hover:border-amber-500/50 cursor-pointer transition-all shadow-inner">
+                        <input class="accent-primary-container w-4 h-4" name="machine_cat" type="radio" value="retro" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite font-medium">Retroexcavadora</span>
                       </label>
                       <label
-                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
-                        <input class="accent-primary-container" name="machine_cat" type="radio" value="tractor" />
-                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Tractor Agrícola</span>
+                        class="tmd-radio-card flex items-center gap-2.5 p-3 rounded-[14px] bg-white/[0.03] backdrop-blur-md border border-white/8 hover:border-amber-500/50 cursor-pointer transition-all shadow-inner">
+                        <input class="accent-primary-container w-4 h-4" name="machine_cat" type="radio" value="tractor" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite font-medium">Tractor Agrícola</span>
                       </label>
                       <label
-                        class="flex items-center gap-2 p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-primary-container/60 cursor-pointer transition-all">
-                        <input class="accent-primary-container" name="machine_cat" type="radio" value="compactador" />
-                        <span class="font-body-sm text-body-sm text-canvas-offwhite">Compactador Suelo</span>
+                        class="tmd-radio-card flex items-center gap-2.5 p-3 rounded-[14px] bg-white/[0.03] backdrop-blur-md border border-white/8 hover:border-amber-500/50 cursor-pointer transition-all shadow-inner">
+                        <input class="accent-primary-container w-4 h-4" name="machine_cat" type="radio" value="compactador" />
+                        <span class="font-body-sm text-body-sm text-canvas-offwhite font-medium">Compactador Suelo</span>
                       </label>
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
                       <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">2. Fecha de
                         Ingreso</label>
                       <input
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-telemetry-data-md text-body-sm focus:border-primary-container focus:outline-none transition-all"
+                        class="w-full px-4 py-3 rounded-[12px] bg-white/[0.04] backdrop-blur-md border border-white/10 text-canvas-offwhite font-telemetry-data-md text-body-sm focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 focus:outline-none transition-all shadow-inner"
                         required="" type="date" value="2025-03-03" />
                     </div>
                     <div>
                       <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">3. Bahía
                         Requerida</label>
                       <select
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm focus:border-primary-container focus:outline-none transition-all">
+                        class="w-full px-4 py-3 rounded-[12px] bg-[#12151e] backdrop-blur-md border border-white/10 text-canvas-offwhite font-body-sm focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 focus:outline-none transition-all shadow-inner">
                         <option>Bahía 04 (Grúa 15T - Chasis)</option>
                         <option>Bahía 07 (Dinamo &amp; Overhaul)</option>
                         <option>Bahía 11 (Hidráulica Avanzada)</option>
@@ -202,12 +207,12 @@
                     <label class="block font-label-badge text-label-badge text-secondary uppercase mb-1.5">4.
                       Contratista / Empresa Asignada</label>
                     <input
-                      class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/15 text-canvas-offwhite font-body-sm placeholder:text-text-muted/60 focus:border-primary-container focus:outline-none transition-all"
+                      class="w-full px-4 py-3 rounded-[12px] bg-white/[0.04] backdrop-blur-md border border-white/10 text-canvas-offwhite font-body-sm placeholder:text-text-muted/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 focus:outline-none transition-all shadow-inner"
                       placeholder="Ej. Constructora del Caribe S.R.L. • RNC" required="" type="text" />
                   </div>
                   <div class="pt-2">
                     <button
-                      class="w-full py-3.5 px-6 rounded-[18px] bg-primary-container hover:bg-hazard-gold-active text-on-primary font-headline-sm text-body-md font-bold tracking-tight uppercase transition-all shadow-[0_0_24px_rgba(255,184,0,0.25)] flex items-center justify-center gap-2 group"
+                      class="w-full py-4 px-6 rounded-[14px] bg-primary-container hover:bg-hazard-gold-active text-on-primary font-headline-sm text-body-md font-bold tracking-tight uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] hover:shadow-[0_8px_32px_rgba(245,158,11,0.55)] flex items-center justify-center gap-2 group cursor-pointer"
                       type="submit">
                       <span>Agendar Ingreso a Taller</span>
                       <span
