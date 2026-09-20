@@ -4726,10 +4726,41 @@
       cleanupInjectedSections(currentRoute);
 
       var mainEl = document.querySelector('#root main');
-      if (mainEl) {
-        // Ensure all React native children are visible and never hidden!
-        for (var i = 0; i < mainEl.children.length; i++) {
-          mainEl.children[i].style.display = '';
+
+      // A0-1. ENTERPRISE PORTAL LANDING PAGE (#/portal)
+      if (currentRoute === 'portal') {
+        safelyMountToMain('tmd-enterprise-portal-landing', renderEnterprisePortalLandingPage);
+      }
+      // A0. TOOLS DASHBOARD PAGE (#/tools)
+      else if (currentRoute === 'tools') {
+        safelyMountToMain('tmd-tools-dashboard-infusion', renderToolsDashboardModule, function() {
+          if (typeof window.tmdSwitchToolsTab === 'function') {
+            window.tmdSwitchToolsTab('comp');
+          }
+        });
+      }
+      // D. MULTIBRAND VEHICLES CATALOG (#/vehicles or #/machinery or #/modelos or #/catalogo)
+      else if (currentRoute === 'vehicles') {
+        safelyMountToMain('tmd-unified-vehicles-page', renderUnifiedVehiclesCatalogPage, function() {
+          if (typeof window.tmdRefreshStoreUI === 'function') {
+            window.tmdRefreshStoreUI();
+          }
+        });
+      }
+      // E. PARTS SCHEMATIC (#/parts)
+      else if (currentRoute === 'parts') {
+        if (!document.getElementById('tmd-schematic-infusion-container') && mainEl) {
+          var wrapperBOM = document.createElement('div');
+          wrapperBOM.innerHTML = renderSchematicModule();
+          mainEl.appendChild(wrapperBOM.firstElementChild);
+        }
+      }
+      // F. HOME & SERVICE (100% Native React Rendering)
+      else {
+        if (mainEl) {
+          for (var i = 0; i < mainEl.children.length; i++) {
+            mainEl.children[i].style.display = '';
+          }
         }
       }
 
@@ -4759,6 +4790,157 @@
               <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500 text-black font-mono font-black">20/10</span>
               <span class="material-symbols-outlined text-[16px] transition-transform duration-200" id="tmd-tools-menu-chevron">expand_more</span>
             </button>
+
+            <!-- 3-Column Mega Menu Dropdown -->
+            <div id="tmd-tools-mega-menu-dropdown" class="hidden absolute top-full right-0 mt-2 z-[99999] w-[720px] max-w-[calc(100vw-24px)] rounded-2xl p-4 sm:p-5 border border-amber-500/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(245,158,11,0.15)] text-neutral-200" style="background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); box-sizing: border-box;">
+              
+              <!-- Dropdown Header -->
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <span class="px-2 py-0.5 rounded bg-amber-500 text-black font-mono text-[9px] font-black uppercase shrink-0">TIER-1 OEM</span>
+                  <span class="text-xs font-bold text-white tracking-wide truncate">Ecosistema de Herramientas Digitales TMD</span>
+                </div>
+                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors whitespace-nowrap shrink-0">
+                  <span>Dashboard Completo</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- 3 Columns -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                
+                <!-- Col 1: Flota & Telemetría -->
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-emerald-500/20 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">Flota &amp; Telemetría</span>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 rounded bg-neutral-800 text-neutral-400">OPERACIONES</span>
+                    </div>
+
+                    <div class="space-y-2">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenTelematicsCockpit('JCB 3CX Eco');">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">LiveLink® 4.0 GPS</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">SATÉLITE</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Diagnóstico CAN-Bus, geocercas y horas de motor en vivo</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenDviTracker('WO-4482');">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Órdenes Taller Fullbay</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">WO-4482</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Inspección digital DVI y aprobación en 1-click</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.location.hash='#/parts';">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Almacén Central Km 22</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">EN STOCK</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">390+ piezas OEM con despacho en 24h a todo el país</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Col 2: Finanzas & DGII -->
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-amber-500/20 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Finanzas &amp; DGII</span>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 rounded bg-neutral-800 text-neutral-400">DGII / BANCOS</span>
+                    </div>
+
+                    <div class="space-y-2">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenFinancialSuite('JCB 3CX Eco', 85000);">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Suite MyFinancial™</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">LIBRE / RNC</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Ley 11-92: Depreciación 25% Cat. 2 y leasing bancario</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); if(typeof window.tmdTriggerQuoteModal==='function') window.tmdTriggerQuoteModal('JCB 3CX Eco');">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Cotizador DGII</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">RNC B01/B15</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Comprobante fiscal B01 empresarial y B15 público</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.location.hash='#/home';">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Calculadora TCO</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">100% PÚBLICO</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Estimador de costo por hora/día y tarifa de alquiler</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Col 3: Selección & Repuestos -->
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-amber-500/20 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Selección &amp; Repuestos</span>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 rounded bg-neutral-800 text-neutral-400">TÉCNICA</span>
+                    </div>
+
+                    <div class="space-y-2">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenModelComparator('backhoes');">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Comparador 3-Vías</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">100% PÚBLICO</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">JCB vs CAT vs Deere en 14 vectores técnicos</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenPartsSerialEngine();">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Repuestos por VIN</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">BÚSQUEDA LIBRE</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">390+ piezas OEM con stock en Taller Km 22</div>
+                      </div>
+
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenMachineAdvisor();">
+                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between gap-1">
+                          <span class="truncate">Help Me Choose</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">100% PÚBLICO</span>
+                        </div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Asesor inteligente según suelo, faena y volumen</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Dropdown Footer -->
+              <div class="mt-3 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                <div class="flex items-center gap-2 text-neutral-400 flex-wrap">
+                  <button onclick="window.tmdCloseToolsMenu(); window.tmdOpenBrochuresHub();" class="hover:text-white transition-colors cursor-pointer">📥 Fichas PDF</button>
+                  <span>·</span>
+                  <button onclick="window.tmdCloseToolsMenu(); window.location.hash='#/portal';" class="text-amber-400/90 hover:text-amber-300 transition-colors cursor-pointer">🚜 Portal Clientes VIP</button>
+                </div>
+                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 font-bold uppercase tracking-wider transition-all whitespace-nowrap">
+                  Ver Todas (8) →
+                </a>
+              </div>
+
+            </div>
           `;
           mainNav.appendChild(megaWrapper);
         }
