@@ -89,4 +89,12 @@
     <priority>0.90</priority>
   </url>
 
+  <!-- 11. Ficha Técnica Oficial de Equipos -->
+  <url>
+    <loc>https://tmddominicana.com/ficha</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
 </urlset>

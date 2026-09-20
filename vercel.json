@@ -8,6 +8,8 @@
     { "source": "/configurator",         "destination": "/configurador_cotizacion" },
     { "source": "/quote",                "destination": "/configurador_cotizacion" },
     { "source": "/cotizar",              "destination": "/configurador_cotizacion" },
-    { "source": "/cotizacion",           "destination": "/configurador_cotizacion" }
+    { "source": "/cotizacion",           "destination": "/configurador_cotizacion" },
+    { "source": "/ficha",                "destination": "/ficha_tecnica" },
+    { "source": "/fichas",               "destination": "/ficha_tecnica" }
   ]
 }
