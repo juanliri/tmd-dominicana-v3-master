@@ -2485,76 +2485,84 @@
       })(item);
 
       return `
-        <div class="machinery-card rounded-[20px] overflow-hidden shadow-xl flex flex-col justify-between group hover:border-amber-500/50 transition-all duration-300" style="backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(18, 21, 26, 0.65);">
+        <div class="machinery-card tmd-product-card rounded-[20px] overflow-hidden flex flex-col justify-between group transition-all duration-300" role="article" aria-label="${item.title}">
           <div>
             <!-- Image Frame -->
-            <div class="tmd-card-img-frame relative h-48 w-full overflow-hidden bg-black/80 flex items-center justify-center p-3">
-              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='${_brandFallbackImages[item.brand]||_brandFallbackImages.JCB}'">
+            <div class="tmd-card-img-frame relative h-52 w-full overflow-hidden flex items-center justify-center p-4">
+              <img src="${item.image}" alt="${item.title} - ${item.brand} - Maquinaria pesada TMD Dominicana" class="w-full h-full object-contain group-hover:scale-[1.06] transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='${_brandFallbackImages[item.brand]||_brandFallbackImages.JCB}'">
               
               <!-- Badges Top Left -->
-              <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1 z-10">
-                <span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-amber-500 text-black">${item.brand}</span>
+              <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+                <span class="px-2.5 py-1 rounded-lg text-[10px] uppercase font-mono font-bold bg-amber-500 text-black tracking-wider shadow-sm">${item.brand}</span>
                 ${stockBadgeHtml}
               </div>
 
               <!-- Compare Button Top Right -->
-              <div class="absolute top-2.5 right-2.5 z-10">
-                <button type="button" data-compare-btn="${item.id}" onclick="window.tmdToggleCompare('${item.id}')" class="px-2.5 py-1 rounded-[8px] ${isCompared ? 'bg-amber-500 text-black border-amber-400' : 'bg-black/80 text-neutral-300'} hover:text-white border border-white/10 font-mono text-[10px] font-bold uppercase flex items-center gap-1 transition-all cursor-pointer">
-                  <span class="material-symbols-outlined text-[13px]">${isCompared ? 'check' : 'add'}</span>
+              <div class="absolute top-3 right-3 z-10">
+                <button type="button" data-compare-btn="${item.id}" onclick="window.tmdToggleCompare('${item.id}')" aria-label="Comparar ${item.title}" class="px-2.5 py-1 rounded-lg ${isCompared ? 'bg-amber-500 text-black border-amber-400' : 'bg-black/70 text-neutral-300 backdrop-blur-sm'} hover:text-white border border-white/15 font-mono text-[10px] font-bold uppercase flex items-center gap-1 transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-[14px]">${isCompared ? 'check_circle' : 'add_circle_outline'}</span>
                   <span>${isCompared ? 'Comparando' : 'Comparar'}</span>
                 </button>
+              </div>
+
+              <!-- DGII Fiscal Badge Bottom Right -->
+              <div class="absolute bottom-2.5 right-2.5 z-10">
+                <span class="px-2 py-0.5 rounded-md text-[8px] uppercase font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm">DGII B01 Deducible</span>
               </div>
             </div>
 
             <!-- Content Body -->
-            <div class="tmd-card-body p-4">
-              <div class="flex items-center justify-between text-neutral-400 font-mono text-[10px] uppercase mb-1">
+            <div class="tmd-card-body px-4 pt-3 pb-2">
+              <!-- Category & SKU -->
+              <div class="flex items-center justify-between text-neutral-500 font-mono text-[10px] uppercase mb-1.5 tracking-wider">
                 <span>${item.category}</span>
-                <span class="text-amber-500 font-bold">${item.sku || item.model}</span>
+                <span class="text-amber-500/80 font-bold">${item.sku || item.model}</span>
               </div>
 
-              <h3 class="font-headline-sm text-lg uppercase font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-1">
+              <!-- Machine Name -->
+              <h3 class="text-[15px] uppercase font-extrabold text-white group-hover:text-amber-400 transition-colors leading-tight line-clamp-1 tracking-tight" style="font-family:'Barlow Condensed','Barlow',sans-serif;">
                 ${item.title}
               </h3>
 
-              <p class="text-xs text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
+              <!-- Tagline -->
+              <p class="text-[11px] text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
                 ${item.tagline}
               </p>
 
-              <!-- Specs Row -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 my-3 p-2.5 rounded-[12px] bg-black/40 border border-white/[0.04]">
+              <!-- Specs Grid -->
+              <div class="grid grid-cols-3 gap-1.5 my-3 p-2.5 rounded-xl bg-neutral-950/60 border border-white/[0.06]">
                 ${specsSnippet}
               </div>
 
-              <!-- Price Box -->
-              <div class="pt-2 flex items-baseline justify-between border-t border-white/[0.06]">
+              <!-- Price Row -->
+              <div class="pt-2.5 pb-1 flex items-end justify-between border-t border-white/[0.08]">
                 <div>
-                  <span class="font-mono text-[8px] uppercase text-neutral-400 block">Inversión 0 Km:</span>
-                  <span class="font-headline-sm text-base text-amber-400 font-bold">${priceFormatted}</span>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block tracking-wider">Inversión 0 Km</span>
+                  <span class="text-[17px] text-amber-400 font-extrabold tracking-tight" style="font-family:'Barlow Condensed','Barlow',sans-serif;">${priceFormatted}</span>
                 </div>
                 <div class="text-right">
-                  <span class="font-mono text-[8px] uppercase text-emerald-400 block">${leasingFormatted}</span>
+                  <span class="font-mono text-[9px] uppercase text-emerald-400/80 block">${leasingFormatted}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Card Actions (Direct Ficha, Configurator, WhatsApp) -->
-          <div class="tmd-card-actions p-4 pt-0 space-y-2">
+          <!-- Card Actions -->
+          <div class="tmd-card-actions px-4 pb-4 pt-1 space-y-2">
             <div class="grid grid-cols-2 gap-2">
-              <button type="button" onclick="window.tmdDownloadMachinePDF('${item.id}')" class="py-2 px-3 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1.5 transition text-center cursor-pointer">
+              <button type="button" onclick="window.tmdDownloadMachinePDF('${item.id}')" aria-label="Descargar proforma PDF de ${item.title}" class="py-2.5 px-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/10 flex items-center justify-center gap-1.5 transition text-center cursor-pointer hover:border-amber-500/30">
                 <span class="material-symbols-outlined text-[15px] text-amber-400">picture_as_pdf</span>
                 <span>Proforma PDF</span>
               </button>
-              <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1.5 transition text-center">
+              <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" aria-label="Configurar ${item.title}" class="py-2.5 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/30 flex items-center justify-center gap-1.5 transition text-center hover:border-amber-500/50">
                 <span class="material-symbols-outlined text-[15px]">tune</span>
                 <span>Configurar</span>
               </a>
             </div>
 
-            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, estoy viendo la ' + item.title + ' en la tienda web de TMD y quisiera cotizar entrega inmediata.')}" target="_blank" class="w-full py-2 px-3 rounded-[10px] bg-emerald-500 hover:bg-emerald-600 text-black font-headline-sm text-xs font-bold uppercase transition flex items-center justify-center gap-2 cursor-pointer">
-              <span class="material-symbols-outlined text-[15px]">chat</span>
-              <span>Cotizar Compra B2B</span>
+            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, estoy viendo la ' + item.title + ' (' + priceFormatted + ') en la tienda web de TMD y deseo solicitar cotización formal y disponibilidad para entrega.')}" target="_blank" rel="noopener noreferrer" aria-label="Cotizar ${item.title} por WhatsApp" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer shadow-[0_2px_12px_rgba(16,185,129,0.2)]" style="font-family:'Barlow Condensed','Barlow',sans-serif;">
+              <span class="material-symbols-outlined text-[16px]">chat</span>
+              <span>Solicitar Cotización B2B</span>
             </a>
           </div>
         </div>

@@ -914,22 +914,35 @@ html:not(.dark) .tmd-dvi-modal-card {
 }
 
 /* ── MACHINERY CARD BASE ── */
-.machinery-card {
+.machinery-card,
+.tmd-product-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(18,21,26,0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  transition: border-color 0.3s, transform 0.3s;
+  background: linear-gradient(165deg, rgba(15, 18, 24, 0.88) 0%, rgba(10, 12, 18, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.machinery-card:hover {
-  border-color: rgba(245,158,11,0.5);
-  transform: translateY(-2px);
+.machinery-card:hover,
+.tmd-product-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px -8px rgba(245, 158, 11, 0.15),
+              0 4px 16px -4px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Product card image frame — dark matte background */
+.tmd-product-card .tmd-card-img-frame,
+.machinery-card .tmd-card-img-frame {
+  background: linear-gradient(180deg, rgba(8, 10, 14, 0.9) 0%, rgba(12, 14, 20, 0.85) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* ── LIST VIEW MODE (Horizontal Technical Row) ── */
