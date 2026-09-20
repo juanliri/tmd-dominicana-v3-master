@@ -8,4 +8,5 @@ Thumbs.db
 scratch/
 test_acro.pdf
 theme_v3_hybrid/
-
+*_RAW.html
+*.raw.html
