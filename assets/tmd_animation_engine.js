@@ -148,6 +148,12 @@
   let auroraPhase = 0;
 
   function initAmbientCanvas() {
+    // Disable continuous canvas rendering on mobile & tablet to save battery and prevent job-site lag
+    if (window.innerWidth < 1024 || ('ontouchstart' in window && !window.matchMedia('(pointer: fine)').matches)) {
+      var c = document.getElementById('tmd-ambient-canvas');
+      if (c) c.style.display = 'none';
+      return;
+    }
     if (window.__TMD_ANIMATION_ENGINE_RUNNING) return;
 
     if (document.getElementById('tmd-ambient-canvas')) {

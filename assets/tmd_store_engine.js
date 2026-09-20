@@ -2614,9 +2614,9 @@
         var val = item.specs[k];
         var lbl = _fmtSpecLabel(k);
         return `
-          <div>
-            <span class="font-mono text-[8px] uppercase text-neutral-400 block truncate" title="${lbl}">${lbl}</span>
-            <span class="font-mono text-[11px] font-bold text-neutral-200 block truncate" title="${val}">${val}</span>
+          <div class="bg-black/40 border border-white/10 rounded-lg p-2 text-left">
+            <span class="font-mono text-[9px] sm:text-[10px] uppercase text-neutral-400 font-bold block truncate tracking-wide" title="${lbl}">${lbl}</span>
+            <span class="font-mono text-[12px] sm:text-[13px] font-extrabold text-white block truncate mt-0.5" title="${val}">${val}</span>
           </div>
         `;
       }).join('');
