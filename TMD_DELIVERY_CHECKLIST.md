@@ -2,7 +2,7 @@
 
 This checklist is used to track the delivery of the 9 specific features promised in the TMD Tier 2 Scope of Work. 
 
-**Client:** Don Eduardo (TMD)
+**Client:** Tecnomaquinarias Diesel (TMD), S.R.L. | Ing. Eduardo López (Presidente)
 **Tier:** Tier 2 (Fullbay Connected + Web Ecosystem)
 **Total Value:** $2,850 Setup + $150/mo Retainer
 
