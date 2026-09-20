@@ -1,5 +1,5 @@
 /* ═════════════════════════════════════════════════════════════════════════════
-   TMD DOMINICANA 2026 — MASTER STITCH INFUSION & AESTHETIC ELEVATION SUITE
+   TMD DOMINICANA 2026 — STORE ENGINE — ENTERPRISE DESIGN SYSTEM
    Zero-Blues Industrial Architecture | Dark/Light Harmonic Design System
    Layered Glassmorphism · Ambient Volumetric Depth · Zero Square Corners (2px-20px)
    Hazard Gold (#f59e0b / #ffb800) · Telemetry Emerald (#10b981) · Pure Black (#000000)
@@ -766,7 +766,7 @@ html:not(.dark) .tmd-dvi-modal-card {
 #tmd-telematics-modal .grid > div,
 #tmd-financial-suite-modal .grid > div,
 #tmd-port-lots-infusion .grid > div,
-.tmd-stitch-section .grid > div {
+.tmd-store-section .grid > div {
   background: linear-gradient(145deg, rgba(22, 30, 46, 0.82) 0%, rgba(14, 19, 31, 0.78) 100%) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -780,7 +780,7 @@ html:not(.dark) .tmd-dvi-modal-card {
 #tmd-advisor-modal .grid > div:hover,
 #tmd-comparator-modal .grid > div:hover,
 #tmd-port-lots-infusion .grid > div:hover,
-.tmd-stitch-section .grid > div:hover {
+.tmd-store-section .grid > div:hover {
   background: linear-gradient(145deg, rgba(28, 38, 58, 0.88) 0%, rgba(18, 25, 40, 0.84) 100%) !important;
   border-color: rgba(255, 184, 0, 0.45) !important;
   box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 184, 0, 0.12) !important;
@@ -799,7 +799,7 @@ html:not(.dark) .tmd-dvi-modal-card {
 }
 
 /* Master Infused Page Sections Container: 88% Obsidian Glass */
-.tmd-stitch-section {
+.tmd-store-section {
   background: linear-gradient(165deg, rgba(14, 19, 30, 0.88) 0%, rgba(8, 11, 18, 0.85) 100%) !important;
   backdrop-filter: blur(24px) saturate(140%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(140%) !important;

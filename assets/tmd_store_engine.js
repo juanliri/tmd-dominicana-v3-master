@@ -1,5 +1,5 @@
 /* ═════════════════════════════════════════════════════════════════════════════
-   TMD DOMINICANA 2026 — STITCH V2 SECTIONS INFUSION SUITE
+   TMD DOMINICANA 2026 — STORE ENGINE — ENTERPRISE CATALOG SUITE
    Zero-Blues Industrial Architecture | Dark/Light Harmonic Design System
    Hazard Gold (#f59e0b / #ffb800) · Telemetry Emerald (#10b981) · Pure Black (#000000)
 ═════════════════════════════════════════════════════════════════════════════ */
@@ -225,7 +225,7 @@
 
   function renderSchematicModule() {
     return `
-      <div id="tmd-schematic-infusion-container" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
+      <div id="tmd-schematic-infusion-container" class="tmd-store-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
         <!-- Header -->
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
           <div>
@@ -490,7 +490,7 @@
     var c = calculateLeasing();
 
     return `
-      <div id="tmd-leasing-infusion-container" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
+      <div id="tmd-leasing-infusion-container" class="tmd-store-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
         <!-- Header -->
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
           <div>
@@ -648,7 +648,7 @@
 
   function renderVehicleDetailInfusion(machineName) {
     return `
-      <div id="tmd-vehicle-360-infusion" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
+      <div id="tmd-vehicle-360-infusion" class="tmd-store-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
           <div>
             <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
@@ -755,7 +755,7 @@
   // ─────────────────────────────────────────────────────────────────────────────
   function renderPortLotsModule() {
     return `
-      <div id="tmd-port-lots-infusion" class="tmd-stitch-section rounded-[24px] border p-6 md:p-10 text-white shadow-2xl space-y-12" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.88) 0%, rgba(8, 11, 19, 0.85) 100%) !important; backdrop-filter: blur(28px) !important; -webkit-backdrop-filter: blur(28px) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0,0,0,0.85), 0 0 50px rgba(245,158,11,0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
+      <div id="tmd-port-lots-infusion" class="tmd-store-section rounded-[24px] border p-6 md:p-10 text-white shadow-2xl space-y-12" style="background: linear-gradient(165deg, rgba(14, 19, 30, 0.88) 0%, rgba(8, 11, 19, 0.85) 100%) !important; backdrop-filter: blur(28px) !important; -webkit-backdrop-filter: blur(28px) !important; border: 1px solid rgba(255, 184, 0, 0.28) !important; box-shadow: 0 25px 90px rgba(0,0,0,0.85), 0 0 50px rgba(245,158,11,0.10), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;">
         
         <!-- ─── PILLAR 1: LOTES PORTUARIOS VIP 0 KM (HAINA & CAUCEDO) ─── -->
         <div>
@@ -1724,7 +1724,7 @@
                   <span class="text-[11px] font-mono font-bold text-amber-400 uppercase">📍 Calculadora de Flete a Obra:</span>
                   <span class="text-[10px] font-mono text-neutral-400">32 Provincias</span>
                 </div>
-                <select id="tmd-stitch-province-select" onchange="window.tmdUpdateStitchProvince(this.value)" class="w-full bg-[#0d1017] border border-amber-500/40 text-white text-xs font-semibold rounded-[10px] p-2.5 outline-none cursor-pointer">
+                <select id="tmd-store-province-select" onchange="window.tmdUpdateProvince(this.value)" class="w-full bg-[#0d1017] border border-amber-500/40 text-white text-xs font-semibold rounded-[10px] p-2.5 outline-none cursor-pointer">
                   <option value="0">Santo Domingo (Metropolitana) — 12 km</option>
                   <option value="1">Distrito Nacional (Centro) — 18 km</option>
                   <option value="2">San Cristóbal (Sur Cercano) — 28 km</option>
@@ -1764,15 +1764,15 @@
               <div class="grid grid-cols-3 gap-2 font-mono text-center pt-1">
                 <div class="p-2 rounded-[10px] bg-white/[0.04] border border-white/8">
                   <span class="text-[9px] text-neutral-400 uppercase block">Distancia:</span>
-                  <span id="tmd-stitch-km" class="font-bold text-amber-400 text-xs block mt-0.5">135 km</span>
+                  <span id="tmd-store-km" class="font-bold text-amber-400 text-xs block mt-0.5">135 km</span>
                 </div>
                 <div class="p-2 rounded-[10px] bg-white/[0.04] border border-white/8">
                   <span class="text-[9px] text-neutral-400 uppercase block">Flete Cama Baja:</span>
-                  <span id="tmd-stitch-lowboy" class="font-bold text-sky-400 text-xs block mt-0.5">3.0 horas</span>
+                  <span id="tmd-store-lowboy" class="font-bold text-sky-400 text-xs block mt-0.5">3.0 horas</span>
                 </div>
                 <div class="p-2 rounded-[10px] bg-white/[0.04] border border-white/8">
                   <span class="text-[9px] text-neutral-400 uppercase block">SLA Auxilio:</span>
-                  <span id="tmd-stitch-sla" class="font-bold text-emerald-400 text-xs block mt-0.5">&lt; 1.5 horas</span>
+                  <span id="tmd-store-sla" class="font-bold text-emerald-400 text-xs block mt-0.5">&lt; 1.5 horas</span>
                 </div>
               </div>
 
@@ -1786,9 +1786,9 @@
               </div>
             </div>
 
-            <a id="tmd-stitch-dispatch-btn" href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, solicito cotización de flete en Cama Baja / auxilio técnico para maquinaria en Santiago.')}" target="_blank" class="w-full py-3.5 px-5 rounded-[12px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs font-bold uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2">
+            <a id="tmd-store-dispatch-btn" href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, solicito cotización de flete en Cama Baja / auxilio técnico para maquinaria en Santiago.')}" target="_blank" class="w-full py-3.5 px-5 rounded-[12px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs font-bold uppercase transition-all shadow-[0_6px_25px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2">
               <span class="material-symbols-outlined text-[18px]">local_shipping</span>
-              <span id="tmd-stitch-btn-text">Solicitar Despacho a Santiago</span>
+              <span id="tmd-store-btn-text">Solicitar Despacho a Santiago</span>
             </a>
           </div>
         </div>
@@ -1853,7 +1853,7 @@
     });
   };
 
-  window.tmdUpdateStitchProvince = function (idx) {
+  window.tmdUpdateProvince = function (idx) {
     var pList = [
       { name: 'Santo Domingo', km: 12, lowboy: '0.8h', sla: '< 1.5h', hub: 'km22' },
       { name: 'Distrito Nacional', km: 18, lowboy: '1.0h', sla: '< 1.5h', hub: 'km22' },
@@ -1890,11 +1890,11 @@
     ];
 
     var item = pList[parseInt(idx, 10)] || pList[0];
-    var kmEl = document.getElementById('tmd-stitch-km');
-    var lbEl = document.getElementById('tmd-stitch-lowboy');
-    var slaEl = document.getElementById('tmd-stitch-sla');
-    var btn = document.getElementById('tmd-stitch-dispatch-btn');
-    var btnText = document.getElementById('tmd-stitch-btn-text');
+    var kmEl = document.getElementById('tmd-store-km');
+    var lbEl = document.getElementById('tmd-store-lowboy');
+    var slaEl = document.getElementById('tmd-store-sla');
+    var btn = document.getElementById('tmd-store-dispatch-btn');
+    var btnText = document.getElementById('tmd-store-btn-text');
 
     if (kmEl) kmEl.textContent = item.km + ' km';
     if (lbEl) lbEl.textContent = item.lowboy;
@@ -2207,7 +2207,7 @@
           </button>
           <a href="https://wa.me/18098262222?text=${waMsg}" target="_blank" class="py-2.5 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center gap-2 shadow-lg transition cursor-pointer">
             <span class="material-symbols-outlined text-[18px]">chat</span>
-            <span>Cotizar Comparativa Completa con Don Eduardo (WhatsApp)</span>
+            <span>Cotizar Comparativa Completa con Ingeniería TMD (WhatsApp)</span>
           </a>
         </div>
       </div>

@@ -792,7 +792,7 @@
           <div class="cta-stack">
             <a href="#" id="btn-wa-action" class="btn-wa-large" target="_blank">
               <span class="material-symbols-outlined" style="font-size:20px;">chat</span>
-              Cotizar por WhatsApp con Don Eduardo
+              Cotizar por WhatsApp con Ingeniería TMD
             </a>
             <a href="#" id="btn-config-action" class="btn-config-large">
               <span class="material-symbols-outlined" style="font-size:18px;">tune</span>
@@ -1135,7 +1135,7 @@
         `;
 
         // CTAs links
-        const waMsg = encodeURIComponent(`Hola Don Eduardo, estoy viendo la Ficha Técnica de la ${p.title} ($${priceUSD.toLocaleString('en-US')} USD) en la web de TMD. Quisiera cotizar una unidad y consultar disponibilidad para entrega.`);
+        const waMsg = encodeURIComponent(`Hola Ingeniería TMD, estoy viendo la Ficha Técnica de la ${p.title} ($${priceUSD.toLocaleString('en-US')} USD) en la web de TMD. Quisiera cotizar una unidad y consultar disponibilidad para entrega.`);
         document.getElementById('btn-wa-action').href = `https://wa.me/18098262222?text=${waMsg}`;
         document.getElementById('btn-config-action').href = `/#/configurador?brand=${encodeURIComponent(p.brand)}&model=${encodeURIComponent(p.id)}`;
 
@@ -1220,7 +1220,7 @@
           else if (rState === 'order' || rState === 'pedido') { rBadgeColor = '#38bdf8'; rBadgeText = '🔵 Por Pedido'; }
 
           const rSlug = encodeURIComponent(r.id);
-          const rWaMsg = encodeURIComponent(`Hola Don Eduardo, vi el equipo ${r.title} en la web de TMD y quiero cotizarlo. Precio referencia: $${(r.priceUSD || 0).toLocaleString('en-US')} USD.`);
+          const rWaMsg = encodeURIComponent(`Hola Ingeniería TMD, vi el equipo ${r.title} en la web de TMD y quiero cotizarlo. Precio referencia: $${(r.priceUSD || 0).toLocaleString('en-US')} USD.`);
           const rImgFallback = '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg';
 
           const card = document.createElement('div');
