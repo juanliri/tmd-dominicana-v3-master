@@ -868,25 +868,26 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════ */
-    /* ROCK-SOLID STATIC CARD PRESENTATION (ZERO SCROLL JITTER / DRIFT)   */
+    /* LUXURY CARD RISE & SCROLL PARALLAX REVEAL                          */
     /* ══════════════════════════════════════════════════════════════════ */
     .link-card,
     .emergency-card,
-    .status-chip,
+    .status-chip {
+      opacity: 0.15;
+      transform: translateY(32px) scale(0.97);
+      will-change: transform, opacity;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
     .brand-header,
     .social-row-milton {
-      opacity: 1 !important;
-      transform: none !important;
-      will-change: auto;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      opacity: 1;
+      transform: none;
     }
     .link-card.bio-revealed,
     .emergency-card.bio-revealed,
-    .status-chip.bio-revealed,
-    .brand-header.bio-revealed,
-    .social-row-milton.bio-revealed {
+    .status-chip.bio-revealed {
       opacity: 1 !important;
-      transform: none !important;
+      transform: translateY(0px) scale(1) !important;
     }
 
     /* Interactive Subtle Spotlight Aura on Cards (Not Distracting) */
@@ -1599,14 +1600,25 @@ END:VCARD`;
     }
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-    // 2. IntersectionObserver Card Reveal
-    var targets = document.querySelectorAll('.link-card, .emergency-card, .status-chip, .brand-header, .social-row-milton');
+    // 2. Card Rise Staggered Reveal Engine
+    var cards = document.querySelectorAll('.link-card, .emergency-card, .status-chip');
     function revealAllCards() {
-      targets.forEach(function(el) {
+      cards.forEach(function(el) {
         el.classList.add('bio-revealed');
       });
     }
     window.__bioTriggerReveal = revealAllCards;
+
+    // Immediately reveal cards visible on initial load with a smooth staggered cascade
+    var initialDelay = 45;
+    cards.forEach(function(el, idx) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
+        setTimeout(function() {
+          el.classList.add('bio-revealed');
+        }, idx * initialDelay);
+      }
+    });
 
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function(entries) {
@@ -1616,13 +1628,10 @@ END:VCARD`;
             observer.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '0px 0px -20px 0px', threshold: 0.08 });
+      }, { rootMargin: '0px 0px -30px 0px', threshold: 0.12 });
 
-      targets.forEach(function(el) {
-        var rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
-          el.classList.add('bio-revealed');
-        } else {
+      cards.forEach(function(el) {
+        if (!el.classList.contains('bio-revealed')) {
           observer.observe(el);
         }
       });
@@ -1630,8 +1639,27 @@ END:VCARD`;
       revealAllCards();
     }
 
-    // 3. Static & Rock-Solid Layout (Zero Unwanted Scroll Drift or Movement)
-    // No parallax translateY transforms during scroll — ensures 100% natural, jitter-free scrolling.
+    // 3. Hero Media Cinematic Parallax Scroll
+    var heroVideo = document.querySelector('.hero-video');
+    var heroImg = document.querySelector('.hero-poster-fallback');
+    var parallaxTicking = false;
+
+    function applyHeroParallax() {
+      var sy = window.pageYOffset || document.documentElement.scrollTop;
+      if (sy < 700) {
+        var ty = (sy * 0.18).toFixed(1);
+        if (heroVideo) heroVideo.style.transform = 'scale(1.05) translateY(' + ty + 'px)';
+        if (heroImg) heroImg.style.transform = 'scale(1.05) translateY(' + ty + 'px)';
+      }
+      parallaxTicking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!parallaxTicking) {
+        window.requestAnimationFrame(applyHeroParallax);
+        parallaxTicking = true;
+      }
+    }, { passive: true });
 
     // 4. Cursor Spotlight Coordinates (Throttled via rAF, Zero Layout Shift or Jitter)
     var interactiveCards = document.querySelectorAll('.link-card, .emergency-card');

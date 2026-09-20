@@ -2010,7 +2010,20 @@
     var dd = document.getElementById('tmd-tools-mega-menu-dropdown');
     var ch = document.getElementById('tmd-tools-menu-chevron');
     var btn = document.getElementById('tmd-nav-mega-menu-btn');
-    if (dd) dd.classList.remove('hidden');
+    if (dd) {
+      dd.classList.remove('hidden');
+      dd.style.transform = 'none';
+      // Dynamically guarantee 100% viewport containment (never off-screen)
+      var rect = dd.getBoundingClientRect();
+      var vw = window.innerWidth;
+      if (rect.right > vw - 16) {
+        var shift = rect.right - (vw - 16);
+        dd.style.transform = 'translateX(-' + Math.ceil(shift) + 'px)';
+      } else if (rect.left < 16) {
+        var shiftLeft = 16 - rect.left;
+        dd.style.transform = 'translateX(' + Math.ceil(shiftLeft) + 'px)';
+      }
+    }
     if (ch) ch.style.transform = 'rotate(180deg)';
     if (btn) btn.setAttribute('aria-expanded', 'true');
   };
@@ -2019,7 +2032,10 @@
     var dd = document.getElementById('tmd-tools-mega-menu-dropdown');
     var ch = document.getElementById('tmd-tools-menu-chevron');
     var btn = document.getElementById('tmd-nav-mega-menu-btn');
-    if (dd) dd.classList.add('hidden');
+    if (dd) {
+      dd.classList.add('hidden');
+      dd.style.transform = 'none';
+    }
     if (ch) ch.style.transform = 'rotate(0deg)';
     if (btn) btn.setAttribute('aria-expanded', 'false');
   };
@@ -2733,8 +2749,8 @@
               <span class="material-symbols-outlined text-[16px] transition-transform duration-200" id="tmd-tools-menu-chevron">expand_more</span>
             </button>
 
-            <!-- 3-Column Mega Menu Dropdown (Pure Obsidian Black, Zero Blues/Cyans) -->
-            <div id="tmd-tools-mega-menu-dropdown" class="hidden absolute top-full right-0 lg:-right-24 mt-2 z-[99999] w-[740px] max-w-[94vw] rounded-2xl p-4 sm:p-5 border border-amber-500/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(245,158,11,0.15)] text-neutral-200" style="background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); box-sizing: border-box;">
+            <!-- 3-Column Mega Menu Dropdown (Pure Obsidian Black, Zero Blues/Cyans, Viewport-Contained) -->
+            <div id="tmd-tools-mega-menu-dropdown" class="hidden absolute top-full right-0 mt-2 z-[99999] w-[720px] max-w-[calc(100vw-24px)] rounded-2xl p-4 sm:p-5 border border-amber-500/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(245,158,11,0.15)] text-neutral-200" style="background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); box-sizing: border-box;">
               
               <!-- Dropdown Header -->
               <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 gap-2">
@@ -2754,34 +2770,37 @@
                 <!-- Col 1: Flota & Telemetría -->
                 <div class="p-3 rounded-xl bg-white/[0.02] border border-emerald-500/20 flex flex-col justify-between">
                   <div>
-                    <div class="flex items-center gap-1.5 mb-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                      <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">Flota &amp; Telemetría</span>
+                    <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">Flota &amp; Telemetría</span>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 rounded bg-neutral-800 text-neutral-400">TELEMETRÍA</span>
                     </div>
                     
                     <div class="space-y-2">
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenTelematicsCockpit();">
-                        <div class="text-xs font-bold text-white group-hover:text-emerald-300 flex items-center justify-between">
-                          <span>Operations Center™</span>
-                          <span class="material-symbols-outlined text-[14px] text-emerald-400">open_in_new</span>
+                        <div class="text-xs font-bold text-white group-hover:text-emerald-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Operations Center™</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">VIP LOGIN</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Telemetría satelital, 350 Bar en vivo y geocercas</div>
                       </div>
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-emerald-500/10 border border-transparent hover:border-emerald-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenDviTracker('WO-4482');">
-                        <div class="text-xs font-bold text-white group-hover:text-emerald-300 flex items-center justify-between">
-                          <span>Rastreo WO / DVI</span>
-                          <span class="material-symbols-outlined text-[14px] text-emerald-400">search</span>
+                        <div class="text-xs font-bold text-white group-hover:text-emerald-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Rastreo WO / DVI</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">CON ORDEN</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Inspección fotográfica digital 40 puntos en Km 22</div>
                       </div>
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenClientPortal();">
-                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between">
-                          <span>Portal Clientes VIP</span>
-                          <span>🚜</span>
+                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between gap-1">
+                          <span class="truncate">Portal Clientes VIP</span>
+                          <span class="text-[8px] font-mono font-black px-1.5 py-0.5 rounded bg-amber-500 text-black shrink-0">MULTI-TENANT</span>
                         </div>
-                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Acceso exclusivo a contratistas y flota propia</div>
+                        <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Bóveda NCF, WOs y firma para contratistas</div>
                       </div>
                     </div>
                   </div>
@@ -2790,32 +2809,35 @@
                 <!-- Col 2: Finanzas & DGII -->
                 <div class="p-3 rounded-xl bg-white/[0.02] border border-amber-500/20 flex flex-col justify-between">
                   <div>
-                    <div class="flex items-center gap-1.5 mb-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                      <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Finanzas &amp; DGII</span>
+                    <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Finanzas &amp; DGII</span>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 rounded bg-neutral-800 text-neutral-400">DGII / BANCOS</span>
                     </div>
 
                     <div class="space-y-2">
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenFinancialSuite('JCB 3CX Eco', 85000);">
-                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
-                          <span>Suite MyFinancial™</span>
-                          <span class="material-symbols-outlined text-[14px] text-amber-400">calculate</span>
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Suite MyFinancial™</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">LIBRE / RNC</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Ley 11-92: Depreciación 25% Cat. 2 y leasing bancario</div>
                       </div>
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); if(typeof window.tmdShowQuoteModal==='function') window.tmdShowQuoteModal('JCB 3CX Eco');">
-                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
-                          <span>Cotizador DGII</span>
-                          <span class="material-symbols-outlined text-[14px] text-amber-400">receipt_long</span>
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Cotizador DGII</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">RNC B01/B15</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Comprobante fiscal B01 empresarial y B15 público</div>
                       </div>
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.location.hash='#/home'; setTimeout(function(){ var el = document.getElementById('tmd-tco-estimator-infusion'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 300);">
-                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
-                          <span>Calculadora TCO</span>
-                          <span class="material-symbols-outlined text-[14px] text-amber-400">payments</span>
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Calculadora TCO</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">100% PÚBLICO</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Estimador de costo por hora/día y tarifa de alquiler</div>
                       </div>
@@ -2826,32 +2848,35 @@
                 <!-- Col 3: Selección & Repuestos -->
                 <div class="p-3 rounded-xl bg-white/[0.02] border border-amber-500/20 flex flex-col justify-between">
                   <div>
-                    <div class="flex items-center gap-1.5 mb-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                      <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Selección &amp; Repuestos</span>
+                    <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Selección &amp; Repuestos</span>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 rounded bg-neutral-800 text-neutral-400">TÉCNICA</span>
                     </div>
 
                     <div class="space-y-2">
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenModelComparator('backhoes');">
-                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
-                          <span>Comparador 3-Vías</span>
-                          <span class="material-symbols-outlined text-[14px] text-amber-400">compare_arrows</span>
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Comparador 3-Vías</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">100% PÚBLICO</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">JCB vs CAT 420 vs Deere 310L en 14 vectores</div>
                       </div>
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenPartsSerialEngine();">
-                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
-                          <span>Repuestos por VIN</span>
-                          <span class="material-symbols-outlined text-[14px] text-amber-400">precision_manufacturing</span>
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between gap-1">
+                          <span class="truncate">Repuestos por VIN</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">BÚSQUEDA LIBRE</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">390+ piezas OEM con stock en Taller Km 22</div>
                       </div>
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenMachineAdvisor();">
-                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between">
-                          <span>Help Me Choose</span>
-                          <span class="material-symbols-outlined text-[14px] text-amber-400">psychology</span>
+                        <div class="text-xs font-bold text-amber-400 flex items-center justify-between gap-1">
+                          <span class="truncate">Help Me Choose</span>
+                          <span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shrink-0">100% PÚBLICO</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Asesor inteligente según suelo, faena y volumen</div>
                       </div>
