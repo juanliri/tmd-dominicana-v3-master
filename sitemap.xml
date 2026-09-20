@@ -71,4 +71,22 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- 9. Configurador & Cotizador de Equipos -->
+  <url>
+    <loc>https://tmddominicana.com/configurador</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tmddominicana.com/configurador" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tmddominicana.com/configurador?lang=en" />
+  </url>
+
+  <!-- 10. Configurador — alias routes -->
+  <url>
+    <loc>https://tmddominicana.com/cotizar</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
 </urlset>

@@ -18,6 +18,17 @@
       window.tmdShowPortalPINPrompt = function() {
         window.location.hash = '#/portal';
       };
+      // Automatic routing for Universal Multibrand Configurator & Quote Builder
+      (function() {
+        function checkConfigurator() {
+          var h = window.location.hash || '';
+          if (h === '#/configurator' || h === '#/configurador' || h === '#configurador' || h === '#configurator' || h === '#/cotizar' || h === '#/quote') {
+            window.location.href = '/configurador';
+          }
+        }
+        checkConfigurator();
+        window.addEventListener('hashchange', checkConfigurator);
+      })();
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
