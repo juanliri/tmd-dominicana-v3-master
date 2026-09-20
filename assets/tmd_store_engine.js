@@ -1232,19 +1232,19 @@
         ]
       },
       {
-        id: 'LG-856T',
+        id: 'LG-922E',
         brand: 'LIUGONG',
-        title: 'LiuGong 856T Heavy Duty',
-        category: 'Pala Cargadora Pesada',
+        title: 'LiuGong 922E Heavy Duty',
+        category: 'Excavadora Hidráulica 22 Ton',
         badge: '⭐ LÍDER EN CANTERAS & MINERÍA',
-        tagline: 'Fuerza bruta de 220 HP y balde de 3.5 m³ con motor Cummins y transmisión ZF.',
+        tagline: 'Excavadora de 22 Ton con motor Cummins Tier 3 y balde rocoso de 1.1 m³ para servicio severo.',
         image: 'assets/machinery/heavy_liugong_922e_hd_22_ton.jpg',
         priceUSD: 115000,
         leasing: '$2,300 / mes',
         specs: [
-          { l: 'Potencia', v: '220 HP Cummins' },
-          { l: 'Carga Útil', v: '5,000 kg' },
-          { l: 'Balde', v: '3.5 m³' }
+          { l: 'Potencia', v: '150 HP Cummins' },
+          { l: 'Peso Operat.', v: '22,000 kg' },
+          { l: 'Balde', v: '1.1 m³ Rocoso' }
         ]
       },
       {
@@ -2081,12 +2081,15 @@
     var existingIdx = _compareList.findIndex(function(x) { return x.id === prodId; });
     if (existingIdx > -1) {
       _compareList.splice(existingIdx, 1);
+      if (typeof window.tmdShowToast === 'function') window.tmdShowToast('Equipo removido de la mesa comparativa (' + _compareList.length + '/4)', 'info');
     } else {
       if (_compareList.length >= 4) {
-        alert('Puede comparar un máximo de 4 equipos simultáneamente.');
+        if (typeof window.tmdShowToast === 'function') window.tmdShowToast('Puede comparar un máximo de 4 equipos simultáneamente.', 'warning');
+        else alert('Puede comparar un máximo de 4 equipos simultáneamente.');
         return;
       }
       _compareList.push(item);
+      if (typeof window.tmdShowToast === 'function') window.tmdShowToast('"' + item.title + '" añadido a la mesa comparativa (' + _compareList.length + '/4)', 'success');
     }
     window.tmdUpdateCompareBarUI();
   };
@@ -2899,6 +2902,7 @@
                   <span class="font-mono text-[9px] uppercase text-emerald-400/80 block">${leasingFormatted}</span>
                 </div>
               </div>
+              <div class="text-[8px] font-mono text-neutral-500/80 pb-0.5 tracking-tight">*Precios B2B de referencia · Régimen DGII B01 / Ley 392-07</div>
             </div>
           </div>
 
@@ -3109,7 +3113,7 @@
                 <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold uppercase">Conexión Estratégica</span>
               </div>
               <p class="text-neutral-300 text-xs leading-relaxed mt-0.5">
-                Despacho exprés en Lowboy a faenas en el <strong>Cibao (Santiago, La Vega, Bonao)</strong> y <strong>Gran Santo Domingo</strong> en menos de 4 horas. Trámites DGII con comprobante fiscal B01/B15 y Ley 392-07.
+                Despacho exprés en Lowboy a faenas en el <strong>Cibao (Santiago, La Vega, Bonao)</strong> y <strong>Gran Santo Domingo</strong> el mismo día o en 24 horas. Trámites DGII con comprobante fiscal B01/B15 y Ley 392-07.
               </p>
             </div>
           </div>

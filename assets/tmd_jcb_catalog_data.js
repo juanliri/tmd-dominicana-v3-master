@@ -1,12 +1,12 @@
 /**
- * TMD DOMINICANA — OFFICIAL JCB MASTER CATALOG DATA REGISTRY
- * Sourced directly from official JCB Global Engineering Product Specifications
- * © 2026 Tecnomaquinarias Diesel S.R.L. | Autopista Duarte Km 22, Santo Domingo
+ * TMD JCB Catalog Data (106 Equipos & Implementos Certificados)
+ * Tecnomaquinarias Diesel (TMD) — Distribuidor Oficial Exclusivo JCB en RD
+ * Datos técnicos métricos MOPC, precios de referencia en USD y DOP
  */
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define([], factory);
+    define(factory);
   } else if (typeof module === 'object' && module.exports) {
     module.exports = factory();
   } else {
@@ -24,20 +24,20 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 215T",
-    "tagline": "The world's safest skid steer- Flexible, multi-purpose and highly productive. Starting at $50,590",
+    "tagline": "Minicargador de oruga con cabina monobrazo de acceso lateral seguro y alta productividad.",
     "image": "https://www.jcb.com/globalassets/digizuite/28726-4148326809/Img_800x800",
     "priceUSD": 50590,
     "priceDOP": 3010105,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9140 lb",
-      "hingePinHeight": "9in 10 ft",
+      "operatingWeight": "4.1 Ton",
+      "hingePinHeight": "3.28 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,105 lb",
-      "loaderLiftBreakout": "4129 lb"
+      "roc": "1.0 Ton",
+      "loaderLiftBreakout": "1.9 Ton"
     },
     "brochureCode": "FT-JCB-215T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -50,21 +50,21 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 250T",
-    "tagline": "The world's safest skid steer- Flexible, multi-purpose and highly productive. Starting at $63,790.",
+    "tagline": "Minicargador de oruga de alta potencia con cabina monobrazo certificada ROPS/FOPS..",
     "image": "https://www.jcb.com/globalassets/digizuite/78574-250t-web-banner/Img_800x800",
     "priceUSD": 63790,
     "priceDOP": 3795505,
     "badges": [
       "New",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9870 lb",
-      "hingePinHeight": "9in 11 ft",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.58 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-250T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -77,20 +77,20 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 270T",
-    "tagline": "The large-platform, JCB 270T Hi-Viz is a vertical lift compact track loader with a 74 hp (55 kW) JCB EcoMAX engine and a rated operating capacity of 2,723 lb. Starting at $75,490.",
+    "tagline": "Minicargador de orugas vertical de plataforma ancha con motor EcoMAX de 74 HP y capacidad nominal de 1.2 Ton.",
     "image": "https://www.jcb.com/globalassets/digizuite/78475-nurnberg_221207_08161_3484-edit/Img_800x800",
     "priceUSD": 75490,
     "priceDOP": 4491655,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "11003 lb",
-      "hingePinHeight": "10in 5 ft",
+      "operatingWeight": "5.0 Ton",
+      "hingePinHeight": "1.78 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,795 lb",
-      "loaderLiftBreakout": "5807 lb"
+      "roc": "1.3 Ton",
+      "loaderLiftBreakout": "2.6 Ton"
     },
     "brochureCode": "FT-JCB-270T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -103,21 +103,21 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 400T",
-    "tagline": "With a powerful 4.4L engine delivering 109hp, our new vertical lift machine makes lifting and loading easy. Starting at $99,890.",
+    "tagline": "Minicargador vertical de alta potencia con motor JCB 4.4L de 109 HP para faenas de carga pesada y zanjado continuo.",
     "image": "https://www.jcb.com/globalassets/digizuite/68897-jcb02666_must-use_review/Img_800x800",
     "priceUSD": 99890,
     "priceDOP": 5943455,
     "badges": [
       "New",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "12544 lb",
-      "hingePinHeight": "10in 3 ft",
+      "operatingWeight": "5.7 Ton",
+      "hingePinHeight": "1.17 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "3,994 lb",
-      "loaderLiftBreakout": "6816 lb"
+      "roc": "1.8 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-400T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -130,21 +130,21 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 2TS-7T",
-    "tagline": "The JCB Teleskid 2TS-7T is the world&rsquo;s only small platform compact track loader with a telescopic boom. Starting at $67,990.",
+    "tagline": "Minicargador telescópico Teleskid con pluma extensible para mayor alcance vertical y lateral en espacios reducidos.",
     "image": "https://www.jcb.com/globalassets/digizuite/42963-7141445177/Img_800x800",
     "priceUSD": 67990,
     "priceDOP": 4045405,
     "badges": [
       "Popular",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "10028 lb",
-      "hingePinHeight": "11in 8 ft",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "2.72 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "1,894 lb",
-      "loaderLiftBreakout": "lb"
+      "roc": "859 kg",
+      "loaderLiftBreakout": "2.3 Ton"
     },
     "brochureCode": "FT-JCB-2TS7T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -157,21 +157,21 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 3TS-8T",
-    "tagline": "The JCB Teleskid 3TS-8T is the world&rsquo;s only compact track loader with a telescopic boom. Starting at $90,290.",
+    "tagline": "Teleskid de orugas con brazo telescópico exclusivo, alcance extendido de 4.04 m y alta versatilidad de implementos.",
     "image": "https://www.jcb.com/globalassets/digizuite/67058-nurnberg_221208_08161_4782-edit/Img_800x800",
     "priceUSD": 90290,
     "priceDOP": 5372255,
     "badges": [
       "Popular",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "12615 lb",
-      "hingePinHeight": "ft",
+      "operatingWeight": "5.7 Ton",
+      "hingePinHeight": "4.04 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "3,695 lb",
-      "loaderLiftBreakout": "lb"
+      "roc": "1.7 Ton",
+      "loaderLiftBreakout": "3.3 Ton"
     },
     "brochureCode": "FT-JCB-3TS8T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -184,20 +184,20 @@
     "subcategory": "ctl",
     "subcategoryName": "Minicargadores de Oruga (CTL)",
     "title": "JCB 4TS-8T",
-    "tagline": "The 4TS-8T Teleskid has the high torque, high power and performance to reach further and lift higher than any other skid steer on the market. Starting at $112,190.",
+    "tagline": "Minicargador telescópico de máxima capacidad y torque con alcance superior a cualquier cargador convencional.",
     "image": "https://www.jcb.com/globalassets/digizuite/68898-jcb01565_review/Img_800x800",
     "priceUSD": 112190,
     "priceDOP": 6675305,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "13000 lb",
-      "hingePinHeight": "15 ft",
+      "operatingWeight": "5.9 Ton",
+      "hingePinHeight": "4.57 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "3,999 lb",
-      "loaderLiftBreakout": "lb"
+      "roc": "1.8 Ton",
+      "loaderLiftBreakout": "3.5 Ton"
     },
     "brochureCode": "FT-JCB-4TS8T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -210,20 +210,20 @@
     "subcategory": "backhoe",
     "subcategoryName": "Retroexcavadoras",
     "title": "JCB 1CXT",
-    "tagline": "The 1CX has always been a versatile compact machine, offering skid steer and excavator performance in one package.",
+    "tagline": "Retroexcavadora compacta sobre orugas que combina la agilidad de un minicargador con la fuerza de excavación 3CX.",
     "image": "https://www.jcb.com/globalassets/digizuite/38216-6406639832/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.3 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "49 hp",
       "travelSpeed": "4.7 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-1CXT-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -242,15 +242,15 @@
     "priceDOP": 3867500,
     "badges": [
       "Popular",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "8.1 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-3CX4CX-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -263,20 +263,20 @@
     "subcategory": "backhoe",
     "subcategoryName": "Retroexcavadoras",
     "title": "JCB 3CX Compact",
-    "tagline": "The 3CX Compact backhoe is a highly versatile, maneuverable machine that specialises in a wide variety of duties in urban and limited-space environments.",
+    "tagline": "Retroexcavadora compacta de máxima maniobrabilidad para faenas urbanas, canalizaciones y espacios de difícil acceso.",
     "image": "https://www.jcb.com/globalassets/digizuite/48196-7926951159/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "13834 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "6.3 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "24.9 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-3CXCompact-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -289,7 +289,7 @@
     "subcategory": "backhoe",
     "subcategoryName": "Retroexcavadoras",
     "title": "JCB 3CX-14",
-    "tagline": "The 3CX-14 boasts powerful hydraulics, high-end features and improved comfort, for excellent performance and productivity.",
+    "tagline": "Retroexcavadora de alto rendimiento con sistema hidráulico de flujo variable y cabina CommandPlus de alta visibilidad.",
     "image": "https://www.jcb.com/globalassets/digizuite/31568-5138732453/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -298,12 +298,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "7.9 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "24.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-3CX14-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -316,20 +316,20 @@
     "subcategory": "skid",
     "subcategoryName": "Minicargadores de Ruedas",
     "title": "JCB 215",
-    "tagline": "The small-platform JCB 215 is a vertical lift skid steer loader with a 74 hp (55 kW) JCB Diesel by Kohler engine and a rated operating capacity of 2,112 lb. Starting at $44,390.",
+    "tagline": "Minicargador de ruedas con elevación vertical, motor JCB diésel de 74 HP y capacidad nominal de carga de 1.0 Ton.",
     "image": "https://www.jcb.com/globalassets/digizuite/43529-7215045802/Img_800x800",
     "priceUSD": 44390,
     "priceDOP": 2641205,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "7610 lb",
-      "hingePinHeight": "9in 10 ft",
+      "operatingWeight": "3.5 Ton",
+      "hingePinHeight": "3.28 m",
       "enginePower": "74 hp",
       "travelSpeed": "11.5 mph",
-      "roc": "2,235 lb",
-      "loaderLiftBreakout": "4129 lb"
+      "roc": "1.0 Ton",
+      "loaderLiftBreakout": "1.9 Ton"
     },
     "brochureCode": "FT-JCB-215-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -342,21 +342,21 @@
     "subcategory": "skid",
     "subcategoryName": "Minicargadores de Ruedas",
     "title": "JCB 250",
-    "tagline": "The small-platform JCB 250 is a vertical lift skid steer loader with a 74 hp (55 kW) JCB Diesel by Kohler engine and a rated operating capacity of 2,513 lb.",
+    "tagline": "Minicargador sobre ruedas de plataforma compacta con elevación vertical y excelente rendimiento en obra civil.",
     "image": "https://www.jcb.com/globalassets/digizuite/83187-250-2/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
       "New",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "7610 lb",
-      "hingePinHeight": "9in 10 ft",
+      "operatingWeight": "3.5 Ton",
+      "hingePinHeight": "3.28 m",
       "enginePower": "74 hp",
       "travelSpeed": "11.5 mph",
-      "roc": "2,235 lb",
-      "loaderLiftBreakout": "4129 lb"
+      "roc": "1.0 Ton",
+      "loaderLiftBreakout": "1.9 Ton"
     },
     "brochureCode": "FT-JCB-250-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -369,20 +369,20 @@
     "subcategory": "skid",
     "subcategoryName": "Minicargadores de Ruedas",
     "title": "JCB 270",
-    "tagline": "The large-platform, JCB 270 Hi-Viz is a vertical lift skid steer loader with a 74 hp (55 kW) JCB EcoMAX engine and a rated operating capacity of 2,723 lb. Starting at $50,490.",
+    "tagline": "Minicargador de ruedas Hi-Viz de visibilidad panorámica 270°, motor EcoMAX de 74 HP y capacidad de 1.2 Ton.",
     "image": "https://www.jcb.com/globalassets/digizuite/43537-7215945810/Img_800x800",
     "priceUSD": 50490,
     "priceDOP": 3004155,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "8680 lb",
-      "hingePinHeight": "10in 5 ft",
+      "operatingWeight": "3.9 Ton",
+      "hingePinHeight": "1.78 m",
       "enginePower": "74 hp",
       "travelSpeed": "12.4 mph",
-      "roc": "2,722.7 lb",
-      "loaderLiftBreakout": "6056 lb"
+      "roc": "1.2 Ton",
+      "loaderLiftBreakout": "2.7 Ton"
     },
     "brochureCode": "FT-JCB-270-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -395,21 +395,21 @@
     "subcategory": "skid",
     "subcategoryName": "Minicargadores de Ruedas",
     "title": "JCB 290",
-    "tagline": "The large-platform, JCB 290 Hi-Viz is a vertical lift skid steer loader with a 74 hp (55 kW) JCB EcoMAX engine and a rated operating capacity of 3,029 lb.",
+    "tagline": "Minicargador de alta capacidad con cabina presurizada y motor JCB EcoMAX optimizado para uso continuo.",
     "image": "https://www.jcb.com/globalassets/digizuite/83189-290-2/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
       "New",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "8680 lb",
-      "hingePinHeight": "10in 5 ft",
+      "operatingWeight": "3.9 Ton",
+      "hingePinHeight": "1.78 m",
       "enginePower": "74 hp",
       "travelSpeed": "12.4 mph",
-      "roc": "3,029 lb",
-      "loaderLiftBreakout": "6056 lb"
+      "roc": "1.4 Ton",
+      "loaderLiftBreakout": "2.7 Ton"
     },
     "brochureCode": "FT-JCB-290-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -422,20 +422,20 @@
     "subcategory": "skid",
     "subcategoryName": "Minicargadores de Ruedas",
     "title": "JCB 300",
-    "tagline": "The large skid steer, JCB 300 is a vertical lift skid steer loader with a 74 hp (55 kW) JCB EcoMAX engine and a rated operating capacity of 3,186 lb (1,445 kg).",
+    "tagline": "Minicargador de plataforma pesada para manejo de áridos con capacidad operativa de 1.4 Ton en faenas industriales.",
     "image": "https://www.jcb.com/globalassets/digizuite/37572-6293839118/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9288 lb",
-      "hingePinHeight": "10in 5 ft",
+      "operatingWeight": "4.2 Ton",
+      "hingePinHeight": "1.78 m",
       "enginePower": "74 hp",
       "travelSpeed": "12.4 mph",
-      "roc": "3,186 lb",
-      "loaderLiftBreakout": "6056 lb"
+      "roc": "1.4 Ton",
+      "loaderLiftBreakout": "2.7 Ton"
     },
     "brochureCode": "FT-JCB-300-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -448,20 +448,20 @@
     "subcategory": "skid",
     "subcategoryName": "Minicargadores de Ruedas",
     "title": "JCB 3TS-8W",
-    "tagline": "The JCB Teleskid 3TS-8W is the world&rsquo;s only skid steer with a telescopic boom. Lift higher, reach further and dig deeper than ever before. Starting at $79,590.",
+    "tagline": "Minicargador sobre ruedas con brazo telescópico exclusivo Teleskid, mayor alcance de vaciado y descarga en tolvas altas.",
     "image": "https://www.jcb.com/globalassets/digizuite/42333-7043544400/Img_800x800",
     "priceUSD": 79590,
     "priceDOP": 4735605,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9859 lb",
-      "hingePinHeight": "13in 3 ft",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "1.24 m",
       "enginePower": "74 hp",
       "travelSpeed": "12.4 mph",
-      "roc": "3,208 lb",
-      "loaderLiftBreakout": "lb"
+      "roc": "1.5 Ton",
+      "loaderLiftBreakout": "3.3 Ton"
     },
     "brochureCode": "FT-JCB-3TS8W-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -479,15 +479,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "32670 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "14.8 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-131X-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -500,20 +500,20 @@
     "subcategory": "tracked_excavator",
     "subcategoryName": "Excavadoras de Oruga",
     "title": "JCB 150X",
-    "tagline": "The 150X 15 tonne machine sits perfectly alongside its highly acclaimed 20 tonne big brother.",
+    "tagline": "Excavadora de 15 toneladas de la Serie X, diseñada para máxima durabilidad, precisión de mandos y bajo consumo de combustible.",
     "image": "https://www.jcb.com/globalassets/digizuite/38612-6477040293/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "34460 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "15.6 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-150X-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -526,20 +526,20 @@
     "subcategory": "tracked_excavator",
     "subcategoryName": "Excavadoras de Oruga",
     "title": "JCB 220X",
-    "tagline": "The 220X, our most advanced 20 tonne tracked excavator for sale ever.",
+    "tagline": "Excavadora hidráulica de 22 toneladas Serie X con bomba Kawasaki, tren de rodaje Heavy Duty y cabina presurizada CommandPlus.",
     "image": "https://www.jcb.com/globalassets/digizuite/32254-5244533297/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "54549 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "24.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "173 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-220X-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -552,20 +552,20 @@
     "subcategory": "tracked_excavator",
     "subcategoryName": "Excavadoras de Oruga",
     "title": "JCB 245XR",
-    "tagline": "Minimum swing, maximum space. The 245XR excavator still boasts the JCB CommandPlus cab, it's just smaller.",
+    "tagline": "Excavadora de radio de giro reducido (Zero Tailswing) de 24 toneladas para faenas viales sin interrumpir el tránsito.",
     "image": "https://www.jcb.com/globalassets/digizuite/50255-8011651877/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "61749 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "28.0 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "173 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-245XR-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -578,20 +578,20 @@
     "subcategory": "tracked_excavator",
     "subcategoryName": "Excavadoras de Oruga",
     "title": "JCB 370X",
-    "tagline": "The largest excavator in the JCB X Series, this 35-40 tonne machine has been tested to extremes to guarantee the ultimate performance.",
+    "tagline": "Excavadora pesada de 37 a 40 toneladas para canteras, minería y movimiento masivo de roca en condiciones extremas.",
     "image": "https://www.jcb.com/globalassets/digizuite/62786-master_8_1_2/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "87417 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "39.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "322 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-370X-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -604,20 +604,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 18Z-1",
-    "tagline": "Looking for a JCB 18Z-1 mini digger for sale? Prioritze safety, durability and comfort with a digger from JCB. Starting at $26,599.",
+    "tagline": "Mini-excavadora de 1.8 toneladas con giro cero, protección reforzada de mangueras y fácil transporte en remolque ligero.",
     "image": "https://www.jcb.com/globalassets/digizuite/51368-a_mini_18z-1_us_10/Img_800x800",
     "priceUSD": 26599,
     "priceDOP": 1582640.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "3649 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "1.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "23.1 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-18Z1-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -630,20 +630,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 19C-1",
-    "tagline": "Looking to     buy a mini digger    ?   Our new generation     JCB   19C-1   mini digger is   now for sale  ,     built with   tough sites in mind. Starting at $33,995.",
+    "tagline": "Mini-excavadora de 1.9 toneladas de nueva generación con chasis extensible y carrocería de acero 100% resistente.",
     "image": "https://www.jcb.com/globalassets/digizuite/30955-5039831738/Img_800x800",
     "priceUSD": 33995,
     "priceDOP": 2022702.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "4067 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "1.8 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "23.1 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-19C1-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -656,20 +656,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 19C-1E",
-    "tagline": "Looking for a     JCB mini excavator for sale    ?     The electric     JCB   19C-1E price     makes     it a cost-effective option for a range of work sites.",
+    "tagline": "Mini-excavadora 100% eléctrica con cero emisiones y bajo nivel sonoro para faenas nocturnas o túneles cerrados.",
     "image": "https://www.jcb.com/globalassets/digizuite/43448-7202145707/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "4490 lb",
-      "hingePinHeight": "9 ft 11 in",
-      "enginePower": "hp",
+      "operatingWeight": "2.0 Ton",
+      "hingePinHeight": "3.02 m",
+      "enginePower": "27 HP (20 kW Eléctrico E-TECH)",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-19C1E-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -682,21 +682,21 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 25Z-1",
-    "tagline": "Introducing the 25Z-1 JCB mini excavator with zero tailswing configuration: designed with durability, reliability and towability in mind. Starting at $36,699.",
+    "tagline": "Mini-excavadora de 2.5 toneladas con configuración de giro cero y diseño robusto para canalizaciones y urbanismo.",
     "image": "https://www.jcb.com/globalassets/digizuite/62126-master-12-1/Img_800x800",
     "priceUSD": 36699,
     "priceDOP": 2183590.5,
     "badges": [
       "New",
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "5622 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "2.6 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "25 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-25Z1-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -709,20 +709,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 35Z-1",
-    "tagline": "Looking for a     J  CB   35  Z  -1 For Sale    ?   Built for productivity and precision, o  ur     mini digger     is   the compact hero for any site. Find out more about its features today. Starting at $42,199.",
+    "tagline": "Mini-excavadora de 3.5 toneladas con sistema electrohidráulico proporcional y máxima estabilidad en excavación.",
     "image": "https://www.jcb.com/globalassets/digizuite/46194-7643748837/Img_800x800",
     "priceUSD": 42199,
     "priceDOP": 2510840.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "7840 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "3.6 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "24.7 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-35Z1-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -735,20 +735,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 50Z-1",
-    "tagline": "The 50Z-1 mini digger is tough to beat for performance, safety, comfort and ease of use. Starting at $65,995.",
+    "tagline": "Mini-excavadora de 5 toneladas de alto rendimiento y bajo costo operativo con cabina climatizada de serie.",
     "image": "https://www.jcb.com/globalassets/digizuite/46389-7722749410/Img_800x800",
     "priceUSD": 65995,
     "priceDOP": 3926702.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "10147 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.6 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "48.3 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50Z1-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -761,20 +761,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 55Z-1",
-    "tagline": "The 5 ton JCB 55Z-1 mini excavator is a zero tailswing configuration machine, facilitating work in tight environments. Starting at $66,795.",
+    "tagline": "Mini-excavadora de 5.5 toneladas con giro cero para obras de infraestructura donde el espacio lateral es limitado.",
     "image": "https://www.jcb.com/globalassets/digizuite/33601-5438034754/Img_800x800",
     "priceUSD": 66795,
     "priceDOP": 3974302.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "11830 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "5.4 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "48.3 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-55Z1-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -787,20 +787,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 85Z-2",
-    "tagline": "Discover the JCB 85Z-2 specs &ndash; a robust 8 tonne excavator built for the toughest environments. Starting at $107,995.",
+    "tagline": "Excavadora compacta de 8.5 toneladas con motor JCB EcoMAX de alta potencia y fuerzas de rotura de nivel superior.",
     "image": "https://www.jcb.com/globalassets/digizuite/39620-6621741402/Img_800x800",
     "priceUSD": 107995,
     "priceDOP": 6425702.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "18408 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "8.3 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "64.4 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-85Z2-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -813,20 +813,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 86C-2",
-    "tagline": "Prioritize performance, comfort and durability with the JCB 86C-2 Mini Excavator. Starting at $110,995.",
+    "tagline": "Excavadora midi de 8.6 toneladas con voladizo convencional para máxima estabilidad con martillo hidráulico pesado.",
     "image": "https://www.jcb.com/globalassets/digizuite/42188-7024744241/Img_800x800",
     "priceUSD": 110995,
     "priceDOP": 6604202.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "19180 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "8.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "64.4 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-86C2-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -839,20 +839,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 90Z-2",
-    "tagline": "Get power, durability and productivity with JCB&rsquo;s compact 90Z-2 &ndash; built for tough jobs. Starting at $115,399.",
+    "tagline": "Excavadora compacta de 9 toneladas diseñada para faenas continuas de demolición y preparación de terrenos.",
     "image": "https://www.jcb.com/globalassets/digizuite/70561-7008744100/Img_800x800",
     "priceUSD": 115399,
     "priceDOP": 6866240.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "19511 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "8.9 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-90Z2-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -865,20 +865,20 @@
     "subcategory": "mini_excavator",
     "subcategoryName": "Mini-Excavadoras",
     "title": "JCB 100C-2",
-    "tagline": "Check out the&nbsp;  JCB 100C-2 specs   ,   that  &rsquo;s   built for   long-lasting performance,   power   and comfort. Starting at $124,299.",
+    "tagline": "Excavadora compacta de 10 toneladas con máxima fuerza de desprendimiento y confort de cabina de gama alta.",
     "image": "https://www.jcb.com/globalassets/digizuite/70560-7009244105/Img_800x800",
     "priceUSD": 124299,
     "priceDOP": 7395790.5,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "21385 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "9.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-100C2-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -891,7 +891,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 525-60 Agri",
-    "tagline": "The JCB 525-60 is a compact JCB Diesel by Kohler -powered telescopic handler. It&rsquo;s powerful, productive, maneuverable, comfortable and safe.",
+    "tagline": "Manipulador telescópico compacto Loadall de 2.5 Ton a 6 m con tracción hidrostática 4x4 y radio de giro ultra-cerrado.",
     "image": "https://www.jcb.com/globalassets/digizuite/46209-6943643604/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -900,12 +900,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-52560Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -918,20 +918,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 505-20E",
-    "tagline": "The all-new 505-20E compact telehandler is part of JCB&rsquo;s pioneering 100% electric E-TECH range, with zero emissions, less noise and zero compromise on performance.",
+    "tagline": "Manipulador telescópico 100% eléctrico E-TECH de 2.5 Ton a 6 m, sin emisiones y con batería de litio de carga rápida.",
     "image": "https://www.jcb.com/globalassets/digizuite/47872-7881850797/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
-      "enginePower": "hp",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
+      "enginePower": "31 HP (23 kW Eléctrico E-TECH)",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50520E-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -944,20 +944,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 505-20TC",
-    "tagline": "The JCB 505-20 tool carrier compact telehandler is powered by a 74HP JCB by Kohler engine. It is powerful, productive, maneuverable and comfortable.",
+    "tagline": "Manipulador compacto porta-herramientas con tracción total permanente y excelente despeje al suelo.",
     "image": "https://www.jcb.com/globalassets/digizuite/76721-505-20tc/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50520TC-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -970,20 +970,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 506-23TC",
-    "tagline": "The JCB 506-23 tool carrier telescopic handler is the smallest of our full-size telescopic handlers and sits on a chassis designed for ground-engaging and extended reach.",
+    "tagline": "Manipulador telescópico con chasis reforzado de 2.7 Ton a 7 m para izaje de materiales y carga de camiones.",
     "image": "https://www.jcb.com/globalassets/digizuite/29400-4622228351/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50623TC-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -996,20 +996,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 506-36",
-    "tagline": "The smallest of our high-boom, high capacity telescopic handlers. Reaching heights of 36 feet, this has the capability of lifting 6,000lbs.",
+    "tagline": "Manipulador telescópico de gran alcance. Altura máxima de 11.0 m con capacidad de elevación de 2.7 Ton (2,720 kg).",
     "image": "https://www.jcb.com/globalassets/digizuite/46239-7648948873/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50636-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1022,20 +1022,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 507-42",
-    "tagline": "Reaching heights of 42 feet, this robust, reliable telescopic handler has the capability of lifting 7,000lbs.",
+    "tagline": "Manipulador telescópico de alta confiabilidad. Altura máxima de 12.8 m con capacidad de carga de 3.2 Ton (3,175 kg).",
     "image": "https://www.jcb.com/globalassets/digizuite/72428-a_thl_509_42_t4f_1_50496/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50742-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1057,12 +1057,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "125 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-53695Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1075,7 +1075,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 538-60 Agri",
-    "tagline": "The JCB 538-60 Agri is a highly efficient EcoMAX-powered telescopic handler. It sits on a chassis that's designed for load-bearing and stability.",
+    "tagline": "Manipulador agrícola Loadall de 3.8 Ton a 6 m con transmisión DualTech VT de variación continua.",
     "image": "https://www.jcb.com/globalassets/digizuite/45948-7606448557/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -1084,12 +1084,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "125 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-53860Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1102,20 +1102,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 508-66TC",
-    "tagline": "The industry leading 508-66 tool carrier Loadall offers incredible reach of 66 feet and a maximum capacity of 8,500 lb, making this machine a highly efficient alternative.",
+    "tagline": "Manipulador de gran alcance con pluma de 20.12 m y capacidad de 3.9 Ton para proyectos de edificación vertical.",
     "image": "https://www.jcb.com/globalassets/digizuite/41512-6932543524/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50866TC-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1128,7 +1128,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 509-23TC",
-    "tagline": "The JCB 509-23 tool carrier is a highly efficient telescopic handler powered by a JCB EcoMAX engine and with a chassis designed for work with buckets and forks.",
+    "tagline": "Manipulador telescópico de 4.1 Ton con motor EcoMAX de alto torque para uso pesado con horquillas y baldes.",
     "image": "https://www.jcb.com/globalassets/digizuite/29396-4621728347/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -1137,12 +1137,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50923TC-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1155,7 +1155,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 542-70 Agri",
-    "tagline": "The 542-70 Agri is a hugely efficient EcoMAX-powered Loadall. With an engine output of 125 hp (93 kW), it&rsquo;s powerful, productive, maneuverable and comfortable.",
+    "tagline": "Manipulador de 4.2 Ton a 7 m con motor EcoMAX de 125 HP para faenas agrícolas e industriales intensivas.",
     "image": "https://www.jcb.com/globalassets/digizuite/52555-a_542-70_50kph_agri_pro_10/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -1164,12 +1164,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "125 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-54270Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1182,20 +1182,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 509-42",
-    "tagline": "The high boom design allows for capacities of 9,000 pounds and a lift height of 42 feet.",
+    "tagline": "Manipulador telescópico de 4.1 Ton a 12.8 m con estabilizadores frontales para posicionamiento seguro de cargas.",
     "image": "https://www.jcb.com/globalassets/digizuite/72430-a_thl_509_42_t4f_2_50496/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50942-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1208,7 +1208,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 509-45TC",
-    "tagline": "Aside from its impressive 8,800 lb lift capacity and massive reach capabilities, the JCB 509-45 tool carrier telescopic handler is designed specifically to maximize safety.",
+    "tagline": "Aside from its impressive 4.0 Ton lift capacity and massive reach capabilities, the JCB 509-45 tool carrier telescopic handler is designed specifically to maximize safety.",
     "image": "https://www.jcb.com/globalassets/digizuite/72762-18836/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -1217,12 +1217,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-50945TC-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1235,7 +1235,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 510-42",
-    "tagline": "The JCB 510-42 telehandler is designed for maximum productivity.",
+    "tagline": "Manipulador de 4.5 Ton a 12.8 m diseñado para colocación de estructuras prefabricadas y cerchas metálicas.",
     "image": "https://www.jcb.com/globalassets/digizuite/55084-510-42/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -1244,12 +1244,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-51042-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1262,20 +1262,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 510-55TC",
-    "tagline": "The JCB 510-55 tool carrier is a full-sized telehandler designed for productive use from the start until the end of your project.",
+    "tagline": "Manipulador telescópico de 4.5 Ton a 16.7 m de tres secciones para izajes de altura en obras de infraestructura.",
     "image": "https://www.jcb.com/globalassets/digizuite/29401-4622628352/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-51055TC-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1288,20 +1288,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 510-56",
-    "tagline": "The first in the range to top 10,000 lbs of lift capacity. This powerhouse reaches an amazing 56 feet secured by our wide set stabilizers.",
+    "tagline": "Manipulador de máxima capacidad: 4.5 Ton a 17.07 m con estabilizadores anchos para izajes a cuatro pisos.",
     "image": "https://www.jcb.com/globalassets/digizuite/64829-a_thl_510_56_t4f_5/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-51056-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1314,7 +1314,7 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 560-80 Agri",
-    "tagline": "The JCB 560-80 AGRI is the large Loadall you&rsquo;ve been demanding; it boasts many innovative and practical new features to tackle the uniquely challenging farming",
+    "tagline": "Manipulador telescópico de alta capacidad (6.0 Ton a 8 m) para faenas portuarias, reciclaje y manejo de graneles.",
     "image": "https://www.jcb.com/globalassets/digizuite/63688-a_thl_560-80_agri_xtra_dualtech_stage-v_2/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
@@ -1323,12 +1323,12 @@
       "Stock Km 22"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "145 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-56080Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1341,20 +1341,20 @@
     "subcategory": "telehandler",
     "subcategoryName": "Manipuladores Telescópicos (Loadall)",
     "title": "JCB 512-56",
-    "tagline": "109hp engine, 12,000lbs lift capacity, 56ft lift height, sway control, rear axle stabilization. Designed to maximize your return on investment.",
+    "tagline": "Motor 109 HP, capacidad de levante de 5.4 Ton (5,440 kg), altura de elevación de 17.0 m con estabilizador trasero.",
     "image": "https://www.jcb.com/globalassets/digizuite/64830-a_thl_510_56_t4f_8/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-51256-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1372,15 +1372,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9,870 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-51456-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1398,15 +1398,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "11486 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "5.2 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "64 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-407-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1424,15 +1424,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "11200 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "5.1 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "64 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-407Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1445,20 +1445,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 409",
-    "tagline": "The JCB 409 is a high-quality wheel loading shovel that boasts a robust design, impressive performance, and is sure to facilitate all the versatility you need on site.",
+    "tagline": "Pala cargadora articulada compacta con transmisión hidrostática y cinemática en Z de alta visibilidad.",
     "image": "https://www.jcb.com/globalassets/digizuite/39747-6642841559/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "13296 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "6.0 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-409-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1471,20 +1471,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 409 Agri",
-    "tagline": "With tremendous manoeuvrability and a raft of efficiency benefits, the 409 Agri compact wheel loader is a highly productive machine.",
+    "tagline": "Cargador agrícola de gran agilidad y bajo centro de gravedad para manejo ágil de forraje y cereales.",
     "image": "https://www.jcb.com/globalassets/digizuite/53697-a_wls_409_stage_v_066_39l/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "13070 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "5.9 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-409Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1497,20 +1497,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 411",
-    "tagline": "A loading shovel like the 411 is a key part of any on-site process. We've made sure this machine offers reliably high levels of efficiency and performance.",
+    "tagline": "Pala cargadora de 8.7 Ton con motor EcoMAX de 108 HP para preparación de hormigón y plantas de agregados.",
     "image": "https://www.jcb.com/globalassets/digizuite/78551-7595148488/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "19229 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "8.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-411-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1523,20 +1523,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 411 Agri",
-    "tagline": "The smallest of our JCB EcoMAX-powered agricultural wheel loaders, the 411 Agri has impressive bulk-handling capabilities.",
+    "tagline": "Cargador frontal agrícola con ejes de deslizamiento limitado y sistema hidráulico de ciclo ultrarrápido.",
     "image": "https://www.jcb.com/globalassets/digizuite/78552-7594848483/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "19229 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "8.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "109 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-411Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1554,15 +1554,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "21898 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "9.9 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "124.7 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-417-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1575,20 +1575,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 417 Agri",
-    "tagline": "A loading shovel like the 417 Agri is a key part of any farm. We've made sure this machine offers reliably high levels of efficiency and performance.",
+    "tagline": "Pala cargadora agrícola de 9.4 Ton con transmisión de cambio suave y cabina CommandPlus espaciosa.",
     "image": "https://www.jcb.com/globalassets/digizuite/45881-7594948485/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "21400 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "9.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "125 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-417Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1601,20 +1601,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 427",
-    "tagline": "The 427 wheel loader is fully loaded with new features and options that let you tailor your machine for any site.",
+    "tagline": "Pala cargadora de 13 Ton con motor Cummins de 179 HP y transmisión con bloqueo de convertidor para ahorro de diésel.",
     "image": "https://www.jcb.com/globalassets/digizuite/78553-6660141705/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "31656 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "14.4 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "179 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-427-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1627,20 +1627,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 427 Agri",
-    "tagline": "We've designed the 427 AGRI to provide maximum uptime &ndash;by being efficient, durable, productive, comfortable, serviceable and safe.",
+    "tagline": "Cargador frontal de alta productividad para cooperativas agroindustriales y recepción de cosechas masivas.",
     "image": "https://www.jcb.com/globalassets/digizuite/42040-7004444071/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "30600 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "13.9 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "179 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-427Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1653,20 +1653,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 437",
-    "tagline": "The 437 wheel loader is fully loaded with new features and options that let you tailor your machine for any construction site.",
+    "tagline": "Pala cargadora de 15.5 Ton para faenas continuas en canteras de caliza y plantas de asfalto en caliente.",
     "image": "https://www.jcb.com/globalassets/digizuite/39917-6663541732/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "35274 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "16.0 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "183 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-437-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1684,15 +1684,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "35000 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "15.9 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "183 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-437Agri-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1705,20 +1705,20 @@
     "subcategory": "wheel_loader",
     "subcategoryName": "Palas Cargadoras Articuladas",
     "title": "JCB 457",
-    "tagline": "The 457 wheel loader is fully loaded with new and innovative features.",
+    "tagline": "Pala cargadora pesada de 20 Ton con motor Cummins de 282 HP y baldes de hasta 4.0 m³ para minería.",
     "image": "https://www.jcb.com/globalassets/digizuite/78554-6630841459/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "47357 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "21.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "282 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-457-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1736,15 +1736,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "42569 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "19.3 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "282 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-457S-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1757,20 +1757,20 @@
     "subcategory": "forklift",
     "subcategoryName": "Montacargas Todo Terreno",
     "title": "JCB 930",
-    "tagline": "The JCB 930 RTFL is powered by our highly efficient 74hp EcoMax engine and has a 6,000lb lift capacity.",
+    "tagline": "Montacargas todo terreno JCB 930 con motor EcoMAX de 74 HP y capacidad de levante de 2.7 Ton (2,720 kg).",
     "image": "https://www.jcb.com/globalassets/digizuite/31642-5148432534/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "14495 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "6.6 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-930-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1783,20 +1783,20 @@
     "subcategory": "forklift",
     "subcategoryName": "Montacargas Todo Terreno",
     "title": "JCB 940",
-    "tagline": "The JCB 940 RTFL is powered by our highly efficient 74hp EcoMax engine and has a 8,000lbs&nbsp;lift capacity.",
+    "tagline": "Montacargas todo terreno JCB 940 con motor EcoMAX de 74 HP y capacidad de levante de 3.6 Ton (3,630 kg).",
     "image": "https://www.jcb.com/globalassets/digizuite/31641-5148332532/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "15750 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "7.1 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-940-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1814,15 +1814,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "1.7 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "19 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-CT160-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1840,15 +1840,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "2.6 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "24 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-CT260-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1866,15 +1866,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9039 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.1 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "49 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-CT380-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1892,15 +1892,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "9921 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "4.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "49 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-CT430-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1913,20 +1913,20 @@
     "subcategory": "site_dumper",
     "subcategoryName": "Volquetes de Obra (Site Dumpers)",
     "title": "JCB 1TE",
-    "tagline": "100% electric. Zero emissions. No compromise on performance. The JCB 1TE dumper is a pioneering machine of the future.",
+    "tagline": "Dúmper de obra 100% eléctrico de 1 tonelada con descarga en altura para obras urbanas y reformas interiores.",
     "image": "https://www.jcb.com/globalassets/digizuite/69722-a_dmp_1te_17/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "3637.59 lb",
-      "hingePinHeight": "9 ft 11 in",
-      "enginePower": "hp",
+      "operatingWeight": "1.6 Ton",
+      "hingePinHeight": "3.02 m",
+      "enginePower": "9.4 HP (7 kW Eléctrico E-TECH)",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-1TE-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1939,20 +1939,20 @@
     "subcategory": "site_dumper",
     "subcategoryName": "Volquetes de Obra (Site Dumpers)",
     "title": "JCB 1T-2",
-    "tagline": "Specifically designed to meet the demands of the retail market, this JCB 1 ton dumper is a small machine that packs a big punch.",
+    "tagline": "Volquete de obra de 1 tonelada de volteo alto para descarga directa en contenedores y tolvas de áridos.",
     "image": "https://www.jcb.com/globalassets/digizuite/44513-7365946899/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "3339.97 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "1.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "21.6 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-1T2-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1970,15 +1970,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "5268.99 lb",
-      "hingePinHeight": "9 ft 11 in",
-      "enginePower": "hp",
+      "operatingWeight": "2.4 Ton",
+      "hingePinHeight": "3.02 m",
+      "enginePower": "29 HP (22 kW Eléctrico E-TECH)",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-3TE-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -1996,15 +1996,15 @@
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "12059.16 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "5.5 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-6T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -2017,20 +2017,20 @@
     "subcategory": "site_dumper",
     "subcategoryName": "Volquetes de Obra (Site Dumpers)",
     "title": "JCB 9T",
-    "tagline": "The largest site dumper in the range, this JCB 9 ton dumper is a designated front-tip machine offering powerful material handling capabilities.&nbsp;",
+    "tagline": "Volquete de obra pesada de 9 toneladas con tracción 4x4 articulada para transporte rápido de tierras en faena.",
     "image": "https://www.jcb.com/globalassets/digizuite/45602-7550448153/Img_800x800",
     "priceUSD": 65000,
     "priceDOP": 3867500,
     "badges": [
-      "Finance offer available"
+      "Financiamiento Disponible"
     ],
     "specs": {
-      "operatingWeight": "12787.68 lb",
-      "hingePinHeight": "9 ft 11 in",
+      "operatingWeight": "5.8 Ton",
+      "hingePinHeight": "3.02 m",
       "enginePower": "74 hp",
       "travelSpeed": "7.8 mph",
-      "roc": "2,429 lb",
-      "loaderLiftBreakout": "6,816 lb"
+      "roc": "1.1 Ton",
+      "loaderLiftBreakout": "3.1 Ton"
     },
     "brochureCode": "FT-JCB-9T-2026-DO",
     "warranty": "Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22"
@@ -2046,7 +2046,7 @@
     "subcategory": "breakers",
     "subcategoryName": "Martillos Hidráulicos (Breakers)",
     "title": "JCB Contractor breakers",
-    "tagline": "Our contractor breaker range has been designed where overall project cost is key, offering unrivalled value for money to the rental and construction sectors.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/28447-3947226461/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2073,7 +2073,7 @@
     "subcategory": "breakers",
     "subcategoryName": "Martillos Hidráulicos (Breakers)",
     "title": "JCB Professional breakers",
-    "tagline": "Designed for ultimate productivity and reliability no breaker works harder than a JCB professional breaker.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/28463-3964726499/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2154,7 +2154,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Bladed bucket",
-    "tagline": "We now offer bladed buckets for 1-20T machines. The bladed buckets are perfect for flat bottomed trenching and utility work.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/29022-4509227949/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2181,7 +2181,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Deep profile bucket",
-    "tagline": "The deep profile buckets range offer the operator a large selection of widths to suit the requirement and to minimize trench back-fill.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/34577-5730335874/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2235,7 +2235,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Extra heavy duty bucket",
-    "tagline": "The new extra heavy duty bucket is designed to improve efficiency and performance of the machine in heavy duty applications.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/72694-370x-back-1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2262,7 +2262,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Filleted bladed bucket",
-    "tagline": "The filleted bladed buckets are ideal when digging near utilities.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/39832-6652441645/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2316,7 +2316,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Grading bucket",
-    "tagline": "This range of grading buckets has been designed and manufactured to match the machine capability.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/72696-cgi_gradingbucket/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2343,7 +2343,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Heavy duty bucket",
-    "tagline": "This range offers the operator a large selection of widths to suit the requirement and to minimize trench backfill.",
+    "tagline": "Balde reforzado para trabajo pesado con fondo antidesgaste para roca y áridos abrasivos.",
     "image": "https://www.jcb.com/globalassets/digizuite/72299-hd-bucket-8-10t-new/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2397,7 +2397,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Jaw bucket",
-    "tagline": "The direct mount Jaw bucket has been designed and manufactured to match the machine capability and it can be utilized as a standard digging bucket or a powerful hydraulic jaw.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/34579-5730535875/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2424,7 +2424,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Ribbed bucket",
-    "tagline": "The range has been designed and manufactured to match the machine capability.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/30024-4850530250/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2451,7 +2451,7 @@
     "subcategory": "buckets",
     "subcategoryName": "Baldes & Cucharones",
     "title": "JCB Tapered ditching bucket",
-    "tagline": "The tapered ditching excavator bucket is the ideal tool to help maintain ditches and drains, with a selection of profiles that enables the operator shallow or steep sided ditch forming.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/74426-tapered-ditching-bucket-1x1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2694,7 +2694,7 @@
     "subcategory": "forks",
     "subcategoryName": "Horquillas Portapalet",
     "title": "JCB Romaster fork frame",
-    "tagline": "The new JCB Romaster fork frame for our Rotating Telehandler, &nbsp;lifts and rotates up to 2.5T of material with 360&deg; horizontal movement.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/74432-romaster-fork-frame-1x1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2829,7 +2829,7 @@
     "subcategory": "specialist",
     "subcategoryName": "Fresadoras & Zanjadoras",
     "title": "JCB Raptor Tiltrotator",
-    "tagline": "The very first tiltrotator from JCB has arrived, and it promises ultimate productivity.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/63267-master_9_5/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2856,7 +2856,7 @@
     "subcategory": "specialist",
     "subcategoryName": "Fresadoras & Zanjadoras",
     "title": "JCB Ripper tooth",
-    "tagline": "This fabricated unit enables the operator to break up frozen or compacted earth surfaces, and concrete or tarmac.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/72862-s_ripper_tooth/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2937,7 +2937,7 @@
     "subcategory": "specialist",
     "subcategoryName": "Fresadoras & Zanjadoras",
     "title": "JCB Teletruk box tipper",
-    "tagline": "The new JCB box tipper, has a capacity of 4409 lbs, making it the perfect solution for the rotation of boxes or storage crates on site.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/72550-332-v3960/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -2991,7 +2991,7 @@
     "subcategory": "specialist",
     "subcategoryName": "Fresadoras & Zanjadoras",
     "title": "JCB Vibratory roller",
-    "tagline": "Adjustable scraper blade between the frame and drum ensure smooth and uniform compaction.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/74445-vibratory-roller-1x1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3180,7 +3180,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Dozer blade",
-    "tagline": "The dozer blade is able to convert your machine into a compact dozer.",
+    "tagline": "Hoja empujadora angulable para nivelación de caminos y terraplenes.",
     "image": "https://www.jcb.com/globalassets/digizuite/74423-dozer-blade-1x1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3207,7 +3207,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Landscape power rake",
-    "tagline": "The landscape power rake is purpose-designed with carbide teeth to provide long life and ensure best possible seedbed preparation.",
+    "tagline": "Implemento OEM JCB para faena continua con acople rápido y garantía oficial TMD.",
     "image": "https://www.jcb.com/globalassets/digizuite/34121-5510735322/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3234,7 +3234,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Landscape preparator rake",
-    "tagline": "The landscape preparator rake cleans up stones and debris to prepare the soil for seeding and planting. It also levels our ridges and ruts.",
+    "tagline": "Rastrillo preparador de terreno para limpieza de piedras y preparación de siembra.",
     "image": "https://www.jcb.com/globalassets/digizuite/34122-5510835323/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3261,7 +3261,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Silage defacer",
-    "tagline": "Inverted auger cutter design loosens and removes silage from compacted clamps.",
+    "tagline": "Desensilador rotativo frontal para aflojamiento y carga homogénea de ensilaje.",
     "image": "https://www.jcb.com/globalassets/digizuite/74425-silage-defacer-1x1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3288,7 +3288,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Stump grinder",
-    "tagline": "Used with additional guarding and the multifunction control, the stump grinder gives increased driver comfort and safety.",
+    "tagline": "Trituradora de tocones hidráulica para deforestación y limpieza de taludes.",
     "image": "https://www.jcb.com/globalassets/digizuite/72990-stump_grinder/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3315,7 +3315,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Tillers",
-    "tagline": "The tiller enables the ground to be quickly broken up to mix the soil and compost in landscape applications.",
+    "tagline": "Rotocultivador hidráulico para mezcla profunda de suelo y compost.",
     "image": "https://www.jcb.com/globalassets/digizuite/72991-tiller_expanded_001/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3342,7 +3342,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Tree spade",
-    "tagline": "The tree spade enables the operator to dig, load and transport trees in confined areas.",
+    "tagline": "Transplantadora de árboles para excavación y reubicación de raíces sin daño.",
     "image": "https://www.jcb.com/globalassets/digizuite/1810-13734803/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3369,7 +3369,7 @@
     "subcategory": "forestry",
     "subcategoryName": "Desbrozadoras Forestales",
     "title": "JCB Trencher",
-    "tagline": "The JCB trencher gives you maximum digging power for excellent productivity thanks to its high torque hydraulic motors.",
+    "tagline": "Zanjadora continua de alta torsión para tendido de fibra óptica y tuberías de agua.",
     "image": "https://www.jcb.com/globalassets/digizuite/74428-trencher-1x1/Img_800x800",
     "priceUSD": 4500,
     "priceDOP": 267750,
@@ -3391,31 +3391,111 @@
 ];
 
   var SUBCATEGORIES_CONFIG = {
-    maquinaria: [
-      { id: 'all_machines', name: 'Toda la Maquinaria 0 Km', icon: 'precision_manufacturing' },
-      { id: 'ctl', name: 'Minicargadores de Oruga (CTL)', icon: 'roller_shades' },
-      { id: 'backhoe', name: 'Retroexcavadoras (3CX/4CX)', icon: 'construction' },
-      { id: 'skid', name: 'Minicargadores de Ruedas', icon: 'local_shipping' },
-      { id: 'tracked_excavator', name: 'Excavadoras de Oruga', icon: 'agriculture' },
-      { id: 'mini_excavator', name: 'Mini-Excavadoras', icon: 'hardware' },
-      { id: 'telehandler', name: 'Manipuladores (Loadall)', icon: 'forklift' },
-      { id: 'wheel_loader', name: 'Palas Cargadoras', icon: 'rv_hookup' },
-      { id: 'forklift', name: 'Montacargas Todo Terreno', icon: 'front_loader' },
-      { id: 'compaction', name: 'Compactadores y Rodillos', icon: 'engineering' },
-      { id: 'site_dumper', name: 'Volquetes de Obra', icon: 'dumpster' }
-    ],
-    attachments: [
-      { id: 'all_attachments', name: 'Todos los Implementos', icon: 'handyman' },
-      { id: 'breakers', name: 'Martillos Hidráulicos', icon: 'build' },
-      { id: 'buckets', name: 'Baldes y Cucharones', icon: 'architecture' },
-      { id: 'drills', name: 'Barrenadoras y Hoyadoras', icon: 'pest_control' },
-      { id: 'forks', name: 'Horquillas Portapalet', icon: 'forklift' },
-      { id: 'sweepers', name: 'Barredoras Colectoras', icon: 'cleaning_services' },
-      { id: 'specialist', name: 'Fresadoras y Zanjadoras', icon: 'carpenter' },
-      { id: 'grapples', name: 'Garras y Pinzas', icon: 'back_hand' },
-      { id: 'forestry', name: 'Desbrozadoras Forestales', icon: 'forest' }
-    ]
-  };
+  "maquinaria": [
+    {
+      "id": "all_machines",
+      "name": "Toda la Maquinaria 0 Km",
+      "icon": "precision_manufacturing"
+    },
+    {
+      "id": "ctl",
+      "name": "Minicargadores de Oruga (CTL)",
+      "icon": "roller_shades"
+    },
+    {
+      "id": "backhoe",
+      "name": "Retroexcavadoras (3CX/4CX)",
+      "icon": "construction"
+    },
+    {
+      "id": "skid",
+      "name": "Minicargadores de Ruedas",
+      "icon": "local_shipping"
+    },
+    {
+      "id": "tracked_excavator",
+      "name": "Excavadoras de Oruga",
+      "icon": "agriculture"
+    },
+    {
+      "id": "mini_excavator",
+      "name": "Mini-Excavadoras",
+      "icon": "hardware"
+    },
+    {
+      "id": "telehandler",
+      "name": "Manipuladores (Loadall)",
+      "icon": "forklift"
+    },
+    {
+      "id": "wheel_loader",
+      "name": "Palas Cargadoras",
+      "icon": "rv_hookup"
+    },
+    {
+      "id": "forklift",
+      "name": "Montacargas Todo Terreno",
+      "icon": "front_loader"
+    },
+    {
+      "id": "compaction",
+      "name": "Compactadores y Rodillos",
+      "icon": "engineering"
+    },
+    {
+      "id": "site_dumper",
+      "name": "Volquetes de Obra",
+      "icon": "dumpster"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "all_attachments",
+      "name": "Todos los Implementos",
+      "icon": "handyman"
+    },
+    {
+      "id": "breakers",
+      "name": "Martillos Hidráulicos",
+      "icon": "build"
+    },
+    {
+      "id": "buckets",
+      "name": "Baldes y Cucharones",
+      "icon": "architecture"
+    },
+    {
+      "id": "drills",
+      "name": "Barrenadoras y Hoyadoras",
+      "icon": "pest_control"
+    },
+    {
+      "id": "forks",
+      "name": "Horquillas Portapalet",
+      "icon": "forklift"
+    },
+    {
+      "id": "sweepers",
+      "name": "Barredoras Colectoras",
+      "icon": "cleaning_services"
+    },
+    {
+      "id": "specialist",
+      "name": "Fresadoras y Zanjadoras",
+      "icon": "carpenter"
+    },
+    {
+      "id": "grapples",
+      "name": "Garras y Pinzas",
+      "icon": "back_hand"
+    },
+    {
+      "id": "forestry",
+      "name": "Desbrozadoras Forestales",
+      "icon": "forest"
+    }
+  ]
+};
 
   return {
     machines: MACHINES,
