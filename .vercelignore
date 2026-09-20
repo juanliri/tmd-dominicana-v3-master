@@ -1,8 +1,13 @@
 # Vercel Ignore file
 scratch/
+scripts/
 theme_v3_hybrid/
+theme_v2_stitch/
 *.bat
 test_acro.pdf
 *.log
+*.bak
+*.bak*
+*.py
 .DS_Store
 Thumbs.db
