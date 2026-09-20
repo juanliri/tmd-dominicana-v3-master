@@ -1,6 +1,7 @@
 # Vercel Ignore file
 scratch/
 scripts/
+my_models/
 theme_v3_hybrid/
 theme_v2_stitch/
 *.bat
