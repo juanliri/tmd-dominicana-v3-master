@@ -1942,6 +1942,8 @@
   var _activePowerFilter = 'ALL';
   var _activeWeightFilter = 'ALL';
   var _activeStockOnly = false;
+    _activeStockTag = 'ALL';
+  var _activeStockTag = 'ALL'; // 'ALL' | 'PATIO' | 'TRANSIT' | 'ORDER'
   var _catalogSearchQuery = '';
   var _catalogSortOrder = 'popular';
   var _visibleCount = 24;           // Infinite scroll: items currently shown
@@ -1998,6 +2000,12 @@
 
   window.tmdSetWeightFilter = function(weightRange) {
     _activeWeightFilter = weightRange;
+    tmdResetInfiniteScroll();
+    window.tmdRefreshStoreUI();
+  };
+
+  window.tmdSetStockTagFilter = function(tag) {
+    _activeStockTag = tag || 'ALL';
     tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
@@ -2349,7 +2357,9 @@
     'LIUGONG':     '/assets/machinery/heavy_liugong_922e_hd_22_ton.jpg',
     'IMER':        '/assets/machinery/imer_group_commercial_concrete_batching_and.jpg',
     'AFEX':        '/assets/machinery/automated_hydraulic_testing_bench_with_heavy.jpg',
-    'IMPLEMENTOS': '/assets/machinery/brand_new_genuine_yellow_and_black.jpg'
+    'IMPLEMENTOS': '/assets/machinery/brand_new_genuine_yellow_and_black.jpg',
+    'GENERATION': '/assets/machinery/jcb_diesel_generator_canopy_heavy_industrial.jpg',
+    'CUMMINS_PERKINS': '/assets/machinery/cummins_industrial_power_generation_genset.jpg'
   };
 
   // Normalize image from any catalog schema: string image, images[], imageFallback
@@ -2443,6 +2453,159 @@
       }
     });
 
+
+    // 3. Power Generation & Industrial Diesel Gensets (20 - 1,500 kVA)
+    var generatorItems = [
+      {
+        id: 'jcb-g20qs-generator',
+        sku: 'JCB-G20QS',
+        brand: 'JCB',
+        brandName: 'JCB Power Systems',
+        sector: 'GENERATION',
+        model: 'G20QS Soundproof',
+        title: 'Generador Diésel JCB G20QS Insonorizado 20 kVA',
+        category: 'Plantas Eléctricas',
+        tagline: 'Cabina insonorizada 65 dB(A), motor Kohler/JCB Tier-3 de bajo consumo, alternador Mecc Alte y panel digital DSE4520.',
+        image: '/assets/machinery/jcb_diesel_generator_canopy_heavy_industrial.jpg',
+        priceUSD: 14800,
+        specs: {
+          potencia: '20 kVA / 16 kW Standby',
+          engine: 'Kohler/JCB KDI 1903M 3-Cilindros',
+          enginePower: '24 HP @ 1800 RPM',
+          combustible: 'Diésel - Tanque 68 L (16h)',
+          peso: '830 kg',
+          voltaje: '120/208V & 277/480V 3-Fases',
+          nivelRuido: '64 dB(A) a 7 metros'
+        },
+        badges: ['En Patio Km 22', '0 Km', 'Insonorizado'],
+        warranty: 'Garantía Oficial TMD 2 Años / 2,000 Horas'
+      },
+      {
+        id: 'jcb-g65qs-generator',
+        sku: 'JCB-G65QS',
+        brand: 'JCB',
+        brandName: 'JCB Power Systems',
+        sector: 'GENERATION',
+        model: 'G65QS Heavy Duty',
+        title: 'Generador Diésel JCB G65QS Industrial 65 kVA',
+        category: 'Plantas Eléctricas',
+        tagline: 'Motor JCB Dieselmax 448 de servicio pesado, tanque para 24h continuas y sistema de arranque automático ATS para obras y centros comerciales.',
+        image: '/assets/machinery/jcb_diesel_generator_canopy_heavy_industrial.jpg',
+        priceUSD: 24500,
+        specs: {
+          potencia: '65 kVA / 52 kW Standby',
+          engine: 'JCB Dieselmax 448 Turbo 4.8L',
+          enginePower: '85 HP @ 1800 RPM',
+          combustible: 'Diésel - Tanque 285 L (24h)',
+          peso: '1,620 kg',
+          voltaje: '120/208V / 277/480V Trifásico',
+          nivelRuido: '66 dB(A) a 7 metros'
+        },
+        badges: ['En Patio Km 22', '0 Km', 'ATS Automático'],
+        warranty: 'Garantía Oficial TMD 2 Años / 2,000 Horas'
+      },
+      {
+        id: 'jcb-g115qs-generator',
+        sku: 'JCB-G115QS',
+        brand: 'JCB',
+        brandName: 'JCB Power Systems',
+        sector: 'GENERATION',
+        model: 'G115QS Prime Power',
+        title: 'Planta Eléctrica Diésel JCB G115QS 115 kVA',
+        category: 'Plantas Eléctricas',
+        tagline: 'Potencia industrial garantizada con motor JCB Dieselmax Turbointercooler y monitoreo telemático LiveLink integrado.',
+        image: '/assets/machinery/jcb_diesel_generator_canopy_heavy_industrial.jpg',
+        priceUSD: 33900,
+        specs: {
+          potencia: '115 kVA / 92 kW Standby',
+          engine: 'JCB Dieselmax 448 TCAE 4-Cilindros',
+          enginePower: '147 HP @ 1800 RPM',
+          combustible: 'Diésel - Tanque 360 L',
+          peso: '2,150 kg',
+          voltaje: '208V / 480V Conmutable 60Hz',
+          telemetria: 'JCB LiveLink GPS 24/7'
+        },
+        badges: ['En Patio Km 22', 'LiveLink Satelital', 'Entrega Inmediata'],
+        warranty: 'Garantía Oficial TMD 2 Años / 2,000 Horas'
+      },
+      {
+        id: 'jcb-g220qs-generator',
+        sku: 'JCB-G220QS',
+        brand: 'JCB',
+        brandName: 'JCB Power Systems',
+        sector: 'GENERATION',
+        model: 'G220QS Industrial Heavy',
+        title: 'Planta Eléctrica Diésel JCB G220QS 220 kVA',
+        category: 'Plantas Eléctricas',
+        tagline: 'Respaldo de alto tonelaje para plantas de concreto, trituradoras de agregados, minería y hospitales.',
+        image: '/assets/machinery/jcb_diesel_generator_canopy_heavy_industrial.jpg',
+        priceUSD: 52000,
+        specs: {
+          potencia: '220 kVA / 176 kW Standby',
+          engine: 'JCB Dieselmax 672 TCA 6-Cilindros 7.2L',
+          enginePower: '280 HP @ 1800 RPM',
+          combustible: 'Diésel - Tanque 550 L',
+          peso: '3,450 kg',
+          voltaje: '480V / 208V 60Hz 3-Fases',
+          controlador: 'Deep Sea DSE7320 Auto-Mains'
+        },
+        badges: ['En Patio Km 22', 'Servicio Pesado', 'Garantía TMD'],
+        warranty: 'Garantía Oficial TMD 2 Años / 2,000 Horas'
+      },
+      {
+        id: 'cummins-500kva-silent',
+        sku: 'CUM-500KVA',
+        brand: 'CUMMINS_PERKINS',
+        brandName: 'Cummins Heavy Power',
+        sector: 'GENERATION',
+        model: 'QSX15-G9 500 kVA',
+        title: 'Generador Diésel Cummins 500 kVA Respaldo Continuo',
+        category: 'Plantas Eléctricas',
+        tagline: 'Motor Cummins QSX15 de 15 litros, gobernador electrónico, cabina acústica intemperie para zonas francas y minería.',
+        image: '/assets/machinery/cummins_industrial_power_generation_genset.jpg',
+        priceUSD: 94000,
+        specs: {
+          potencia: '500 kVA / 400 kW Standby',
+          engine: 'Cummins QSX15-G9 6-Cilindros Turbo 15L',
+          enginePower: '680 HP @ 1800 RPM',
+          combustible: 'Diésel - Tanque base 950 L',
+          peso: '5,600 kg',
+          voltaje: '480V / 277V Trifásico 60Hz',
+          certificacion: 'ISO 8528 / NFPA 110'
+        },
+        badges: ['En Tránsito Haina', '0 Km', 'Contrato Mantenimiento FMA'],
+        warranty: 'Garantía Oficial TMD 2 Años / 2,000 Horas'
+      },
+      {
+        id: 'perkins-1000kva-container',
+        sku: 'PERK-1000KVA',
+        brand: 'CUMMINS_PERKINS',
+        brandName: 'Perkins / Leroy Somer',
+        sector: 'GENERATION',
+        model: '4008TAG2A 1,000 kVA',
+        title: 'Planta Eléctrica Diésel Perkins 1,000 kVA Contenerizada',
+        category: 'Plantas Eléctricas',
+        tagline: 'Planta contenerizada ISO 20ft con silenciadores residenciales para infraestructura crítica, hotelería Bávaro-Punta Cana y data centers.',
+        image: '/assets/machinery/cummins_industrial_power_generation_genset.jpg',
+        priceUSD: 168000,
+        specs: {
+          potencia: '1,000 kVA / 800 kW Standby',
+          engine: 'Perkins 4008TAG2A 8-Cilindros 30.6L',
+          enginePower: '1,320 HP @ 1800 RPM',
+          combustible: 'Diésel - Tanque 2,000 L',
+          peso: '11,200 kg',
+          voltaje: '480V / 277V Trifásico 60Hz',
+          insonorizacion: 'Contenedor Marino ISO 20ft'
+        },
+        badges: ['Bajo Pedido Corporativo', 'Ingeniería Llave en Mano'],
+        warranty: 'Garantía Oficial TMD 2 Años / 2,000 Horas'
+      }
+    ];
+
+    generatorItems.forEach(function(gen) {
+      all.push(gen);
+    });
+
     return all;
   }
 
@@ -2457,6 +2620,36 @@
     // 2. Brand Filter
     if (_activeBrandFilter !== 'ALL') {
       items = items.filter(function(x) { return x.brand === _activeBrandFilter; });
+    }
+
+    // 2B. Stock Status Filter (En Patio Km 22 / En Tránsito / Pedido)
+    if (_activeStockTag && _activeStockTag !== 'ALL') {
+      items = items.filter(function(x) {
+        var state = x.stockState || x.availability;
+        if (!state) {
+          var hash = 0;
+          for (var i = 0; i < (x.id || '').length; i++) hash += x.id.charCodeAt(i);
+          var mod = hash % 10;
+          if (mod < 6) state = 'stock';
+          else if (mod < 8) state = 'transit';
+          else state = 'order';
+        }
+        if (_activeStockTag === 'PATIO') return state === 'stock';
+        if (_activeStockTag === 'TRANSIT') return state === 'transit' || state === 'transito';
+        if (_activeStockTag === 'ORDER') return state === 'order' || state === 'pedido';
+        return true;
+      });
+    } else if (_activeStockOnly) {
+      items = items.filter(function(x) {
+        var state = x.stockState || x.availability;
+        if (!state) {
+          var hash = 0;
+          for (var i = 0; i < (x.id || '').length; i++) hash += x.id.charCodeAt(i);
+          var mod = hash % 10;
+          return (mod < 6);
+        }
+        return state === 'stock';
+      });
     }
 
     // 3. Search Query
@@ -2639,11 +2832,11 @@
           else state = 'order';
         }
         if (state === 'transit' || state === 'transito') {
-          return '<span class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-amber-300 border border-amber-500/40 backdrop-blur-sm">🟡 En Puerto (5-7 Días)</span>';
+          return '<button type="button" onclick="window.tmdSetStockTagFilter(\'TRANSIT\')" title="Filtrar equipos en tránsito a puertos RD" class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-amber-300 border border-amber-500/40 backdrop-blur-sm hover:border-amber-400 cursor-pointer">🟡 En Tránsito (5-7 Días)</button>';
         } else if (state === 'order' || state === 'pedido') {
-          return '<span class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-cyan-300 border border-cyan-500/40 backdrop-blur-sm">🔵 Importación (30 Días)</span>';
+          return '<button type="button" onclick="window.tmdSetStockTagFilter(\'ORDER\')" title="Configuración de fábrica bajo pedido" class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-cyan-300 border border-cyan-500/40 backdrop-blur-sm hover:border-cyan-400 cursor-pointer">🔵 Bajo Pedido FMA</button>';
         }
-        return '<span class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm">🟢 En Patio Km 22 (24h)</span>';
+        return '<button type="button" onclick="window.tmdSetStockTagFilter(\'PATIO\')" title="Filtrar equipos disponibles hoy en Patio Km 22" class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm hover:border-emerald-400 cursor-pointer">🟢 En Patio Km 22 (24h)</button>';
       })(item);
 
       return `
@@ -2803,6 +2996,16 @@
       }
     });
 
+        // Update stock availability pills
+    document.querySelectorAll('[data-stock-pill]').forEach(function(pill) {
+      var st = pill.getAttribute('data-stock-pill');
+      if (st === _activeStockTag) {
+        pill.classList.add('bg-amber-500/20', 'border-amber-500/50', 'font-bold');
+      } else {
+        pill.classList.remove('bg-amber-500/20', 'border-amber-500/50', 'font-bold');
+      }
+    });
+
     window.tmdRenderStoreGrid();
     window.tmdUpdateCompareBarUI();
   };
@@ -2842,62 +3045,95 @@
         </div>
 
         
-        <!-- Dominican Logistics & Fiscal Trust Strip -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3.5 mb-6 rounded-[16px] bg-black/60 border border-white/10 backdrop-blur-md">
-          <div class="flex items-center gap-3 px-3 py-1.5 border-b sm:border-b-0 sm:border-r border-white/10">
-            <span class="material-symbols-outlined text-[24px] text-amber-500">local_shipping</span>
+        <!-- 4 PILARES ESTRATÉGICOS TMD — DOMINICAN INDUSTRIAL TRUST STRIP -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3.5 mb-4 rounded-[18px] bg-[#0c1017] border border-white/10 shadow-lg">
+          
+          <!-- Pilar 1: Maquinaria Pesada & Agrícola -->
+          <div onclick="window.tmdSetSectorFilter('CONSTRUCTION')" class="p-3 rounded-xl bg-black/40 hover:bg-amber-500/10 border border-white/5 hover:border-amber-500/30 transition cursor-pointer flex items-start gap-3 group">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0 group-hover:scale-105 transition">
+              <span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
+            </div>
             <div>
-              <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Despacho Lowboy Oficial</div>
-              <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                <span>24h a 32 Provincias</span>
-                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold">Km 22 Duarte</span>
-              </div>
+              <div class="font-mono text-[9px] uppercase text-amber-400 font-bold tracking-wider">Pilar 01 · Flota 0 Km</div>
+              <div class="text-xs font-bold text-white mt-0.5 group-hover:text-amber-300 transition">Maquinaria Pesada & Agro</div>
+              <div class="text-[11px] text-neutral-400 mt-1 leading-snug">JCB, LiuGong, Ammann, LS Tractor con entrega inmediata en patio.</div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 px-3 py-1.5 border-b lg:border-b-0 lg:border-r border-white/10">
-            <span class="material-symbols-outlined text-[24px] text-emerald-400">verified_user</span>
+          <!-- Pilar 2: Taller Central Km 22 & Overhaul Mayor -->
+          <div onclick="window.location.hash='#/service'" class="p-3 rounded-xl bg-black/40 hover:bg-emerald-500/10 border border-white/5 hover:border-emerald-500/30 transition cursor-pointer flex items-start gap-3 group">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 group-hover:scale-105 transition">
+              <span class="material-symbols-outlined text-[22px]">build_circle</span>
+            </div>
             <div>
-              <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Escudo Fiscal Dominicano</div>
-              <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                <span>DGII B01 / B15 · Ley 392-07</span>
-                <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[9px] font-bold">0% Arancel</span>
-              </div>
+              <div class="font-mono text-[9px] uppercase text-emerald-400 font-bold tracking-wider">Pilar 02 · Taller Central</div>
+              <div class="text-xs font-bold text-white mt-0.5 group-hover:text-emerald-300 transition">Servicio Técnico & Overhaul</div>
+              <div class="text-[11px] text-neutral-400 mt-1 leading-snug">18 bahías en La Guáyiga, banco de 6,000 PSI y unidades móviles 24/7.</div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 px-3 py-1.5 border-b sm:border-b-0 sm:border-r border-white/10">
-            <span class="material-symbols-outlined text-[24px] text-amber-400">workspace_premium</span>
+          <!-- Pilar 3: Plantas Eléctricas & Respaldo Continuo -->
+          <div onclick="window.tmdSetSectorFilter('GENERATION')" class="p-3 rounded-xl bg-black/40 hover:bg-cyan-500/10 border border-white/5 hover:border-cyan-500/30 transition cursor-pointer flex items-start gap-3 group">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 group-hover:scale-105 transition">
+              <span class="material-symbols-outlined text-[22px]">bolt</span>
+            </div>
             <div>
-              <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Respaldo Institucional</div>
-              <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                <span>850+ Unidades</span>
-                <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-[9px] font-bold">10 Marcas</span>
-              </div>
+              <div class="font-mono text-[9px] uppercase text-cyan-400 font-bold tracking-wider">Pilar 03 · Respaldo Eléctrico</div>
+              <div class="text-xs font-bold text-white mt-0.5 group-hover:text-cyan-300 transition">Plantas Eléctricas Diésel</div>
+              <div class="text-[11px] text-neutral-400 mt-1 leading-snug">20 a 1,500 kVA insonorizadas para minas, obras, zonas francas y hoteles.</div>
             </div>
           </div>
 
-          <div class="flex items-center justify-between px-3 py-1.5">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-[24px] text-cyan-400">sync_alt</span>
-              <div>
-                <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Renovación de Flota</div>
-                <div class="text-xs font-bold text-white">Tasa Tu Usado</div>
-              </div>
+          <!-- Pilar 4: Repuestos Genuinos OEM & Mangueras -->
+          <div onclick="window.location.hash='#/parts'" class="p-3 rounded-xl bg-black/40 hover:bg-amber-500/10 border border-white/5 hover:border-amber-500/30 transition cursor-pointer flex items-start gap-3 group">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0 group-hover:scale-105 transition">
+              <span class="material-symbols-outlined text-[22px]">handyman</span>
             </div>
-            <button type="button" onclick="window.tmdOpenTradeInModal()" class="px-3 py-1.5 rounded-[8px] bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-black font-mono text-[11px] font-bold uppercase transition border border-amber-500/40 cursor-pointer">
-              Tasar →
-            </button>
+            <div>
+              <div class="font-mono text-[9px] uppercase text-amber-400 font-bold tracking-wider">Pilar 04 · Mostrador Express</div>
+              <div class="text-xs font-bold text-white mt-0.5 group-hover:text-amber-300 transition">Repuestos Genuinos OEM</div>
+              <div class="text-[11px] text-neutral-400 mt-1 leading-snug">Filtros Donaldson/JCB y prensado de mangueras hidráulicas al instante.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- REASEGURO LOGÍSTICO KM 22 AUTOPISTA DUARTE (GATEWAY CIBAO & SANTO DOMINGO) -->
+        <div class="p-3.5 mb-6 rounded-[16px] bg-gradient-to-r from-amber-500/15 via-black/80 to-emerald-500/10 border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold shrink-0">
+              <span class="material-symbols-outlined text-[26px]">pin_drop</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-headline-sm text-sm font-bold uppercase text-white tracking-wide">Hub Logístico Autopista Duarte Km 22 · La Guáyiga</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold uppercase">Conexión Estratégica</span>
+              </div>
+              <p class="text-neutral-300 text-xs leading-relaxed mt-0.5">
+                Despacho exprés en Lowboy a faenas en el <strong>Cibao (Santiago, La Vega, Bonao)</strong> y <strong>Gran Santo Domingo</strong> en menos de 4 horas. Trámites DGII con comprobante fiscal B01/B15 y Ley 392-07.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5 shrink-0 w-full md:w-auto justify-end">
+            <a href="tel:+18098262222" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black flex items-center gap-1.5 transition text-xs shadow-md">
+              <span class="material-symbols-outlined text-[16px]">call</span>
+              <span>(809) 826-2222</span>
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=18098262222&text=Hola%20TMD,%20solicito%20despacho%20inmediato%20desde%20Patio%20Km%2022" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-black flex items-center gap-1.5 transition text-xs shadow-md">
+              <span>WhatsApp Patio</span>
+            </a>
           </div>
         </div>
 
         <!-- Level 1: Top Category Pills (Sector Tabs) -->
         <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
           <button type="button" data-sector-pill="ALL" onclick="window.tmdSetSectorFilter('ALL')" class="px-4 py-2 rounded-[50px] bg-amber-500 text-black font-bold text-xs uppercase shadow-md transition-all whitespace-nowrap cursor-pointer">
-            🌐 Todos los Equipos (Catálogo 233+)
+            🌐 Todos los Equipos (Catálogo 240+)
           </button>
           <button type="button" data-sector-pill="CONSTRUCTION" onclick="window.tmdSetSectorFilter('CONSTRUCTION')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
             🏗️ Construcción & Vial (JCB, LiuGong)
+          </button>
+          <button type="button" data-sector-pill="GENERATION" onclick="window.tmdSetSectorFilter('GENERATION')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
+            ⚡ Plantas Eléctricas & Generación Diésel (20 - 1,500 kVA)
           </button>
           <button type="button" data-sector-pill="AGRICULTURE" onclick="window.tmdSetSectorFilter('AGRICULTURE')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
             🌾 Agro & Tractores (Kubota, LS, Yanmar, Yomel)
@@ -2937,6 +3173,29 @@
               </div>
             </div>
 
+            <!-- Stock Availability Selector (Pilar Km 22) -->
+            <div>
+              <label class="font-mono text-[10px] uppercase text-neutral-400 block mb-2 font-bold">Disponibilidad en Patio</label>
+              <div class="space-y-1">
+                <button type="button" data-stock-pill="ALL" onclick="window.tmdSetStockTagFilter('ALL')" class="w-full text-left p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-300">
+                  <span>Todas las Unidades</span>
+                  <span class="text-[10px] font-mono opacity-60">240+</span>
+                </button>
+                <button type="button" data-stock-pill="PATIO" onclick="window.tmdSetStockTagFilter('PATIO')" class="w-full text-left p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-emerald-400">
+                  <span class="flex items-center gap-1.5"><span>🟢</span> En Patio Km 22 (Inmediato)</span>
+                  <span class="text-[10px] font-mono opacity-80 font-bold">Stock</span>
+                </button>
+                <button type="button" data-stock-pill="TRANSIT" onclick="window.tmdSetStockTagFilter('TRANSIT')" class="w-full text-left p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-amber-300">
+                  <span class="flex items-center gap-1.5"><span>🟡</span> En Tránsito (Caucedo / Haina)</span>
+                  <span class="text-[10px] font-mono opacity-80">Puerto</span>
+                </button>
+                <button type="button" data-stock-pill="ORDER" onclick="window.tmdSetStockTagFilter('ORDER')" class="w-full text-left p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-cyan-300">
+                  <span class="flex items-center gap-1.5"><span>🔵</span> Bajo Pedido Corporativo</span>
+                  <span class="text-[10px] font-mono opacity-80">FMA</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Brand Selector -->
             <div>
               <label class="font-mono text-[10px] uppercase text-neutral-400 block mb-2 font-bold">Filtrar por Marca</label>
@@ -2948,6 +3207,10 @@
                 <div data-brand-radio="JCB" onclick="window.tmdSetBrandFilter('JCB')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
                   <span>JCB (Inglaterra)</span>
                   <span class="text-[10px] font-mono opacity-60">40+</span>
+                </div>
+                <div data-brand-radio="CUMMINS_PERKINS" onclick="window.tmdSetBrandFilter('CUMMINS_PERKINS')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-cyan-400">
+                  <span>Cummins / Perkins (Plantas)</span>
+                  <span class="text-[10px] font-mono opacity-60">500kVA+</span>
                 </div>
                 <div data-brand-radio="LIUGONG" onclick="window.tmdSetBrandFilter('LIUGONG')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
                   <span>LiuGong (Heavy Duty)</span>

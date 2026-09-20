@@ -129,6 +129,20 @@
           }
         },
         {
+          "@type": "Product",
+          "@id": "https://tmd-dominicana-2026-todobuild-apps.vercel.app/#product-jcb-gensets",
+          "name": "Plantas Eléctricas Diésel JCB & Cummins (20 a 1,500 kVA)",
+          "brand": { "@type": "Brand", "name": "JCB Power Systems" },
+          "description": "Generadores diésel industriales insonorizados con transferencia automática ATS, para proyectos de construcción, zonas francas, minas y hospitales.",
+          "category": "Maquinaria Pesada > Generación Eléctrica",
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "seller": { "@id": "https://tmd-dominicana-2026-todobuild-apps.vercel.app/#organization" }
+          }
+        },
+        {
           "@type": "Service",
           "@id": "https://tmd-dominicana-2026-todobuild-apps.vercel.app/#service-overhaul-km22",
           "name": "Taller de Overhaul & Reconstrucción Mayor Km 22",
@@ -227,6 +241,9 @@
           var titleEl = document.querySelector('h1');
           var name = titleEl ? titleEl.innerText.trim() : 'maquinaria pesada';
           return 'Hola TMD Dominicana, estoy interesado en el equipo ' + name + ' visto en su plataforma. Deseo proforma técnica y disponibilidad.';
+        }
+        if (h.includes('generation') || h.includes('plantas') || h.includes('generator')) {
+          return 'Hola TMD Dominicana, solicito cotización y asesoría de planta eléctrica diésel (20 a 1,500 kVA) con entrega desde Patio Km 22.';
         }
         if (h.includes('service')) {
           return 'Hola TMD Dominicana, requiero asistencia técnica / taller móvil para mantenimiento de flota en obra.';
@@ -3449,6 +3466,16 @@ html:not(.dark) #socios .group:hover {
               <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">Motor Cummins QSL9.3 • Capacidad balde 3.0 m³ • Peso operativo 17.8 Ton • Ideal para minería y movimiento de agregados.</p>
               <p style="margin-top: 10px; font-weight: bold; color: #10b981; font-size: 12px;">Estado: Disponible en Patio Km 22 (Entrega 24h)</p>
             </article>
+            <article style="background: #11141c; padding: 16px; border-radius: 12px; border: 1px solid #222;">
+              <h3 style="color: #ffb800; font-size: 18px; margin-bottom: 6px;">Plantas Eléctricas Diésel JCB &amp; Cummins (20 - 1,500 kVA)</h3>
+              <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">Cabina insonorizada 65 dB • Módulo de transferencia automática ATS • Respaldo continuo para zonas francas, minería, hoteles y centros de salud.</p>
+              <p style="margin-top: 10px; font-weight: bold; color: #10b981; font-size: 12px;">Estado: Disponible en Patio Km 22 (Entrega 24h)</p>
+            </article>
+            <article style="background: #11141c; padding: 16px; border-radius: 12px; border: 1px solid #222;">
+              <h3 style="color: #ffb800; font-size: 18px; margin-bottom: 6px;">Repuestos Genuinos OEM &amp; Prensado de Mangueras</h3>
+              <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5;">Filtros Donaldson y JCB originales • Prensado de mangueras hidráulicas Gates al instante • Banco de calibración de inyectores diésel.</p>
+              <p style="margin-top: 10px; font-weight: bold; color: #10b981; font-size: 12px;">Estado: Mostrador Central Km 22 (Despacho Cibao &lt; 4h)</p>
+            </article>
           </div>
         </section>
 
@@ -3562,7 +3589,7 @@ html:not(.dark) #socios .group:hover {
                 <span style="color:#f59e0b;">DISPONIBLE EN PATIO</span>
               </h1>
               <p style="font-size:0.9rem;color:#d4d4d8;line-height:1.6;max-width:360px;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.9);">
-                Lotes OEM JCB recién llegados, subastas exclusivas y tarifas preferenciales para contratistas MOPC — solo para suscriptores Privé.
+                Lotes 0 Km JCB, plantas eléctricas y repuestos críticos — despacho garantizado desde Patio Km 22 para contratistas y proyectos MOPC.
               </p>
             </div>
 
