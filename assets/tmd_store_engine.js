@@ -2580,14 +2580,43 @@
         ? 'Leasing: $' + Math.round(item.priceUSD * 0.02).toLocaleString() + '/mes'
         : 'Financiamiento disponible';
 
+      // Human-friendly Spanish spec labels
+      var _specDict = {
+        operatingWeight: 'Peso Operativo',
+        hingePinHeight: 'Altura Pasador',
+        enginePower: 'Potencia Motor',
+        operatingCapacity: 'Cap. Operativa',
+        bucketCapacity: 'Capacidad Balde',
+        maxReach: 'Alcance Máx.',
+        digDepth: 'Prof. Excavación',
+        payload: 'Carga Útil',
+        power: 'Potencia',
+        weight: 'Peso',
+        driveType: 'Tracción',
+        transmission: 'Transmisión',
+        fuelTank: 'Tanque Comb.',
+        hydraulicFlow: 'Flujo Hidráulico',
+        dumpHeight: 'Altura Descarga',
+        breakoutForce: 'Fuerza Despr.',
+        ratedPower: 'Potencia Nom.',
+        displacement: 'Cilindrada',
+        turningRadius: 'Radio de Giro',
+        maxSpeed: 'Velocidad Máx.'
+      };
+      function _fmtSpecLabel(rawKey) {
+        if (_specDict[rawKey]) return _specDict[rawKey];
+        return rawKey.replace(/([A-Z])/g, ' $1').trim();
+      }
+
       // Pick up to 3 specs
       var specKeys = Object.keys(item.specs || {}).slice(0, 3);
       var specsSnippet = specKeys.map(function(k) {
         var val = item.specs[k];
+        var lbl = _fmtSpecLabel(k);
         return `
           <div>
-            <span class="font-mono text-[8px] uppercase text-neutral-400 block truncate">${k}</span>
-            <span class="font-mono text-[11px] font-bold text-neutral-200 block truncate">${val}</span>
+            <span class="font-mono text-[8px] uppercase text-neutral-400 block truncate" title="${lbl}">${lbl}</span>
+            <span class="font-mono text-[11px] font-bold text-neutral-200 block truncate" title="${val}">${val}</span>
           </div>
         `;
       }).join('');
@@ -2885,10 +2914,10 @@
         </div>
 
         <!-- 2-Column Store Layout: Left Filters + Right Grid (inline layout — bypasses Tailwind purge) -->
-        <div style="display:flex;flex-direction:column;gap:2rem;align-items:flex-start;" class="tmd-store-layout-wrapper">
+        <div class="tmd-store-layout-wrapper">
           
           <!-- LEFT STICKY FILTER SIDEBAR -->
-          <aside style="width:100%;" class="tmd-filter-sidebar rounded-2xl bg-[#0d121c] border border-white/10 p-5 shadow-xl space-y-6">
+          <aside class="tmd-filter-sidebar rounded-2xl bg-[#0d121c] border border-white/10 p-5 shadow-xl space-y-6">
             <div class="flex items-center justify-between pb-3 border-b border-white/10">
               <span class="font-headline-sm text-sm font-bold uppercase text-white flex items-center gap-1.5">
                 <span class="material-symbols-outlined text-amber-500 text-[18px]">filter_list</span>
@@ -2995,7 +3024,7 @@
           </aside>
 
           <!-- RIGHT STORE COLUMN (inline flex — bypasses Tailwind purge) -->
-          <div style="flex:1 1 0%;min-width:0;" class="tmd-store-right-col flex flex-col justify-between min-h-[600px]">
+          <div class="tmd-store-right-col flex flex-col justify-between min-h-[600px]">
             
             <!-- Sorting & View Toolbar -->
             <div class="p-3.5 rounded-xl bg-surface-charcoal/90 border border-white/10 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs">
@@ -5243,8 +5272,31 @@
       return;
     }
 
+    var _pdfSpecDict = {
+      operatingWeight: 'Peso Operativo',
+      hingePinHeight: 'Altura Pasador',
+      enginePower: 'Potencia Motor',
+      operatingCapacity: 'Capacidad Operativa',
+      bucketCapacity: 'Capacidad Balde',
+      maxReach: 'Alcance Máximo',
+      digDepth: 'Profundidad de Excavación',
+      payload: 'Carga Útil',
+      power: 'Potencia',
+      weight: 'Peso',
+      driveType: 'Tracción',
+      transmission: 'Transmisión',
+      fuelTank: 'Tanque de Combustible',
+      hydraulicFlow: 'Flujo Hidráulico',
+      dumpHeight: 'Altura de Descarga',
+      breakoutForce: 'Fuerza de Desprendimiento',
+      ratedPower: 'Potencia Nominal',
+      displacement: 'Cilindrada',
+      turningRadius: 'Radio de Giro',
+      maxSpeed: 'Velocidad Máxima'
+    };
     var specsRows = Object.keys(machine.specs || {}).map(function(k) {
-      return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e5e7eb;"><span style="color:#6b7280;text-transform:uppercase;font-size:11px;">' + k + '</span><span style="font-weight:700;color:#111;">' + machine.specs[k] + '</span></div>';
+      var lbl = _pdfSpecDict[k] || k.replace(/([A-Z])/g, ' $1').trim();
+      return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e5e7eb;"><span style="color:#6b7280;text-transform:uppercase;font-size:11px;font-weight:600;">' + lbl + '</span><span style="font-weight:700;color:#111;">' + machine.specs[k] + '</span></div>';
     }).join('');
 
     printWindow.document.write(`

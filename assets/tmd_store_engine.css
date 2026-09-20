@@ -842,35 +842,40 @@ html:not(.dark) .tmd-dvi-modal-card {
 /* ── STORE LAYOUT: Responsive 2-column grid (bypasses Tailwind purge) ── */
 /* Mobile: sidebar stacks above grid */
 .tmd-store-layout-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  align-items: stretch;
-  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.75rem !important;
+  align-items: stretch !important;
+  width: 100% !important;
 }
 .tmd-filter-sidebar {
-  width: 100%;
-  position: relative;
-  top: auto;
+  width: 100% !important;
+  position: relative !important;
+  top: auto !important;
+}
+.tmd-store-right-col {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  width: 100% !important;
 }
 /* Desktop 1024px+: sidebar fixed width + grid takes remaining space */
 @media (min-width: 1024px) {
   .tmd-store-layout-wrapper {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 2rem !important;
   }
   .tmd-filter-sidebar {
-    width: 280px;
-    min-width: 240px;
-    max-width: 300px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 80px;
+    width: 280px !important;
+    min-width: 260px !important;
+    max-width: 280px !important;
+    flex-shrink: 0 !important;
+    position: sticky !important;
+    top: 80px !important;
   }
   .tmd-store-right-col {
-    flex: 1 1 0%;
-    min-width: 0;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
   }
 }
 

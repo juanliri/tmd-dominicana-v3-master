@@ -150,14 +150,20 @@
       this.goToStep(4);
     },
 
-    // ── STEP 4: SELECT MODEL ──────────────────────────────────────────────
-
     selectModel(modelId) {
       const items = getCatalogItems(state.brand.id);
       state.model = items.find(p => p.id === modelId) || null;
       state.selectedOptions = {};
       if (state.model) {
         recalcTotals();
+        if (typeof window.tmdTrackEvent === 'function') {
+          window.tmdTrackEvent('configurator_model_selected', {
+            brand: state.brand ? state.brand.name : '',
+            modelId: state.model.id,
+            modelName: state.model.name,
+            basePrice: state.basePrice
+          });
+        }
         this.goToStep(5);
       }
     },
@@ -239,6 +245,15 @@
       const quote = this.generateQuoteData();
       if (!quote) { alert('Por favor seleccione un modelo primero.'); return; }
 
+      if (typeof window.tmdTrackEvent === 'function') {
+        window.tmdTrackEvent('configurator_pdf_exported', {
+          quoteId: quote.quoteId,
+          brand: quote.brand,
+          model: quote.modelName,
+          total: quote.grandTotal
+        });
+      }
+
       // Use existing brochure hub if available
       if (typeof window.tmdGenerateQuotePDF === 'function') {
         window.tmdGenerateQuotePDF(quote);
@@ -255,6 +270,16 @@
     sendWhatsApp() {
       const quote = this.generateQuoteData();
       if (!quote) return;
+
+      if (typeof window.tmdTrackEvent === 'function') {
+        window.tmdTrackEvent('configurator_whatsapp_sent', {
+          quoteId: quote.quoteId,
+          brand: quote.brand,
+          model: quote.modelName,
+          total: quote.grandTotal
+        });
+      }
+
       const opts = quote.options.map(o => `• ${o.label}: +${formatCurrency(o.priceAdd)}`).join('\n');
       const msg = [
         '🏗️ *Solicitud de Cotización TMD*',
