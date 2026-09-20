@@ -3493,7 +3493,7 @@
                       <input type="checkbox" checked class="rounded bg-black border-neutral-700 text-amber-500 focus:ring-0">
                       <span>Recordar este terminal en obra</span>
                     </label>
-                    <a href="tel:18098262222" class="text-amber-400 hover:underline font-mono">Soporte PIN Km 22</a>
+                    <a href="tel:+18098262222" class="text-amber-400 hover:underline font-mono">Soporte PIN Km 22</a>
                   </div>
 
                   <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer">
@@ -3777,7 +3777,7 @@
                   <span>🚜</span>
                   <span>Portal VIP de Contratistas</span>
                 </a>
-                <a href="tel:18098262222" class="px-5 py-3 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 font-mono font-bold text-xs flex items-center gap-2 transition-all">
+                <a href="tel:+18098262222" class="px-5 py-3 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 font-mono font-bold text-xs flex items-center gap-2 transition-all">
                   <span class="material-symbols-outlined text-[18px] text-emerald-400">phone_in_talk</span>
                   <span>Km 22 Duarte: (809) 826-2222</span>
                 </a>
@@ -4125,7 +4125,7 @@
                     <span class="text-amber-400 font-bold">DESPACHO INMEDIATO:</span>
                     <span class="text-white ml-1">Línea de Auxilio Mecánico 24/7 en Km 22 Duarte</span>
                   </div>
-                  <a href="tel:18098262222" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase transition-all">
+                  <a href="tel:+18098262222" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase transition-all">
                     Llamar Taller: (809) 826-2222
                   </a>
                 </div>
@@ -4531,7 +4531,7 @@
         <span class="text-amber-400 font-bold">DESPACHO REGIONAL SELECCIONADO:</span>
         <span class="text-white ml-1">${detail[regId] || detail.metro}</span>
       </div>
-      <a href="tel:18098262222" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase transition-all">
+      <a href="tel:+18098262222" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase transition-all">
         Despachar Taller Móvil
       </a>
     `;
