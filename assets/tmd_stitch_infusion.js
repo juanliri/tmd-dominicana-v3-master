@@ -2542,10 +2542,10 @@
           <!-- Card Actions (Direct Ficha, Configurator, WhatsApp) -->
           <div class="tmd-card-actions p-4 pt-0 space-y-2">
             <div class="grid grid-cols-2 gap-2">
-              <a href="/ficha?id=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1.5 transition text-center">
-                <span class="material-symbols-outlined text-[15px] text-amber-400">description</span>
-                <span>Ficha Técnica</span>
-              </a>
+              <button type="button" onclick="window.tmdDownloadMachinePDF('${item.id}')" class="py-2 px-3 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1.5 transition text-center cursor-pointer">
+                <span class="material-symbols-outlined text-[15px] text-amber-400">picture_as_pdf</span>
+                <span>Proforma PDF</span>
+              </button>
               <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1.5 transition text-center">
                 <span class="material-symbols-outlined text-[15px]">tune</span>
                 <span>Configurar</span>
@@ -2668,6 +2668,45 @@
               <span class="material-symbols-outlined text-[16px]">tune</span>
               <span>Configurador 3D</span>
             </a>
+          </div>
+        </div>
+
+        
+        <!-- Dominican Logistics & Fiscal Trust Strip -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-3.5 mb-6 rounded-[16px] bg-black/60 border border-white/10 backdrop-blur-md">
+          <div class="flex items-center gap-3 px-3 py-1.5 border-b md:border-b-0 md:border-r border-white/10">
+            <span class="material-symbols-outlined text-[24px] text-amber-500">local_shipping</span>
+            <div>
+              <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Despacho Lowboy Oficial</div>
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>Entrega 24h a 32 Provincias</span>
+                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold">Km 22 Duarte</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 px-3 py-1.5 border-b md:border-b-0 md:border-r border-white/10">
+            <span class="material-symbols-outlined text-[24px] text-emerald-400">verified_user</span>
+            <div>
+              <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Escudo Fiscal Dominicano</div>
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>DGII B01 / B15 · Ley 392-07</span>
+                <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[9px] font-bold">0% Arancel</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between px-3 py-1.5">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-[24px] text-cyan-400">sync_alt</span>
+              <div>
+                <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Renovación de Flota</div>
+                <div class="text-xs font-bold text-white">Tasa Tu Equipo Usado</div>
+              </div>
+            </div>
+            <button type="button" onclick="window.tmdOpenTradeInModal()" class="px-3 py-1.5 rounded-[8px] bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-black font-mono text-[11px] font-bold uppercase transition border border-amber-500/40 cursor-pointer">
+              Tasar →
+            </button>
           </div>
         </div>
 
@@ -4879,6 +4918,201 @@
   });
 
   triggerInfuseDebounced(400);
+
+
+  // ─── DOMINICAN B2B TRADE-IN EVALUATOR MODAL ("TASA TU USADA") ───
+  window.tmdOpenTradeInModal = function(presetMachine) {
+    var existing = document.getElementById('tmd-tradein-modal');
+    if (existing) existing.remove();
+
+    var targetName = presetMachine || 'Equipo 0 Km TMD';
+    var modal = document.createElement('div');
+    modal.id = 'tmd-tradein-modal';
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in';
+    modal.innerHTML = `
+      <div class="relative w-full max-w-xl rounded-2xl bg-[#0f131a] border border-amber-500/40 p-6 sm:p-8 shadow-2xl text-white">
+        <button type="button" onclick="document.getElementById('tmd-tradein-modal').remove()" class="absolute top-4 right-4 text-neutral-400 hover:text-white text-lg cursor-pointer">✕</button>
+
+        <div class="flex items-center gap-2 text-amber-500 font-mono text-xs uppercase font-bold mb-1">
+          <span class="material-symbols-outlined text-sm">sync_alt</span>
+          <span>PROGRAMA OFICIAL DE RETOMA TMD · KM 22</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-bold uppercase tracking-tight text-white mb-2 font-headline-sm">
+          Tasación de Equipo Usado para Renovación
+        </h3>
+        <p class="text-xs text-neutral-400 mb-6 leading-relaxed">
+          Entregue su máquina usada (Caterpillar, Komatsu, Case u otra marca) como parte de pago para su nueva unidad 0 Km con garantía oficial.
+        </p>
+
+        <form id="tmd-tradein-form" onsubmit="window.tmdSubmitTradeIn(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Marca de su Equipo</label>
+              <input id="tmd-ti-brand" type="text" placeholder="Ej: Caterpillar, Case, Komatsu" required class="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/15 text-white font-mono text-xs focus:border-amber-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Modelo y Año</label>
+              <input id="tmd-ti-model" type="text" placeholder="Ej: 320D (2018)" required class="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/15 text-white font-mono text-xs focus:border-amber-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Horómetro Estimado (Horas)</label>
+              <input id="tmd-ti-hours" type="number" placeholder="Ej: 6500" required class="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/15 text-white font-mono text-xs focus:border-amber-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Ubicación Actual en RD</label>
+              <input id="tmd-ti-loc" type="text" placeholder="Ej: Santiago, Baní, Santo Domingo" required class="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/15 text-white font-mono text-xs focus:border-amber-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Unidad 0 Km que desea adquirir</label>
+            <input id="tmd-ti-target" type="text" value="${targetName}" class="w-full px-3 py-2 rounded-lg bg-black/60 border border-amber-500/30 text-amber-400 font-mono text-xs focus:border-amber-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Empresa o RNC (Opcional)</label>
+              <input id="tmd-ti-rnc" type="text" placeholder="Ej: Constructora XYZ / RNC" class="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/15 text-white font-mono text-xs focus:border-amber-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-neutral-400 mb-1">Teléfono / WhatsApp de Contacto</label>
+              <input id="tmd-ti-phone" type="tel" placeholder="(809) 000-0000" required class="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/15 text-white font-mono text-xs focus:border-amber-500 focus:outline-none">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full mt-4 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-headline-sm font-bold text-sm uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg cursor-pointer">
+            <span class="material-symbols-outlined text-[18px]">verified</span>
+            <span>Solicitar Avalúo de Retoma en 2 Horas</span>
+          </button>
+        </form>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+  };
+
+  window.tmdSubmitTradeIn = function(e) {
+    e.preventDefault();
+    var brand = document.getElementById('tmd-ti-brand').value;
+    var model = document.getElementById('tmd-ti-model').value;
+    var hours = document.getElementById('tmd-ti-hours').value;
+    var loc = document.getElementById('tmd-ti-loc').value;
+    var target = document.getElementById('tmd-ti-target').value;
+    var rnc = document.getElementById('tmd-ti-rnc').value;
+    var phone = document.getElementById('tmd-ti-phone').value;
+
+    var msg = 'Hola TMD Dominicana, solicito tasación de retoma de mi equipo usado:\n' +
+      '• Equipo Usado: ' + brand + ' ' + model + '\n' +
+      '• Horas: ' + hours + ' h\n' +
+      '• Ubicación: ' + loc + '\n' +
+      '• Unidad 0 Km de interés: ' + target + '\n' +
+      (rnc ? ('• Empresa/RNC: ' + rnc + '\n') : '') +
+      '• Teléfono: ' + phone;
+
+    var modal = document.getElementById('tmd-tradein-modal');
+    if (modal) modal.remove();
+
+    window.open('https://wa.me/18098262222?text=' + encodeURIComponent(msg), '_blank');
+  };
+
+  // ─── INSTANT PROFORMA PDF GENERATOR ───
+  window.tmdDownloadMachinePDF = function(machineId) {
+    var products = typeof window.tmdGetAllStoreProducts === 'function' ? window.tmdGetAllStoreProducts() : [];
+    var machine = products.find(function(m) { return m.id === machineId; }) || {
+      title: 'Maquinaria Pesada 0 Km',
+      brand: 'TMD',
+      priceUSD: 85000,
+      specs: { 'Potencia': '100 HP', 'Condición': '0 Km', 'Garantía': 'Oficial TMD' }
+    };
+
+    var priceUSD = machine.priceUSD ? Number(machine.priceUSD).toLocaleString() : '89,500';
+    var itbisUSD = machine.priceUSD ? Number(machine.priceUSD * 0.18).toLocaleString() : '16,110';
+    var totalUSD = machine.priceUSD ? Number(machine.priceUSD * 1.18).toLocaleString() : '105,610';
+
+    var printWindow = window.open('', '_blank', 'width=920,height=850');
+    if (!printWindow) {
+      alert('Por favor permita ventanas emergentes para generar la proforma.');
+      return;
+    }
+
+    var specsRows = Object.keys(machine.specs || {}).map(function(k) {
+      return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e5e7eb;"><span style="color:#6b7280;text-transform:uppercase;font-size:11px;">' + k + '</span><span style="font-weight:700;color:#111;">' + machine.specs[k] + '</span></div>';
+    }).join('');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>PROFORMA OFICIAL — ${machine.title}</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 35px; color: #111; font-size: 13px; line-height: 1.5; }
+          .hdr { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #f59e0b; padding-bottom: 14px; margin-bottom: 24px; }
+          .logo-box { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; }
+          .badge { background: #f59e0b; color: #000; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 10px; }
+          .price-tbl { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          .price-tbl td, .price-tbl th { padding: 10px; border: 1px solid #e5e7eb; }
+          .price-tbl th { background: #f9fafb; text-align: left; }
+          .stamp-box { margin-top: 35px; display: flex; justify-content: space-between; align-items: flex-end; }
+          .seal { border: 2px dashed #b45309; padding: 12px 18px; border-radius: 8px; text-align: center; color: #b45309; font-weight: bold; font-size: 11px; }
+          @media print { .no-print { display: none; } }
+        </style>
+      </head>
+      <body>
+        <div class="hdr">
+          <div>
+            <div class="logo-box">TECNOMAQUINARIAS DIESEL S.R.L.</div>
+            <div style="font-size: 11px; color: #6b7280; margin-top: 3px;">RNC: 1-30-88492-1 · Registro Mercantil: 89412-SD · Autopista Duarte Km 22, Santo Domingo Oeste</div>
+            <div style="font-size: 12px; font-weight: bold; color: #b45309; margin-top: 5px;">COTIZACIÓN PROFORMA B2B · VÁLIDA PARA CRÉDITO BANCARIO & LEASING</div>
+          </div>
+          <div style="text-align: right;">
+            <span class="badge">0 KM / GARANTÍA OFICIAL</span>
+            <div style="font-size: 11px; color: #6b7280; margin-top: 5px;">Fecha: ${new Date().toLocaleDateString('es-DO')}</div>
+            <div style="font-size: 11px; color: #6b7280;">Sede Central Km 22</div>
+          </div>
+        </div>
+
+        <h2 style="margin: 0 0 4px; font-size: 18px; text-transform: uppercase;">${machine.title}</h2>
+        <p style="margin: 0 0 16px; color: #4b5563; font-size: 12px;">Marca: <strong>${machine.brand}</strong> · Condición: <strong>0 Km / Nueva</strong> · Entrega Inmediata en Patio Km 22</p>
+
+        <h3 style="font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #d1d5db; padding-bottom: 4px; margin-top: 20px;">Especificaciones Técnicas Certificadas:</h3>
+        <div style="margin-bottom: 20px;">
+          ${specsRows}
+        </div>
+
+        <h3 style="font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #d1d5db; padding-bottom: 4px;">Estructura de Inversión (Comprobante Fiscal DGII B01 / B15):</h3>
+        <table class="price-tbl">
+          <tr><th>Concepto</th><th style="text-align:right;">Monto (USD)</th></tr>
+          <tr><td>Valor del Equipo (0 Km puesto en Km 22)</td><td style="text-align:right;font-weight:bold;">$${priceUSD} USD</td></tr>
+          <tr><td>ITBIS (18% Crédito Fiscal Deducible)</td><td style="text-align:right;">$${itbisUSD} USD</td></tr>
+          <tr style="background:#fef3c7;"><td style="font-weight:bold;color:#92400e;">Total Estimado con ITBIS</td><td style="text-align:right;font-weight:900;color:#92400e;font-size:15px;">$${totalUSD} USD</td></tr>
+        </table>
+
+        <div style="margin-top: 20px; padding: 12px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; font-size: 11px; color: #166534;">
+          <strong>Escudo Fiscal Ley 392-07 (Proindustria):</strong> Para empresas industriales registradas, aplica exoneración de arancel aduanero. Equipo 100% depreciable bajo Ley 11-92 (Categoría 2, 25% anual).
+        </div>
+
+        <div class="stamp-box">
+          <div style="font-size: 11px; color: #6b7280; max-width: 450px;">
+            <strong>Términos de Despacho:</strong> Entrega inmediata en Autopista Duarte Km 22 o despacho vía Lowboy a cualquier provincia de la República Dominicana en menos de 24 horas. Respaldo directo de repuestos y taller central.
+          </div>
+          <div class="seal">
+            DEPARTAMENTO DE INGENIERÍA TMD<br>
+            ★ SELLO DE VALIDACIÓN TÉCNICA ★<br>
+            Autopista Duarte Km 22
+          </div>
+        </div>
+
+        <div class="no-print" style="margin-top: 30px; text-align: center;">
+          <button onclick="window.print()" style="padding: 10px 24px; background: #f59e0b; border: none; border-radius: 6px; font-weight: bold; font-size: 13px; cursor: pointer;">🖨️ Imprimir / Guardar como PDF</button>
+        </div>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
 
 })();
 
