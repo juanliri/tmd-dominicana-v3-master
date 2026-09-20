@@ -2040,9 +2040,342 @@
     if (btn) btn.setAttribute('aria-expanded', 'false');
   };
 
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  /* ENTERPRISE LOGIN LANDING PAGE (#/portal, #/login, #/portal-vip)             */
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  function renderEnterprisePortalLandingPage() {
+    return `
+      <div id="tmd-enterprise-portal-landing" class="w-full min-h-screen text-neutral-100 pb-20 pt-24" style="background: radial-gradient(circle at 50% 0%, rgba(245,158,11,0.08) 0%, rgba(10,10,12,0.98) 60%, #05070c 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <!-- Top Breadcrumb & Live System Status -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pt-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2 text-xs font-mono text-neutral-400">
+              <a href="#/home" class="hover:text-amber-400 transition-colors">TMD DOMINICANA</a>
+              <span>/</span>
+              <span class="text-amber-400 font-bold">PORTAL VIP B2B</span>
+              <span>/</span>
+              <span class="text-white">ACCESO CORPORATIVO</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                FULLBAY CONNECTED · TALLER KM 22
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-black uppercase bg-amber-500 text-black shadow">
+                DGII NCF B01 EMISOR
+              </span>
+            </div>
+          </div>
+
+          <!-- Hero Master Banner -->
+          <div class="relative rounded-3xl p-8 sm:p-12 mb-10 overflow-hidden border border-amber-500/30" style="background: linear-gradient(135deg, rgba(20,22,28,0.92) 0%, rgba(10,10,12,0.96) 100%); backdrop-filter: blur(24px); box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-mono font-black uppercase tracking-wider mb-4">
+                <span class="material-symbols-outlined text-[16px]">verified_user</span>
+                Terminal B2B Exclusivo para Contratistas &amp; Flotas
+              </div>
+              <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-sans">
+                TMD Heavy Hub · Portal VIP de Contratistas
+              </h1>
+              <p class="text-sm sm:text-base text-neutral-300 leading-relaxed font-sans mb-6">
+                Plataforma institucional de gestión de flotas para empresas constructoras en República Dominicana. Telemetría LiveLink satelital en cantera a 350 Bar, descarga inmediata de comprobantes fiscales NCF B01/B15 y despacho express de repuestos OEM desde Km 22 Autopista Duarte.
+              </p>
+
+              <!-- Security Badges Ribbon -->
+              <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+                <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-neutral-300 flex items-center gap-1.5">
+                  <span class="text-emerald-400">●</span> 256-Bit TLS Multi-Tenant Isolation
+                </span>
+                <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-neutral-300 flex items-center gap-1.5">
+                  <span class="text-amber-400">●</span> Norma General DGII 06-2018
+                </span>
+                <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-neutral-300 flex items-center gap-1.5">
+                  <span class="text-emerald-400">●</span> 18 Bahías Pesadas en Km 22 Duarte
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main 2-Column Console -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Column: Enterprise Login & Fast Track (7 cols) -->
+            <div class="lg:col-span-7 rounded-3xl p-6 sm:p-8 border border-amber-500/30" style="background: rgba(14,16,22,0.92); backdrop-filter: blur(20px); box-shadow: 0 15px 50px rgba(0,0,0,0.6);">
+              
+              <!-- Tab Navigation -->
+              <div class="flex items-center gap-2 p-1.5 rounded-2xl bg-black/60 border border-white/10 mb-6">
+                <button id="tmd-tab-btn-login" onclick="window.tmdSwitchPortalLandingTab('login')" class="flex-1 py-2.5 px-4 rounded-xl font-mono text-xs font-black uppercase tracking-wider transition-all bg-amber-500 text-black shadow cursor-pointer">
+                  🏢 Iniciar Sesión RNC
+                </button>
+                <button id="tmd-tab-btn-register" onclick="window.tmdSwitchPortalLandingTab('register')" class="flex-1 py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-all cursor-pointer">
+                  📝 Registrar Empresa B2B
+                </button>
+              </div>
+
+              <!-- VIEW 1: LOGIN TAB -->
+              <div id="tmd-landing-tab-login" class="space-y-6">
+                <form onsubmit="window.tmdSubmitLandingLogin(event)" class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1.5">RNC Empresa o Correo Corporativo</label>
+                    <div class="relative">
+                      <input id="tmd-landing-login-rnc" type="text" value="1-31-84920-1" placeholder="Ej. 1-31-84920-1 o contratista@malespin.com.do" class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-3 text-sm text-white font-mono transition-colors" required>
+                      <span class="absolute right-3 top-3 text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400 border border-neutral-700">RNC DGII</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1.5">PIN / Clave de Seguridad de Flota</label>
+                    <input id="tmd-landing-login-pin" type="password" value="2222" placeholder="••••••••" class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-3 text-sm text-white font-mono tracking-widest transition-colors" required>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs text-neutral-400 pt-1">
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                      <input type="checkbox" checked class="rounded bg-black border-neutral-700 text-amber-500 focus:ring-0">
+                      <span>Recordar este terminal en obra</span>
+                    </label>
+                    <a href="tel:18098262222" class="text-amber-400 hover:underline font-mono">Soporte PIN Km 22</a>
+                  </div>
+
+                  <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer">
+                    <span>🚜</span>
+                    <span>Entrar al Cockpit de Flota</span>
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  </button>
+                </form>
+
+                <!-- Multi-Tenant One-Click Fast Access -->
+                <div class="pt-6 border-t border-white/10">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="text-[11px] font-mono font-bold text-amber-400 uppercase tracking-wider">
+                      ACCESO RÁPIDO PARA EVALUACIÓN CORPORATIVA (MULTI-TENANT):
+                    </span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">1-CLIC DEMO</span>
+                  </div>
+                  <p class="text-xs text-neutral-400 mb-4">
+                    Haga clic sobre una empresa contratista para ingresar directamente a su bóveda de equipos, telemetría y facturas fiscales:
+                  </p>
+
+                  <div class="space-y-2.5">
+                    <!-- Tenant 1: Malespín -->
+                    <div onclick="window.tmdQuickLoginTenant('malespin')" class="p-3.5 rounded-2xl bg-black/50 hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 transition-all cursor-pointer group flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono font-black flex items-center justify-center shrink-0">
+                          CM
+                        </div>
+                        <div>
+                          <div class="text-sm font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
+                            <span>Consorcio Malespín S.R.L.</span>
+                            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-300">RNC 1-31-84920-1</span>
+                          </div>
+                          <div class="text-xs text-neutral-400 mt-0.5">4 Máquinas Activas · Obra: Circunvalación Baní - Azua</div>
+                        </div>
+                      </div>
+                      <span class="px-3 py-1.5 rounded-lg bg-white/5 group-hover:bg-amber-500 group-hover:text-black font-mono text-xs font-bold text-amber-400 transition-all shrink-0">
+                        Entrar →
+                      </span>
+                    </div>
+
+                    <!-- Tenant 2: Rizek -->
+                    <div onclick="window.tmdQuickLoginTenant('rizek')" class="p-3.5 rounded-2xl bg-black/50 hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 transition-all cursor-pointer group flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono font-black flex items-center justify-center shrink-0">
+                          CR
+                        </div>
+                        <div>
+                          <div class="text-sm font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
+                            <span>Constructora Rizek &amp; Asocs.</span>
+                            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-300">RNC 1-01-02948-2</span>
+                          </div>
+                          <div class="text-xs text-neutral-400 mt-0.5">6 Máquinas Activas · Obra: Autovía del Nordeste</div>
+                        </div>
+                      </div>
+                      <span class="px-3 py-1.5 rounded-lg bg-white/5 group-hover:bg-amber-500 group-hover:text-black font-mono text-xs font-bold text-amber-400 transition-all shrink-0">
+                        Entrar →
+                      </span>
+                    </div>
+
+                    <!-- Tenant 3: Estrella -->
+                    <div onclick="window.tmdQuickLoginTenant('estrella')" class="p-3.5 rounded-2xl bg-black/50 hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 transition-all cursor-pointer group flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono font-black flex items-center justify-center shrink-0">
+                          IE
+                        </div>
+                        <div>
+                          <div class="text-sm font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
+                            <span>Ingeniería Estrella S.A.</span>
+                            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-neutral-800 text-neutral-300">RNC 1-02-39481-9</span>
+                          </div>
+                          <div class="text-xs text-neutral-400 mt-0.5">8 Máquinas Activas · Obra: Monorriel de Santiago</div>
+                        </div>
+                      </div>
+                      <span class="px-3 py-1.5 rounded-lg bg-white/5 group-hover:bg-amber-500 group-hover:text-black font-mono text-xs font-bold text-amber-400 transition-all shrink-0">
+                        Entrar →
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- VIEW 2: REGISTER TAB -->
+              <div id="tmd-landing-tab-register" class="space-y-4" style="display:none;">
+                <form onsubmit="window.tmdSubmitLandingRegister(event)" class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1">Razón Social de la Constructora / Empresa</label>
+                    <input id="tmd-landing-reg-company" type="text" placeholder="Ej. Constructora del Caribe S.R.L." class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-2.5 text-sm text-white font-mono" required>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1">RNC (DGII 9 u 11 Dígitos)</label>
+                      <input id="tmd-landing-reg-rnc" type="text" placeholder="1-XX-XXXXX-X" class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-2.5 text-sm text-white font-mono" required>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1">Proyecto u Obra Principal</label>
+                      <input id="tmd-landing-reg-project" type="text" placeholder="Ej. Tramo Vial Santo Domingo Este" class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-2.5 text-sm text-white font-mono" required>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1">Teléfono / WhatsApp de Contacto</label>
+                      <input id="tmd-landing-reg-phone" type="tel" placeholder="(809) 000-0000" class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-2.5 text-sm text-white font-mono" required>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-mono text-neutral-300 uppercase tracking-wider mb-1">Correo Corporativo</label>
+                      <input id="tmd-landing-reg-email" type="email" placeholder="operaciones@empresa.com.do" class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-2.5 text-sm text-white font-mono" required>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer mt-2">
+                    <span>📝</span>
+                    <span>Solicitar Bóveda de Contratista VIP</span>
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Institutional Capabilities (5 cols) -->
+            <div class="lg:col-span-5 space-y-4">
+              
+              <div class="p-6 rounded-3xl border border-white/10 bg-white/[0.02]" style="backdrop-filter: blur(16px);">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                    <span class="material-symbols-outlined text-[24px]">satellite_alt</span>
+                  </div>
+                  <div>
+                    <h3 class="text-base font-bold text-white font-sans">Telemetría Satelital 350 Bar</h3>
+                    <p class="text-xs text-neutral-400">Presión hidráulica en cantera y horómetros</p>
+                  </div>
+                </div>
+                <p class="text-xs text-neutral-300 leading-relaxed">
+                  Lectura directa vía enlace satelital LiveLink. Detección predictiva de fatiga en bombas hidráulicas antes de generar paradas de obra imprevistas.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-3xl border border-white/10 bg-white/[0.02]" style="backdrop-filter: blur(16px);">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                    <span class="material-symbols-outlined text-[24px]">receipt_long</span>
+                  </div>
+                  <div>
+                    <h3 class="text-base font-bold text-white font-sans">Bóveda Fiscal DGII NCF B01/B15</h3>
+                    <p class="text-xs text-neutral-400">Comprobantes fiscales para crédito e ITBIS</p>
+                  </div>
+                </div>
+                <p class="text-xs text-neutral-300 leading-relaxed">
+                  Descarga automática de cotizaciones autorizadas, retenciones y facturas electrónicas con firma digital, listas para auditoría contable y licitaciones MOPC.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-3xl border border-white/10 bg-white/[0.02]" style="backdrop-filter: blur(16px);">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                    <span class="material-symbols-outlined text-[24px]">local_shipping</span>
+                  </div>
+                  <div>
+                    <h3 class="text-base font-bold text-white font-sans">Despacho Express Km 22 Duarte</h3>
+                    <p class="text-xs text-neutral-400">390+ SKUs OEM con entrega en obra</p>
+                  </div>
+                </div>
+                <p class="text-xs text-neutral-300 leading-relaxed">
+                  Filtros, sellos hidráulicos y componentes de inyección despachados directamente a su frente de trabajo en menos de 24 horas a nivel nacional.
+                </p>
+              </div>
+
+              <!-- Quick Taller Contact -->
+              <div class="p-5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex items-center justify-between gap-4">
+                <div>
+                  <div class="text-[10px] font-mono text-neutral-400 uppercase">Centro de Operaciones Km 22</div>
+                  <div class="text-sm font-mono font-bold text-amber-400 mt-0.5">(809) 826-2222</div>
+                  <div class="text-[11px] text-neutral-500">Autopista Duarte Km 22, Sto Dgo Oeste</div>
+                </div>
+                <a href="https://wa.me/18098262222?text=Hola%20TMD,%20solicito%20asistencia%20de%20flota%20VIP" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all">
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+
+  // Helper function: Switch landing tabs
+  window.tmdSwitchPortalLandingTab = function (tabId) {
+    var vLogin = document.getElementById('tmd-landing-tab-login');
+    var vReg = document.getElementById('tmd-landing-tab-register');
+    var btnLogin = document.getElementById('tmd-tab-btn-login');
+    var btnReg = document.getElementById('tmd-tab-btn-register');
+
+    if (tabId === 'login') {
+      if (vLogin) vLogin.style.display = 'block';
+      if (vReg) vReg.style.display = 'none';
+      if (btnLogin) {
+        btnLogin.className = 'flex-1 py-2.5 px-4 rounded-xl font-mono text-xs font-black uppercase tracking-wider transition-all bg-amber-500 text-black shadow cursor-pointer';
+      }
+      if (btnReg) {
+        btnReg.className = 'flex-1 py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-all cursor-pointer';
+      }
+    } else {
+      if (vLogin) vLogin.style.display = 'none';
+      if (vReg) vReg.style.display = 'block';
+      if (btnReg) {
+        btnReg.className = 'flex-1 py-2.5 px-4 rounded-xl font-mono text-xs font-black uppercase tracking-wider transition-all bg-amber-500 text-black shadow cursor-pointer';
+      }
+      if (btnLogin) {
+        btnLogin.className = 'flex-1 py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-all cursor-pointer';
+      }
+    }
+  };
+
+  window.tmdSubmitLandingLogin = function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (typeof window.tmdHandleAuthLogin === 'function') {
+      window.tmdHandleAuthLogin(e);
+    }
+  };
+
+  window.tmdSubmitLandingRegister = function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (typeof window.tmdHandleAuthRegister === 'function') {
+      window.tmdHandleAuthRegister(e);
+    }
+  };
+
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  /* EMBEDDED ENTERPRISE TOOLS SUITE (#/tools) — ZERO DEMO, FULL LIVE ENGINES  */
+  /* ═══════════════════════════════════════════════════════════════════════════ */
   function renderToolsDashboardModule() {
     return `
-      <div id="tmd-tools-dashboard-infusion" class="w-full min-h-screen text-neutral-100 pb-20 pt-24" style="background: radial-gradient(circle at 50% 0%, rgba(245,158,11,0.09) 0%, rgba(9,11,18,0.98) 65%, #05070c 100%);">
+      <div id="tmd-tools-dashboard-infusion" class="w-full min-h-screen text-neutral-100 pb-20 pt-24" style="background: radial-gradient(circle at 50% 0%, rgba(245,158,11,0.08) 0%, rgba(10,10,12,0.98) 60%, #05070c 100%);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <!-- Breadcrumb & Live Indicator -->
@@ -2052,7 +2385,7 @@
               <span>/</span>
               <span class="text-amber-400 font-bold">ECOSISTEMA DIGITAL</span>
               <span>/</span>
-              <span class="text-white">CENTRO DE HERRAMIENTAS</span>
+              <span class="text-white">SUITE DE INGENIERÍA &amp; OPERACIONES</span>
             </div>
             <div class="flex items-center gap-2">
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm">
@@ -2066,368 +2399,412 @@
           </div>
 
           <!-- Hero Master Banner -->
-          <div class="relative rounded-3xl p-8 sm:p-12 mb-10 overflow-hidden border border-amber-500/30" style="background: linear-gradient(135deg, rgba(20,26,40,0.88) 0%, rgba(12,16,25,0.92) 100%); backdrop-filter: blur(24px); box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);">
+          <div class="relative rounded-3xl p-8 sm:p-12 mb-10 overflow-hidden border border-amber-500/30" style="background: linear-gradient(135deg, rgba(20,22,28,0.92) 0%, rgba(10,10,12,0.96) 100%); backdrop-filter: blur(24px); box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);">
             <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="relative z-10 max-w-3xl">
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-mono font-black uppercase tracking-wider mb-4">
-                <span class="material-symbols-outlined text-[16px]">terminal</span>
-                Centro de Mando Digital para Contratistas
+                <span class="material-symbols-outlined text-[16px]">engineering</span>
+                Suite de Ingeniería, Selección &amp; Finanzas DGII
               </div>
               <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-4 font-sans">
-                Ecosistema de Operaciones, Finanzas &amp; Flota
+                Centro de Herramientas Operativas TMD
               </h1>
               <p class="text-sm sm:text-base text-neutral-300 leading-relaxed font-sans mb-8">
-                Inspirado en el estándar de gestión de flotas de clase mundial de John Deere y Bobcat, adaptado a la geografía, canteras y régimen tributario DGII de la República Dominicana.
+                Herramientas interactivas integradas directamente en la plataforma. Compare especificaciones frente a Caterpillar y John Deere, simule el escudo fiscal de la Ley 11-92, consulte stock de repuestos OEM y evalúe telemetría en cantera sin salir de la página.
               </p>
 
-              <!-- Quick Launch CTA Bar -->
+              <!-- Quick Action Link Bar -->
               <div class="flex flex-wrap items-center gap-3">
-                <button onclick="window.tmdOpenClientPortal();" class="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer">
+                <a href="#/portal" class="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all">
                   <span>🚜</span>
-                  <span>Abrir Portal VIP &amp; Flota</span>
-                </button>
-                <button onclick="window.tmdOpenMachineAdvisor();" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer">
-                  <span class="material-symbols-outlined text-[18px] text-amber-400">psychology</span>
-                  <span>Asesor "Help Me Choose"</span>
-                </button>
+                  <span>Portal VIP de Contratistas</span>
+                </a>
                 <a href="tel:18098262222" class="px-5 py-3 rounded-xl bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 border border-neutral-700 font-mono font-bold text-xs flex items-center gap-2 transition-all">
                   <span class="material-symbols-outlined text-[18px] text-emerald-400">phone_in_talk</span>
-                  <span>Km 22: 809-826-2222</span>
+                  <span>Km 22 Duarte: (809) 826-2222</span>
                 </a>
               </div>
             </div>
 
             <!-- Stats Ribbon -->
             <div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
-              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+              <div class="p-3 rounded-xl bg-black/50 border border-white/5">
                 <div class="text-neutral-400 text-[10px] uppercase">Flota en Terreno</div>
                 <div class="text-lg font-bold text-emerald-400 mt-0.5">44 Máquinas Activas</div>
                 <div class="text-[10px] text-neutral-500">LiveLink GPS Satelital</div>
               </div>
-              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+              <div class="p-3 rounded-xl bg-black/50 border border-white/5">
                 <div class="text-neutral-400 text-[10px] uppercase">Capacidad Taller</div>
                 <div class="text-lg font-bold text-amber-400 mt-0.5">18 Bahías Pesadas</div>
                 <div class="text-[10px] text-neutral-500">Km 22 Autopista Duarte</div>
               </div>
-              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+              <div class="p-3 rounded-xl bg-black/50 border border-white/5">
                 <div class="text-neutral-400 text-[10px] uppercase">Escudo Fiscal DGII</div>
                 <div class="text-lg font-bold text-white mt-0.5">25% Depreciación</div>
                 <div class="text-[10px] text-neutral-500">Ley 11-92 Cat. 2 + ITBIS</div>
               </div>
-              <div class="p-3 rounded-xl bg-black/40 border border-white/5">
-                <div class="text-neutral-400 text-[10px] uppercase">Repuestos OEM</div>
-                <div class="text-lg font-bold text-cyan-400 mt-0.5">390+ SKUs Stock</div>
+              <div class="p-3 rounded-xl bg-black/50 border border-white/5">
+                <div class="text-neutral-400 text-[10px] uppercase">Repuestos OEM Stock</div>
+                <div class="text-lg font-bold text-emerald-400 mt-0.5">390+ SKUs Listos</div>
                 <div class="text-[10px] text-neutral-500">Entrega Inmediata en RD</div>
               </div>
             </div>
           </div>
 
-          <!-- 3 CORE PILLARS OF DIGITAL TOOLS -->
-          <div class="space-y-12">
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+          <!-- EMBEDDED INTERACTIVE ENGINEERING CONSOLE (NO POPOUTS)           -->
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+          <div class="rounded-3xl border border-amber-500/30 overflow-hidden mb-14" style="background: rgba(14,16,22,0.95); backdrop-filter: blur(24px); box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
             
-            <!-- PILLAR 1: FLOTA & TELEMETRÍA IOT -->
-            <div>
-              <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                  <span class="material-symbols-outlined text-[24px]">satellite_alt</span>
-                </div>
-                <div>
-                  <div class="flex items-center gap-2">
-                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">1. Gestión de Flota &amp; Telemetría IoT</h2>
-                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold uppercase">Enlace 24/7</span>
-                  </div>
-                  <p class="text-xs text-neutral-400">Monitoreo en tiempo real de presión hidráulica, horómetros y estado en taller</p>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- Card 1: Operations Center -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-emerald-500/30 transition-all duration-300 hover:border-emerald-400 hover:shadow-[0_10px_35px_rgba(16,185,129,0.2)]" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                        <span class="material-symbols-outlined text-[28px]">satellite_alt</span>
-                      </div>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 uppercase">SATELITAL</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">TMD Operations Center™</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
-                      Cabina de telemetría completa: horómetros acumulados, curva de presión hidráulica (hasta 350 Bar) en vivo y geocercas activas en proyectos viales de RD.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Rastreo satelital GPS en canteras</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Alertas de consumo de diésel</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Alertas predictivas de mantenimiento 500h</li>
-                    </ul>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenTelematicsCockpit();" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(16,185,129,0.3)] transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-[18px]">open_in_new</span>
-                      <span>Abrir Operations Center</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Card 2: DVI Tracker WO-4482 -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-emerald-500/20 transition-all duration-300 hover:border-emerald-400 hover:shadow-[0_10px_35px_rgba(16,185,129,0.15)]" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                        <span class="material-symbols-outlined text-[28px]">fact_check</span>
-                      </div>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-neutral-300 uppercase">TALLER KM 22</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Rastreo de Órdenes (WO / DVI)</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
-                      Siga el progreso de su orden de reparación en Taller Km 22 a través de las 5 fases oficiales, con evidencia fotográfica digital de 40 puntos.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Reporte DVI fotográfico en alta resolución</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Aprobación electrónica de repuestos requeridos</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Tiempo estimado de entrega de máquina</li>
-                    </ul>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenDviTracker('WO-4482');" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-neutral-700 transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-[18px]">search</span>
-                      <span>Rastrear Orden WO-4482</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Card 3: Client VIP Portal -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-amber-500/30 transition-all duration-300 hover:border-amber-400 hover:shadow-[0_10px_35px_rgba(245,158,11,0.2)]" style="background: linear-gradient(160deg, rgba(25,22,15,0.85) 0%, rgba(14,12,8,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                        <span class="text-2xl">🚜</span>
-                      </div>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-amber-500 text-black uppercase">EXCLUSIVO</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-amber-400 mb-2">Portal VIP &amp; Flota Contratista</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
-                      Acceso exclusivo para directores de operaciones y contratistas: histórico de horas, bóveda de facturas fiscales NCF B01 y requisición de repuestos con entrega express.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
-                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Firma digital de cotizaciones autorizadas</li>
-                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Reserva prioritaria de bahías mecánicas</li>
-                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Descarga de NCF fiscales en PDF/XML</li>
-                    </ul>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenClientPortal();" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(245,158,11,0.35)] transition-all cursor-pointer">
-                      <span>🚜</span>
-                      <span>Ingresar al Portal VIP</span>
-                    </button>
-                  </div>
-                </div>
-
-              </div>
+            <!-- Sticky Tool Tab Header -->
+            <div class="p-3 sm:p-4 bg-black/60 border-b border-white/10 flex flex-wrap items-center gap-2 overflow-x-auto">
+              <button id="tmd-ttab-btn-comp" onclick="window.tmdSwitchToolsTab('comp')" class="py-2.5 px-4 rounded-xl font-mono text-xs font-black uppercase tracking-wider transition-all bg-amber-500 text-black shadow cursor-pointer whitespace-nowrap">
+                ⚖️ Comparador 3-Vías
+              </button>
+              <button id="tmd-ttab-btn-lease" onclick="window.tmdSwitchToolsTab('lease')" class="py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer whitespace-nowrap">
+                💰 Finanzas &amp; Escudo DGII
+              </button>
+              <button id="tmd-ttab-btn-tco" onclick="window.tmdSwitchToolsTab('tco')" class="py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer whitespace-nowrap">
+                ⏱️ Estimador TCO &amp; Diésel
+              </button>
+              <button id="tmd-ttab-btn-parts" onclick="window.tmdSwitchToolsTab('parts')" class="py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer whitespace-nowrap">
+                📦 Repuestos OEM por VIN
+              </button>
+              <button id="tmd-ttab-btn-radar" onclick="window.tmdSwitchToolsTab('radar')" class="py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer whitespace-nowrap">
+                🗺️ Radar 32 Provincias
+              </button>
+              <button id="tmd-ttab-btn-livelink" onclick="window.tmdSwitchToolsTab('livelink')" class="py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer whitespace-nowrap">
+                🚜 Monitor Flota LiveLink
+              </button>
             </div>
 
-            <!-- PILLAR 2: FINANZAS & DGII -->
-            <div>
-              <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                  <span class="material-symbols-outlined text-[24px]">account_balance</span>
+            <!-- TAB CONTENT CONTAINER -->
+            <div class="p-6 sm:p-8">
+              
+              <!-- ─── PANEL 1: COMPARADOR TÉCNICO 3-VÍAS (LIVE EMBEDDED) ─── -->
+              <div id="tmd-tpanel-comp" class="space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">Comparador Técnico Directo (14 Vectores)</h2>
+                    <p class="text-xs text-neutral-400">Benchmark oficial: Equipos TMD frente a Caterpillar y John Deere en condiciones reales de RD</p>
+                  </div>
+                  <!-- Category Switcher Pills -->
+                  <div class="flex items-center gap-1.5 p-1 rounded-xl bg-black/60 border border-white/10">
+                    <button id="tmd-comp-cat-backhoes" onclick="window.tmdSwitchCompCategory('backhoes')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-black uppercase bg-amber-500 text-black shadow cursor-pointer">
+                      Retroexcavadoras 4x4
+                    </button>
+                    <button id="tmd-comp-cat-loaders" onclick="window.tmdSwitchCompCategory('loaders')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase text-neutral-400 hover:text-white cursor-pointer">
+                      Palas 5 Ton
+                    </button>
+                    <button id="tmd-comp-cat-excavators" onclick="window.tmdSwitchCompCategory('excavators')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase text-neutral-400 hover:text-white cursor-pointer">
+                      Excavadoras 22T
+                    </button>
+                  </div>
                 </div>
+
+                <!-- Live Embedded Comparison Table -->
+                <div id="tmd-comp-matrix-container" class="overflow-x-auto border border-white/10 rounded-2xl bg-black/40">
+                  <!-- Dynamic content populated by window.tmdSwitchCompCategory -->
+                </div>
+              </div>
+
+              <!-- ─── PANEL 2: CALCULADORA FINANCIERA & ESCUDO FISCAL DGII ─── -->
+              <div id="tmd-tpanel-lease" class="space-y-6" style="display:none;">
                 <div>
-                  <div class="flex items-center gap-2">
-                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">2. Inteligencia Financiera &amp; Escudo Fiscal DGII</h2>
-                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold uppercase">Ley 11-92</span>
+                  <h2 class="text-xl sm:text-2xl font-black text-white font-sans">Calculadora Financiera &amp; Escudo Fiscal DGII</h2>
+                  <p class="text-xs text-neutral-400">Amortización acelerada Ley 11-92 (Categoría 2: 25% anual) y leasing operativo con banca dominicana</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  <!-- Inputs Column (5 cols) -->
+                  <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-black/50 border border-white/10">
+                    <div>
+                      <div class="flex justify-between text-xs font-mono text-neutral-300 mb-1">
+                        <span>VALOR DE LA MÁQUINA (USD)</span>
+                        <span id="tmd-calc-price-val" class="font-bold text-amber-400">$85,000 USD</span>
+                      </div>
+                      <input id="tmd-calc-price-slider" type="range" min="45000" max="250000" step="5000" value="85000" oninput="window.tmdUpdateEmbeddedLeaseCalc()" class="w-full accent-amber-500 cursor-pointer">
+                    </div>
+
+                    <div>
+                      <div class="flex justify-between text-xs font-mono text-neutral-300 mb-1.5">
+                        <span>PLAZO DE FINANCIAMIENTO / LEASING</span>
+                        <span id="tmd-calc-term-val" class="font-bold text-amber-400">36 Meses</span>
+                      </div>
+                      <div class="grid grid-cols-4 gap-2">
+                        <button type="button" onclick="window.tmdSetCalcTerm(24)" class="tmd-term-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400">24m</button>
+                        <button type="button" onclick="window.tmdSetCalcTerm(36)" class="tmd-term-btn active py-1.5 rounded-lg font-mono text-xs font-black border border-amber-500 bg-amber-500 text-black">36m</button>
+                        <button type="button" onclick="window.tmdSetCalcTerm(48)" class="tmd-term-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400">48m</button>
+                        <button type="button" onclick="window.tmdSetCalcTerm(60)" class="tmd-term-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400">60m</button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="flex justify-between text-xs font-mono text-neutral-300 mb-1">
+                        <span>TASA ANUAL ESTIMADA (%)</span>
+                        <span id="tmd-calc-rate-val" class="font-bold text-amber-400">9.75%</span>
+                      </div>
+                      <input id="tmd-calc-rate-slider" type="range" min="8.0" max="14.0" step="0.25" value="9.75" oninput="window.tmdUpdateEmbeddedLeaseCalc()" class="w-full accent-amber-500 cursor-pointer">
+                    </div>
+
+                    <div>
+                      <div class="flex justify-between text-xs font-mono text-neutral-300 mb-1.5">
+                        <span>INICIAL / PRONTO (%)</span>
+                        <span id="tmd-calc-down-val" class="font-bold text-amber-400">20%</span>
+                      </div>
+                      <div class="grid grid-cols-3 gap-2">
+                        <button type="button" onclick="window.tmdSetCalcDown(10)" class="tmd-down-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400">10%</button>
+                        <button type="button" onclick="window.tmdSetCalcDown(20)" class="tmd-down-btn active py-1.5 rounded-lg font-mono text-xs font-black border border-amber-500 bg-amber-500 text-black">20%</button>
+                        <button type="button" onclick="window.tmdSetCalcDown(30)" class="tmd-down-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400">30%</button>
+                      </div>
+                    </div>
                   </div>
-                  <p class="text-xs text-neutral-400">Modelos de ahorro impositivo, leasing operativo con banca nacional y comprobantes B01/B15</p>
+
+                  <!-- Outputs Column (7 cols) -->
+                  <div class="lg:col-span-7 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+                        <div class="text-[10px] font-mono text-amber-300 uppercase">Cuota Mensual Estimada</div>
+                        <div id="tmd-calc-monthly-out" class="text-2xl font-black text-amber-400 mt-1">$2,185 USD</div>
+                        <div id="tmd-calc-monthly-dop" class="text-xs font-mono text-neutral-400 mt-0.5">~RD$131,100 / mes</div>
+                      </div>
+
+                      <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30">
+                        <div class="text-[10px] font-mono text-emerald-300 uppercase">Crédito Fiscal ITBIS (18%)</div>
+                        <div id="tmd-calc-itbis-out" class="text-2xl font-black text-emerald-400 mt-1">$15,300 USD</div>
+                        <div class="text-xs font-mono text-neutral-400 mt-0.5">100% deducible en DGII</div>
+                      </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/40 border border-white/10 space-y-3">
+                      <div class="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-amber-400">shield</span>
+                        <span>Desglose de Escudo Fiscal (Ley 11-92 Art. 287)</span>
+                      </div>
+                      
+                      <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between pb-1.5 border-b border-white/5">
+                          <span class="text-neutral-400">Depreciación Acelerada Anual (25% Cat. 2):</span>
+                          <span id="tmd-calc-deprec-out" class="font-bold text-white">$21,250 USD / año</span>
+                        </div>
+                        <div class="flex justify-between pb-1.5 border-b border-white/5">
+                          <span class="text-neutral-400">Ahorro Impositivo Proyectado en ISR (27%):</span>
+                          <span id="tmd-calc-isrsave-out" class="font-bold text-emerald-400">$5,737 USD / año</span>
+                        </div>
+                        <div class="flex justify-between pt-1">
+                          <span class="text-neutral-300 font-bold">Ahorro Total Fiscal en Vida Útil:</span>
+                          <span id="tmd-calc-totalsave-out" class="font-black text-amber-400">$38,250 USD (~RD$2,295,000)</span>
+                        </div>
+                      </div>
+
+                      <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                        <span class="text-[11px] text-neutral-400">Banca aliada: Banreservas, Banco Popular &amp; BHD</span>
+                        <a href="https://wa.me/18098262222?text=Hola%20TMD,%20deseo%20una%20propuesta%20de%20leasing%20con%20NCF%20B01" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono font-black text-xs uppercase tracking-wider transition-all">
+                          Solicitar Propuesta NCF B01 →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- Card 4: Financial Suite -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-amber-500/30 transition-all duration-300 hover:border-amber-400 hover:shadow-[0_10px_35px_rgba(245,158,11,0.2)]" style="background: linear-gradient(160deg, rgba(25,22,15,0.85) 0%, rgba(14,12,8,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                        <span class="material-symbols-outlined text-[28px]">calculate</span>
-                      </div>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 uppercase">ESCUDO FISCAL</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-amber-400 mb-2">TMD MyFinancial™ Suite</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
-                      Simule la amortización acelerada del 25% (Categoría 2), crédito fiscal del 18% ITBIS y compare compra directa versus leasing bancario con Banreservas, Popular y BHD.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
-                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Depreciación acelerada Ley 11-92</li>
-                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Tasa preferencial desde 9.50%</li>
-                      <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Exportación de reporte fiscal DGII</li>
-                    </ul>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenFinancialSuite('JCB 3CX Eco', 85000);" class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(245,158,11,0.3)] transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-[18px]">account_balance</span>
-                      <span>Abrir Suite Financiera DGII</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Card 5: Formal DGII Quote -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-amber-400 hover:shadow-[0_10px_35px_rgba(245,158,11,0.15)]" style="background: linear-gradient(160deg, rgba(20,24,35,0.85) 0%, rgba(12,16,24,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-amber-400">
-                        <span class="material-symbols-outlined text-[28px]">receipt_long</span>
-                      </div>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-neutral-300 uppercase">NCF B01 / B15</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Cotización Formal DGII</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
-                      Genere una propuesta comercial formal con desglose de ITBIS, comprobante de crédito fiscal B01 para empresas o B15 para licitaciones con MOPC y sector público.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Validación instantánea de RNC corporativo</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Especificación técnica según norma MOPC</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Garantía de fábrica respaldada en Km 22</li>
-                    </ul>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="if(typeof window.tmdShowQuoteModal==='function') window.tmdShowQuoteModal('JCB 3CX Eco');" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-neutral-700 transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-[18px]">request_quote</span>
-                      <span>Generar Cotización Formal</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Card 6: TCO Calculator -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-emerald-400 hover:shadow-[0_10px_35px_rgba(16,185,129,0.15)]" style="background: linear-gradient(160deg, rgba(20,24,35,0.85) 0%, rgba(12,16,24,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                        <span class="material-symbols-outlined text-[28px]">payments</span>
-                      </div>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 uppercase">TCO OPERATIVO</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Calculadora TCO &amp; Renta</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed mb-4">
-                      Proyecte el costo total de posesión por hora de trabajo: consumo de diésel óptimo con bomba mecánica tropicalizada, salario de operador y filtros preventivos.
-                    </p>
-                    <ul class="space-y-1.5 text-xs text-neutral-400 font-mono border-t border-white/5 pt-3">
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Comparativa de costo por m³ excavado</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Ahorro diésel de hasta 16% con EcoMAX</li>
-                      <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Tarifa de renta diaria, semanal y mensual</li>
-                    </ul>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.location.hash='#/home'; setTimeout(function(){ var el = document.getElementById('tmd-tco-estimator-infusion'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 300);" class="w-full py-2.5 px-4 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-neutral-700 transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-[18px]">bar_chart</span>
-                      <span>Calcular Costo TCO</span>
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- PILLAR 3: INGENIERÍA OEM & SELECCIÓN -->
-            <div>
-              <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                  <span class="material-symbols-outlined text-[24px]">manage_search</span>
-                </div>
+              <!-- ─── PANEL 3: ESTIMADOR TCO & AHORRO DIÉSEL (LIVE EMBEDDED) ─── -->
+              <div id="tmd-tpanel-tco" class="space-y-6" style="display:none;">
                 <div>
-                  <div class="flex items-center gap-2">
-                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">3. Selección de Maquinaria, Comparador &amp; Repuestos</h2>
-                    <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold uppercase">14 Vectores OEM</span>
+                  <h2 class="text-xl sm:text-2xl font-black text-white font-sans">Estimador TCO &amp; Ahorro Diésel EcoMAX</h2>
+                  <p class="text-xs text-neutral-400">Análisis del costo total de propiedad: Bomba mecánica tropicalizada frente a sistemas electrónicos sensibles</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-black/50 border border-white/10">
+                    <div>
+                      <div class="flex justify-between text-xs font-mono text-neutral-300 mb-1">
+                        <span>HORAS DE OPERACIÓN ANUAL</span>
+                        <span id="tmd-tco-hours-val" class="font-bold text-amber-400">2,000 Horas / año</span>
+                      </div>
+                      <input id="tmd-tco-hours-slider" type="range" min="1000" max="3500" step="100" value="2000" oninput="window.tmdUpdateEmbeddedTcoCalc()" class="w-full accent-amber-500 cursor-pointer">
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono space-y-1">
+                      <div class="text-neutral-400">Precio Diésel Óptimo RD:</div>
+                      <div class="text-white font-bold">RD$ 240.40 / Galón (~$4.00 USD)</div>
+                      <div class="text-[10px] text-neutral-500">Resolución semanal MICM</div>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono space-y-1">
+                      <div class="text-neutral-400">Consumo TMD EcoMAX:</div>
+                      <div class="text-emerald-400 font-bold">2.0 Gal/Hora (Bomba Mecánica)</div>
+                      <div class="text-[10px] text-neutral-500">vs 2.5 Gal/Hora en sistemas comunes</div>
+                    </div>
                   </div>
-                  <p class="text-xs text-neutral-400">Benchmarks técnicos frente a Caterpillar y John Deere, catálogos PDF y despiece de repuestos</p>
+
+                  <div class="lg:col-span-7 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30">
+                        <div class="text-[10px] font-mono text-emerald-300 uppercase">Ahorro Anual de Diésel</div>
+                        <div id="tmd-tco-fuel-saving-out" class="text-2xl font-black text-emerald-400 mt-1">1,000 Galones</div>
+                        <div id="tmd-tco-dop-saving-out" class="text-xs font-mono text-neutral-300 mt-0.5">~RD$ 240,400 / año ($4,000 USD)</div>
+                      </div>
+
+                      <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+                        <div class="text-[10px] font-mono text-amber-300 uppercase">TCO Costo por Hora Estimado</div>
+                        <div id="tmd-tco-cost-per-hour-out" class="text-2xl font-black text-amber-400 mt-1">$14.20 USD / hr</div>
+                        <div class="text-xs font-mono text-neutral-400 mt-0.5">Incluye combustible + filtros + operador</div>
+                      </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black/40 border border-white/10">
+                      <div class="text-xs font-mono font-bold text-white uppercase mb-3">Proyección de Ahorro a 5 Años en Flota</div>
+                      <div class="grid grid-cols-3 gap-3 text-center font-mono">
+                        <div class="p-3 rounded-xl bg-white/5 border border-white/5">
+                          <div class="text-[10px] text-neutral-400">1 MÁQUINA</div>
+                          <div class="text-sm font-bold text-white mt-1">$20,000 USD</div>
+                          <div class="text-[10px] text-emerald-400">~RD$1.2M</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                          <div class="text-[10px] text-amber-300">3 MÁQUINAS</div>
+                          <div class="text-sm font-bold text-amber-400 mt-1">$60,000 USD</div>
+                          <div class="text-[10px] text-emerald-400">~RD$3.6M</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                          <div class="text-[10px] text-emerald-300">5 MÁQUINAS</div>
+                          <div class="text-sm font-bold text-emerald-400 mt-1">$100,000 USD</div>
+                          <div class="text-[10px] text-emerald-400">~RD$6.0M</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- Card 7: Model Comparator -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-cyan-500/30 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_10px_35px_rgba(6,182,212,0.2)]" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
+              <!-- ─── PANEL 4: REPUESTOS OEM POR VIN (LIVE EMBEDDED) ─── -->
+              <div id="tmd-tpanel-parts" class="space-y-6" style="display:none;">
+                <div class="flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4">
-                      <span class="material-symbols-outlined text-[28px]">compare_arrows</span>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 uppercase">3-VÍAS</span>
-                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Comparador 3-Vías</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed">
-                      JCB y LiuGong frente a Cat 420 y Deere 310L: fuerza de desprendimiento, presión hidráulica y consumo de diésel.
-                    </p>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenModelComparator('backhoes');" class="w-full py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(6,182,212,0.3)] transition-all cursor-pointer">
-                      <span>Comparar Modelos</span>
-                    </button>
+                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">Catálogo de Repuestos OEM &amp; Filtros</h2>
+                    <p class="text-xs text-neutral-400">390+ referencias originales en inventario con disponibilidad inmediata en Km 22 Duarte</p>
                   </div>
                 </div>
 
-                <!-- Card 8: Parts Serial Engine -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-cyan-400" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4">
-                      <span class="material-symbols-outlined text-[28px]">precision_manufacturing</span>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-800 text-neutral-300 uppercase">390+ SKUS</span>
-                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Buscador de Repuestos</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed">
-                      Búsqueda por VIN/Serial o código OEM: filtros originales, inyección, orugas y sellos con stock en Km 22.
-                    </p>
+                <!-- Live Search & Pills -->
+                <div class="space-y-3">
+                  <div class="relative">
+                    <input id="tmd-parts-search-input" type="text" oninput="window.tmdFilterEmbeddedParts(this.value, null)" placeholder="Buscar por código OEM, nombre de pieza o modelo (ej. 320/07155, Bomba, Sello, EcoMAX)..." class="w-full bg-black/60 border border-neutral-700 focus:border-amber-400 focus:outline-none rounded-xl px-4 py-3 text-sm text-white font-mono">
+                    <span class="absolute right-3 top-3 text-neutral-400 material-symbols-outlined text-[20px]">search</span>
                   </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenPartsSerialEngine();" class="w-full py-2.5 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-700 transition-all cursor-pointer">
-                      <span>Buscar Piezas</span>
-                    </button>
+
+                  <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                    <button onclick="window.tmdFilterEmbeddedParts(null, 'all')" class="tmd-parts-pill active px-3 py-1 rounded-lg bg-amber-500 text-black font-bold">Todos</button>
+                    <button onclick="window.tmdFilterEmbeddedParts(null, 'filtros')" class="tmd-parts-pill px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 hover:border-amber-400">Filtros</button>
+                    <button onclick="window.tmdFilterEmbeddedParts(null, 'hidraulica')" class="tmd-parts-pill px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 hover:border-amber-400">Bombas Hidráulicas</button>
+                    <button onclick="window.tmdFilterEmbeddedParts(null, 'inyeccion')" class="tmd-parts-pill px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 hover:border-amber-400">Inyección Diésel</button>
+                    <button onclick="window.tmdFilterEmbeddedParts(null, 'sellos')" class="tmd-parts-pill px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 hover:border-amber-400">Sellos 350 Bar</button>
                   </div>
                 </div>
 
-                <!-- Card 9: AI Machine Advisor -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-amber-400" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
-                      <span class="material-symbols-outlined text-[28px]">psychology</span>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 uppercase">AI FLEET</span>
-                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Help Me Choose</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed">
-                      Asistente interactivo: indique tipo de suelo, profundidad de excavación y proyecto para recomendar el equipo idóneo.
-                    </p>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenMachineAdvisor();" class="w-full py-2.5 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-700 transition-all cursor-pointer">
-                      <span>Iniciar Asesor</span>
-                    </button>
-                  </div>
+                <!-- Live Parts Table -->
+                <div id="tmd-parts-list-container" class="overflow-x-auto border border-white/10 rounded-2xl bg-black/40">
+                  <!-- Populated by JavaScript -->
                 </div>
-
-                <!-- Card 10: Brochures Hub -->
-                <div class="rounded-2xl p-6 flex flex-col justify-between border border-white/10 transition-all duration-300 hover:border-emerald-400" style="background: linear-gradient(160deg, rgba(16,24,35,0.85) 0%, rgba(10,14,22,0.92) 100%); backdrop-filter: blur(16px);">
-                  <div>
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
-                      <span class="material-symbols-outlined text-[28px]">download</span>
-                    </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 uppercase">PDF OFICIAL</span>
-                    <h3 class="text-base font-bold text-white mt-2 mb-1.5">Fichas Técnicas PDF</h3>
-                    <p class="text-xs text-neutral-300 leading-relaxed">
-                      Descargue especificaciones oficiales de fábrica, diagramas de alcance y tablas de lubricantes autorizados.
-                    </p>
-                  </div>
-                  <div class="mt-6 pt-4 border-t border-white/10">
-                    <button onclick="window.tmdOpenBrochuresHub();" class="w-full py-2.5 px-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-700 transition-all cursor-pointer">
-                      <span>Descargar PDFs</span>
-                    </button>
-                  </div>
-                </div>
-
               </div>
+
+              <!-- ─── PANEL 5: RADAR NACIONAL 32 PROVINCIAS (LIVE EMBEDDED) ─── -->
+              <div id="tmd-tpanel-radar" class="space-y-6" style="display:none;">
+                <div>
+                  <h2 class="text-xl sm:text-2xl font-black text-white font-sans">Radar Nacional de Cobertura Técnica</h2>
+                  <p class="text-xs text-neutral-400">Talleres móviles equipados con banco de diagnóstico hidráulico para auxilio vial en obra</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <!-- Region 1 -->
+                  <div onclick="window.tmdSelectEmbeddedProvince('metro')" id="tmd-reg-card-metro" class="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/40 cursor-pointer transition-all space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-mono font-black text-amber-400 uppercase">ZONA METRO</span>
+                      <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">45 MIN</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Santo Domingo &amp; D.N.</h3>
+                    <p class="text-xs text-neutral-300">Sede Central Km 22 Duarte. 18 bahías pesadas y 6 camionetas de auxilio en autopistas.</p>
+                    <div class="text-[11px] font-mono text-emerald-400 pt-2 border-t border-white/10">6 Unidades Móviles Activas</div>
+                  </div>
+
+                  <!-- Region 2 -->
+                  <div onclick="window.tmdSelectEmbeddedProvince('cibao')" id="tmd-reg-card-cibao" class="p-5 rounded-2xl bg-black/40 border border-white/10 hover:border-amber-400 cursor-pointer transition-all space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-mono font-black text-neutral-300 uppercase">CIBAO CENTRAL</span>
+                      <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">90 MIN</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Santiago &amp; La Vega</h3>
+                    <p class="text-xs text-neutral-300">Base técnica Autopista Duarte tramo Navarrete. Atención a minas y proyectos agrícolas.</p>
+                    <div class="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/10">3 Unidades Móviles Activas</div>
+                  </div>
+
+                  <!-- Region 3 -->
+                  <div onclick="window.tmdSelectEmbeddedProvince('este')" id="tmd-reg-card-este" class="p-5 rounded-2xl bg-black/40 border border-white/10 hover:border-amber-400 cursor-pointer transition-all space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-mono font-black text-neutral-300 uppercase">REGIÓN ESTE</span>
+                      <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">120 MIN</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Bávaro &amp; Punta Cana</h3>
+                    <p class="text-xs text-neutral-300">Unidad de soporte en Verón y Autovía del Coral. Obras turísticas y canteras de caliza.</p>
+                    <div class="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/10">2 Unidades Móviles Activas</div>
+                  </div>
+
+                  <!-- Region 4 -->
+                  <div onclick="window.tmdSelectEmbeddedProvince('sur')" id="tmd-reg-card-sur" class="p-5 rounded-2xl bg-black/40 border border-white/10 hover:border-amber-400 cursor-pointer transition-all space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-mono font-black text-neutral-300 uppercase">REGIÓN SUR</span>
+                      <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">150 MIN</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Baní, Azua &amp; Pedernales</h3>
+                    <p class="text-xs text-neutral-300">Cobertura especial Circunvalación y proyectos de desarrollo Cabo Rojo.</p>
+                    <div class="text-[11px] font-mono text-neutral-400 pt-2 border-t border-white/10">2 Unidades Móviles Activas</div>
+                  </div>
+                </div>
+
+                <!-- Region Detail Box -->
+                <div id="tmd-region-detail-box" class="p-5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+                  <div>
+                    <span class="text-amber-400 font-bold">DESPACHO INMEDIATO:</span>
+                    <span class="text-white ml-1">Línea de Auxilio Mecánico 24/7 en Km 22 Duarte</span>
+                  </div>
+                  <a href="tel:18098262222" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase transition-all">
+                    Llamar Taller: (809) 826-2222
+                  </a>
+                </div>
+              </div>
+
+              <!-- ─── PANEL 6: MONITOR FLOTA LIVELINK (LIVE EMBEDDED) ─── -->
+              <div id="tmd-tpanel-livelink" class="space-y-6" style="display:none;">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-white font-sans">Monitor de Telemetría Satelital LiveLink</h2>
+                    <p class="text-xs text-neutral-400">Curva de presión hidráulica en tiempo real, consumo de diésel y geocercas satelitales</p>
+                  </div>
+                  <!-- Equipment Selector -->
+                  <div class="flex items-center gap-1.5 p-1 rounded-xl bg-black/60 border border-white/10">
+                    <button id="tmd-fl-btn-eq1" onclick="window.tmdSelectEmbeddedFleetMachine('eq1')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-black uppercase bg-amber-500 text-black shadow cursor-pointer">
+                      JCB 3CX (Baní)
+                    </button>
+                    <button id="tmd-fl-btn-eq2" onclick="window.tmdSelectEmbeddedFleetMachine('eq2')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase text-neutral-400 hover:text-white cursor-pointer">
+                      LiuGong 856H (Cantera)
+                    </button>
+                    <button id="tmd-fl-btn-eq3" onclick="window.tmdSelectEmbeddedFleetMachine('eq3')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase text-neutral-400 hover:text-white cursor-pointer">
+                      JCB JS220SC (Norte)
+                    </button>
+                  </div>
+                </div>
+
+                <div id="tmd-fleet-telemetry-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <!-- Populated by window.tmdSelectEmbeddedFleetMachine -->
+                </div>
+              </div>
+
             </div>
-
           </div>
 
           <!-- Institutional Taller Central Km 22 Support Banner -->
-          <div class="mt-14 rounded-3xl p-8 border border-neutral-800 flex flex-wrap items-center justify-between gap-6" style="background: linear-gradient(145deg, rgba(15,18,28,0.95) 0%, rgba(9,11,18,0.98) 100%);">
+          <div class="rounded-3xl p-8 border border-neutral-800 flex flex-wrap items-center justify-between gap-6" style="background: linear-gradient(145deg, rgba(15,18,28,0.95) 0%, rgba(9,11,18,0.98) 100%);">
             <div class="flex items-center gap-4">
               <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
                 <span class="material-symbols-outlined text-[32px]">home_repair_service</span>
@@ -2454,6 +2831,440 @@
       </div>
     `;
   }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // EMBEDDED TOOLS SUITE INTERACTIVE CONTROLLERS
+  // ─────────────────────────────────────────────────────────────────────────────
+  window.tmdSwitchToolsTab = function (tabId) {
+    var tabs = ['comp', 'lease', 'tco', 'parts', 'radar', 'livelink'];
+    tabs.forEach(function (t) {
+      var btn = document.getElementById('tmd-ttab-btn-' + t);
+      var panel = document.getElementById('tmd-tpanel-' + t);
+      if (t === tabId) {
+        if (panel) panel.style.display = 'block';
+        if (btn) {
+          btn.className = 'py-2.5 px-4 rounded-xl font-mono text-xs font-black uppercase tracking-wider transition-all bg-amber-500 text-black shadow cursor-pointer whitespace-nowrap';
+        }
+      } else {
+        if (panel) panel.style.display = 'none';
+        if (btn) {
+          btn.className = 'py-2.5 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer whitespace-nowrap';
+        }
+      }
+    });
+
+    if (tabId === 'comp') window.tmdSwitchCompCategory('backhoes');
+    if (tabId === 'lease') window.tmdUpdateEmbeddedLeaseCalc();
+    if (tabId === 'tco') window.tmdUpdateEmbeddedTcoCalc();
+    if (tabId === 'parts') window.tmdFilterEmbeddedParts('', 'all');
+    if (tabId === 'livelink') window.tmdSelectEmbeddedFleetMachine('eq1');
+  };
+
+  // Comparador 3-Vías Dataset
+  var COMP_DATA = {
+    backhoes: {
+      title: "Retroexcavadoras 4x4",
+      cols: [
+        { name: "JCB 3CX Eco 4x4", brand: "TMD DOMINICANA", badge: "OPCIÓN RECOMENDADA RD", isTmd: true, power: "92 HP", pressure: "251 Bar (3,640 PSI)", bucket: "1.10 m³ Frontal / 0.28 m³ Zanja", breakout: "6,530 kgf", fuel: "1.8 - 2.2 Gal/Hora", inject: "Bomba Mecánica Tropicalizada (Sin DEF)", stock: "Stock Inmediato Km 22" },
+        { name: "Caterpillar 420", brand: "CATERPILLAR", badge: "COMPETIDOR", isTmd: false, power: "93 HP", pressure: "250 Bar (3,626 PSI)", bucket: "1.00 m³ Frontal / 0.24 m³ Zanja", breakout: "6,210 kgf", fuel: "2.4 - 2.8 Gal/Hora", inject: "Common Rail Electrónico (Sensible azufre)", stock: "Sujeto a importación 7-14 días" },
+        { name: "John Deere 310L", brand: "JOHN DEERE", badge: "COMPETIDOR", isTmd: false, power: "86 HP", pressure: "248 Bar (3,600 PSI)", bucket: "0.96 m³ Frontal / 0.23 m³ Zanja", breakout: "5,880 kgf", fuel: "2.3 - 2.7 Gal/Hora", inject: "Common Rail Electrónico", stock: "Disponibilidad limitada en plaza" }
+      ]
+    },
+    loaders: {
+      title: "Palas Cargadoras 5 Ton",
+      cols: [
+        { name: "LiuGong 856H Tier 3", brand: "TMD DOMINICANA", badge: "OPCIÓN RECOMENDADA RD", isTmd: true, power: "217 HP (Cummins)", pressure: "310 Bar", bucket: "3.0 m³ Cantera Reforzado", breakout: "17,500 kgf", fuel: "3.8 - 4.5 Gal/Hora", inject: "Cummins Tropicalizado Mecánico", stock: "Stock Inmediato Km 22" },
+        { name: "Caterpillar 950GC", brand: "CATERPILLAR", badge: "COMPETIDOR", isTmd: false, power: "202 HP", pressure: "290 Bar", bucket: "2.9 m³ Estándar", breakout: "15,800 kgf", fuel: "4.6 - 5.2 Gal/Hora", inject: "Cat C7.1 ACERT Electrónico", stock: "Pedido Especial" },
+        { name: "Komatsu WA380-6", brand: "KOMATSU", badge: "COMPETIDOR", isTmd: false, power: "191 HP", pressure: "300 Bar", bucket: "3.1 m³", breakout: "16,200 kgf", fuel: "4.4 - 5.0 Gal/Hora", inject: "Komatsu Common Rail", stock: "Sujeto a confirmación" }
+      ]
+    },
+    excavators: {
+      title: "Excavadoras de Oruga 22 Ton",
+      cols: [
+        { name: "JCB JS220SC Heavy Duty", brand: "TMD DOMINICANA", badge: "OPCIÓN RECOMENDADA RD", isTmd: true, power: "173 HP (EcoMAX)", pressure: "348 Bar (High-Flow)", bucket: "1.25 m³ Roca Hardox", breakout: "15,500 kgf", fuel: "3.6 - 4.2 Gal/Hora", inject: "Bomba Japonesa K3V112DT Tropicalizada", stock: "Stock Inmediato Km 22" },
+        { name: "Caterpillar 320 GC", brand: "CATERPILLAR", badge: "COMPETIDOR", isTmd: false, power: "146 HP", pressure: "350 Bar", bucket: "1.00 m³ Estándar", breakout: "13,200 kgf", fuel: "4.2 - 4.8 Gal/Hora", inject: "Cat C4.4 Electrónico", stock: "Stock por cupo" },
+        { name: "John Deere 210G LC", brand: "JOHN DEERE", badge: "COMPETIDOR", isTmd: false, power: "159 HP", pressure: "343 Bar", bucket: "1.15 m³", breakout: "14,100 kgf", fuel: "4.0 - 4.6 Gal/Hora", inject: "PowerTech Plus Electrónico", stock: "Sujeto a importación" }
+      ]
+    }
+  };
+
+  window.tmdSwitchCompCategory = function (cat) {
+    var cats = ['backhoes', 'loaders', 'excavators'];
+    cats.forEach(function (c) {
+      var btn = document.getElementById('tmd-comp-cat-' + c);
+      if (btn) {
+        if (c === cat) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-black uppercase bg-amber-500 text-black shadow cursor-pointer';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase text-neutral-400 hover:text-white cursor-pointer';
+        }
+      }
+    });
+
+    var data = COMP_DATA[cat] || COMP_DATA.backhoes;
+    var container = document.getElementById('tmd-comp-matrix-container');
+    if (!container) return;
+
+    var html = `
+      <table class="w-full text-left text-xs font-mono border-collapse min-w-[650px]">
+        <thead>
+          <tr class="border-b border-white/10 bg-white/[0.02]">
+            <th class="p-4 text-neutral-400 font-bold uppercase w-1/4">Vector de Rendimiento</th>
+    `;
+
+    data.cols.forEach(function (col) {
+      var headerBg = col.isTmd ? 'bg-amber-500/10 border-l border-r border-amber-500/30' : '';
+      var titleColor = col.isTmd ? 'text-amber-400 font-black' : 'text-white font-bold';
+      var badge = col.isTmd
+        ? '<span class="text-[9px] px-2 py-0.5 rounded bg-amber-500 text-black font-black uppercase">RECOMENDADO RD</span>'
+        : '<span class="text-[9px] px-2 py-0.5 rounded bg-neutral-800 text-neutral-400 uppercase">COMPARATIVO</span>';
+
+      html += `
+        <th class="p-4 ${headerBg} w-1/4">
+          <div class="mb-1">${badge}</div>
+          <div class="text-sm ${titleColor}">${col.name}</div>
+          <div class="text-[10px] text-neutral-400">${col.brand}</div>
+        </th>
+      `;
+    });
+
+    html += `</tr></thead><tbody class="divide-y divide-white/5">`;
+
+    var rows = [
+      { label: "Potencia Neta Motor", key: "power" },
+      { label: "Presión Hidráulica Cantera", key: "pressure" },
+      { label: "Capacidad de Balde", key: "bucket" },
+      { label: "Fuerza Desprendimiento", key: "breakout" },
+      { label: "Consumo Diésel Promedio", key: "fuel", highlightTmd: true },
+      { label: "Tolerancia Azufre Diésel", key: "inject", highlightTmd: true },
+      { label: "Disponibilidad Repuestos RD", key: "stock", highlightTmd: true }
+    ];
+
+    rows.forEach(function (row) {
+      html += `<tr class="hover:bg-white/[0.02] transition-colors"><td class="p-4 text-neutral-400 font-semibold">${row.label}</td>`;
+      data.cols.forEach(function (col) {
+        var tdClass = col.isTmd ? 'bg-amber-500/5 border-l border-r border-amber-500/20 font-bold text-white' : 'text-neutral-300';
+        var val = col[row.key];
+        if (col.isTmd && row.highlightTmd) {
+          val = '<span class="text-emerald-400">✓ ' + val + '</span>';
+        }
+        html += `<td class="p-4 ${tdClass}">${val}</td>`;
+      });
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+  };
+
+  // Calculadora Financiera Embedded
+  var _calcTerm = 36;
+  var _calcDown = 20;
+
+  window.tmdSetCalcTerm = function (term) {
+    _calcTerm = term;
+    var btns = document.querySelectorAll('.tmd-term-btn');
+    btns.forEach(function (b) {
+      if (b.innerText.includes(term + 'm')) {
+        b.className = 'tmd-term-btn active py-1.5 rounded-lg font-mono text-xs font-black border border-amber-500 bg-amber-500 text-black';
+      } else {
+        b.className = 'tmd-term-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400';
+      }
+    });
+    var el = document.getElementById('tmd-calc-term-val');
+    if (el) el.innerText = term + ' Meses';
+    window.tmdUpdateEmbeddedLeaseCalc();
+  };
+
+  window.tmdSetCalcDown = function (down) {
+    _calcDown = down;
+    var btns = document.querySelectorAll('.tmd-down-btn');
+    btns.forEach(function (b) {
+      if (b.innerText.includes(down + '%')) {
+        b.className = 'tmd-down-btn active py-1.5 rounded-lg font-mono text-xs font-black border border-amber-500 bg-amber-500 text-black';
+      } else {
+        b.className = 'tmd-down-btn py-1.5 rounded-lg font-mono text-xs font-bold border border-white/10 bg-neutral-900 text-neutral-300 hover:border-amber-400';
+      }
+    });
+    var el = document.getElementById('tmd-calc-down-val');
+    if (el) el.innerText = down + '%';
+    window.tmdUpdateEmbeddedLeaseCalc();
+  };
+
+  window.tmdUpdateEmbeddedLeaseCalc = function () {
+    var pSlider = document.getElementById('tmd-calc-price-slider');
+    var rSlider = document.getElementById('tmd-calc-rate-slider');
+    if (!pSlider || !rSlider) return;
+
+    var price = parseFloat(pSlider.value) || 85000;
+    var rate = parseFloat(rSlider.value) || 9.75;
+
+    var pVal = document.getElementById('tmd-calc-price-val');
+    if (pVal) pVal.innerText = '$' + price.toLocaleString('en-US') + ' USD';
+
+    var rVal = document.getElementById('tmd-calc-rate-val');
+    if (rVal) rVal.innerText = rate.toFixed(2) + '%';
+
+    var principal = price * (1 - _calcDown / 100);
+    var monthlyRate = (rate / 100) / 12;
+    var monthly = (principal * (monthlyRate * Math.pow(1 + monthlyRate, _calcTerm))) / (Math.pow(1 + monthlyRate, _calcTerm) - 1);
+    var dopMonthly = monthly * 60;
+
+    var mOut = document.getElementById('tmd-calc-monthly-out');
+    if (mOut) mOut.innerText = '$' + Math.round(monthly).toLocaleString('en-US') + ' USD';
+
+    var dopOut = document.getElementById('tmd-calc-monthly-dop');
+    if (dopOut) dopOut.innerText = '~RD$ ' + Math.round(dopMonthly).toLocaleString('en-US') + ' / mes';
+
+    var itbis = price * 0.18;
+    var itbisOut = document.getElementById('tmd-calc-itbis-out');
+    if (itbisOut) itbisOut.innerText = '$' + Math.round(itbis).toLocaleString('en-US') + ' USD';
+
+    var deprecYear = price * 0.25;
+    var depOut = document.getElementById('tmd-calc-deprec-out');
+    if (depOut) depOut.innerText = '$' + Math.round(deprecYear).toLocaleString('en-US') + ' USD / año';
+
+    var isrSaveYear = deprecYear * 0.27;
+    var isrOut = document.getElementById('tmd-calc-isrsave-out');
+    if (isrOut) isrOut.innerText = '$' + Math.round(isrSaveYear).toLocaleString('en-US') + ' USD / año';
+
+    var totalSave = (price * 0.27) + itbis;
+    var totOut = document.getElementById('tmd-calc-totalsave-out');
+    if (totOut) {
+      totOut.innerText = '$' + Math.round(totalSave).toLocaleString('en-US') + ' USD (~RD$' + Math.round(totalSave * 60).toLocaleString('en-US') + ')';
+    }
+  };
+
+  // TCO Calculator Embedded
+  window.tmdUpdateEmbeddedTcoCalc = function () {
+    var hSlider = document.getElementById('tmd-tco-hours-slider');
+    if (!hSlider) return;
+
+    var hours = parseInt(hSlider.value, 10) || 2000;
+    var hVal = document.getElementById('tmd-tco-hours-val');
+    if (hVal) hVal.innerText = hours.toLocaleString('en-US') + ' Horas / año';
+
+    // 0.5 gal/hr savings with EcoMAX vs common rail (2.0 vs 2.5)
+    var galonsSaved = Math.round(hours * 0.5);
+    var dopSaved = galonsSaved * 240.40;
+    var usdSaved = dopSaved / 60;
+
+    var fOut = document.getElementById('tmd-tco-fuel-saving-out');
+    if (fOut) fOut.innerText = galonsSaved.toLocaleString('en-US') + ' Galones';
+
+    var dopOut = document.getElementById('tmd-tco-dop-saving-out');
+    if (dopOut) dopOut.innerText = '~RD$ ' + Math.round(dopSaved).toLocaleString('en-US') + ' / año ($' + Math.round(usdSaved).toLocaleString('en-US') + ' USD)';
+
+    var costPerHour = 14.20 - ((usdSaved / hours) || 0);
+    var cOut = document.getElementById('tmd-tco-cost-per-hour-out');
+    if (cOut) cOut.innerText = '$' + costPerHour.toFixed(2) + ' USD / hr';
+  };
+
+  // Repuestos OEM Dataset & Filter
+  var EMBEDDED_PARTS = [
+    { code: "320/07155", name: "Filtro Primario Diésel EcoMAX", cat: "filtros", model: "JCB 3CX Eco / JS220", stock: "48 uds en Km 22", price: "$48.50 USD" },
+    { code: "991/001472", name: "Kit de Sellos Pistón Pluma 350 Bar", cat: "sellos", model: "JCB JS220SC", stock: "14 kits en Km 22", price: "$350.00 USD" },
+    { code: "20/925340", name: "Bomba Hidráulica Principal K3V112DT", cat: "hidraulica", model: "Kawasaki / JCB JS220", stock: "4 uds en Km 22", price: "$3,500.00 USD" },
+    { code: "320/06929", name: "Inyector Mecánico Tropicalizado Bosch", cat: "inyeccion", model: "JCB 4.4L Dieselmax", stock: "26 uds en Km 22", price: "$220.00 USD" },
+    { code: "32/925346", name: "Filtro Hidráulico Retorno 10 Micrones", cat: "filtros", model: "LiuGong 856H / JCB", stock: "35 uds en Km 22", price: "$65.00 USD" },
+    { code: "531/03205", name: "Cuchilla Frontal de Balde Hardox 450", cat: "sellos", model: "JCB 3CX / 4CX", stock: "12 uds en Km 22", price: "$410.00 USD" },
+    { code: "320/09454", name: "Motor de Arranque Reforzado 24V", cat: "inyeccion", model: "JCB Dieselmax", stock: "8 uds en Km 22", price: "$480.00 USD" },
+    { code: "714/40154", name: "Alternador Marino/Tropicalizado 95A", cat: "hidraulica", model: "JCB / LiuGong", stock: "11 uds en Km 22", price: "$380.00 USD" }
+  ];
+
+  var _activePartCat = 'all';
+
+  window.tmdFilterEmbeddedParts = function (query, cat) {
+    if (cat !== null && cat !== undefined) {
+      _activePartCat = cat;
+      var pills = document.querySelectorAll('.tmd-parts-pill');
+      pills.forEach(function (p) {
+        if (p.getAttribute('onclick') && p.getAttribute('onclick').includes("'" + cat + "'")) {
+          p.className = 'tmd-parts-pill active px-3 py-1 rounded-lg bg-amber-500 text-black font-bold';
+        } else {
+          p.className = 'tmd-parts-pill px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 hover:border-amber-400';
+        }
+      });
+    }
+
+    var qInput = document.getElementById('tmd-parts-search-input');
+    var q = (query !== null && query !== undefined) ? query : (qInput ? qInput.value : '');
+    q = (q || '').toLowerCase().trim();
+
+    var filtered = EMBEDDED_PARTS.filter(function (p) {
+      var matchesCat = (_activePartCat === 'all') || (p.cat === _activePartCat);
+      var matchesQ = !q || p.code.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.model.toLowerCase().includes(q);
+      return matchesCat && matchesQ;
+    });
+
+    var container = document.getElementById('tmd-parts-list-container');
+    if (!container) return;
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="p-8 text-center text-xs font-mono text-neutral-400">
+          No se encontraron repuestos con el criterio buscado. Comuníquese directamente a Taller Km 22: (809) 826-2222
+        </div>
+      `;
+      return;
+    }
+
+    var html = `
+      <table class="w-full text-left text-xs font-mono border-collapse min-w-[650px]">
+        <thead>
+          <tr class="border-b border-white/10 bg-white/[0.02] text-neutral-400 uppercase">
+            <th class="p-3">Código OEM</th>
+            <th class="p-3">Descripción de Pieza</th>
+            <th class="p-3">Compatibilidad</th>
+            <th class="p-3">Disponibilidad</th>
+            <th class="p-3">Precio Estimado</th>
+            <th class="p-3 text-right">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5">
+    `;
+
+    filtered.forEach(function (p) {
+      html += `
+        <tr class="hover:bg-white/[0.02] transition-colors">
+          <td class="p-3 font-bold text-amber-400">${p.code}</td>
+          <td class="p-3 font-bold text-white">${p.name}</td>
+          <td class="p-3 text-neutral-400">${p.model}</td>
+          <td class="p-3 text-emerald-400 font-bold">${p.stock}</td>
+          <td class="p-3 text-white font-bold">${p.price}</td>
+          <td class="p-3 text-right">
+            <a href="https://wa.me/18098262222?text=Hola%20TMD,%20solicito%20cotizacion%20del%20repuesto%20OEM%20${encodeURIComponent(p.code)}%20(${encodeURIComponent(p.name)})" target="_blank" rel="noopener" class="px-3 py-1 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase text-[10px] transition-all">
+              Cotizar NCF
+            </a>
+          </td>
+        </tr>
+      `;
+    });
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+  };
+
+  // Radar Nacional Regional Detail
+  window.tmdSelectEmbeddedProvince = function (regId) {
+    var regions = ['metro', 'cibao', 'este', 'sur'];
+    regions.forEach(function (r) {
+      var card = document.getElementById('tmd-reg-card-' + r);
+      if (card) {
+        if (r === regId) {
+          card.className = 'p-5 rounded-2xl bg-amber-500/10 border border-amber-500/40 cursor-pointer transition-all space-y-3';
+        } else {
+          card.className = 'p-5 rounded-2xl bg-black/40 border border-white/10 hover:border-amber-400 cursor-pointer transition-all space-y-3';
+        }
+      }
+    });
+
+    var box = document.getElementById('tmd-region-detail-box');
+    if (!box) return;
+
+    var detail = {
+      metro: "Sede Central Km 22 Duarte: 6 camionetas 4x4 equipadas para Gran Santo Domingo y Distrito Nacional. Tiempo respuesta: 45 min.",
+      cibao: "Base Norte Navarrete: 3 unidades de auxilio para Santiago, La Vega, Moca y Puerto Plata. Tiempo respuesta: 90 min.",
+      este: "Base Este Verón: 2 unidades permanentes para Bávaro, Punta Cana, La Romana e Higüey. Tiempo respuesta: 120 min.",
+      sur: "Base Sur Baní: 2 unidades de auxilio para Circunvalación, Azua, Barahona y Pedernales. Tiempo respuesta: 150 min."
+    };
+
+    box.innerHTML = `
+      <div>
+        <span class="text-amber-400 font-bold">DESPACHO REGIONAL SELECCIONADO:</span>
+        <span class="text-white ml-1">${detail[regId] || detail.metro}</span>
+      </div>
+      <a href="tel:18098262222" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase transition-all">
+        Despachar Taller Móvil
+      </a>
+    `;
+  };
+
+  // Telemetría Flota LiveLink Embedded
+  var FLEET_MACHINES = {
+    eq1: {
+      name: "Retroexcavadora JCB 3CX Eco",
+      vin: "JCB3CX2024E104",
+      project: "Proyecto Baní - Azua (Consorcio Malespín)",
+      hours: "3,420.5 hrs",
+      pressure: "248 Bar / 251 Bar Max",
+      fuel: "82%",
+      temp: "84°C (Normal)",
+      status: "OPERATIVA 100%",
+      nextService: "En 79.5 hrs (Servicio 3,500h)",
+      operator: "José Paulino"
+    },
+    eq2: {
+      name: "Pala Cargadora LiuGong 856H",
+      vin: "LG856H2023S441",
+      project: "Cantera San Cristóbal (Constructora Rizek)",
+      hours: "5,120.0 hrs",
+      pressure: "308 Bar / 310 Bar Max",
+      fuel: "64%",
+      temp: "88°C (Normal)",
+      status: "OPERATIVA",
+      nextService: "En 42 hrs (Servicio 5,250h)",
+      operator: "Marcos De León"
+    },
+    eq3: {
+      name: "Excavadora JCB JS220SC",
+      vin: "JCB220SC2024X981",
+      project: "Circunvalación Norte Santiago (Ingeniería Estrella)",
+      hours: "1,840.2 hrs",
+      pressure: "348 Bar / 350 Bar Max",
+      fuel: "91%",
+      temp: "82°C (Normal)",
+      status: "OPERATIVA 100%",
+      nextService: "En 159.8 hrs (Servicio 2,000h)",
+      operator: "Carlos Ventura"
+    }
+  };
+
+  window.tmdSelectEmbeddedFleetMachine = function (mId) {
+    var btns = ['eq1', 'eq2', 'eq3'];
+    btns.forEach(function (b) {
+      var btn = document.getElementById('tmd-fl-btn-' + b);
+      if (btn) {
+        if (b === mId) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-black uppercase bg-amber-500 text-black shadow cursor-pointer';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase text-neutral-400 hover:text-white cursor-pointer';
+        }
+      }
+    });
+
+    var m = FLEET_MACHINES[mId] || FLEET_MACHINES.eq1;
+    var container = document.getElementById('tmd-fleet-telemetry-container');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-3">
+        <div class="text-[10px] font-mono text-neutral-400 uppercase">IDENTIFICACIÓN DEL EQUIPO</div>
+        <div class="text-base font-bold text-white">${m.name}</div>
+        <div class="text-xs font-mono text-amber-400">VIN: ${m.vin}</div>
+        <div class="text-xs text-neutral-400 pt-2 border-t border-white/5">Obra: ${m.project}</div>
+        <div class="text-xs text-neutral-400">Operador: <span class="text-white">${m.operator}</span></div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-3">
+        <div class="text-[10px] font-mono text-emerald-400 uppercase">PRESIÓN HIDRÁULICA EN VIVO</div>
+        <div class="text-2xl font-black text-emerald-400">${m.pressure}</div>
+        <div class="w-full bg-black/60 rounded-full h-2 overflow-hidden border border-emerald-500/30">
+          <div class="bg-emerald-400 h-full rounded-full" style="width: 95%;"></div>
+        </div>
+        <div class="text-xs font-mono text-neutral-300 pt-1">Temperatura Motor: <span class="text-white font-bold">${m.temp}</span></div>
+        <div class="text-xs font-mono text-neutral-300">Nivel de Diésel: <span class="text-white font-bold">${m.fuel}</span></div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-black/50 border border-white/10 space-y-3">
+        <div class="text-[10px] font-mono text-neutral-400 uppercase">HORÓMETRO &amp; MANTENIMIENTO</div>
+        <div class="text-2xl font-black text-amber-400 font-mono">${m.hours}</div>
+        <div class="inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">${m.status}</div>
+        <div class="text-xs font-mono text-neutral-400 pt-2 border-t border-white/5">Próximo Mantenimiento:</div>
+        <div class="text-xs font-mono text-amber-300 font-bold">${m.nextService}</div>
+      </div>
+    `;
+  };
 
   // ─────────────────────────────────────────────────────────────────────────────
   // 11. TOP UTILITY BAR LINK INJECTION
@@ -2485,6 +3296,7 @@
   function getActiveRoute() {
     var raw = (window.location.hash || '').replace(/^#\/?/, '').toLowerCase().trim();
     if (!raw || raw === '' || raw === 'inicio' || raw === 'home') return 'home';
+    if (raw === 'portal' || raw === 'portal-vip' || raw === 'login' || raw === 'portal-clientes' || raw === 'client-portal') return 'portal';
     if (raw === 'vehicles' || raw === 'modelos' || raw === 'catalogo' || ['construccion','agricolas','industriales','mineria'].includes(raw)) return 'vehicles';
     if (raw.startsWith('vehicle/') || raw.startsWith('maquinaria/')) return 'vehicle-detail';
     if (raw.startsWith('configurator') || raw.startsWith('studio-3d')) return 'configurator';
@@ -2550,6 +3362,12 @@
       var el = document.getElementById('tmd-tools-dashboard-infusion');
       if (el) el.remove();
     }
+
+    // 9. Enterprise Portal Landing: ONLY on 'portal'
+    if (activeRoute !== 'portal') {
+      var el = document.getElementById('tmd-enterprise-portal-landing');
+      if (el) el.remove();
+    }
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -2572,11 +3390,22 @@
 
       var mainEl = document.querySelector('#root main');
 
+      // A0-1. ENTERPRISE PORTAL LANDING PAGE (#/portal)
+      if (currentRoute === 'portal') {
+        if (!document.getElementById('tmd-enterprise-portal-landing') && mainEl) {
+          mainEl.innerHTML = renderEnterprisePortalLandingPage();
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      }
+
       // A0. TOOLS DASHBOARD PAGE (#/tools)
       if (currentRoute === 'tools') {
         if (!document.getElementById('tmd-tools-dashboard-infusion') && mainEl) {
           mainEl.innerHTML = renderToolsDashboardModule();
           window.scrollTo({ top: 0, behavior: 'instant' });
+          if (typeof window.tmdSwitchToolsTab === 'function') {
+            window.tmdSwitchToolsTab('comp');
+          }
         }
       }
 
@@ -2742,7 +3571,7 @@
           };
 
           megaWrapper.innerHTML = `
-            <button id="tmd-nav-mega-menu-btn" type="button" aria-expanded="false" class="h-9 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/40 shadow-sm cursor-pointer" onclick="window.tmdToggleToolsMenu(event)">
+            <button id="tmd-nav-mega-menu-btn" type="button" aria-expanded="false" class="h-9 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/40 shadow-sm cursor-pointer" onclick="window.location.hash = '#/tools'; window.tmdCloseToolsMenu();">
               <span class="material-symbols-outlined text-[16px] text-amber-400">terminal</span>
               <span>Herramientas</span>
               <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500 text-black font-mono font-black">20/10</span>
@@ -2795,7 +3624,7 @@
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Inspección fotográfica digital 40 puntos en Km 22</div>
                       </div>
 
-                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenClientPortal();">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.location.hash = '#/portal';">
                         <div class="text-xs font-bold text-amber-400 flex items-center justify-between gap-1">
                           <span class="truncate">Portal Clientes VIP</span>
                           <span class="text-[8px] font-mono font-black px-1.5 py-0.5 rounded bg-amber-500 text-black shrink-0">MULTI-TENANT</span>

@@ -1698,35 +1698,46 @@
   };
 
   window.tmdQuickLoginTenant = function(tenantId) {
-    window.tmdCloseClientAuthModal();
+    if (typeof window.tmdCloseClientAuthModal === 'function') {
+      window.tmdCloseClientAuthModal();
+    }
     window.tmdOpenClientPortal();
     window.tmdSwitchTenant(tenantId);
+    window.tmdShowToast('Bienvenido al espacio de trabajo de ' + (TENANTS[tenantId] ? TENANTS[tenantId].company : tenantId), 'success');
   };
 
   window.tmdHandleAuthLogin = function(e) {
     if (e && e.preventDefault) e.preventDefault();
-    var rncInput = document.getElementById('tmd-login-rnc');
+    var rncInput = document.getElementById('tmd-landing-login-rnc') || document.getElementById('tmd-login-rnc');
     var val = (rncInput ? rncInput.value : '').trim().toLowerCase();
     
     var matched = 'malespin';
-    if (val.includes('rizek') || val.includes('02948')) {
+    if (val.includes('rizek') || val.includes('02948') || val.includes('1-01')) {
       matched = 'rizek';
-    } else if (val.includes('estrella') || val.includes('39481')) {
+    } else if (val.includes('estrella') || val.includes('39481') || val.includes('1-02')) {
       matched = 'estrella';
     }
 
-    window.tmdCloseClientAuthModal();
+    if (typeof window.tmdCloseClientAuthModal === 'function') {
+      window.tmdCloseClientAuthModal();
+    }
     window.tmdOpenClientPortal();
     window.tmdSwitchTenant(matched);
+    window.tmdShowToast('Autenticación B2B exitosa. Conectado como ' + TENANTS[matched].company, 'success');
   };
 
   window.tmdHandleAuthRegister = function(e) {
     if (e && e.preventDefault) e.preventDefault();
-    var comp = (document.getElementById('tmd-reg-company') ? document.getElementById('tmd-reg-company').value : 'Nueva Constructora').trim();
-    var rnc = (document.getElementById('tmd-reg-rnc') ? document.getElementById('tmd-reg-rnc').value : '1-00-00000-0').trim();
-    var project = (document.getElementById('tmd-reg-project') ? document.getElementById('tmd-reg-project').value : 'Obra Principal').trim();
-    var phone = (document.getElementById('tmd-reg-phone') ? document.getElementById('tmd-reg-phone').value : '(809) 000-0000').trim();
-    var email = (document.getElementById('tmd-reg-email') ? document.getElementById('tmd-reg-email').value : 'info@empresa.com.do').trim();
+    var compInput = document.getElementById('tmd-landing-reg-company') || document.getElementById('tmd-reg-company');
+    var comp = (compInput ? compInput.value : 'Nueva Constructora').trim();
+    var rncInput = document.getElementById('tmd-landing-reg-rnc') || document.getElementById('tmd-reg-rnc');
+    var rnc = (rncInput ? rncInput.value : '1-00-00000-0').trim();
+    var projectInput = document.getElementById('tmd-landing-reg-project') || document.getElementById('tmd-reg-project');
+    var project = (projectInput ? projectInput.value : 'Obra Principal').trim();
+    var phoneInput = document.getElementById('tmd-landing-reg-phone') || document.getElementById('tmd-reg-phone');
+    var phone = (phoneInput ? phoneInput.value : '(809) 000-0000').trim();
+    var emailInput = document.getElementById('tmd-landing-reg-email') || document.getElementById('tmd-reg-email');
+    var email = (emailInput ? emailInput.value : 'info@empresa.com.do').trim();
 
     var customId = 'reg_' + Date.now();
     TENANTS[customId] = {
@@ -1829,12 +1840,20 @@
       }
       document.body.style.overflow = '';
     }
+    if (window.location.hash === '#/portal' || window.location.hash === '#/login' || window.location.hash === '#/portal-vip') {
+      if (typeof window.checkAndInfuseSections === 'function') {
+        window.checkAndInfuseSections();
+      }
+    }
   };
 
   window.tmdClientLogout = function() {
     window.tmdCloseClientPortal();
-    window.tmdOpenClientAuthModal();
-    window.tmdShowToast('Sesión cerrada. Seleccione una empresa o inicie sesión para continuar.', 'info');
+    window.location.hash = '#/portal';
+    if (typeof window.checkAndInfuseSections === 'function') {
+      window.checkAndInfuseSections();
+    }
+    window.tmdShowToast('Sesión cerrada de forma segura. Ha regresado al Portal Corporativo.', 'info');
   };
 
   window.tmdSwitchClientNav = function(navId) {

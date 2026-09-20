@@ -16,9 +16,7 @@
         }
       })();
       window.tmdShowPortalPINPrompt = function() {
-        if (typeof window.tmdOpenClientPortal === 'function') {
-          window.tmdOpenClientPortal();
-        }
+        window.location.hash = '#/portal';
       };
     </script>
     <meta charset="UTF-8" />
@@ -3661,21 +3659,15 @@ html:not(.dark) #socios .group:hover {
     <script>
       // ─── TMD CLIENT & FLEET PORTAL CONTROLLER ────────────────────────
       window.tmdShowPortalPINPrompt = function tmdShowPortalPINPrompt() {
-        if (typeof window.tmdOpenClientPortal === 'function') {
-          window.tmdOpenClientPortal();
-        }
+        window.location.hash = '#/portal';
       };
 
       function tmdCheckPortalPIN(val) {
-        if (typeof window.tmdOpenClientPortal === 'function') {
-          window.tmdOpenClientPortal();
-        }
+        window.location.hash = '#/portal';
       }
 
       function openExecPortal() {
-        if (typeof window.tmdOpenClientPortal === 'function') {
-          window.tmdOpenClientPortal();
-        }
+        window.location.hash = '#/portal';
       }
 
       function closeExecPortal() {
@@ -3707,11 +3699,7 @@ html:not(.dark) #socios .group:hover {
         if (target && target.innerText && target.innerText.toLowerCase().includes('portal vip')) {
           e.preventDefault();
           e.stopPropagation();
-          if (typeof window.tmdOpenClientPortal === 'function') {
-            window.tmdOpenClientPortal();
-          } else if (typeof window.tmdShowPortalPINPrompt === 'function') {
-            window.tmdShowPortalPINPrompt();
-          }
+          window.location.hash = '#/portal';
         }
       }, true);
 
@@ -5173,9 +5161,9 @@ html:not(.dark) #socios .group:hover {
     </script>
     <script src="/assets/tmd_animation_engine.js?v=20260919_enterprise_v4"></script>
     <script src="/assets/tmd_api_adapter.js?v=20260919_api_ready_v1"></script>
-    <script src="/assets/tmd_client_portal.js?v=20260919_v9_multitenant"></script>
+    <script src="/assets/tmd_client_portal.js?v=20260919_v10_portal_landing"></script>
     <script src="/assets/tmd_service_page_v2.js?v=20260919_v3_clean_architecture"></script>
-    <script src="/assets/tmd_stitch_infusion.js?v=20260919_v9_multitenant"></script>
+    <script src="/assets/tmd_stitch_infusion.js?v=20260919_v10_portal_landing"></script>
     <script src="/assets/tmd_interactive_map.js?v=20260919_v1"></script>
     <script src="/assets/tmd_model_comparator.js?v=20260919_v1"></script>
     <script src="/assets/tmd_parts_serial_engine.js?v=20260919_v1"></script>
