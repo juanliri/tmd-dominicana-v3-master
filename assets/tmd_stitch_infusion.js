@@ -1197,7 +1197,7 @@
         category: 'Retroexcavadora 4x4',
         badge: '⭐ #1 MÁS VENDIDA EN RD',
         tagline: 'El estándar de oro en obra civil, minería y zanjas en toda República Dominicana.',
-        image: 'assets/machines/jcb-3cx.png',
+        image: 'assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg',
         priceUSD: 89500,
         leasing: '$1,790 / mes',
         specs: [
@@ -1213,7 +1213,7 @@
         category: 'Pala Cargadora Pesada',
         badge: '⭐ LÍDER EN CANTERAS & MINERÍA',
         tagline: 'Fuerza bruta de 220 HP y balde de 3.5 m³ con motor Cummins y transmisión ZF.',
-        image: 'assets/machines/liugong-856t.png',
+        image: 'assets/machinery/heavy_liugong_922e_hd_22_ton.jpg',
         priceUSD: 115000,
         leasing: '$2,300 / mes',
         specs: [
@@ -1229,7 +1229,7 @@
         category: 'Tractor Utilitario',
         badge: '⭐ MÁXIMA RENTABILIDAD AGRO',
         tagline: 'El tractor más confiable y económico para cacao, plátano, vegetales y ganadería.',
-        image: 'assets/machines/kubota-l4701.png',
+        image: 'assets/machinery/rugged_utility_farm_tractor_with_heavy.jpg',
         priceUSD: 28900,
         leasing: '$580 / mes',
         specs: [
@@ -1245,7 +1245,7 @@
         category: 'Rodillo de Asfalto',
         badge: '⭐ PREFERIDO EN BACHEO VIAL',
         tagline: 'Compactación suiza de alta precisión para calles, parqueos y carpetas asfálticas.',
-        image: 'assets/machines/ammann-arx26.png',
+        image: 'assets/machinery/ammann_asphalt_vibratory_tandem_roller_machine.jpg',
         priceUSD: 42500,
         leasing: '$850 / mes',
         specs: [
@@ -1261,7 +1261,7 @@
         category: 'Tractor Agrícola Pesado',
         badge: '⭐ POTENCIA ZAFRA & ARROZ',
         tagline: '98 HP turboalimentados con cabina con A/C para jornadas intensivas de zafra y arroz.',
-        image: 'assets/machines/ls-plus100.png',
+        image: 'assets/machinery/heavy_blue_agricultural_tractor_ls_mt7.jpg',
         priceUSD: 46800,
         leasing: '$935 / mes',
         specs: [
@@ -1296,7 +1296,7 @@
 
             <!-- Image -->
             <div class="h-44 w-full flex items-center justify-center p-2 mb-3 bg-black/40 rounded-xl overflow-hidden">
-              <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://www.jcb.com/globalassets/digizuite/28726-4148326809/Img_800x800';">
+              <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null;this.src='${item.image}';">
             </div>
 
             <div class="text-[10px] font-mono text-amber-500 font-bold uppercase">${item.brand} · ${item.category}</div>
@@ -1328,7 +1328,7 @@
                 <span class="material-symbols-outlined text-[14px] text-amber-400">description</span>
                 <span>Ver Ficha</span>
               </a>
-              <a href="/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1 transition text-center">
+              <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1 transition text-center">
                 <span class="material-symbols-outlined text-[14px]">tune</span>
                 <span>Configurar</span>
               </a>
@@ -1910,7 +1910,7 @@
 
   // ─────────────────────────────────────────────────────────────────────────────
   // 8. MODULE 3: CATÁLOGO UNIVERSAL MULTIMARCA & TIENDA INDUSTRIAL B2B (#/vehicles)
-  // 10 Marcas Oficiales · Categorías Superiores · Filtros Laterales · Paginación 12/Página · Barra de Comparación
+  // 10 Marcas Oficiales · Categorías Superiores · Filtros Laterales · Infinite Scroll · Barra de Comparación
   // ─────────────────────────────────────────────────────────────────────────────
   var _activeSector = 'ALL';
   var _activeBrandFilter = 'ALL';
@@ -1919,51 +1919,79 @@
   var _activeStockOnly = false;
   var _catalogSearchQuery = '';
   var _catalogSortOrder = 'popular';
-  var _currentPage = 1;
-  var _itemsPerPage = 12;
+  var _visibleCount = 24;           // Infinite scroll: items currently shown
+  var _infiniteScrollBatchSize = 12; // Items added per intersection trigger
+  var _infiniteScrollObserver = null; // Active IntersectionObserver
   var _compareList = [];
+
+  // Helpers: reset visible count & disconnect observer before any filter change
+  function tmdResetInfiniteScroll() {
+    _visibleCount = 24;
+    if (_infiniteScrollObserver) {
+      _infiniteScrollObserver.disconnect();
+      _infiniteScrollObserver = null;
+    }
+  }
+
+  // Attach IntersectionObserver to the sentinel after grid renders
+  function tmdAttachInfiniteScrollObserver(totalItems) {
+    var sentinel = document.getElementById('tmd-infinite-sentinel');
+    if (!sentinel || _visibleCount >= totalItems) return; // Nothing more to load
+    if (_infiniteScrollObserver) _infiniteScrollObserver.disconnect();
+
+    _infiniteScrollObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        _infiniteScrollObserver.disconnect();
+        _infiniteScrollObserver = null;
+        _visibleCount += _infiniteScrollBatchSize;
+        window.tmdRenderStoreGrid();
+      }
+    }, { rootMargin: '200px' }); // Preload 200px before sentinel hits viewport
+
+    _infiniteScrollObserver.observe(sentinel);
+  }
 
   // Global Filter Setters
   window.tmdSetSectorFilter = function(sectorId) {
     _activeSector = sectorId;
     _activeBrandFilter = 'ALL';
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetBrandFilter = function(brandId) {
     _activeBrandFilter = brandId;
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetPowerFilter = function(powerRange) {
     _activePowerFilter = powerRange;
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetWeightFilter = function(weightRange) {
     _activeWeightFilter = weightRange;
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdToggleStockOnly = function(checked) {
     _activeStockOnly = !!checked;
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetSortOrder = function(order) {
     _catalogSortOrder = order;
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdOnCatalogSearchInput = function(val) {
     _catalogSearchQuery = (val || '').toLowerCase().trim();
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     window.tmdRenderStoreGrid();
   };
 
@@ -1975,7 +2003,7 @@
     _activeStockOnly = false;
     _catalogSearchQuery = '';
     _catalogSortOrder = 'popular';
-    _currentPage = 1;
+    tmdResetInfiniteScroll();
     var searchInput = document.getElementById('tmd-store-search-input');
     if (searchInput) searchInput.value = '';
     var stockCheckbox = document.getElementById('tmd-filter-stock-only');
@@ -1983,11 +2011,30 @@
     window.tmdRefreshStoreUI();
   };
 
-  window.tmdSetStorePage = function(pageNum) {
-    _currentPage = pageNum;
+  // View Mode: 'grid' | 'list'
+  window._storeViewMode = 'grid';
+  window.tmdSetStoreViewMode = function(mode) {
+    window._storeViewMode = mode;
+    var gridEl = document.getElementById('tmd-store-cards-grid');
+    var btnGrid = document.getElementById('tmd-btn-view-grid');
+    var btnList = document.getElementById('tmd-btn-view-list');
+    if (gridEl) {
+      if (mode === 'list') {
+        gridEl.classList.add('tmd-store-view-list');
+      } else {
+        gridEl.classList.remove('tmd-store-view-list');
+      }
+    }
+    if (btnGrid && btnList) {
+      if (mode === 'list') {
+        btnList.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 bg-amber-500 text-black';
+        btnGrid.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 text-neutral-400 hover:text-white';
+      } else {
+        btnGrid.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 bg-amber-500 text-black';
+        btnList.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 text-neutral-400 hover:text-white';
+      }
+    }
     window.tmdRenderStoreGrid();
-    var topEl = document.getElementById('tmd-industry-filters-infusion');
-    if (topEl) topEl.scrollIntoView({ behavior: 'smooth' });
   };
 
   // Compare Bar Functions
@@ -2090,7 +2137,7 @@
           <div class="text-[10px] font-mono text-neutral-400">Leasing desde $${Math.round((item.priceUSD || 50000) * 0.02)}/m</div>
           <div class="mt-3 flex flex-col gap-1.5">
             <a href="/ficha?id=${encodeURIComponent(item.id)}" class="py-1.5 px-3 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-bold uppercase transition">Ver Ficha ➔</a>
-            <a href="/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-1.5 px-3 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 text-xs font-bold uppercase transition">Configurar 3D</a>
+            <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-1.5 px-3 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 text-xs font-bold uppercase transition">Configurar 3D</a>
           </div>
         </th>
       `;
@@ -2167,6 +2214,28 @@
     document.body.appendChild(modal);
   };
 
+  // ─── Brand CDN Fallback Image Map ─────────────────────────────────────────
+  var _brandFallbackImages = {
+    'JCB':         '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg',
+    'KUBOTA':      '/assets/machinery/rugged_utility_farm_tractor_with_heavy.jpg',
+    'LSTRACTOR':   '/assets/machinery/heavy_blue_agricultural_tractor_ls_mt7.jpg',
+    'YANMAR':      '/assets/machinery/modern_high_performance_farm_tractor_with.jpg',
+    'AMMANN':      '/assets/machinery/ammann_asphalt_vibratory_tandem_roller_machine.jpg',
+    'LIUGONG':     '/assets/machinery/heavy_liugong_922e_hd_22_ton.jpg',
+    'IMER':        '/assets/machinery/imer_group_commercial_concrete_batching_and.jpg',
+    'AFEX':        '/assets/machinery/automated_hydraulic_testing_bench_with_heavy.jpg',
+    'IMPLEMENTOS': '/assets/machinery/brand_new_genuine_yellow_and_black.jpg'
+  };
+
+  // Normalize image from any catalog schema: string image, images[], imageFallback
+  function normalizeProductImage(p, brandKey) {
+    var img = p.image || (p.images && p.images[0]) || p.image3d || p.imageFallback || '';
+    if (!img || img.trim() === '') {
+      img = _brandFallbackImages[brandKey] || _brandFallbackImages['JCB'];
+    }
+    return img;
+  }
+
   // Master Inventory Aggregator across all 9 catalogs
   function getAllStoreProducts() {
     var all = [];
@@ -2184,14 +2253,13 @@
           title: m.title || ('JCB ' + m.model),
           category: m.subcategoryName || 'Construcción',
           tagline: m.tagline || 'Rendimiento industrial de alta exigencia con respaldo oficial en RD.',
-          image: m.image,
+          image: normalizeProductImage(m, 'JCB'),
           priceUSD: m.priceUSD || 65000,
           specs: m.specs || {},
           badges: m.badges || ['0 Km', 'Entrega Inmediata'],
           warranty: m.warranty || 'Garantía Oficial TMD 1 Año / 2000 Horas'
         });
       });
-      // JCB Attachments
       if (window.TMD_JCB_CATALOG.attachments) {
         window.TMD_JCB_CATALOG.attachments.forEach(function(a) {
           all.push({
@@ -2204,7 +2272,7 @@
             title: a.title || ('Implemento JCB ' + a.model),
             category: a.subcategoryName || 'Implementos',
             tagline: a.tagline || 'Aditamento certificado para trabajo pesado continuo.',
-            image: a.image,
+            image: normalizeProductImage(a, 'JCB'),
             priceUSD: a.priceUSD || 4500,
             specs: a.specs || {},
             badges: ['Implemento Genuino', 'Acople Rápido'],
@@ -2216,14 +2284,14 @@
 
     // 2. All Other Catalogs
     var catDefs = [
-      { key: 'TMD_KUBOTA_CATALOG', brand: 'KUBOTA', brandName: 'Kubota', sector: 'AGRICULTURE' },
-      { key: 'TMD_LSTRACTOR_CATALOG', brand: 'LSTRACTOR', brandName: 'LS Tractor', sector: 'AGRICULTURE' },
-      { key: 'TMD_YANMAR_CATALOG', brand: 'YANMAR', brandName: 'Yanmar', sector: 'AGRICULTURE' },
-      { key: 'TMD_IMER_CATALOG', brand: 'IMER', brandName: 'IMER Group', sector: 'CONCRETE' },
-      { key: 'TMD_AMMANN_CATALOG', brand: 'AMMANN', brandName: 'Ammann', sector: 'COMPACTION' },
-      { key: 'TMD_LIUGONG_CATALOG', brand: 'LIUGONG', brandName: 'LiuGong', sector: 'CONSTRUCTION' },
-      { key: 'TMD_AFEX_CATALOG', brand: 'AFEX', brandName: 'AFEX', sector: 'SAFETY' },
-      { key: 'TMD_IMPLEMENTS_CATALOG', brand: 'IMPLEMENTOS', brandName: 'Yomel / Orsi / Celli', sector: 'AGRICULTURE' }
+      { key: 'TMD_KUBOTA_CATALOG',     brand: 'KUBOTA',      brandName: 'Kubota',          sector: 'AGRICULTURE'  },
+      { key: 'TMD_LSTRACTOR_CATALOG',  brand: 'LSTRACTOR',   brandName: 'LS Tractor',      sector: 'AGRICULTURE'  },
+      { key: 'TMD_YANMAR_CATALOG',     brand: 'YANMAR',      brandName: 'Yanmar',          sector: 'AGRICULTURE'  },
+      { key: 'TMD_IMER_CATALOG',       brand: 'IMER',        brandName: 'IMER Group',      sector: 'CONCRETE'     },
+      { key: 'TMD_AMMANN_CATALOG',     brand: 'AMMANN',      brandName: 'Ammann',          sector: 'COMPACTION'   },
+      { key: 'TMD_LIUGONG_CATALOG',    brand: 'LIUGONG',     brandName: 'LiuGong',         sector: 'CONSTRUCTION' },
+      { key: 'TMD_AFEX_CATALOG',       brand: 'AFEX',        brandName: 'AFEX',            sector: 'SAFETY'       },
+      { key: 'TMD_IMPLEMENTS_CATALOG', brand: 'IMPLEMENTOS', brandName: 'Yomel/Orsi/Celli',sector: 'AGRICULTURE'  }
     ];
 
     catDefs.forEach(function(def) {
@@ -2240,7 +2308,7 @@
             title: p.name ? ((p.brand || def.brandName) + ' ' + p.name) : ((p.brand || def.brandName) + ' ' + p.model),
             category: p.category || p.sector || 'Equipo Certificado',
             tagline: p.tagline || p.description || 'Equipamiento de alto rendimiento certificado para el mercado dominicano.',
-            image: p.image || p.image3d || 'assets/machines/jcb-3cx.png',
+            image: normalizeProductImage(p, def.brand),
             priceUSD: p.priceUSD || 45000,
             specs: p.specs || {},
             badges: p.badges || ['0 Km', 'Garantía Certificada'],
@@ -2317,10 +2385,16 @@
     var paginationEl = document.getElementById('tmd-store-pagination');
     if (!gridEl) return;
 
+    if (window._storeViewMode === 'list') {
+      gridEl.classList.add('tmd-store-view-list');
+    } else {
+      gridEl.classList.remove('tmd-store-view-list');
+    }
+
     var filtered = getFilteredStoreProducts();
     var totalItems = filtered.length;
-    var totalPages = Math.ceil(totalItems / _itemsPerPage) || 1;
-    if (_currentPage > totalPages) _currentPage = totalPages;
+    // Cap visibleCount to totalItems
+    if (_visibleCount > totalItems) _visibleCount = totalItems;
 
     if (counterEl) {
       counterEl.innerText = totalItems + ' Equipos en Inventario';
@@ -2341,10 +2415,11 @@
       return;
     }
 
-    var startIdx = (_currentPage - 1) * _itemsPerPage;
-    var pageItems = filtered.slice(startIdx, startIdx + _itemsPerPage);
+    // Infinite scroll: slice only the visible batch
+    var visibleItems = filtered.slice(0, _visibleCount);
+    var hasMore = _visibleCount < totalItems;
 
-    var cardsHtml = pageItems.map(function(item) {
+    var cardsHtml = visibleItems.map(function(item) {
       var isCompared = _compareList.some(function(x) { return x.id === item.id; });
       var priceFormatted = item.priceUSD 
         ? 'US$ ' + Number(item.priceUSD).toLocaleString() 
@@ -2372,17 +2447,35 @@
         `;
       }
 
+      var stockBadgeHtml = (function(itm) {
+        var state = itm.stockState || itm.availability;
+        if (!state) {
+          var hash = 0;
+          for (var i = 0; i < (itm.id || '').length; i++) hash += itm.id.charCodeAt(i);
+          var mod = hash % 10;
+          if (mod < 6) state = 'stock';
+          else if (mod < 8) state = 'transit';
+          else state = 'order';
+        }
+        if (state === 'transit' || state === 'transito') {
+          return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-amber-300 border border-amber-500/40">🟡 En Tránsito</span>';
+        } else if (state === 'order' || state === 'pedido') {
+          return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-cyan-300 border border-cyan-500/40">🔵 Por Pedido</span>';
+        }
+        return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30">🟢 Stock Km 22</span>';
+      })(item);
+
       return `
         <div class="machinery-card rounded-[20px] overflow-hidden shadow-xl flex flex-col justify-between group hover:border-amber-500/50 transition-all duration-300" style="backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(18, 21, 26, 0.65);">
           <div>
             <!-- Image Frame -->
-            <div class="relative h-48 w-full overflow-hidden bg-black/80 flex items-center justify-center p-3">
-              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <div class="tmd-card-img-frame relative h-48 w-full overflow-hidden bg-black/80 flex items-center justify-center p-3">
+              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='${_brandFallbackImages[item.brand]||_brandFallbackImages.JCB}'">
               
               <!-- Badges Top Left -->
               <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1 z-10">
                 <span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-amber-500 text-black">${item.brand}</span>
-                <span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30">Stock Km 22</span>
+                ${stockBadgeHtml}
               </div>
 
               <!-- Compare Button Top Right -->
@@ -2395,7 +2488,7 @@
             </div>
 
             <!-- Content Body -->
-            <div class="p-4">
+            <div class="tmd-card-body p-4">
               <div class="flex items-center justify-between text-neutral-400 font-mono text-[10px] uppercase mb-1">
                 <span>${item.category}</span>
                 <span class="text-amber-500 font-bold">${item.sku || item.model}</span>
@@ -2428,13 +2521,13 @@
           </div>
 
           <!-- Card Actions (Direct Ficha, Configurator, WhatsApp) -->
-          <div class="p-4 pt-0 space-y-2">
+          <div class="tmd-card-actions p-4 pt-0 space-y-2">
             <div class="grid grid-cols-2 gap-2">
               <a href="/ficha?id=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1.5 transition text-center">
                 <span class="material-symbols-outlined text-[15px] text-amber-400">description</span>
                 <span>Ficha Técnica</span>
               </a>
-              <a href="/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1.5 transition text-center">
+              <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1.5 transition text-center">
                 <span class="material-symbols-outlined text-[15px]">tune</span>
                 <span>Configurar</span>
               </a>
@@ -2451,39 +2544,33 @@
 
     gridEl.innerHTML = cardsHtml;
 
-    // Render Pagination Controls
+    // Infinite Scroll: render sentinel + loader; attach IntersectionObserver
     if (paginationEl) {
-      if (totalPages <= 1) {
-        paginationEl.innerHTML = '';
-        return;
-      }
-
-      var pagesHtml = `
-        <div class="flex items-center justify-center gap-2 mt-10 mb-6 font-mono text-xs">
-          <button type="button" onclick="if(_currentPage > 1) window.tmdSetStorePage(_currentPage - 1);" class="px-3.5 py-2 rounded-[10px] bg-neutral-900 border border-white/10 text-white hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer" ${_currentPage === 1 ? 'disabled' : ''}>
-            ◀ Anterior
-          </button>
-      `;
-
-      for (var p = 1; p <= totalPages; p++) {
-        var isCurrent = p === _currentPage;
-        pagesHtml += `
-          <button type="button" onclick="window.tmdSetStorePage(${p});" class="w-9 h-9 rounded-[10px] font-bold transition-all cursor-pointer ${isCurrent ? 'bg-amber-500 text-black font-extrabold shadow-[0_0_12px_rgba(255,184,0,0.4)]' : 'bg-neutral-900/80 text-neutral-400 hover:text-white border border-white/10'}">
-            ${p}
-          </button>
+      if (hasMore) {
+        paginationEl.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-10 gap-3">
+            <div id="tmd-infinite-sentinel" class="w-full h-px"></div>
+            <div class="flex items-center gap-2 text-neutral-500 font-mono text-xs animate-pulse">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+              <span>Cargando más equipos... (${_visibleCount} de ${totalItems} mostrados)</span>
+            </div>
+          </div>
+        `;
+        // Small delay to ensure DOM is painted before attaching observer
+        setTimeout(function() { tmdAttachInfiniteScrollObserver(totalItems); }, 80);
+      } else {
+        // All items shown — render end-of-catalog message
+        paginationEl.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-10 gap-2">
+            <span class="w-8 h-px bg-amber-500/40 block"></span>
+            <p class="font-mono text-[11px] text-neutral-500">Catálogo completo · ${totalItems} equipos disponibles</p>
+            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola Don Eduardo, revisé el catálogo completo de TMD y quisiera cotizar un equipo.')}" target="_blank" class="mt-2 px-5 py-2 rounded-[50px] bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-bold uppercase transition flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px]">chat</span>
+              ¿No encontró lo que busca? Consúltenos
+            </a>
+          </div>
         `;
       }
-
-      pagesHtml += `
-          <button type="button" onclick="if(_currentPage < ${totalPages}) window.tmdSetStorePage(_currentPage + 1);" class="px-3.5 py-2 rounded-[10px] bg-neutral-900 border border-white/10 text-white hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer" ${_currentPage === totalPages ? 'disabled' : ''}>
-            Siguiente ▶
-          </button>
-        </div>
-        <div class="text-center font-mono text-[11px] text-neutral-500">
-          Mostrando página ${_currentPage} de ${totalPages} · ${totalItems} equipos totales
-        </div>
-      `;
-      paginationEl.innerHTML = pagesHtml;
     }
   };
 
@@ -2541,7 +2628,7 @@
             <span id="tmd-catalog-count-badge" class="px-3.5 py-1.5 rounded-[10px] bg-surface-charcoal border border-white/10 font-mono text-xs font-bold text-amber-400">
               Cargando catálogo...
             </span>
-            <a href="/configurador" class="px-3.5 py-1.5 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold uppercase flex items-center gap-1.5 transition-all">
+            <a href="#/configurador" class="px-3.5 py-1.5 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold uppercase flex items-center gap-1.5 transition-all">
               <span class="material-symbols-outlined text-[16px]">tune</span>
               <span>Configurador 3D</span>
             </a>
@@ -2570,11 +2657,11 @@
           </button>
         </div>
 
-        <!-- 2-Column Store Layout: Left Filters + Right Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- 2-Column Store Layout: Left Filters + Right Grid (inline layout — bypasses Tailwind purge) -->
+        <div style="display:flex;flex-direction:column;gap:2rem;align-items:flex-start;" class="tmd-store-layout-wrapper">
           
-          <!-- LEFT STICKY FILTER SIDEBAR (lg:col-span-3) -->
-          <aside class="lg:col-span-3 rounded-2xl bg-[#0d121c] border border-white/10 p-5 sticky top-20 shadow-xl space-y-6">
+          <!-- LEFT STICKY FILTER SIDEBAR -->
+          <aside style="width:100%;" class="tmd-filter-sidebar rounded-2xl bg-[#0d121c] border border-white/10 p-5 shadow-xl space-y-6">
             <div class="flex items-center justify-between pb-3 border-b border-white/10">
               <span class="font-headline-sm text-sm font-bold uppercase text-white flex items-center gap-1.5">
                 <span class="material-symbols-outlined text-amber-500 text-[18px]">filter_list</span>
@@ -2680,23 +2767,39 @@
             </div>
           </aside>
 
-          <!-- RIGHT STORE COLUMN (lg:col-span-9) -->
-          <div class="lg:col-span-9 flex flex-col justify-between min-h-[600px]">
+          <!-- RIGHT STORE COLUMN (inline flex — bypasses Tailwind purge) -->
+          <div style="flex:1 1 0%;min-width:0;" class="tmd-store-right-col flex flex-col justify-between min-h-[600px]">
             
             <!-- Sorting & View Toolbar -->
             <div class="p-3.5 rounded-xl bg-surface-charcoal/90 border border-white/10 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs">
-              <div class="flex items-center gap-2">
-                <span class="text-neutral-400">Ordenar por:</span>
-                <select onchange="window.tmdSetSortOrder(this.value)" class="bg-black/70 border border-white/10 text-amber-400 font-bold rounded-lg p-1.5 outline-none cursor-pointer">
-                  <option value="popular">Más Populares (Best Sellers)</option>
-                  <option value="price_asc">Menor Inversión (USD)</option>
-                  <option value="price_desc">Mayor Inversión (USD)</option>
-                </select>
+              <div class="flex flex-wrap items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-neutral-400">Ordenar por:</span>
+                  <select onchange="window.tmdSetSortOrder(this.value)" class="bg-black/70 border border-white/10 text-amber-400 font-bold rounded-lg p-1.5 outline-none cursor-pointer">
+                    <option value="popular">Más Populares (Best Sellers)</option>
+                    <option value="price_asc">Menor Inversión (USD)</option>
+                    <option value="price_desc">Mayor Inversión (USD)</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <span class="text-neutral-400">Vista:</span>
+                  <div class="inline-flex rounded-lg bg-black/60 border border-white/10 p-0.5">
+                    <button type="button" id="tmd-btn-view-grid" onclick="window.tmdSetStoreViewMode('grid')" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode !== 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
+                      <span class="material-symbols-outlined text-[15px]">grid_view</span>
+                      <span class="hidden md:inline">Grid</span>
+                    </button>
+                    <button type="button" id="tmd-btn-view-list" onclick="window.tmdSetStoreViewMode('list')" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode === 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
+                      <span class="material-symbols-outlined text-[15px]">view_list</span>
+                      <span class="hidden md:inline">Lista Técnica</span>
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <div class="text-neutral-400 text-[11px] flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Paginación organizada de 12 equipos por vista</span>
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                <span>Scroll infinito · Carga automática al avanzar</span>
               </div>
             </div>
 
@@ -2705,7 +2808,7 @@
               <!-- Dynamically rendered -->
             </div>
 
-            <!-- Pagination Bar -->
+            <!-- Infinite Scroll Sentinel & Loader -->
             <div id="tmd-store-pagination"></div>
 
           </div>
@@ -4396,15 +4499,73 @@
         }
       }
 
-      // H. CONFIGURATOR (#/configurator)
-      else if (currentRoute === 'configurator') {
-        if (!document.getElementById('tmd-leasing-infusion-container') && mainEl) {
-          var configContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
-          var wrapperLeas = document.createElement('div');
-          wrapperLeas.innerHTML = renderLeasingModule();
-          configContainer.appendChild(wrapperLeas.firstElementChild);
+      // H. CONFIGURADOR INTERACTIVO (#/configurador or #/configurator) — BUG-3 FIX
+      else if (currentRoute === 'configurador' || currentRoute === 'configurator') {
+        if (!document.getElementById('tmd-configurador-spa-section') && mainEl) {
+          // Parse brand/model query params for deep-link from store cards
+          var urlParams = new URLSearchParams(window.location.search);
+          var presetBrand = urlParams.get('brand') || '';
+          var presetModel = urlParams.get('model') || '';
+
+          // Build the configurador section wrapper with full SPA styling
+          var cfgSection = document.createElement('section');
+          cfgSection.id = 'tmd-configurador-spa-section';
+          cfgSection.style.cssText = 'width:100%;max-width:1360px;margin:0 auto;padding:1.5rem 1rem 3rem;';
+          cfgSection.innerHTML = `
+            <div style="margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.08);">
+              <div style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.25rem 0.75rem;border-radius:9999px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#f59e0b;font-family:monospace;font-size:0.6875rem;text-transform:uppercase;font-weight:700;letter-spacing:0.05em;margin-bottom:0.75rem;">
+                <span class="material-symbols-outlined" style="font-size:1rem;">tune</span>
+                <span>CONFIGURADOR INTERACTIVO</span>
+              </div>
+              <h1 style="font-size:clamp(1.75rem,4vw,2.5rem);font-weight:900;text-transform:uppercase;color:#fff;line-height:1.1;font-family:'Barlow Condensed','Inter',sans-serif;letter-spacing:-0.01em;margin:0 0 0.5rem;">
+                Configure &amp; <span style="color:#f59e0b;">Cotice</span><br>Su Equipo Ideal
+              </h1>
+              <p style="color:#737373;font-size:0.875rem;max-width:600px;line-height:1.5;margin:0;">
+                Seleccione sector, marca, modelo y accesorios. Obtenga su cotización personalizada al instante — en USD o RD$.
+              </p>
+            </div>
+
+            <!-- Quote Builder Shell (tmd_quote_builder.js renders into #tmd-quote-builder) -->
+            <div id="tmd-quote-builder" style="min-height:500px;"></div>
+          `;
+
+          // Replace any existing main content on this page with the configurador
+          mainEl.innerHTML = '';
+          mainEl.appendChild(cfgSection);
+
+          // Inject the quote builder stylesheet if not already present
+          if (!document.getElementById('tmd-qb-styles-link')) {
+            var qbLink = document.createElement('link');
+            qbLink.id = 'tmd-qb-styles-link';
+            qbLink.rel = 'stylesheet';
+            qbLink.href = 'assets/tmd_configurador_styles.css';
+            document.head.appendChild(qbLink);
+          }
+
+          // Init the quote builder once DOM is ready
+          setTimeout(function() {
+            if (window.TMDQuoteBuilder && typeof window.TMDQuoteBuilder.render === 'function') {
+              window.TMDQuoteBuilder.render();
+              // Deep-link: if brand/model params provided, auto-select
+              if (presetBrand && window.TMD_BRAND_REGISTRY) {
+                var reg = window.TMD_BRAND_REGISTRY;
+                var brandObj = reg.brands && reg.brands.find(function(b) {
+                  return b.id === presetBrand.toUpperCase() || b.name.toUpperCase() === presetBrand.toUpperCase();
+                });
+                if (brandObj) {
+                  // Find the sector for this brand
+                  var sectorForBrand = reg.sectors && reg.sectors.find(function(s) {
+                    return s.brands && s.brands.includes(brandObj.id);
+                  });
+                  if (sectorForBrand) window.TMDQuoteBuilder.selectSector(sectorForBrand.id);
+                  setTimeout(function() { window.TMDQuoteBuilder.selectBrand(brandObj.id); }, 100);
+                }
+              }
+            }
+          }, 120);
         }
       }
+
 
       // I. GLOBAL QUOTE MODAL ENHANCEMENT (DGII)
       var quoteModal = document.querySelector('[role="dialog"]');

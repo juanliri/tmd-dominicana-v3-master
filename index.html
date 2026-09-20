@@ -18,17 +18,6 @@
       window.tmdShowPortalPINPrompt = function() {
         window.location.hash = '#/portal';
       };
-      // Automatic routing for Universal Multibrand Configurator & Quote Builder
-      (function() {
-        function checkConfigurator() {
-          var h = window.location.hash || '';
-          if (h === '#/configurator' || h === '#/configurador' || h === '#configurador' || h === '#configurator' || h === '#/cotizar' || h === '#/quote') {
-            window.location.href = '/configurador';
-          }
-        }
-        checkConfigurator();
-        window.addEventListener('hashchange', checkConfigurator);
-      })();
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -308,6 +297,7 @@
     <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260919_restored_v2"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=1789230245">
     <link rel="stylesheet" href="/assets/tmd_stitch_infusion.css?v=20260919_v3_clean_architecture">
+    <link rel="stylesheet" href="/assets/tmd_configurador_styles.css?v=20260919_v1">
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
     <!-- 1. SINGLE-LINE MENU, PINNED TOPBAR & HERO OPTIMIZATION            -->
@@ -5174,8 +5164,18 @@ html:not(.dark) #socios .group:hover {
     <script src="/assets/tmd_api_adapter.js?v=20260919_api_ready_v1"></script>
     <script src="/assets/tmd_client_portal.js?v=20260919_v10_portal_landing"></script>
     <script src="/assets/tmd_service_page_v2.js?v=20260919_v3_clean_architecture"></script>
+    <script src="/assets/tmd_multibrand_registry.js?v=20260919_v1"></script>
     <script src="/assets/tmd_jcb_catalog_data.js?v=20260919_jcb_catalog_v1"></script>
-    <script src="/assets/tmd_stitch_infusion.js?v=20260919_v11_jcb_faceted_catalog"></script>
+    <script src="/assets/tmd_kubota_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_ls_tractor_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_yanmar_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_imer_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_ammann_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_liugong_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_afex_catalog_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_yomel_orsi_celli_data.js?v=20260919_v1"></script>
+    <script src="/assets/tmd_quote_builder.js?v=20260919_v2"></script>
+    <script src="/assets/tmd_stitch_infusion.js?v=20260919_v12_multibrand_complete"></script>
     <script src="/assets/tmd_interactive_map.js?v=20260919_v1"></script>
     <script src="/assets/tmd_model_comparator.js?v=20260919_v1"></script>
     <script src="/assets/tmd_parts_serial_engine.js?v=20260919_v1"></script>

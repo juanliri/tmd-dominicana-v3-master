@@ -409,11 +409,41 @@ Fecha Propuesta: ${date}`;
 
   window.tmdDownloadMachinePDF = function(modelOrId) {
     var item = null;
-    if (typeof window.TMD_JCB_CATALOG !== 'undefined') {
+    if (typeof modelOrId === 'object' && modelOrId !== null) {
+      item = modelOrId;
+    } else if (typeof window.TMD_JCB_CATALOG !== 'undefined') {
       var all = (window.TMD_JCB_CATALOG.machines || []).concat(window.TMD_JCB_CATALOG.attachments || []);
       item = all.find(function(m) {
         return m.id === modelOrId || m.model === modelOrId || m.sku === modelOrId || (m.title && m.title.toLowerCase().indexOf(String(modelOrId).toLowerCase()) > -1);
       });
+    }
+
+    // Search across other multibrand catalogs if not found yet
+    if (!item && typeof modelOrId === 'string') {
+      var catKeys = ['TMD_KUBOTA_CATALOG', 'TMD_LSTRACTOR_CATALOG', 'TMD_YANMAR_CATALOG', 'TMD_AMMANN_CATALOG', 'TMD_LIUGONG_CATALOG', 'TMD_IMER_CATALOG', 'TMD_AFEX_CATALOG', 'TMD_IMPLEMENTS_CATALOG'];
+      for (var c = 0; c < catKeys.length; c++) {
+        var cat = window[catKeys[c]];
+        if (cat && typeof cat.getAllProducts === 'function') {
+          var found = cat.getAllProducts().find(function(p) {
+            return p.id === modelOrId || p.model === modelOrId || (p.name && p.name.toLowerCase().indexOf(modelOrId.toLowerCase()) > -1);
+          });
+          if (found) {
+            item = {
+              brand: found.brand,
+              model: found.model || found.name || found.id,
+              title: (found.brand || '') + ' ' + (found.name || found.model || found.id),
+              tagline: found.description || found.tagline || 'Equipamiento industrial certificado para República Dominicana.',
+              image: found.image || found.image3d || 'assets/machines/jcb-3cx.png',
+              priceUSD: found.priceUSD || 45000,
+              priceDOP: found.priceDOP || ((found.priceUSD || 45000) * 60),
+              specs: found.specs || {},
+              brochureCode: 'FT-' + (found.brand || 'TMD') + '-' + (found.model || found.id) + '-2026-DO',
+              warranty: found.warranty || 'Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22'
+            };
+            break;
+          }
+        }
+      }
     }
 
     if (!item) {

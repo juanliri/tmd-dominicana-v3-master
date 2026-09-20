@@ -839,5 +839,142 @@ html:not(.dark) .tmd-dvi-modal-card {
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
+/* ── STORE LAYOUT: Responsive 2-column grid (bypasses Tailwind purge) ── */
+/* Mobile: sidebar stacks above grid */
+.tmd-store-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  align-items: stretch;
+  width: 100%;
+}
+.tmd-filter-sidebar {
+  width: 100%;
+  position: relative;
+  top: auto;
+}
+/* Desktop 1024px+: sidebar fixed width + grid takes remaining space */
+@media (min-width: 1024px) {
+  .tmd-store-layout-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .tmd-filter-sidebar {
+    width: 280px;
+    min-width: 240px;
+    max-width: 300px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 80px;
+  }
+  .tmd-store-right-col {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+}
+
+/* ── MACHINERY CARD GRID ── */
+#tmd-store-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  #tmd-store-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1280px) {
+  #tmd-store-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── BEST SELLERS CARD GRID ── */
+#tmd-best-sellers-hero-infusion .grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  #tmd-best-sellers-hero-infusion .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  #tmd-best-sellers-hero-infusion .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1280px) {
+  #tmd-best-sellers-hero-infusion .grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* ── MACHINERY CARD BASE ── */
+.machinery-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(18,21,26,0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.machinery-card:hover {
+  border-color: rgba(245,158,11,0.5);
+  transform: translateY(-2px);
+}
+
+/* ── LIST VIEW MODE (Horizontal Technical Row) ── */
+#tmd-store-cards-grid.tmd-store-view-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.25rem !important;
+}
+
+@media (min-width: 860px) {
+  #tmd-store-cards-grid.tmd-store-view-list .machinery-card {
+    flex-direction: row !important;
+    align-items: stretch !important;
+  }
+  #tmd-store-cards-grid.tmd-store-view-list .machinery-card > div:first-child {
+    display: flex !important;
+    flex-direction: row !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+  }
+  #tmd-store-cards-grid.tmd-store-view-list .machinery-card .tmd-card-img-frame {
+    width: 240px !important;
+    min-width: 240px !important;
+    height: auto !important;
+    min-height: 180px !important;
+    flex-shrink: 0 !important;
+  }
+  #tmd-store-cards-grid.tmd-store-view-list .machinery-card .tmd-card-body {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 1.25rem 1.5rem !important;
+  }
+  #tmd-store-cards-grid.tmd-store-view-list .machinery-card .tmd-card-actions {
+    width: 240px !important;
+    min-width: 240px !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 1.25rem !important;
+    flex-shrink: 0 !important;
+  }
+}
 
 

@@ -242,6 +242,7 @@
     }
     .chip-gold { border-color: rgba(255, 184, 0, 0.4); color: var(--amber); }
     .chip-green { border-color: rgba(16, 185, 129, 0.4); color: var(--green); }
+    .chip-blue { border-color: rgba(56, 189, 248, 0.4); color: #38bdf8; }
 
     /* Right Action Panel */
     .action-panel {
@@ -680,11 +681,11 @@
       <a href="/#vehicles">Maquinaria 0 Km</a>
       <a href="/#services">Taller Especializado</a>
       <a href="/#parts">Repuestos Originales</a>
-      <a href="/configurador">Configurador 3D</a>
+      <a href="/#/configurador">Configurador 3D</a>
     </nav>
 
     <div class="nav-actions">
-      <a href="/configurador" class="btn-config-nav" id="nav-config-btn">
+      <a href="/#/configurador" class="btn-config-nav" id="nav-config-btn">
         <span class="material-symbols-outlined" style="font-size:16px;">tune</span>
         Configurador
       </a>
@@ -890,6 +891,7 @@
   <script src="assets/tmd_liugong_catalog_data.js"></script>
   <script src="assets/tmd_afex_catalog_data.js"></script>
   <script src="assets/tmd_yomel_orsi_celli_data.js"></script>
+  <script src="assets/tmd_brochures_hub.js"></script>
 
   <!-- Ficha Logic Engine -->
   <script>
@@ -998,6 +1000,50 @@
         const imgEl = document.getElementById('stage-img');
         imgEl.src = p.image;
         imgEl.alt = p.title;
+        imgEl.onerror = function() {
+          this.onerror = null;
+          this.src = '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg';
+        };
+
+        // 3-state dynamic availability badge (🟢 Km 22 / 🟡 Tránsito / 🔵 Por Pedido)
+        const stockEl = document.getElementById('badge-stock');
+        if (stockEl) {
+          const parentBadge = stockEl.closest('.chip-badge');
+          let state = p.stockState || p.availability;
+          if (!state) {
+            let hash = 0;
+            for (let i = 0; i < (p.id || '').length; i++) hash += p.id.charCodeAt(i);
+            const mod = hash % 10;
+            if (mod < 6) state = 'stock';
+            else if (mod < 8) state = 'transit';
+            else state = 'order';
+          }
+          if (parentBadge) parentBadge.className = 'chip-badge';
+          if (state === 'transit' || state === 'transito') {
+            if (parentBadge) parentBadge.classList.add('chip-gold');
+            stockEl.textContent = 'En Tránsito (Haina / Caucedo)';
+          } else if (state === 'order' || state === 'pedido') {
+            if (parentBadge) parentBadge.classList.add('chip-blue');
+            stockEl.textContent = 'Disponible por Pedido Fábrica';
+          } else {
+            if (parentBadge) parentBadge.classList.add('chip-green');
+            stockEl.textContent = 'Entrega Inmediata Km 22';
+          }
+        }
+
+        // PDF download hook
+        const pdfBtn = document.getElementById('btn-pdf-action');
+        if (pdfBtn) {
+          pdfBtn.onclick = function(e) {
+            e.preventDefault();
+            if (typeof window.tmdDownloadMachinePDF === 'function') {
+              window.tmdDownloadMachinePDF(p);
+            } else {
+              window.print();
+            }
+            return false;
+          };
+        }
 
         // Header info
         document.getElementById('prod-brand').textContent = p.brand;
@@ -1091,7 +1137,7 @@
         // CTAs links
         const waMsg = encodeURIComponent(`Hola Don Eduardo, estoy viendo la Ficha Técnica de la ${p.title} ($${priceUSD.toLocaleString('en-US')} USD) en la web de TMD. Quisiera cotizar una unidad y consultar disponibilidad para entrega.`);
         document.getElementById('btn-wa-action').href = `https://wa.me/18098262222?text=${waMsg}`;
-        document.getElementById('btn-config-action').href = `/configurador?brand=${encodeURIComponent(p.brand)}&model=${encodeURIComponent(p.id)}`;
+        document.getElementById('btn-config-action').href = `/#/configurador?brand=${encodeURIComponent(p.brand)}&model=${encodeURIComponent(p.id)}`;
 
         // Related items
         renderRelated(p);
@@ -1156,7 +1202,7 @@
           card.className = 'related-card';
           card.innerHTML = `
             <div>
-              <img src="${r.image}" class="related-img" alt="${r.title}">
+              <img src="${r.image}" class="related-img" alt="${r.title}" onerror="this.onerror=null;this.src='/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg';">
               <span style="font-size:10px; color:var(--amber); font-weight:700; text-transform:uppercase;">${r.brand}</span>
               <div class="related-title">${r.title}</div>
             </div>

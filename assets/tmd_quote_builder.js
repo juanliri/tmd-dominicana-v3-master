@@ -75,13 +75,36 @@
     return obj ? (obj[state.lang] || obj['es'] || '') : '';
   }
 
+  // Brand local HD verified fallbacks for configurator images
+  var _cfgBrandFallbacks = {
+    'JCB':         '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg',
+    'KUBOTA':      '/assets/machinery/rugged_utility_farm_tractor_with_heavy.jpg',
+    'LSTRACTOR':   '/assets/machinery/heavy_blue_agricultural_tractor_ls_mt7.jpg',
+    'YANMAR':      '/assets/machinery/modern_high_performance_farm_tractor_with.jpg',
+    'AMMANN':      '/assets/machinery/ammann_asphalt_vibratory_tandem_roller_machine.jpg',
+    'LIUGONG':     '/assets/machinery/heavy_liugong_922e_hd_22_ton.jpg',
+    'IMER':        '/assets/machinery/imer_group_commercial_concrete_batching_and.jpg',
+    'AFEX':        '/assets/machinery/automated_hydraulic_testing_bench_with_heavy.jpg',
+    'IMPLEMENTOS': '/assets/machinery/brand_new_genuine_yellow_and_black.jpg'
+  };
+
   function getCatalogItems(brandId) {
     const reg = window.TMD_BRAND_REGISTRY;
     if (!reg) return [];
     const catalog = reg.getCatalogData(brandId);
     if (!catalog) return [];
     const all = typeof catalog.getAllProducts === 'function' ? catalog.getAllProducts() : [];
-    return all;
+    // Normalize field names across catalog schemas
+    return all.map(function(p) {
+      // category: JCB uses subcategoryName, others use category or subcategory
+      const cat = p.category || p.subcategoryName || p.subcategory || p.type || 'Equipo';
+      // image: normalize images[] array vs image string vs imageFallback
+      const img = p.image || (p.images && p.images[0]) || p.image3d || p.imageFallback
+                  || _cfgBrandFallbacks[brandId] || _cfgBrandFallbacks['JCB'];
+      // name: JCB uses title, Kubota/LS use name
+      const name = p.name || p.title || p.model || p.id;
+      return Object.assign({}, p, { category: cat, image: img, name: name });
+    });
   }
 
   // ── MAIN API — window.TMDQuoteBuilder ───────────────────────────────────
@@ -425,7 +448,7 @@
               <div class="qb-model-card ${!m.inStock ? 'out-of-stock' : ''}">
                 <div class="qb-model-img-wrap">
                   <img src="${m.image || m.imageFallback || ''}" alt="${m.name}" class="qb-model-img"
-                       onerror="this.src='assets/images/tmd-placeholder.jpg'">
+                       onerror="this.onerror=null;this.src='${_cfgBrandFallbacks[state.brand ? state.brand.id : 'JCB'] || _cfgBrandFallbacks.JCB}'">
                   ${m.isFeatured ? `<span class="qb-badge-featured">${state.lang === 'es' ? 'Destacado' : 'Featured'}</span>` : ''}
                   ${m.isNew ? `<span class="qb-badge-new">${state.lang === 'es' ? 'Nuevo' : 'New'}</span>` : ''}
                   ${!m.inStock ? `<span class="qb-badge-out">${state.lang === 'es' ? 'Consultar disponibilidad' : 'Check availability'}</span>` : ''}
@@ -470,7 +493,7 @@
             <!-- Model Hero -->
             <div class="qb-model-hero">
               <img src="${m.image || m.imageFallback || ''}" alt="${m.name}" class="qb-hero-img"
-                   onerror="this.src='assets/images/tmd-placeholder.jpg'">
+                   onerror="this.onerror=null;this.src='${_cfgBrandFallbacks[state.brand ? state.brand.id : 'JCB'] || _cfgBrandFallbacks.JCB}'">
               <div class="qb-hero-info">
                 <div class="qb-hero-brand" style="color: ${state.brand.color}">${state.brand.name}</div>
                 <h2 class="qb-hero-name">${m.name}</h2>
@@ -552,6 +575,12 @@
               <button class="${state.currency === 'USD' ? 'active' : ''}" onclick="TMDQuoteBuilder.setCurrency('USD')">USD</button>
               <button class="${state.currency === 'DOP' ? 'active' : ''}" onclick="TMDQuoteBuilder.setCurrency('DOP')">DOP</button>
             </div>
+          </div>
+
+          <!-- Machine Preview Thumbnail (BUG-7 Fix) -->
+          <div class="qb-quote-preview-wrap" style="padding:14px 16px;background:rgba(0,0,0,0.3);border-bottom:1px solid var(--glass-border);text-align:center;">
+            <img src="${m.image || m.imageFallback || ''}" alt="${m.name || m.model}" style="max-height:120px;max-width:100%;object-fit:contain;margin:0 auto;display:block;"
+                 onerror="this.onerror=null;this.src='${_cfgBrandFallbacks[state.brand ? state.brand.id : 'JCB'] || _cfgBrandFallbacks.JCB}'">
           </div>
 
           <div class="qb-quote-lines">
