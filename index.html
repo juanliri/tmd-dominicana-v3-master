@@ -296,7 +296,6 @@
     <link rel="preload" as="image" href="/assets/team_hd/perkin_soriano_hd.jpg">
     <script type="module" crossorigin src="/assets/index-CbDvUDOx.js?v=20260920_native_harmonized_v1"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Bsg4cOg_.css?v=1789230245">
-    <link rel="stylesheet" href="/assets/tmd_stitch_infusion.css?v=20260920_native_harmonized_v1">
     <link rel="stylesheet" href="/assets/tmd_configurador_styles.css?v=20260919_v1">
 
     <!-- ══════════════════════════════════════════════════════════════════ -->
@@ -2489,14 +2488,14 @@ html:not(.dark) #socios .group:hover {
          Bobcat Industrial Typography · Enterprise Dark Theme · WCAG 2.1 AA Suite
          ========================================================================== */
 
-      /* ─── BOBCAT INDUSTRIAL TYPOGRAPHY SYSTEM ─── */
+      /* ─── ENTERPRISE HARMONIZED TYPOGRAPHY SYSTEM ─── */
       :root {
-        --font-industrial-display: 'Barlow Condensed', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-        --font-industrial-sub: 'Barlow', 'Plus Jakarta Sans', sans-serif;
+        --font-industrial-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-industrial-sub: 'Plus Jakarta Sans', 'Inter', sans-serif;
         --font-technical-data: 'JetBrains Mono', monospace;
         --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-        /* Enterprise Dark Theme Palette Tokens (John Deere / Caterpillar Tier-1) */
+        /* Enterprise Dark Theme Palette Tokens (Tier-1 Heavy Machinery Standard) */
         --surface-canvas: #000000;
         --surface-card: #0a0a0c;
         --surface-raised: #121215;
@@ -2513,14 +2512,12 @@ html:not(.dark) #socios .group:hover {
         --text-muted: #94a3b8;
       }
 
-      /* Bobcat Industrial Headings */
-      h1, h2, h3, .font-bobcat-industrial, .tmd-industrial-title {
-        font-family: var(--font-industrial-display) !important;
-        letter-spacing: -0.01em !important;
-        text-transform: uppercase !important;
+      /* Enterprise Headings Harmonization */
+      .font-bobcat-industrial, .tmd-industrial-title {
+        font-family: var(--font-industrial-display);
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
       }
-      h1 { font-weight: 900 !important; letter-spacing: -0.02em !important; }
-      h2, h3 { font-weight: 800 !important; }
 
       /* WCAG 2.1 AA Keyboard Focus Rings */
       :focus-visible {
@@ -3348,10 +3345,10 @@ html:not(.dark) #socios .group:hover {
           <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;"></span>
           <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:800;color:#ffb800;letter-spacing:0.08em;text-transform:uppercase;">Sede Central Km 22 • En Vivo</span>
         </div>
-        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.45rem;font-weight:900;letter-spacing:0.04em;text-transform:uppercase;color:#ffffff;margin:0 0 6px 0;">
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:900;letter-spacing:-0.02em;text-transform:uppercase;color:#ffffff;margin:0 0 6px 0;">
           Tecnomaquinarias Diesel
         </h2>
-        <p style="font-size:0.8rem;color:#94a3b8;margin:0 0 22px 0;font-family:'Space Grotesk',sans-serif;letter-spacing:0.01em;">
+        <p style="font-size:0.8rem;color:#94a3b8;margin:0 0 22px 0;font-family:'Inter',sans-serif;letter-spacing:0.01em;">
           Conectando telemetría de flota, repuestos OEM y taller
         </p>
         <div style="width:260px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.08);overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.06);margin-bottom:14px;">
@@ -5163,7 +5160,6 @@ html:not(.dark) #socios .group:hover {
     <script src="/assets/tmd_animation_engine.js?v=20260919_enterprise_v4"></script>
     <script src="/assets/tmd_api_adapter.js?v=20260919_api_ready_v1"></script>
     <script src="/assets/tmd_client_portal.js?v=20260919_v10_portal_landing"></script>
-    <script src="/assets/tmd_service_page_v2.js?v=20260919_v3_clean_architecture"></script>
     <script src="/assets/tmd_multibrand_registry.js?v=20260919_v1"></script>
     <script src="/assets/tmd_jcb_catalog_data.js?v=20260919_jcb_catalog_v1"></script>
     <script src="/assets/tmd_kubota_catalog_data.js?v=20260919_v1"></script>

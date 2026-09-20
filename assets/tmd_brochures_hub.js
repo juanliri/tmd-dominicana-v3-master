@@ -392,7 +392,7 @@ Fecha Propuesta: ${date}`;
         </div>
 
         <div class="footer">
-          <strong>Aviso Técnico:</strong> Documentación emitida por Tecnomaquinarias Diesel S.R.L. RNC: 1-30-88492-1. Autopista Duarte Km 22, La Guáyiga, Pedro Brand, Santo Domingo Oeste. www.tmddominicana.com · info@tmd.com.do.
+          <strong>Aviso Técnico:</strong> Documentación emitida por Tecnomaquinarias Diesel S.R.L. RNC: 1-30-88492-1. Autopista Duarte Km 22, La Guáyiga, Pedro Brand, Santo Domingo Oeste. tmd-dominicana-2026.vercel.app · info@tmd.com.do.
         </div>
 
         <script>
@@ -721,7 +721,7 @@ Fecha Propuesta: ${date}`;
       '  @page{size:A4 portrait;margin:0;}',
       '  .page{width:210mm;min-height:297mm;padding:0;display:flex;flex-direction:column;}',
       '  .hdr{background:#0a0f1a;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;}',
-      '  .hdr-brand{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:900;letter-spacing:1px;color:#FFB800;}',
+      '  .hdr-brand{font-family:"Plus Jakarta Sans",sans-serif;font-size:28px;font-weight:900;letter-spacing:1px;color:#FFB800;}',
       '  .hdr-sub{font-size:10px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;}',
       '  .hdr-code{font-family:"JetBrains Mono",monospace;font-size:10px;color:#FFB800;text-align:right;}',
       '  .hero{display:flex;gap:0;border-bottom:3px solid #FFB800;}',
@@ -729,14 +729,14 @@ Fecha Propuesta: ${date}`;
       '  .hero-img{max-width:100%;max-height:180px;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.6));}',
       '  .hero-info{width:45%;padding:20px 22px;background:#f8fafc;border-left:1px solid #e2e8f0;}',
       '  .hi-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;margin-bottom:6px;}',
-      '  .hi-title{font-family:"Barlow Condensed",sans-serif;font-size:30px;font-weight:900;text-transform:uppercase;color:#0a0f1a;line-height:1;margin-bottom:8px;}',
+      '  .hi-title{font-family:"Plus Jakarta Sans",sans-serif;font-size:30px;font-weight:900;text-transform:uppercase;color:#0a0f1a;line-height:1;margin-bottom:8px;}',
       '  .hi-tagline{font-size:11px;color:#475569;line-height:1.4;margin-bottom:12px;}',
-      '  .hi-price{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:900;color:#d97706;}',
+      '  .hi-price{font-family:"Plus Jakarta Sans",sans-serif;font-size:26px;font-weight:900;color:#d97706;}',
       '  .hi-price-rd{font-size:10px;color:#64748b;font-family:"JetBrains Mono",monospace;margin-bottom:10px;}',
       '  .badge{display:inline-block;background:#0a0f1a;color:#10B981;border:1px solid rgba(16,185,129,0.4);padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;font-family:"JetBrains Mono",monospace;text-transform:uppercase;margin-bottom:12px;}',
       '  .wa-box{background:#dcfce7;border:1px solid #86efac;border-radius:6px;padding:8px 10px;font-size:10px;font-weight:700;color:#166534;}',
       '  .specs-wrap{padding:18px 24px;flex:1;}',
-      '  .specs-title{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;color:#0a0f1a;margin-bottom:10px;border-bottom:2px solid #FFB800;padding-bottom:4px;}',
+      '  .specs-title{font-family:"Plus Jakarta Sans",sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;color:#0a0f1a;margin-bottom:10px;border-bottom:2px solid #FFB800;padding-bottom:4px;}',
       '  table.st{width:100%;border-collapse:collapse;font-size:11px;}',
       '  table.st tr{border-bottom:1px solid #f1f5f9;}',
       '  table.st td{padding:6px 8px;}',

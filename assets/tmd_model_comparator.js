@@ -629,7 +629,7 @@
         </table>
 
         <div class="footer">
-          <strong>Aviso de Confidencialidad & Cumplimiento DGII:</strong> Documento técnico emitido por Tecnomaquinarias Diesel S.R.L. Tarifas sujetas a cotización formal con comprobante fiscal (NCF B01/B15). Autopista Duarte Km 22, La Guáyiga, Pedro Brand, Santo Domingo Oeste. www.tmddominicana.com · info@tmd.com.do.
+          <strong>Aviso de Confidencialidad & Cumplimiento DGII:</strong> Documento técnico emitido por Tecnomaquinarias Diesel S.R.L. Tarifas sujetas a cotización formal con comprobante fiscal (NCF B01/B15). Autopista Duarte Km 22, La Guáyiga, Pedro Brand, Santo Domingo Oeste. tmd-dominicana-2026.vercel.app · info@tmd.com.do.
         </div>
 
         <script>

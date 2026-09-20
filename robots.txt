@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://tmddominicana.com/sitemap.xml
+Sitemap: https://tmd-dominicana-2026.vercel.app/sitemap.xml
