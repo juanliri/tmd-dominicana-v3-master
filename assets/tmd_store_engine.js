@@ -2376,6 +2376,16 @@
       items.sort(function(a, b) { return (a.priceUSD || 0) - (b.priceUSD || 0); });
     } else if (_catalogSortOrder === 'price_desc') {
       items.sort(function(a, b) { return (b.priceUSD || 0) - (a.priceUSD || 0); });
+    } else if (_catalogSortOrder === 'hp_desc') {
+      items.sort(function(a, b) {
+        var hpA = parseFloat((a.specs && (a.specs.potencia || a.specs.engine)) || 0) || 0;
+        var hpB = parseFloat((b.specs && (b.specs.potencia || b.specs.engine)) || 0) || 0;
+        return hpB - hpA;
+      });
+    } else if (_catalogSortOrder === 'brand_asc') {
+      items.sort(function(a, b) {
+        return (a.brand || '').localeCompare(b.brand || '');
+      });
     }
 
     return items;
@@ -2846,7 +2856,7 @@
             <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
               <span class="font-bold text-amber-400 block mb-1">¿No encuentra su máquina?</span>
               <p class="text-[11px] text-neutral-400 leading-snug">Consulte a Ingeniería TMD por importación directa de cualquier equipo o implemento especial.</p>
-              <a href="https://wa.me/18098262222?text=Hola%20Don%20Eduardo,%20busco%20un%20equipo%20especial" target="_blank" class="text-amber-400 font-bold block mt-2 text-[11px] hover:underline">WhatsApp Directo ➔</a>
+              <a href="https://wa.me/18098262222?text=Hola%20Ingenier%C3%ADa%20TMD,%20busco%20un%20equipo%20o%20implemento%20especial" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold block mt-2 text-[11px] hover:underline">WhatsApp Directo ➔</a>
             </div>
           </aside>
 
@@ -2858,21 +2868,23 @@
               <div class="flex flex-wrap items-center gap-4">
                 <div class="flex items-center gap-2">
                   <span class="text-neutral-400">Ordenar por:</span>
-                  <select onchange="window.tmdSetSortOrder(this.value)" class="bg-black/70 border border-white/10 text-amber-400 font-bold rounded-lg p-1.5 outline-none cursor-pointer">
+                  <select aria-label="Criterio de ordenamiento" onchange="window.tmdSetSortOrder(this.value)" class="bg-black/70 border border-white/10 text-amber-400 font-bold rounded-lg p-1.5 outline-none cursor-pointer">
                     <option value="popular">Más Populares (Best Sellers)</option>
-                    <option value="price_asc">Menor Inversión (USD)</option>
-                    <option value="price_desc">Mayor Inversión (USD)</option>
+                    <option value="price_asc">Menor Inversión (USD ↑)</option>
+                    <option value="price_desc">Mayor Inversión (USD ↓)</option>
+                    <option value="hp_desc">Mayor Potencia (HP ↓)</option>
+                    <option value="brand_asc">Marca (A - Z)</option>
                   </select>
                 </div>
 
                 <div class="flex items-center gap-2">
                   <span class="text-neutral-400">Vista:</span>
                   <div class="inline-flex rounded-lg bg-black/60 border border-white/10 p-0.5">
-                    <button type="button" id="tmd-btn-view-grid" onclick="window.tmdSetStoreViewMode('grid')" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode !== 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
+                    <button type="button" id="tmd-btn-view-grid" onclick="window.tmdSetStoreViewMode('grid')" aria-label="Vista Cuadrícula" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode !== 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
                       <span class="material-symbols-outlined text-[15px]">grid_view</span>
                       <span class="hidden md:inline">Grid</span>
                     </button>
-                    <button type="button" id="tmd-btn-view-list" onclick="window.tmdSetStoreViewMode('list')" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode === 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
+                    <button type="button" id="tmd-btn-view-list" onclick="window.tmdSetStoreViewMode('list')" aria-label="Vista Lista Técnica" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode === 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
                       <span class="material-symbols-outlined text-[15px]">view_list</span>
                       <span class="hidden md:inline">Lista Técnica</span>
                     </button>
@@ -2881,8 +2893,8 @@
               </div>
 
               <div class="text-neutral-400 text-[11px] flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                <span>Scroll infinito · Carga automática al avanzar</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Paginación B2B · 12 unidades por página</span>
               </div>
             </div>
 
