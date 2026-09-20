@@ -3037,9 +3037,35 @@
               <!-- Dynamically rendered -->
             </div>
 
-            <!-- Infinite Scroll Sentinel & Loader -->
+            <!-- Pagination -->
             <div id="tmd-store-pagination"></div>
 
+            <!-- Institutional Parts Cross-Sell & Taller Support Banner -->
+            <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-neutral-950 via-[#0e131f] to-neutral-950 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                  <span class="material-symbols-outlined text-[28px]">handyman</span>
+                </div>
+                <div>
+                  <h4 class="text-base font-bold uppercase text-white font-headline-sm tracking-wide">
+                    Taller Central Km 22 &amp; Repuestos Genuinos
+                  </h4>
+                  <p class="text-xs text-neutral-400 max-w-xl mt-0.5">
+                    Kits de mantenimiento preventivo 500h/1000h, filtros originales y diagnóstico hidráulico para flota multimarca. Despacho nacional express.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <a href="#/parts" class="py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 hover:text-white border border-white/15 font-mono text-xs font-bold uppercase transition flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px] text-amber-400">precision_manufacturing</span>
+                  <span>Catálogo Repuestos</span>
+                </a>
+                <a href="#/services" class="py-2.5 px-4 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 font-mono text-xs font-bold uppercase transition flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px]">build_circle</span>
+                  <span>Servicios Taller</span>
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>
