@@ -407,6 +407,254 @@ Fecha Propuesta: ${date}`;
     printWindow.document.close();
   };
 
+  window.tmdDownloadMachinePDF = function(modelOrId) {
+    var item = null;
+    if (typeof window.TMD_JCB_CATALOG !== 'undefined') {
+      var all = (window.TMD_JCB_CATALOG.machines || []).concat(window.TMD_JCB_CATALOG.attachments || []);
+      item = all.find(function(m) {
+        return m.id === modelOrId || m.model === modelOrId || m.sku === modelOrId || (m.title && m.title.toLowerCase().indexOf(String(modelOrId).toLowerCase()) > -1);
+      });
+    }
+
+    if (!item) {
+      // Fallback default
+      item = {
+        model: modelOrId || '250T',
+        title: 'JCB ' + (modelOrId || '250T Compact Track Loader'),
+        tagline: 'The world\'s safest skid steer - Flexible, multi-purpose and highly productive.',
+        image: 'https://www.jcb.com/globalassets/digizuite/78574-250t-web-banner/Img_800x800',
+        priceUSD: 63790,
+        priceDOP: 63790 * 59.5,
+        specs: {
+          operatingWeight: '9,870 lb (4,477 kg)',
+          hingePinHeight: '9 ft 11 in (3.02 m)',
+          enginePower: '74 hp (55 kW)',
+          loaderLiftBreakout: '6,816 lb (3,092 kgf)',
+          travelSpeed: '7.8 mph (12.6 km/h)',
+          roc: '2,429 lb (1,102 kg)'
+        },
+        brochureCode: 'FT-JCB-' + (modelOrId || '250T') + '-2026-DO',
+        warranty: 'Garantía TMD Oficial: 2,000 Horas / 1 Año con Cobertura Km 22'
+      };
+    }
+
+    var printWindow = window.open('', '_blank', 'width=960,height=880');
+    if (!printWindow) {
+      alert('Por favor permita ventanas emergentes para visualizar la ficha técnica oficial de ' + item.title);
+      return;
+    }
+
+    var specsHtml = '';
+    if (item.specs) {
+      for (var key in item.specs) {
+        var label = key;
+        if (key === 'operatingWeight') label = 'SAE Operating Weight (Peso Operativo)';
+        else if (key === 'hingePinHeight') label = 'Hinge Pin Height (Altura Pasador de Giro)';
+        else if (key === 'enginePower') label = 'Max. Engine Power (Potencia Neta Motor)';
+        else if (key === 'loaderLiftBreakout') label = 'Loader Lift Breakout (Fuerza Desprendimiento)';
+        else if (key === 'travelSpeed') label = 'Travel Speed (Velocidad de Traslación)';
+        else if (key === 'roc') label = 'ROC (Capacidad Operativa Nominal 50%)';
+        else if (key === 'compatibilidad') label = 'Compatibilidad de Acople';
+        else if (key === 'presionOperacion') label = 'Presión Hidráulica de Operación';
+        else if (key === 'flujoHidraulico') label = 'Requerimiento de Flujo';
+        else if (key === 'acople') label = 'Tipo de Enganche';
+        else if (key === 'fabricacion') label = 'Material & Blindaje';
+
+        specsHtml += `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; border-bottom: 1px solid #27272a; background: #121214; font-size: 13px;">
+            <span style="color: #a1a1aa; font-family: monospace;">${label}:</span>
+            <strong style="color: #f59e0b; font-family: 'Space Grotesk', sans-serif; font-size: 14px;">${item.specs[key]}</strong>
+          </div>
+        `;
+      }
+    }
+
+    var html = `
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="utf-8">
+        <title>Ficha Técnica Oficial — ${item.title} | TMD Dominicana</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+        <style>
+          * { box-sizing: border-box; }
+          body {
+            background-color: #09090b;
+            color: #e4e4e7;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 36px;
+            line-height: 1.5;
+          }
+          .sheet {
+            max-width: 860px;
+            margin: 0 auto;
+            border: 1px solid #27272a;
+            border-radius: 16px;
+            padding: 32px;
+            background: #111113;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+          }
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f59e0b;
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+          }
+          .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            text-transform: uppercase;
+          }
+          .gold-badge {
+            background: #f59e0b;
+            color: #000;
+            font-weight: 800;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+          }
+          .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+          }
+          .machine-img {
+            width: 100%;
+            height: 240px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 12px;
+            border: 1px solid #27272a;
+            padding: 12px;
+          }
+          .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #27272a;
+            padding-bottom: 6px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .print-btn {
+            background: #f59e0b;
+            color: #000;
+            font-weight: 700;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+          }
+          .print-btn:hover { background: #d97706; }
+          @media print {
+            body { background: #fff; color: #000; padding: 10px; }
+            .sheet { border: none; box-shadow: none; padding: 0; background: #fff; color: #000; }
+            .header { border-bottom: 2px solid #000; }
+            .logo-text { color: #000; }
+            .print-btn { display: none; }
+            div[style*="background: #121214"] { background: #f4f4f5 !important; color: #000 !important; }
+            span[style*="color: #a1a1aa"] { color: #333 !important; }
+            strong[style*="color: #f59e0b"] { color: #000 !important; }
+          }
+        </style>
+      </head>
+      <body>
+        <div style="text-align: right; max-width: 860px; margin: 0 auto;">
+          <button class="print-btn" onclick="window.print();">
+            🖨️ Imprimir / Guardar en PDF
+          </button>
+        </div>
+
+        <div class="sheet">
+          <div class="header">
+            <div>
+              <div class="logo-text">TECNOMAQUINARIAS DIESEL S.R.L. · TMD DOMINICANA</div>
+              <div style="font-size: 12px; color: #a1a1aa; margin-top: 4px; font-family: monospace;">
+                CONCESIONARIO OFICIAL AUTORIZADO · CÓDIGO DOC: ${item.brochureCode || 'FT-JCB-2026'}
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="gold-badge">OFICIAL 0 KM · 2026</span>
+              <div style="font-size: 11px; color: #71717a; margin-top: 6px; font-family: monospace;">
+                Km 22 Autopista Duarte · (809) 826-2222
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-grid">
+            <div>
+              <img src="${item.image}" alt="${item.title}" class="machine-img">
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+              <span style="font-family: monospace; font-size: 11px; color: #f59e0b; text-transform: uppercase; font-weight: 700;">
+                Catálogo de Ingeniería TMD / JCB
+              </span>
+              <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; margin: 6px 0 10px 0; color: #ffffff;">
+                ${item.title}
+              </h1>
+              <p style="font-size: 13px; color: #a1a1aa; margin: 0 0 16px 0; line-height: 1.4;">
+                ${item.tagline}
+              </p>
+              <div style="background: #18181b; border: 1px solid #27272a; border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-size: 12px; color: #71717a; text-transform: uppercase; font-family: monospace;">Precio Base Sugerido:</span>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #f59e0b;">
+                  US$ ${Number(item.priceUSD || 0).toLocaleString()} <span style="font-size: 12px; color: #a1a1aa; font-weight: normal;">(≈ RD$ ${Math.round((item.priceUSD || 0) * 59.5).toLocaleString()})</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <span>Matriz Técnica de Rendimiento Industrial (Specs Oficiales)</span>
+            <span style="color: #10b981; font-family: monospace; font-size: 11px;">● Calibrado Faena Caribe</span>
+          </div>
+
+          <div style="border-radius: 10px; overflow: hidden; border: 1px solid #27272a; margin-bottom: 24px;">
+            ${specsHtml}
+          </div>
+
+          <div style="padding: 16px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; margin-bottom: 24px;">
+            <strong style="color: #f59e0b; display: block; font-size: 13px; margin-bottom: 4px;">
+              🛡️ Paquete de Tropicalización y Soporte Operativo Km 22:
+            </strong>
+            <p style="font-size: 12px; color: #d4d4d8; margin: 0; line-height: 1.5;">
+              Configuración de fábrica para climas extremos: Radiador de aletas anchas para ambiente de hasta 48°C, filtro de aire ciclónico dual de alta retención de partículas calizas, chasis con electro-deposición anticorrosiva y monitoreo de telemetría OBD-Heavy 24/7.
+            </p>
+          </div>
+
+          <div style="border-top: 1px solid #27272a; padding-top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #71717a; font-family: monospace;">
+            <span>${item.warranty || 'Garantía TMD: 2,000 Horas / 1 Año con Servicio Oficial Km 22'}</span>
+            <span>RNC: 1-30-88492-1 · Tecnomaquinarias Diesel S.R.L.</span>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.open();
+    printWindow.document.write(html);
+    printWindow.document.close();
+  };
+
   // Keyboard Esc listener
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {

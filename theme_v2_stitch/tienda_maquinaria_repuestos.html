@@ -210,7 +210,7 @@
 <!-- DUAL-MODE MACHINERY INVENTORY SHOWCASE -->
 <section class="max-w-7xl mx-auto w-full px-6 lg:px-12 py-8" id="inventory-catalog" style="background-color: rgb(0, 0, 0) !important;">
 <!-- Control Bar: Mode Toggle (Venta vs Renta) & Currency Selector (40px - 50px pill system) -->
-<div class="p-4 sm:p-5 rounded-[28px] bg-surface-charcoal shadow-lg mb-8 flex flex-col md:flex-row items-center justify-between gap-4" style="backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: rgba(0, 0, 0, 0.35) 0px 8px 32px 0px; background: rgba(18, 21, 26, 0.45) !important;">
+<div class="p-4 sm:p-5 rounded-[28px] bg-surface-charcoal shadow-lg mb-6 flex flex-col md:flex-row items-center justify-between gap-4" style="backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: rgba(0, 0, 0, 0.35) 0px 8px 32px 0px; background: rgba(18, 21, 26, 0.45) !important;">
 <div class="flex items-center gap-3 w-full md:w-auto">
 <span class="font-label-badge text-label-badge uppercase text-text-muted tracking-wider">Modo Comercial:</span>
 <div class="inline-flex p-1 rounded-[50px] bg-surface-container-lowest">
@@ -231,11 +231,51 @@
 <button class="px-3 py-1 rounded-[50px] text-text-muted hover:text-canvas-offwhite font-label-badge text-label-badge font-bold" id="curr-dop-btn" onclick="switchCurrency('DOP')" type="button">DOP (RD$ 59.50)</button>
 </div>
 </div>
-<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-surface-container-lowest"><span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span><span class="font-label-badge text-label-badge text-primary-container uppercase">12 Equipos listados</span></div>
+<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-[8px] bg-surface-container-lowest"><span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span><span id="tienda-total-equipos-badge" class="font-label-badge text-label-badge text-primary-container uppercase">127 Equipos Disponibles</span></div>
 </div>
 </div>
+
+<!-- FACETED NAVIGATION SUITE: LEVEL 1 MACRO TABS -->
+<div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
+  <button type="button" id="tienda-tab-maquinaria" onclick="window.tiendaSelectMacro('maquinaria')" class="px-5 py-2.5 rounded-[50px] bg-primary-container text-black font-headline-sm text-xs uppercase font-bold tracking-wider shadow-md transition-all">
+    🏗️ Maquinaria 0 Km (77)
+  </button>
+  <button type="button" id="tienda-tab-attachments" onclick="window.tiendaSelectMacro('attachments')" class="px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all">
+    ⚙️ Implementos & Attachments (50)
+  </button>
+  <button type="button" id="tienda-tab-all" onclick="window.tiendaSelectMacro('all')" class="px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all">
+    🌐 Todo el Catálogo
+  </button>
+  <button type="button" onclick="document.getElementById('oem-parts-section')?.scrollIntoView({behavior: 'smooth'})" class="px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all">
+    📦 Repuestos OEM (28.4K)
+  </button>
+</div>
+
+<!-- FACETED NAVIGATION SUITE: LEVEL 2 SUBCATEGORIES PILLS -->
+<div id="tienda-subcategories-bar" class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
+  <!-- Populated dynamically via JS -->
+</div>
+
+<!-- LIVE SEARCH & CONTROL TOOLBAR -->
+<div class="p-3 sm:p-4 rounded-[18px] bg-surface-charcoal/90 border border-white/8 shadow-md mb-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+  <div class="relative w-full sm:max-w-md">
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-[18px]">search</span>
+    <input type="text" id="tienda-catalog-search-input" oninput="window.tiendaOnSearch(this.value)" placeholder="Buscar por modelo o SKU (ej: 250T, 400T, 3CX, Martillo, Balde...)" class="w-full bg-black/60 border border-white/10 rounded-[12px] pl-9 pr-4 py-2 font-mono text-xs text-white placeholder:text-neutral-500 outline-none focus:border-amber-500 transition-all">
+  </div>
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="if(window.tmdOpenBrochuresHub){window.tmdOpenBrochuresHub();}else{alert('Abriendo Repositorio de Fichas Técnicas');}" class="px-3.5 py-1.5 rounded-[10px] bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold uppercase flex items-center gap-1.5 transition-all">
+      <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+      <span>Fichas PDF Oficiales</span>
+    </button>
+    <div class="hidden sm:flex items-center gap-2 text-neutral-400 font-mono text-xs">
+      <span class="material-symbols-outlined text-amber-500 text-[16px]">verified</span>
+      <span>Despacho Patio Km 22</span>
+    </div>
+  </div>
+</div>
+
 <!-- Machinery Grid (16-20px rounded cards) -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div id="tienda-dynamic-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 <!-- Product Card 1: JCB 3CX Backhoe Loader -->
 <div class="machinery-card rounded-[20px] bg-surface-charcoal overflow-hidden shadow-lg flex flex-col justify-between group hover:shadow-2xl transition-all" data-category="construccion" style="backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(18, 21, 26, 0.42) !important;">
 <div>
@@ -1090,6 +1130,245 @@
     document.addEventListener('DOMContentLoaded', () => {
       calculateProformaTotals();
     });
+  </script>
+  <script src="../assets/tmd_jcb_catalog_data.js"></script>
+  <script src="../assets/tmd_brochures_hub.js"></script>
+  <script src="../assets/tmd_model_comparator.js"></script>
+  <script>
+    // Integration of TMD JCB Faceted Catalog inside tienda_maquinaria_repuestos.html
+    (function() {
+      let activeMacro = 'maquinaria';
+      let activeSubcat = 'all';
+      let searchQuery = '';
+
+      window.tiendaSelectMacro = function(macroKey) {
+        activeMacro = macroKey;
+        activeSubcat = 'all';
+        refreshTiendaFacetedUI();
+      };
+
+      window.tiendaSelectSubcat = function(subcatKey) {
+        activeSubcat = subcatKey;
+        refreshTiendaFacetedUI();
+      };
+
+      window.tiendaOnSearch = function(query) {
+        searchQuery = (query || '').toLowerCase().trim();
+        renderTiendaCards();
+      };
+
+      function refreshTiendaFacetedUI() {
+        const subcatsBar = document.getElementById('tienda-subcategories-bar');
+        const catalog = window.TMD_JCB_CATALOG || { subcategories: {} };
+
+        // Highlight tab
+        ['maquinaria', 'attachments', 'all'].forEach(k => {
+          const tab = document.getElementById('tienda-tab-' + k);
+          if (tab) {
+            if (k === activeMacro) {
+              tab.className = 'px-5 py-2.5 rounded-[50px] bg-primary-container text-black font-headline-sm text-xs uppercase font-bold tracking-wider shadow-md transition-all';
+            } else {
+              tab.className = 'px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all';
+            }
+          }
+        });
+
+        if (subcatsBar) {
+          let list = [];
+          if (activeMacro === 'maquinaria') list = catalog.subcategories.maquinaria || [];
+          else if (activeMacro === 'attachments') list = catalog.subcategories.attachments || [];
+
+          if (list.length > 0) {
+            subcatsBar.style.display = 'flex';
+            subcatsBar.innerHTML = `
+              <button type="button" onclick="window.tiendaSelectSubcat('all')" class="px-3.5 py-1.5 rounded-[50px] text-xs font-mono font-bold uppercase transition-all ${activeSubcat === 'all' ? 'bg-primary-container text-black font-extrabold shadow-md' : 'bg-surface-charcoal/80 text-neutral-400 hover:text-white border border-white/10'}">
+                Todos
+              </button>
+            ` + list.map(s => `
+              <button type="button" onclick="window.tiendaSelectSubcat('${s.id}')" class="px-3.5 py-1.5 rounded-[50px] text-xs font-mono font-bold uppercase whitespace-nowrap transition-all flex items-center gap-1.5 ${activeSubcat === s.id ? 'bg-primary-container text-black font-extrabold shadow-md' : 'bg-surface-charcoal/80 text-neutral-400 hover:text-white border border-white/10'}">
+                <span class="material-symbols-outlined text-[15px]">${s.icon || 'circle'}</span>
+                <span>${s.name}</span>
+              </button>
+            `).join('');
+          } else {
+            subcatsBar.style.display = 'none';
+          }
+        }
+
+        renderTiendaCards();
+      }
+
+      function renderTiendaCards() {
+        const grid = document.getElementById('tienda-dynamic-cards-grid');
+        const badge = document.getElementById('tienda-total-equipos-badge');
+        if (!grid) return;
+
+        const catalog = window.TMD_JCB_CATALOG || { machines: [], attachments: [] };
+        let items = [];
+
+        if (activeMacro === 'maquinaria') {
+          items = catalog.machines || [];
+          if (activeSubcat !== 'all') items = items.filter(m => m.subcategory === activeSubcat);
+        } else if (activeMacro === 'attachments') {
+          items = catalog.attachments || [];
+          if (activeSubcat !== 'all') items = items.filter(a => a.subcategory === activeSubcat);
+        } else {
+          items = (catalog.machines || []).concat(catalog.attachments || []);
+        }
+
+        if (searchQuery) {
+          items = items.filter(it => (it.title + ' ' + (it.sku || '') + ' ' + (it.model || '') + ' ' + (it.tagline || '')).toLowerCase().includes(searchQuery));
+        }
+
+        if (badge) badge.innerText = items.length + ' Equipos Disponibles';
+
+        if (items.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-16 text-center text-neutral-400 bg-surface-charcoal/40 rounded-[24px] border border-white/8">
+              <span class="material-symbols-outlined text-[48px] text-amber-500/60 mb-2">search_off</span>
+              <h4 class="text-base font-bold text-white uppercase">No se encontraron equipos</h4>
+              <p class="text-xs text-neutral-400 mt-1">Modifique los términos de búsqueda o seleccione otra categoría.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = items.map(item => {
+          const isMachine = item.category === 'maquinaria';
+          const badges = (item.badges || []).slice(0, 2).map(b => {
+            const isNew = b.toLowerCase().includes('new') || b.toLowerCase().includes('0 km');
+            return `<span class="px-2.5 py-0.5 rounded-[6px] text-[10px] uppercase font-mono tracking-wider ${isNew ? 'bg-primary-container text-black font-extrabold' : 'bg-surface-charcoal/90 text-primary border border-white/10'}">● ${b}</span>`;
+          }).join(' ');
+
+          let specsHtml = '';
+          if (isMachine && item.specs) {
+            specsHtml = `
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-4 p-3.5 rounded-[14px] bg-surface-container-lowest text-left border border-white/[0.04]">
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">SAE Oper. Weight</span>
+                  <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.operatingWeight || 'N/D'}</span>
+                </div>
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Hinge Pin Height</span>
+                  <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.hingePinHeight || 'N/D'}</span>
+                </div>
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Max. Engine Power</span>
+                  <span class="font-mono text-xs font-bold text-primary-container block truncate">${item.specs.enginePower || 'N/D'}</span>
+                </div>
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Travel Speed</span>
+                  <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.travelSpeed || '7.8 mph'}</span>
+                </div>
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">ROC Capacity</span>
+                  <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.roc || 'N/D'}</span>
+                </div>
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Lift Breakout</span>
+                  <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.loaderLiftBreakout || 'N/D'}</span>
+                </div>
+              </div>
+            `;
+          } else if (item.specs) {
+            specsHtml = `
+              <div class="my-4 p-3.5 rounded-[14px] bg-surface-container-lowest text-left border border-white/[0.04] space-y-1 text-xs">
+                <div class="flex justify-between font-mono text-[10px] text-neutral-400">
+                  <span>Presión Operativa:</span>
+                  <strong class="text-primary-container">${item.specs.presionOperacion || '220 Bar'}</strong>
+                </div>
+                <div class="flex justify-between font-mono text-[10px] text-neutral-400">
+                  <span>Flujo Hidráulico:</span>
+                  <strong class="text-white">${item.specs.flujoHidraulico || '80 L/min'}</strong>
+                </div>
+                <div class="flex justify-between font-mono text-[10px] text-neutral-400">
+                  <span>Acople Rápido:</span>
+                  <strong class="text-white">${item.specs.acople || 'Q-Fit / SSL'}</strong>
+                </div>
+              </div>
+            `;
+          }
+
+          const priceFormatted = activeCurrency === 'USD'
+            ? 'US$ ' + Number(item.priceUSD || 0).toLocaleString()
+            : 'RD$ ' + Math.round((item.priceUSD || 0) * exchangeRate).toLocaleString();
+
+          const rentPriceFormatted = activeCurrency === 'USD'
+            ? 'US$ ' + Math.round((item.priceUSD || 65000) * 0.0028) + ' / Día'
+            : 'RD$ ' + Math.round((item.priceUSD || 65000) * 0.0028 * exchangeRate).toLocaleString() + ' / Día';
+
+          return `
+            <div class="machinery-card rounded-[20px] bg-surface-charcoal overflow-hidden shadow-xl flex flex-col justify-between group hover:border-primary-container/50 transition-all duration-300" style="backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(18, 21, 26, 0.52) !important;">
+              <div>
+                <div class="relative h-56 w-full overflow-hidden bg-black/80 flex items-center justify-center p-3">
+                  <img src="${item.image}" alt="${item.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                  <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+                    ${badges}
+                  </div>
+                  <div class="absolute top-3 right-3 z-10">
+                    <button type="button" onclick="if(window.tmdAddToCompare){window.tmdAddToCompare('${item.id}');}else{alert('Equipo agregado al comparador técnico: ${item.title}');}" class="px-2.5 py-1 rounded-[8px] bg-black/80 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/10 font-mono text-[10px] font-bold uppercase flex items-center gap-1 transition-all">
+                      <span class="material-symbols-outlined text-[14px]">add</span>
+                      <span>Compare</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="p-5">
+                  <div class="flex items-center justify-between text-neutral-400 font-mono text-[10px] uppercase mb-1">
+                    <span>${item.subcategoryName || (isMachine ? 'Maquinaria 0 Km' : 'Implemento Certificado')}</span>
+                    <span class="text-primary-container font-bold">${item.sku || item.model}</span>
+                  </div>
+
+                  <h3 class="font-headline-sm text-xl uppercase font-bold text-white group-hover:text-primary-container transition-colors">
+                    ${item.model || item.title}
+                  </h3>
+
+                  <p class="font-body-sm text-xs text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
+                    ${item.tagline || 'Rendimiento industrial de alta exigencia con respaldo oficial en República Dominicana.'}
+                  </p>
+
+                  ${specsHtml}
+
+                  <div class="pt-1 flex items-baseline justify-between border-t border-white/[0.06]">
+                    <div>
+                      <span class="font-mono text-[9px] uppercase text-neutral-500 block">Starting at:</span>
+                      <span class="font-headline-sm text-lg text-primary-container font-bold">${priceFormatted}</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="font-mono text-[9px] uppercase text-neutral-500 block">Renta Operativa:</span>
+                      <span class="font-mono text-xs text-neutral-300 font-semibold">${rentPriceFormatted}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-5 pt-0 space-y-2">
+                <button type="button" onclick="addToProforma('${item.title}', ${item.priceUSD || 65000}, ${Math.round((item.priceUSD || 65000) * 0.0028)}, '${item.subcategoryName || 'JCB Oficial'}');" class="w-full py-2.5 px-4 rounded-[50px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs uppercase font-bold tracking-wider transition-all shadow-[0_2px_12px_rgba(255,184,0,0.25)] flex items-center justify-center gap-2 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">post_add</span>
+                  <span>Request price (Agregar Proforma)</span>
+                </button>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="if(window.tmdDownloadMachinePDF){window.tmdDownloadMachinePDF('${item.id}');}else{alert('Descargando Ficha Técnica Oficial PDF: ${item.title}');}" class="py-2 px-3 rounded-[50px] bg-neutral-900/90 hover:bg-neutral-800 text-white font-mono text-[11px] font-semibold border border-white/10 flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+                    <span class="material-symbols-outlined text-[15px] text-primary-container">description</span>
+                    <span>Brochure</span>
+                  </button>
+
+                  <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, solicito precio y disponibilidad de entrega en Km 22 para el equipo: ' + item.title + ' (SKU: ' + (item.sku || item.model) + ').')}" target="_blank" class="py-2 px-3 rounded-[50px] bg-neutral-900/90 hover:bg-neutral-800 text-white font-mono text-[11px] font-semibold border border-white/10 flex items-center justify-center gap-1.5 transition-all">
+                    <span class="material-symbols-outlined text-[15px] text-telemetry-emerald">chat</span>
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(refreshTiendaFacetedUI, 100);
+      });
+    })();
   </script>
 </div></main><footer class="w-full bg-surface-container-lowest border-t border-border-subtle mt-space-xl pt-space-xl pb-space-lg" style="border-top: 1px solid rgba(255, 255, 255, 0.08); background-color: rgb(0, 0, 0) !important;"><div class="max-w-7xl mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-xl mb-space-xl"><div class="lg:col-span-2 space-y-space-md"><div class="flex items-center gap-space-sm"><img alt="Logo TMD" class="h-9 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VA9lXrksvsphvsVJV2p9VPantEDAE0QXYc7JhlNdji1GF8PZHnaq7lcbvfGtuGv4MjiXJppk1ZrsZTKymyOQ37JSp5MeGesQRdRL7qcLLlsPb6-AcREt2N_jQj4INyoJ9tOcUEeliLzLngn8Q7cA35BHRv-1Avy-ETnUYbYuZ2ZQgTiFd4jBJYfqGt2Zv1NAnjZqkRAvNvDiBEUKt50dsHQoNQiJXGzag3HRXcrZ_T8PLKK-NxQb-7ov_a"/><span class="font-headline-sm text-headline-sm uppercase text-canvas-offwhite tracking-tight">TMD Dominicana</span></div><p class="font-body-sm text-body-sm text-text-muted pr-6">Tecnomaquinarias Diesel S.R.L. Concesionario oficial y centro neurálgico de provisión de maquinaria pesada, componentes OEM certificados, soporte técnico de campo y soluciones de potencia para la República Dominicana y el Caribe.</p><div class="flex flex-wrap gap-2 pt-2"><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">JCB</span><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">LIUGONG</span><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">AMMANN</span><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">LS TRACTOR</span><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">IMER</span><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">KUBOTA</span><span class="px-2.5 py-1 rounded bg-surface-container-high text-primary border border-border-structural font-label-badge text-label-badge">YANMAR</span></div></div><div class="space-y-space-sm"><div class="font-headline-sm text-body-md uppercase tracking-wider text-canvas-offwhite font-bold">Líneas de Maquinaria</div><ul class="space-y-2 font-body-sm text-body-sm text-text-muted"><li class="hover:text-on-surface transition-colors"><a class="" data-path="construccion" href="tienda_maquinaria_repuestos.html#construccion">Retroexcavadoras &amp; Palas</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="construccion" href="tienda_maquinaria_repuestos.html#construccion">Excavadoras de Oruga</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="agricola" href="tienda_maquinaria_repuestos.html#agricola">Tractores Agrícolas 4WD</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="industrial" href="tienda_maquinaria_repuestos.html#industrial">Plantas Eléctricas Diésel</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="mineria" href="tienda_maquinaria_repuestos.html#mineria">Equipos de Trituración y Carga</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="renta-de-flotas" href="tienda_maquinaria_repuestos.html#renta-section">Unidades de Renta Flexible</a></li></ul></div><div class="space-y-space-sm"><div class="font-headline-sm text-body-md uppercase tracking-wider text-canvas-offwhite font-bold">Soporte &amp; Taller Km 22</div><ul class="space-y-2 font-body-sm text-body-sm text-text-muted"><li class="hover:text-on-surface transition-colors"><a class="" data-path="repuestos-oem" href="catalogo_repuestos_diagramas.html">Catálogo de Partes OEM</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="portal-de-clientes-km-22" href="portal_suite_cliente_staff.html">Diagnóstico Computarizado</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="portal-de-clientes-km-22" href="portal_suite_cliente_staff.html">Técnicos Móviles de Rescate</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="portal-de-clientes-km-22" href="portal_suite_cliente_staff.html">Inspecciones Programadas</a></li><li class="hover:text-on-surface transition-colors"><a class="" data-path="cotizaciones-guardadas-y-proforma" href="#proforma-section" onclick="document.getElementById('proforma-section')?.scrollIntoView({behavior: 'smooth'}); return false;">Políticas de Garantía de Fábrica</a></li></ul></div><div class="space-y-space-sm"><div class="font-headline-sm text-body-md uppercase tracking-wider text-canvas-offwhite font-bold">Sede Operativa</div><div class="font-body-sm text-body-sm text-text-muted space-y-2"><p class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0">pin_drop</span><span class="">Autopista Duarte Km 22, La Guáyiga, Pedro Brand, Sto Dgo, RD</span></p><p class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0">call</span><span class="">809-826-2222 / 809-560-8888</span></p><p class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0">mail</span><span class="">info@tmd.com.do</span></p><div class="pt-2"><div class="font-label-badge text-label-badge uppercase text-primary-container flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="">Horario: Lun - Vie 7:30 AM - 5:30 PM</span></div><span class="font-caption text-caption text-text-muted block mt-1">Sábados: 8:00 AM - 12:00 PM (Suministro crítico)</span></div></div></div></div><div class="pt-space-md border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-space-sm font-caption text-caption text-text-muted"><div class="">© 2025 Tecnomaquinarias Diesel S.R.L. (TMD Dominicana). Todos los derechos reservados.</div><div class="flex items-center gap-space-md"><span class="">RNC: 1-30-89642-1</span><span class="">Concesionario Autorizado</span><span class="">Términos y Condiciones</span></div></div></div></footer>
   <script src="../../tmd-dominicana-v1-original/assets/tmd_animation_engine.js"></script>

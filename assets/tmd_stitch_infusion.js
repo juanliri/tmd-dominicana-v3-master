@@ -1720,144 +1720,384 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 8. MODULE 3: FILTROS RÁPIDOS POR INDUSTRIA / FAENA B2B (#/vehicles)
+  // 8. MODULE 3: CATÁLOGO FACETADO JCB & MAQUINARIA PESADA B2B (#/vehicles)
   // ─────────────────────────────────────────────────────────────────────────────
-  window.tmdFilterByIndustry = function (industryKey) {
-    document.querySelectorAll('.tmd-industry-card').forEach(function (card) {
-      if (card.getAttribute('data-industry') === industryKey) {
-        card.classList.add('active', 'border-amber-500');
+  var _activeCatalogMacro = 'maquinaria';
+  var _activeCatalogSubcat = 'all';
+  var _catalogSearchQuery = '';
+
+  window.tmdSelectCatalogMacro = function(macroKey) {
+    _activeCatalogMacro = macroKey;
+    _activeCatalogSubcat = 'all';
+    window.tmdRefreshFacetedCatalogUI();
+  };
+
+  window.tmdSelectCatalogSubcat = function(subcatKey) {
+    _activeCatalogSubcat = subcatKey;
+    window.tmdRefreshFacetedCatalogUI();
+  };
+
+  window.tmdOnCatalogSearchInput = function(val) {
+    _catalogSearchQuery = (val || '').toLowerCase().trim();
+    window.tmdRenderCatalogCardsOnly();
+  };
+
+  window.tmdFilterByIndustry = function(industryKey) {
+    if (industryKey === 'all') {
+      window.tmdSelectCatalogMacro('maquinaria');
+    } else if (industryKey === 'construccion') {
+      window.tmdSelectCatalogMacro('maquinaria');
+    } else if (industryKey === 'agricola') {
+      window.tmdSelectCatalogMacro('maquinaria');
+      _activeCatalogSubcat = 'ctl';
+    } else if (industryKey === 'industrial') {
+      window.tmdSelectCatalogMacro('maquinaria');
+      _activeCatalogSubcat = 'telehandler';
+    } else if (industryKey === 'mineria') {
+      window.tmdSelectCatalogMacro('maquinaria');
+      _activeCatalogSubcat = 'tracked_excavator';
+    } else if (industryKey === 'repuestos') {
+      location.hash = '#/parts';
+      return;
+    }
+    window.tmdRefreshFacetedCatalogUI();
+  };
+
+  function getCatalogItems() {
+    var catalog = window.TMD_JCB_CATALOG || { machines: [], attachments: [], subcategories: {} };
+    var items = [];
+
+    if (_activeCatalogMacro === 'maquinaria') {
+      items = catalog.machines || [];
+      if (_activeCatalogSubcat !== 'all') {
+        items = items.filter(function(m) { return m.subcategory === _activeCatalogSubcat; });
+      }
+    } else if (_activeCatalogMacro === 'attachments') {
+      items = catalog.attachments || [];
+      if (_activeCatalogSubcat !== 'all') {
+        items = items.filter(function(a) { return a.subcategory === _activeCatalogSubcat; });
+      }
+    } else if (_activeCatalogMacro === 'all') {
+      items = (catalog.machines || []).concat(catalog.attachments || []);
+    }
+
+    if (_catalogSearchQuery) {
+      items = items.filter(function(it) {
+        var str = (it.title + ' ' + (it.sku || '') + ' ' + (it.model || '') + ' ' + (it.tagline || '')).toLowerCase();
+        return str.indexOf(_catalogSearchQuery) > -1;
+      });
+    }
+
+    return items;
+  }
+
+  window.tmdRenderCatalogCardsOnly = function() {
+    var container = document.getElementById('tmd-jcb-cards-grid');
+    var counterEl = document.getElementById('tmd-catalog-count-badge');
+    if (!container) return;
+
+    var items = getCatalogItems();
+    if (counterEl) counterEl.innerText = items.length + ' Equipos listados';
+
+    if (items.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full py-16 text-center text-neutral-400 bg-surface-charcoal/40 rounded-[24px] border border-white/8">
+          <span class="material-symbols-outlined text-[48px] text-amber-500/60 mb-2">search_off</span>
+          <h4 class="text-base font-bold text-white uppercase">No se encontraron productos coincidentes</h4>
+          <p class="text-xs text-neutral-400 mt-1">Intente con otra búsqueda o seleccione otra categoría en el panel superior.</p>
+          <button onclick="window.tmdSelectCatalogSubcat('all')" class="mt-4 px-4 py-2 rounded-[50px] bg-primary-container text-black font-bold text-xs uppercase">
+            Restablecer Filtros
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    var html = items.map(function(item) {
+      var isMachine = item.category === 'maquinaria';
+      var badgesHtml = (item.badges || []).slice(0, 2).map(function(b) {
+        var isNew = b.toLowerCase().includes('new') || b.toLowerCase().includes('nuevo');
+        var isFinance = b.toLowerCase().includes('finance');
+        var colorClass = isNew 
+          ? 'bg-amber-500 text-black font-extrabold' 
+          : isFinance 
+          ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' 
+          : 'bg-white/10 text-white';
+        return `<span class="px-2.5 py-0.5 rounded-[6px] text-[10px] uppercase font-mono tracking-wider ${colorClass}">● ${b}</span>`;
+      }).join(' ');
+
+      var specsHtml = '';
+      if (isMachine && item.specs) {
+        specsHtml = `
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-4 p-3.5 rounded-[14px] bg-surface-container-lowest text-left border border-white/[0.04]">
+            <div>
+              <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">SAE Oper. Weight</span>
+              <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.operatingWeight || 'N/D'}</span>
+            </div>
+            <div>
+              <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Hinge Pin Height</span>
+              <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.hingePinHeight || 'N/D'}</span>
+            </div>
+            <div>
+              <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Max. Engine Power</span>
+              <span class="font-mono text-xs font-bold text-amber-400 block truncate">${item.specs.enginePower || 'N/D'}</span>
+            </div>
+            <div>
+              <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Travel Speed</span>
+              <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.travelSpeed || '7.8 mph'}</span>
+            </div>
+            <div>
+              <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">ROC Capacity</span>
+              <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.roc || 'N/D'}</span>
+            </div>
+            <div>
+              <span class="font-mono text-[9px] uppercase text-neutral-500 block leading-tight">Lift Breakout</span>
+              <span class="font-mono text-xs font-bold text-neutral-200 block truncate">${item.specs.loaderLiftBreakout || 'N/D'}</span>
+            </div>
+          </div>
+        `;
+      } else if (item.specs) {
+        specsHtml = `
+          <div class="my-4 p-3.5 rounded-[14px] bg-surface-container-lowest text-left border border-white/[0.04] space-y-1 text-xs">
+            <div class="flex justify-between font-mono text-[10px] text-neutral-400">
+              <span>Presión Operativa:</span>
+              <strong class="text-amber-400">${item.specs.presionOperacion || '220 Bar'}</strong>
+            </div>
+            <div class="flex justify-between font-mono text-[10px] text-neutral-400">
+              <span>Flujo Hidráulico:</span>
+              <strong class="text-white">${item.specs.flujoHidraulico || '80 L/min'}</strong>
+            </div>
+            <div class="flex justify-between font-mono text-[10px] text-neutral-400">
+              <span>Acople Rápido:</span>
+              <strong class="text-white">${item.specs.acople || 'Q-Fit / SSL'}</strong>
+            </div>
+          </div>
+        `;
+      }
+
+      var priceFormatted = item.priceUSD 
+        ? 'US$ ' + Number(item.priceUSD).toLocaleString() 
+        : 'Consultar Precio';
+
+      var rentPriceFormatted = 'US$ ' + Math.round((item.priceUSD || 65000) * 0.0028) + ' / Día';
+
+      return `
+        <div class="machinery-card rounded-[20px] bg-surface-charcoal overflow-hidden shadow-xl flex flex-col justify-between group hover:border-amber-500/50 transition-all duration-300" style="backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(18, 21, 26, 0.52) !important;">
+          <div>
+            <!-- Image Frame -->
+            <div class="relative h-56 w-full overflow-hidden bg-black/80 flex items-center justify-center p-3">
+              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
+              
+              <!-- Badges Top Left -->
+              <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+                ${badgesHtml}
+              </div>
+
+              <!-- Compare Button Top Right -->
+              <div class="absolute top-3 right-3 z-10">
+                <button type="button" onclick="if(window.tmdAddToCompare){window.tmdAddToCompare('${item.id}');}else{alert('Equipo agregado al comparador técnico: ${item.title}');}" class="px-2.5 py-1 rounded-[8px] bg-black/80 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/10 font-mono text-[10px] font-bold uppercase flex items-center gap-1 transition-all">
+                  <span class="material-symbols-outlined text-[14px]">add</span>
+                  <span>Compare</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Card Content Body -->
+            <div class="p-5">
+              <div class="flex items-center justify-between text-neutral-400 font-mono text-[10px] uppercase mb-1">
+                <span>${item.subcategoryName || (isMachine ? 'Maquinaria 0 Km' : 'Implemento Certificado')}</span>
+                <span class="text-amber-500 font-bold">${item.sku || item.model}</span>
+              </div>
+
+              <div class="flex items-baseline justify-between">
+                <h3 class="font-headline-sm text-xl uppercase font-bold text-white group-hover:text-amber-400 transition-colors">
+                  ${item.model || item.title}
+                </h3>
+              </div>
+
+              <p class="font-body-sm text-xs text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
+                ${item.tagline || 'Rendimiento industrial de alta exigencia con respaldo oficial en República Dominicana.'}
+              </p>
+
+              <!-- Specifications Matrix (2x3) -->
+              ${specsHtml}
+
+              <!-- Pricing Info -->
+              <div class="pt-1 flex items-baseline justify-between border-t border-white/[0.06]">
+                <div>
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block">Starting at:</span>
+                  <span class="font-headline-sm text-lg text-amber-400 font-bold">${priceFormatted}</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-mono text-[9px] uppercase text-neutral-500 block">Renta Operativa:</span>
+                  <span class="font-mono text-xs text-neutral-300 font-semibold">${rentPriceFormatted}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Action Footer Matching Screenshot -->
+          <div class="p-5 pt-0 space-y-2">
+            <button type="button" onclick="window.tmdRequestPriceForModel('${item.title}', ${item.priceUSD || 65000});" class="w-full py-2.5 px-4 rounded-[50px] bg-primary-container hover:bg-hazard-gold-active text-black font-headline-sm text-xs uppercase font-bold tracking-wider transition-all shadow-[0_2px_12px_rgba(255,184,0,0.25)] flex items-center justify-center gap-2 cursor-pointer">
+              <span class="material-symbols-outlined text-[16px]">mail</span>
+              <span>Request price</span>
+            </button>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="if(window.tmdDownloadMachinePDF){window.tmdDownloadMachinePDF('${item.id}');}else{alert('Descargando Ficha Técnica Oficial PDF: ${item.title}');}" class="py-2 px-3 rounded-[50px] bg-neutral-900/90 hover:bg-neutral-800 text-white font-mono text-[11px] font-semibold border border-white/10 flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+                <span class="material-symbols-outlined text-[15px] text-amber-500">description</span>
+                <span>Brochure</span>
+              </button>
+
+              <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, solicito precio y disponibilidad de entrega en Km 22 para el equipo: ' + item.title + ' (SKU: ' + (item.sku || item.model) + ').')}" target="_blank" class="py-2 px-3 rounded-[50px] bg-neutral-900/90 hover:bg-neutral-800 text-white font-mono text-[11px] font-semibold border border-white/10 flex items-center justify-center gap-1.5 transition-all">
+                <span class="material-symbols-outlined text-[15px] text-emerald-400">chat</span>
+                <span>WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+  };
+
+  window.tmdRefreshFacetedCatalogUI = function() {
+    var subcatsContainer = document.getElementById('tmd-subcategories-pills');
+    var catalog = window.TMD_JCB_CATALOG || { subcategories: {} };
+
+    // Update macro tab styles
+    document.querySelectorAll('[data-macro-tab]').forEach(function(tab) {
+      if (tab.getAttribute('data-macro-tab') === _activeCatalogMacro) {
+        tab.className = 'px-5 py-2.5 rounded-[50px] bg-primary-container text-black font-headline-sm text-xs uppercase font-bold tracking-wider shadow-md transition-all';
       } else {
-        card.classList.remove('active', 'border-amber-500');
+        tab.className = 'px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all';
       }
     });
 
-    // Filter cards on the page if present
-    var machineCards = document.querySelectorAll('.machinery-card, #root [class*="card"]');
-    if (machineCards.length > 0 && industryKey !== 'all') {
-      machineCards.forEach(function (mc) {
-        var text = mc.innerText.toLowerCase();
-        var match = false;
-        if (industryKey === 'construccion' && (text.includes('excavadora') || text.includes('retro') || text.includes('jcb') || text.includes('compactador'))) match = true;
-        if (industryKey === 'agricola' && (text.includes('tractor') || text.includes('ls') || text.includes('kubota') || text.includes('agrícola'))) match = true;
-        if (industryKey === 'industrial' && (text.includes('telehandler') || text.includes('loadall') || text.includes('montacarga') || text.includes('generador'))) match = true;
-        if (industryKey === 'mineria' && (text.includes('220x') || text.includes('liugong') || text.includes('oruga') || text.includes('pesada') || text.includes('cantera'))) match = true;
-        if (industryKey === 'repuestos' && (text.includes('filtro') || text.includes('repuesto') || text.includes('bomba') || text.includes('cilindro'))) match = true;
+    // Render subcategories dynamic pills
+    if (subcatsContainer) {
+      var sublist = [];
+      if (_activeCatalogMacro === 'maquinaria') {
+        sublist = catalog.subcategories.maquinaria || [];
+      } else if (_activeCatalogMacro === 'attachments') {
+        sublist = catalog.subcategories.attachments || [];
+      }
 
-        if (match) {
-          mc.style.display = '';
-        } else {
-          mc.style.display = 'none';
-        }
-      });
-    } else {
-      machineCards.forEach(function (mc) { mc.style.display = ''; });
+      if (sublist.length > 0) {
+        subcatsContainer.style.display = 'flex';
+        var pillsHtml = `
+          <button type="button" onclick="window.tmdSelectCatalogSubcat('all')" class="px-3.5 py-1.5 rounded-[50px] text-xs font-mono font-bold uppercase transition-all ${_activeCatalogSubcat === 'all' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-[0_0_10px_rgba(245,158,11,0.2)]' : 'bg-surface-charcoal/60 text-neutral-400 hover:text-white border border-white/5'}">
+            Todos
+          </button>
+        ` + sublist.map(function(s) {
+          var isCurrent = _activeCatalogSubcat === s.id;
+          return `
+            <button type="button" onclick="window.tmdSelectCatalogSubcat('${s.id}')" class="px-3.5 py-1.5 rounded-[50px] text-xs font-mono font-bold uppercase whitespace-nowrap transition-all flex items-center gap-1.5 ${isCurrent ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-[0_0_10px_rgba(245,158,11,0.2)]' : 'bg-surface-charcoal/60 text-neutral-400 hover:text-white border border-white/5'}">
+              <span class="material-symbols-outlined text-[15px]">${s.icon || 'circle'}</span>
+              <span>${s.name}</span>
+            </button>
+          `;
+        }).join('');
+        subcatsContainer.innerHTML = pillsHtml;
+      } else {
+        subcatsContainer.style.display = 'none';
+      }
     }
+
+    window.tmdRenderCatalogCardsOnly();
+  };
+
+  window.tmdRequestPriceForModel = function(modelTitle, priceUSD) {
+    if (typeof window.addToProforma === 'function') {
+      window.addToProforma(modelTitle, priceUSD, Math.round(priceUSD * 0.0028), 'Maquinaria 0 Km');
+      var proformaSec = document.getElementById('proforma-section');
+      if (proformaSec) {
+        proformaSec.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    if (typeof window.tmdTriggerQuoteModal === 'function') {
+      window.tmdTriggerQuoteModal(modelTitle);
+      return;
+    }
+    var msg = 'Hola TMD Dominicana, solicito cotización formal y ficha técnica para el equipo: ' + modelTitle;
+    window.open('https://wa.me/18098262222?text=' + encodeURIComponent(msg), '_blank');
   };
 
   function renderIndustryB2BFiltersModule() {
+    setTimeout(function() {
+      window.tmdRefreshFacetedCatalogUI();
+    }, 50);
+
     return `
-      <section id="tmd-industry-filters-infusion" class="w-full max-w-[1360px] mx-auto px-6 lg:px-12 py-6 mb-6">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-2 font-mono text-xs uppercase text-neutral-400">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]">filter_alt</span>
-            <span>Filtrar por Faena & Aplicación Operativa:</span>
+      <section id="tmd-industry-filters-infusion" class="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-12 py-6 mb-8">
+        
+        <!-- Command Header & Telemetry -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/[0.08]">
+          <div>
+            <div class="flex items-center gap-2 font-mono text-xs uppercase text-amber-500 font-bold mb-1">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span>Catálogo Maestro Oficial JCB & TMD Dominicana · Km 22</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold uppercase text-white font-headline-sm tracking-tight">
+              Líneas Certificadas & Implementos de Obra
+            </h2>
+            <p class="text-xs sm:text-sm text-neutral-400 mt-1 max-w-2xl">
+              Filtre por familia de máquina, consulte especificaciones de ingeniería SAE y descargue fichas técnicas oficiales PDF al instante.
+            </p>
           </div>
-          <button onclick="window.tmdFilterByIndustry('all')" class="text-xs font-mono text-amber-500 hover:underline cursor-pointer">
-            Ver Todo el Stock
+
+          <div class="flex items-center gap-3">
+            <span id="tmd-catalog-count-badge" class="px-3 py-1.5 rounded-[10px] bg-surface-charcoal border border-white/10 font-mono text-xs font-bold text-amber-400">
+              127 Equipos listados
+            </span>
+            <button type="button" onclick="if(window.tmdOpenBrochuresHub){window.tmdOpenBrochuresHub();}else{alert('Abriendo Repositorio de Fichas Técnicas');}" class="px-3.5 py-1.5 rounded-[10px] bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold uppercase flex items-center gap-1.5 transition-all">
+              <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+              <span>Hub de Fichas PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Level 1: Primary Macro Category Tabs (Pill System) -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
+          <button type="button" data-macro-tab="maquinaria" onclick="window.tmdSelectCatalogMacro('maquinaria')" class="px-5 py-2.5 rounded-[50px] bg-primary-container text-black font-headline-sm text-xs uppercase font-bold tracking-wider shadow-md transition-all">
+            🏗️ Maquinaria 0 Km
+          </button>
+          <button type="button" data-macro-tab="attachments" onclick="window.tmdSelectCatalogMacro('attachments')" class="px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all">
+            ⚙️ Implementos & Attachments
+          </button>
+          <button type="button" data-macro-tab="all" onclick="window.tmdSelectCatalogMacro('all')" class="px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all">
+            🌐 Todo el Stock Combinado
+          </button>
+          <button type="button" onclick="location.hash = '#/parts'" class="px-5 py-2.5 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-400 hover:text-white font-headline-sm text-xs uppercase font-bold tracking-wider border border-white/8 transition-all">
+            📦 Repuestos OEM (28.4K)
           </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
-          <!-- Construcción -->
-          <div data-industry="construccion" onclick="window.tmdFilterByIndustry('construccion')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
-                  <span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
-                </div>
-                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">46 Unid.</span>
-              </div>
-              <h4 class="text-sm font-bold text-white uppercase mb-1">Construcción</h4>
-              <p class="text-[11px] text-neutral-400">Retroexcavadoras 3CX, excavadoras de oruga y rodillos.</p>
-            </div>
-            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
-              <span>Filtrar Stock</span>
-              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </div>
+        <!-- Level 2: Dynamic Subcategories Navigation Pills (Horizontal Scroll) -->
+        <div id="tmd-subcategories-pills" class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
+          <!-- Populated dynamically by tmdRefreshFacetedCatalogUI -->
+        </div>
+
+        <!-- Search & Control Toolbar -->
+        <div class="p-3 sm:p-4 rounded-[18px] bg-surface-charcoal/90 border border-white/8 shadow-md mb-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="relative w-full sm:max-w-md">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-[18px]">search</span>
+            <input type="text" oninput="window.tmdOnCatalogSearchInput(this.value)" placeholder="Buscar por modelo o SKU (ej: 250T, 400T, 3CX, Martillo, Balde...)" class="w-full bg-black/60 border border-white/10 rounded-[12px] pl-9 pr-4 py-2 font-mono text-xs text-white placeholder:text-neutral-500 outline-none focus:border-amber-500 transition-all">
           </div>
 
-          <!-- Agrícola -->
-          <div data-industry="agricola" onclick="window.tmdFilterByIndustry('agricola')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
-                  <span class="material-symbols-outlined text-[22px]">agriculture</span>
-                </div>
-                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">28 Unid.</span>
-              </div>
-              <h4 class="text-sm font-bold text-white uppercase mb-1">Agrícola</h4>
-              <p class="text-[11px] text-neutral-400">LS Tractor MT7, Kubota y rastras para arroz y caña.</p>
-            </div>
-            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
-              <span>Filtrar Stock</span>
-              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </div>
-          </div>
-
-          <!-- Industrial -->
-          <div data-industry="industrial" onclick="window.tmdFilterByIndustry('industrial')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
-                  <span class="material-symbols-outlined text-[22px]">factory</span>
-                </div>
-                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">35 Unid.</span>
-              </div>
-              <h4 class="text-sm font-bold text-white uppercase mb-1">Industrial</h4>
-              <p class="text-[11px] text-neutral-400">Telehandlers Loadall y montacargas de alta capacidad.</p>
-            </div>
-            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
-              <span>Filtrar Stock</span>
-              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </div>
-          </div>
-
-          <!-- Minería & Canteras -->
-          <div data-industry="mineria" onclick="window.tmdFilterByIndustry('mineria')" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 rounded-[10px] bg-white/[0.04] flex items-center justify-center text-amber-500 group-hover:bg-primary-container group-hover:text-black transition-all">
-                  <span class="material-symbols-outlined text-[22px]">landslide</span>
-                </div>
-                <span class="px-2 py-0.5 rounded-[6px] bg-white/[0.06] text-white font-mono text-[10px] font-bold">19 Unid.</span>
-              </div>
-              <h4 class="text-sm font-bold text-white uppercase mb-1">Minería & Canteras</h4>
-              <p class="text-[11px] text-neutral-400">Excavadoras LiuGong 22T HD y trituradoras de roca.</p>
-            </div>
-            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
-              <span>Filtrar Stock</span>
-              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </div>
-          </div>
-
-          <!-- Repuestos Express -->
-          <div data-industry="repuestos" onclick="location.hash = '#/parts'" class="tmd-industry-card p-4 rounded-[18px] cursor-pointer flex flex-col justify-between group border-amber-500/30">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <div class="w-10 h-10 rounded-[10px] bg-primary-container text-black font-bold flex items-center justify-center">
-                  <span class="material-symbols-outlined text-[22px]">build_circle</span>
-                </div>
-                <span class="px-2 py-0.5 rounded-[6px] bg-primary-container/20 text-amber-400 font-mono text-[10px] font-bold">EXPRESS 24H</span>
-              </div>
-              <h4 class="text-sm font-bold text-white uppercase mb-1">Repuestos OEM</h4>
-              <p class="text-[11px] text-neutral-400">Kits hidráulicos 6,000 PSI y filtros originales JCB.</p>
-            </div>
-            <div class="mt-3 pt-2 flex items-center justify-between text-amber-500 font-mono text-[10px] uppercase font-bold">
-              <span>Ver Catálogo CAD</span>
-              <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">search</span>
-            </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end text-neutral-400 font-mono text-xs">
+            <span class="material-symbols-outlined text-amber-500 text-[16px]">verified</span>
+            <span>Entrega Inmediata Patio Km 22</span>
           </div>
         </div>
+
+        <!-- Dynamic Product Cards Grid (Matching JCB Official Spec) -->
+        <div id="tmd-jcb-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated dynamically with exact JCB 2x3 specs cards -->
+        </div>
+
       </section>
     `;
   }
