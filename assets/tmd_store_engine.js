@@ -2924,6 +2924,22 @@
           <span>Comparar Equipos ➔</span>
         </button>
       </div>
+
+      <!-- Mobile Sticky Conversion Bar (< 768px) -->
+      <nav id="tmd-store-mobile-sticky-bar" class="tmd-mobile-sticky-bar" aria-label="Acciones rápidas de contacto móvil">
+        <a href="tel:+18098262222" class="bg-neutral-800 text-white border border-white/10 hover:bg-neutral-700">
+          <span class="material-symbols-outlined text-[16px] text-amber-400">call</span>
+          <span>Llamar</span>
+        </a>
+        <a href="https://wa.me/18098262222?text=Hola%20Ingenier%C3%ADa%20TMD,%20deseo%20cotizar%20maquinaria%20pesada" target="_blank" rel="noopener noreferrer" class="bg-emerald-500 text-black font-bold hover:bg-emerald-400">
+          <span class="material-symbols-outlined text-[16px]">chat</span>
+          <span>WhatsApp</span>
+        </a>
+        <a href="#/configurador" class="bg-amber-500/20 text-amber-400 border border-amber-500/40 hover:bg-amber-500/30">
+          <span class="material-symbols-outlined text-[16px]">tune</span>
+          <span>Configurar</span>
+        </a>
+      </nav>
     `;
   }
   // 9. MODULE 4: PAQUETE TROPICALIZADO CARIBE & CONDICIONES EXTREMAS (#/vehicle/:slug)
