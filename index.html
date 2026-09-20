@@ -3324,7 +3324,7 @@ html:not(.dark) #socios .group:hover {
 
     </style>
         <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260919_enterprise_v4" />
-        <link rel="stylesheet" href="/assets/tmd_client_portal.css?v=20260919_isolated_v6" />
+        <link rel="stylesheet" href="/assets/tmd_client_portal.css?v=20260919_v8_portal_fix" />
 
 </head>
   <body class="text-neutral-900 antialiased dark:text-neutral-100 transition-colors duration-200 tmd-loading" style="background:transparent;">
@@ -3704,10 +3704,14 @@ html:not(.dark) #socios .group:hover {
       // Intercept any click on "Portal VIP" button in the React navbar
       document.addEventListener('click', function(e) {
         var target = e.target.closest('button, a');
-        if (target && target.innerText && target.innerText.includes('Portal VIP')) {
+        if (target && target.innerText && target.innerText.toLowerCase().includes('portal vip')) {
           e.preventDefault();
           e.stopPropagation();
-          tmdShowPortalPINPrompt();
+          if (typeof window.tmdOpenClientPortal === 'function') {
+            window.tmdOpenClientPortal();
+          } else if (typeof window.tmdShowPortalPINPrompt === 'function') {
+            window.tmdShowPortalPINPrompt();
+          }
         }
       }, true);
 
@@ -5122,14 +5126,7 @@ html:not(.dark) #socios .group:hover {
         window.tmdChatSend();
       };
 
-      // ── Portal VIP interception → PIN prompt ─────────────────────────
-      document.addEventListener('click', function(e) {
-        var target = e.target.closest('button, a');
-        if (target && target.innerText && target.innerText.includes('Portal VIP')) {
-          e.preventDefault(); e.stopPropagation();
-          window.tmdShowPortalPINPrompt();
-        }
-      }, true);
+      // (Portal VIP interception handled globally above)
 
       // ── MEGAMENU & NAVBAR AUTO-HIDE ON ANY INTERACTION ────────────────
       document.addEventListener('click', function(e) {
@@ -5176,9 +5173,9 @@ html:not(.dark) #socios .group:hover {
     </script>
     <script src="/assets/tmd_animation_engine.js?v=20260919_enterprise_v4"></script>
     <script src="/assets/tmd_api_adapter.js?v=20260919_api_ready_v1"></script>
-    <script src="/assets/tmd_client_portal.js?v=20260919_isolated_v6"></script>
+    <script src="/assets/tmd_client_portal.js?v=20260919_v8_portal_fix"></script>
     <script src="/assets/tmd_service_page_v2.js?v=20260919_v3_clean_architecture"></script>
-    <script src="/assets/tmd_stitch_infusion.js?v=20260919_v3_clean_architecture"></script>
+    <script src="/assets/tmd_stitch_infusion.js?v=20260919_v8_portal_fix"></script>
     <script src="/assets/tmd_interactive_map.js?v=20260919_v1"></script>
     <script src="/assets/tmd_model_comparator.js?v=20260919_v1"></script>
     <script src="/assets/tmd_parts_serial_engine.js?v=20260919_v1"></script>

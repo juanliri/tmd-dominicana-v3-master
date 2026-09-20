@@ -1028,10 +1028,22 @@
   /* CLIENT PORTAL ROUTING & ACCESS                                     */
   /* ══════════════════════════════════════════════════════════════════ */
   window.tmdOpenClientPortal = function() {
+    if (typeof window.tmdCloseToolsMenu === 'function') {
+      window.tmdCloseToolsMenu();
+    }
+    if (typeof window.tmdCloseNavMenu === 'function') {
+      window.tmdCloseNavMenu();
+    }
     initPortalsDOM();
     var modal = document.getElementById('tmd-client-portal');
     if (modal) {
-      modal.style.display = 'block';
+      if (modal.style && modal.style.setProperty) {
+        modal.style.setProperty('display', 'block', 'important');
+        modal.style.setProperty('z-index', '9999999', 'important');
+      } else {
+        modal.style.display = 'block';
+        modal.style.zIndex = '9999999';
+      }
       document.body.style.overflow = 'hidden';
     }
   };
@@ -1039,7 +1051,11 @@
   window.tmdCloseClientPortal = function() {
     var modal = document.getElementById('tmd-client-portal');
     if (modal) {
-      modal.style.display = 'none';
+      if (modal.style && modal.style.setProperty) {
+        modal.style.setProperty('display', 'none', 'important');
+      } else {
+        modal.style.display = 'none';
+      }
       document.body.style.overflow = '';
     }
   };
@@ -1112,12 +1128,24 @@
   /* STAFF WORKSHOP PORTAL ROUTING (STRICTLY PIN 2222)                  */
   /* ══════════════════════════════════════════════════════════════════ */
   window.tmdOpenStaffPortal = function() {
+    if (typeof window.tmdCloseToolsMenu === 'function') {
+      window.tmdCloseToolsMenu();
+    }
+    if (typeof window.tmdCloseNavMenu === 'function') {
+      window.tmdCloseNavMenu();
+    }
     var pin = prompt('Ingrese PIN de Personal Taller Km 22 (Default: 2222):');
     if (pin === STAFF_PIN || pin === '0909') {
       initPortalsDOM();
       var modal = document.getElementById('tmd-staff-portal');
       if (modal) {
-        modal.style.display = 'block';
+        if (modal.style && modal.style.setProperty) {
+          modal.style.setProperty('display', 'block', 'important');
+          modal.style.setProperty('z-index', '9999999', 'important');
+        } else {
+          modal.style.display = 'block';
+          modal.style.zIndex = '9999999';
+        }
         document.body.style.overflow = 'hidden';
       }
     } else if (pin !== null) {
@@ -1128,7 +1156,11 @@
   window.tmdCloseStaffPortal = function() {
     var modal = document.getElementById('tmd-staff-portal');
     if (modal) {
-      modal.style.display = 'none';
+      if (modal.style && modal.style.setProperty) {
+        modal.style.setProperty('display', 'none', 'important');
+      } else {
+        modal.style.display = 'none';
+      }
       document.body.style.overflow = '';
     }
   };

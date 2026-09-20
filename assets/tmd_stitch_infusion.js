@@ -2733,16 +2733,16 @@
               <span class="material-symbols-outlined text-[16px] transition-transform duration-200" id="tmd-tools-menu-chevron">expand_more</span>
             </button>
 
-            <!-- 3-Column Mega Menu Dropdown -->
-            <div id="tmd-tools-mega-menu-dropdown" class="hidden absolute top-full right-0 mt-2 z-[99999] w-[760px] max-w-[92vw] rounded-2xl p-5 border border-amber-500/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(245,158,11,0.15)] text-neutral-200" style="background: linear-gradient(170deg, rgba(14,18,28,0.98) 0%, rgba(8,11,18,0.98) 100%); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);">
+            <!-- 3-Column Mega Menu Dropdown (Pure Obsidian Black, Zero Blues/Cyans) -->
+            <div id="tmd-tools-mega-menu-dropdown" class="hidden absolute top-full right-0 lg:-right-24 mt-2 z-[99999] w-[740px] max-w-[94vw] rounded-2xl p-4 sm:p-5 border border-amber-500/35 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(245,158,11,0.15)] text-neutral-200" style="background: rgba(10, 10, 12, 0.98); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); box-sizing: border-box;">
               
               <!-- Dropdown Header -->
-              <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
-                <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded bg-amber-500 text-black font-mono text-[9px] font-black uppercase">TIER-1 OEM</span>
-                  <span class="text-xs font-bold text-white tracking-wide">Ecosistema de Herramientas Digitales TMD</span>
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <span class="px-2 py-0.5 rounded bg-amber-500 text-black font-mono text-[9px] font-black uppercase shrink-0">TIER-1 OEM</span>
+                  <span class="text-xs font-bold text-white tracking-wide truncate">Ecosistema de Herramientas Digitales TMD</span>
                 </div>
-                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors">
+                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors whitespace-nowrap shrink-0">
                   <span>Dashboard Completo</span>
                   <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                 </a>
@@ -2778,7 +2778,7 @@
 
                       <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenClientPortal();">
                         <div class="text-xs font-bold text-amber-400 flex items-center justify-between">
-                          <span>Portal VIP Clientes</span>
+                          <span>Portal Clientes VIP</span>
                           <span>🚜</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">Acceso exclusivo a contratistas y flota propia</div>
@@ -2824,26 +2824,26 @@
                 </div>
 
                 <!-- Col 3: Selección & Repuestos -->
-                <div class="p-3 rounded-xl bg-white/[0.02] border border-cyan-500/20 flex flex-col justify-between">
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-amber-500/20 flex flex-col justify-between">
                   <div>
                     <div class="flex items-center gap-1.5 mb-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                      <span class="text-[10px] font-mono font-bold text-cyan-400 uppercase">Selección &amp; Repuestos</span>
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                      <span class="text-[10px] font-mono font-bold text-amber-400 uppercase">Selección &amp; Repuestos</span>
                     </div>
 
                     <div class="space-y-2">
-                      <div class="p-2 rounded-lg bg-black/40 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenModelComparator('backhoes');">
-                        <div class="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenModelComparator('backhoes');">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
                           <span>Comparador 3-Vías</span>
-                          <span class="material-symbols-outlined text-[14px] text-cyan-400">compare_arrows</span>
+                          <span class="material-symbols-outlined text-[14px] text-amber-400">compare_arrows</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">JCB vs CAT 420 vs Deere 310L en 14 vectores</div>
                       </div>
 
-                      <div class="p-2 rounded-lg bg-black/40 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenPartsSerialEngine();">
-                        <div class="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                      <div class="p-2 rounded-lg bg-black/40 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/30 transition-all cursor-pointer group" onclick="window.tmdCloseToolsMenu(); window.tmdOpenPartsSerialEngine();">
+                        <div class="text-xs font-bold text-white group-hover:text-amber-300 flex items-center justify-between">
                           <span>Repuestos por VIN</span>
-                          <span class="material-symbols-outlined text-[14px] text-cyan-400">precision_manufacturing</span>
+                          <span class="material-symbols-outlined text-[14px] text-amber-400">precision_manufacturing</span>
                         </div>
                         <div class="text-[11px] text-neutral-400 leading-snug mt-0.5">390+ piezas OEM con stock en Taller Km 22</div>
                       </div>
@@ -2862,13 +2862,15 @@
               </div>
 
               <!-- Dropdown Footer -->
-              <div class="mt-3 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono">
-                <div class="flex items-center gap-2 text-neutral-400">
+              <div class="mt-3 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                <div class="flex items-center gap-2 text-neutral-400 flex-wrap">
                   <button onclick="window.tmdCloseToolsMenu(); window.tmdOpenBrochuresHub();" class="hover:text-white transition-colors cursor-pointer">📥 Fichas PDF</button>
                   <span>·</span>
                   <button onclick="window.tmdCloseToolsMenu(); window.tmdOpenDemoRequestModal();" class="hover:text-white transition-colors cursor-pointer">🚜 Pedir Demo en Obra</button>
+                  <span>·</span>
+                  <button onclick="window.tmdCloseToolsMenu(); window.tmdOpenStaffPortal();" class="text-amber-400/90 hover:text-amber-300 transition-colors cursor-pointer">🔧 Mesa Técnica (PIN)</button>
                 </div>
-                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 font-bold uppercase tracking-wider transition-all">
+                <a href="#/tools" onclick="window.tmdCloseToolsMenu();" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 font-bold uppercase tracking-wider transition-all whitespace-nowrap">
                   Ver Todas (8) →
                 </a>
               </div>
@@ -2879,20 +2881,10 @@
           mainNav.appendChild(megaWrapper);
         }
 
-        // 2. Portal VIP & Flota Button
-        if (!document.getElementById('tmd-nav-portal-vip-btn')) {
-          var portalBtn = document.createElement('button');
-          portalBtn.id = 'tmd-nav-portal-vip-btn';
-          portalBtn.type = 'button';
-          portalBtn.className = 'h-9 px-3.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black shadow-[0_2px_12px_rgba(245,158,11,0.35)] cursor-pointer ml-1.5 shrink-0 border border-amber-400 active:scale-95';
-          portalBtn.title = 'Acceso al Portal de Clientes VIP & Flota TMD';
-          portalBtn.onclick = function () {
-            if (typeof window.tmdOpenClientPortal === 'function') {
-              window.tmdOpenClientPortal();
-            }
-          };
-          portalBtn.innerHTML = '<span class="text-sm leading-none">🚜</span><span class="hidden sm:inline">PORTAL VIP &amp; FLOTA</span><span class="sm:hidden">PORTAL VIP</span>';
-          mainNav.appendChild(portalBtn);
+        // Clean up redundant navbar portal button if present
+        var legacyPortalBtn = document.getElementById('tmd-nav-portal-vip-btn');
+        if (legacyPortalBtn) {
+          legacyPortalBtn.remove();
         }
       }
 
