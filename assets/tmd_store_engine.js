@@ -17,6 +17,31 @@
   var _dviApproved = false;
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // 0. ENTERPRISE TELEMETRY & CONVERSION ANALYTICS ENGINE
+  // ─────────────────────────────────────────────────────────────────────────────
+  window.tmdTrackEvent = function(eventName, eventParams) {
+    try {
+      var payload = Object.assign({
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        route: window.location.hash || '#/'
+      }, eventParams || {});
+
+      // 1. Google Tag Manager / dataLayer push
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: eventName, tmdData: payload });
+
+      // 2. Global DOM Event for integrations
+      window.dispatchEvent(new CustomEvent('tmd_conversion_event', { detail: { name: eventName, data: payload } }));
+
+      // 3. Local session log for debugging & audit
+      var sessionLogs = JSON.parse(sessionStorage.getItem('tmd_event_logs') || '[]');
+      sessionLogs.push({ name: eventName, data: payload });
+      sessionStorage.setItem('tmd_event_logs', JSON.stringify(sessionLogs.slice(-50)));
+    } catch(e) {}
+  };
+
+  // ─────────────────────────────────────────────────────────────────────────────
   // 1. PUBLIC DVI WORK ORDER TRACKER MODAL
   // ─────────────────────────────────────────────────────────────────────────────
   window.tmdOpenDviTracker = function (woNumber) {
@@ -2691,19 +2716,19 @@
 
         
         <!-- Dominican Logistics & Fiscal Trust Strip -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-3.5 mb-6 rounded-[16px] bg-black/60 border border-white/10 backdrop-blur-md">
-          <div class="flex items-center gap-3 px-3 py-1.5 border-b md:border-b-0 md:border-r border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3.5 mb-6 rounded-[16px] bg-black/60 border border-white/10 backdrop-blur-md">
+          <div class="flex items-center gap-3 px-3 py-1.5 border-b sm:border-b-0 sm:border-r border-white/10">
             <span class="material-symbols-outlined text-[24px] text-amber-500">local_shipping</span>
             <div>
               <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Despacho Lowboy Oficial</div>
               <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                <span>Entrega 24h a 32 Provincias</span>
+                <span>24h a 32 Provincias</span>
                 <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold">Km 22 Duarte</span>
               </div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 px-3 py-1.5 border-b md:border-b-0 md:border-r border-white/10">
+          <div class="flex items-center gap-3 px-3 py-1.5 border-b lg:border-b-0 lg:border-r border-white/10">
             <span class="material-symbols-outlined text-[24px] text-emerald-400">verified_user</span>
             <div>
               <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Escudo Fiscal Dominicano</div>
@@ -2714,12 +2739,23 @@
             </div>
           </div>
 
+          <div class="flex items-center gap-3 px-3 py-1.5 border-b sm:border-b-0 sm:border-r border-white/10">
+            <span class="material-symbols-outlined text-[24px] text-amber-400">workspace_premium</span>
+            <div>
+              <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Respaldo Institucional</div>
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>850+ Unidades</span>
+                <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-[9px] font-bold">10 Marcas</span>
+              </div>
+            </div>
+          </div>
+
           <div class="flex items-center justify-between px-3 py-1.5">
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-[24px] text-cyan-400">sync_alt</span>
               <div>
                 <div class="font-mono text-[10px] uppercase text-neutral-400 font-bold">Renovación de Flota</div>
-                <div class="text-xs font-bold text-white">Tasa Tu Equipo Usado</div>
+                <div class="text-xs font-bold text-white">Tasa Tu Usado</div>
               </div>
             </div>
             <button type="button" onclick="window.tmdOpenTradeInModal()" class="px-3 py-1.5 rounded-[8px] bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-black font-mono text-[11px] font-bold uppercase transition border border-amber-500/40 cursor-pointer">
@@ -2731,7 +2767,7 @@
         <!-- Level 1: Top Category Pills (Sector Tabs) -->
         <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
           <button type="button" data-sector-pill="ALL" onclick="window.tmdSetSectorFilter('ALL')" class="px-4 py-2 rounded-[50px] bg-amber-500 text-black font-bold text-xs uppercase shadow-md transition-all whitespace-nowrap cursor-pointer">
-            🌐 Todos los Equipos (106+)
+            🌐 Todos los Equipos (Catálogo 233+)
           </button>
           <button type="button" data-sector-pill="CONSTRUCTION" onclick="window.tmdSetSectorFilter('CONSTRUCTION')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
             🏗️ Construcción & Vial (JCB, LiuGong)
@@ -5048,6 +5084,10 @@
       (rnc ? ('• Empresa/RNC: ' + rnc + '\n') : '') +
       '• Teléfono: ' + phone;
 
+    if (typeof window.tmdTrackEvent === 'function') {
+      window.tmdTrackEvent('trade_in_submitted', { brand: brand, model: model, hours: hours, target: target });
+    }
+
     var modal = document.getElementById('tmd-tradein-modal');
     if (modal) modal.remove();
 
@@ -5063,6 +5103,10 @@
       priceUSD: 85000,
       specs: { 'Potencia': '100 HP', 'Condición': '0 Km', 'Garantía': 'Oficial TMD' }
     };
+
+    if (typeof window.tmdTrackEvent === 'function') {
+      window.tmdTrackEvent('proforma_pdf_generated', { machineId: machineId, brand: machine.brand, title: machine.title, priceUSD: machine.priceUSD });
+    }
 
     var priceUSD = machine.priceUSD ? Number(machine.priceUSD).toLocaleString() : '89,500';
     var itbisUSD = machine.priceUSD ? Number(machine.priceUSD * 0.18).toLocaleString() : '16,110';
