@@ -1273,7 +1273,7 @@
     ];
 
     var cardsHtml = bestSellers.map(function(item) {
-      var waMsg = encodeURIComponent('Hola Don Eduardo, vi el Best Seller ' + item.title + ' en la portada de TMD y deseo cotizar una unidad.');
+      var waMsg = encodeURIComponent('Hola TMD Dominicana, vi el Best Seller ' + item.title + ' en la portada de TMD y deseo cotizar una unidad.');
       var specsSnippet = item.specs.map(function(s) {
         return `
           <div class="p-2 rounded-lg bg-black/40 border border-white/[0.04]">
@@ -1336,7 +1336,7 @@
 
             <a href="https://wa.me/18098262222?text=${waMsg}" target="_blank" class="w-full py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center justify-center gap-2 transition shadow cursor-pointer">
               <span class="material-symbols-outlined text-[16px]">chat</span>
-              <span>Cotizar con Don Eduardo</span>
+              <span>Cotizar Compra B2B</span>
             </a>
           </div>
         </div>
@@ -1996,6 +1996,7 @@
   };
 
   window.tmdResetAllFilters = function() {
+    window._storeCurrentPage = 1;
     _activeSector = 'ALL';
     _activeBrandFilter = 'ALL';
     _activePowerFilter = 'ALL';
@@ -2014,6 +2015,7 @@
   // View Mode: 'grid' | 'list'
   window._storeViewMode = 'grid';
   window.tmdSetStoreViewMode = function(mode) {
+    window._storeCurrentPage = 1;
     window._storeViewMode = mode;
     var gridEl = document.getElementById('tmd-store-cards-grid');
     var btnGrid = document.getElementById('tmd-btn-view-grid');
@@ -2122,7 +2124,7 @@
     modal.className = 'fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto';
 
     var modelsTitles = _compareList.map(function(x) { return x.title; }).join(' vs ');
-    var waMsg = encodeURIComponent('Hola Don Eduardo, estoy comparando los siguientes equipos en la web de TMD: ' + modelsTitles + '. Quisiera una cotización comparativa formal.');
+    var waMsg = encodeURIComponent('Hola TMD Dominicana, estoy comparando los siguientes equipos en la web de TMD: ' + modelsTitles + '. Quisiera una cotización comparativa formal.');
 
     var tableHeaders = _compareList.map(function(item) {
       return `
@@ -2379,6 +2381,17 @@
     return items;
   }
 
+    window._storeCurrentPage = 1;
+  window._storeItemsPerPage = 12;
+  window.tmdStoreGoToPage = function(page) {
+    window._storeCurrentPage = page;
+    window.tmdRenderStoreGrid();
+    var topEl = document.getElementById('tmd-industry-filters-infusion');
+    if (topEl) {
+      topEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   window.tmdRenderStoreGrid = function() {
     var gridEl = document.getElementById('tmd-store-cards-grid');
     var counterEl = document.getElementById('tmd-catalog-count-badge');
@@ -2415,9 +2428,15 @@
       return;
     }
 
-    // Infinite scroll: slice only the visible batch
-    var visibleItems = filtered.slice(0, _visibleCount);
-    var hasMore = _visibleCount < totalItems;
+    window._storeCurrentPage = window._storeCurrentPage || 1;
+    window._storeItemsPerPage = 12;
+    var totalPages = Math.ceil(totalItems / window._storeItemsPerPage) || 1;
+    if (window._storeCurrentPage > totalPages) window._storeCurrentPage = 1;
+    if (window._storeCurrentPage < 1) window._storeCurrentPage = 1;
+
+    var startIdx = (window._storeCurrentPage - 1) * window._storeItemsPerPage;
+    var endIdx = Math.min(startIdx + window._storeItemsPerPage, totalItems);
+    var visibleItems = filtered.slice(startIdx, endIdx);
 
     var cardsHtml = visibleItems.map(function(item) {
       var isCompared = _compareList.some(function(x) { return x.id === item.id; });
@@ -2533,9 +2552,9 @@
               </a>
             </div>
 
-            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola Don Eduardo, estoy viendo la ' + item.title + ' en la tienda web de TMD y quisiera cotizar entrega inmediata.')}" target="_blank" class="w-full py-2 px-3 rounded-[10px] bg-emerald-500 hover:bg-emerald-600 text-black font-headline-sm text-xs font-bold uppercase transition flex items-center justify-center gap-2 cursor-pointer">
+            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, estoy viendo la ' + item.title + ' en la tienda web de TMD y quisiera cotizar entrega inmediata.')}" target="_blank" class="w-full py-2 px-3 rounded-[10px] bg-emerald-500 hover:bg-emerald-600 text-black font-headline-sm text-xs font-bold uppercase transition flex items-center justify-center gap-2 cursor-pointer">
               <span class="material-symbols-outlined text-[15px]">chat</span>
-              <span>Cotizar con Don Eduardo</span>
+              <span>Cotizar Compra B2B</span>
             </a>
           </div>
         </div>
@@ -2544,30 +2563,47 @@
 
     gridEl.innerHTML = cardsHtml;
 
-    // Infinite Scroll: render sentinel + loader; attach IntersectionObserver
     if (paginationEl) {
-      if (hasMore) {
+      if (totalPages <= 1) {
         paginationEl.innerHTML = `
-          <div class="flex flex-col items-center justify-center py-10 gap-3">
-            <div id="tmd-infinite-sentinel" class="w-full h-px"></div>
-            <div class="flex items-center gap-2 text-neutral-500 font-mono text-xs animate-pulse">
-              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-              <span>Cargando más equipos... (${_visibleCount} de ${totalItems} mostrados)</span>
-            </div>
+          <div class="flex items-center justify-center py-6 text-neutral-500 font-mono text-xs">
+            Mostrando todos los ${totalItems} equipos disponibles
           </div>
         `;
-        // Small delay to ensure DOM is painted before attaching observer
-        setTimeout(function() { tmdAttachInfiniteScrollObserver(totalItems); }, 80);
       } else {
-        // All items shown — render end-of-catalog message
+        var pageButtonsHtml = '';
+        for (var p = 1; p <= totalPages; p++) {
+          if (p === 1 || p === totalPages || (p >= window._storeCurrentPage - 2 && p <= window._storeCurrentPage + 2)) {
+            var isActive = (p === window._storeCurrentPage);
+            pageButtonsHtml += `
+              <button type="button" onclick="window.tmdStoreGoToPage(${p})" class="w-9 h-9 rounded-[8px] font-mono text-xs font-bold transition-all ${isActive ? 'bg-amber-500 text-black border border-amber-400 shadow-md' : 'bg-neutral-900/80 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-white/10'}">
+                ${p}
+              </button>
+            `;
+          } else if (p === window._storeCurrentPage - 3 || p === window._storeCurrentPage + 3) {
+            pageButtonsHtml += '<span class="px-1 text-neutral-500 font-mono text-xs">...</span>';
+          }
+        }
+
+        var prevDisabled = window._storeCurrentPage === 1;
+        var nextDisabled = window._storeCurrentPage === totalPages;
+
         paginationEl.innerHTML = `
-          <div class="flex flex-col items-center justify-center py-10 gap-2">
-            <span class="w-8 h-px bg-amber-500/40 block"></span>
-            <p class="font-mono text-[11px] text-neutral-500">Catálogo completo · ${totalItems} equipos disponibles</p>
-            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola Don Eduardo, revisé el catálogo completo de TMD y quisiera cotizar un equipo.')}" target="_blank" class="mt-2 px-5 py-2 rounded-[50px] bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-bold uppercase transition flex items-center gap-2">
-              <span class="material-symbols-outlined text-[16px]">chat</span>
-              ¿No encontró lo que busca? Consúltenos
-            </a>
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-8 mt-4 border-t border-white/[0.08]">
+            <div class="font-mono text-xs text-neutral-400">
+              Mostrando <span class="text-amber-400 font-bold">${startIdx + 1} - ${endIdx}</span> de <span class="text-white font-bold">${totalItems}</span> equipos oficiales
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="window.tmdStoreGoToPage(${window._storeCurrentPage - 1})" ${prevDisabled ? 'disabled' : ''} class="px-3.5 py-2 rounded-[8px] font-mono text-xs font-bold uppercase transition flex items-center gap-1 ${prevDisabled ? 'opacity-30 cursor-not-allowed text-neutral-600 bg-neutral-900 border border-white/5' : 'bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/15 cursor-pointer'}">
+                ← Anterior
+              </button>
+              <div class="flex items-center gap-1 mx-1">
+                ${pageButtonsHtml}
+              </div>
+              <button type="button" onclick="window.tmdStoreGoToPage(${window._storeCurrentPage + 1})" ${nextDisabled ? 'disabled' : ''} class="px-3.5 py-2 rounded-[8px] font-mono text-xs font-bold uppercase transition flex items-center gap-1 ${nextDisabled ? 'opacity-30 cursor-not-allowed text-neutral-600 bg-neutral-900 border border-white/5' : 'bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/15 cursor-pointer'}">
+                Siguiente →
+              </button>
+            </div>
           </div>
         `;
       }
@@ -2762,7 +2798,7 @@
             <!-- Contact Help Box -->
             <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
               <span class="font-bold text-amber-400 block mb-1">¿No encuentra su máquina?</span>
-              <p class="text-[11px] text-neutral-400 leading-snug">Consulte a Don Eduardo por importación directa de cualquier equipo o implemento especial.</p>
+              <p class="text-[11px] text-neutral-400 leading-snug">Consulte a Ingeniería TMD por importación directa de cualquier equipo o implemento especial.</p>
               <a href="https://wa.me/18098262222?text=Hola%20Don%20Eduardo,%20busco%20un%20equipo%20especial" target="_blank" class="text-amber-400 font-bold block mt-2 text-[11px] hover:underline">WhatsApp Directo ➔</a>
             </div>
           </aside>
@@ -4433,14 +4469,25 @@
 
       // D. VEHICLES CATALOG (#/vehicles)
       else if (currentRoute === 'vehicles') {
-        if (!document.getElementById('tmd-industry-filters-infusion') && mainEl) {
-          var gridTarget = mainEl.querySelector('div.grid');
-          var wrapperInd = document.createElement('div');
-          wrapperInd.innerHTML = renderIndustryB2BFiltersModule();
-          if (gridTarget && gridTarget.parentNode) {
-            gridTarget.parentNode.insertBefore(wrapperInd.firstElementChild, gridTarget);
-          } else {
-            mainEl.appendChild(wrapperInd.firstElementChild);
+        if (mainEl) {
+          // Cleanly suppress React's duplicate 44-item machinery container
+          var reactMachineryContainers = mainEl.querySelectorAll('.max-w-7xl, div.grid');
+          reactMachineryContainers.forEach(function(el) {
+            if (!el.closest('#tmd-industry-filters-infusion') && el.id !== 'tmd-industry-filters-infusion') {
+              var parent = el;
+              while (parent && parent.parentElement && parent.parentElement !== mainEl) {
+                parent = parent.parentElement;
+              }
+              if (parent && parent !== mainEl && !parent.id) {
+                parent.style.display = 'none';
+              }
+            }
+          });
+
+          if (!document.getElementById('tmd-industry-filters-infusion')) {
+            var wrapperInd = document.createElement('div');
+            wrapperInd.innerHTML = renderIndustryB2BFiltersModule();
+            mainEl.prepend(wrapperInd.firstElementChild);
           }
         }
       }
