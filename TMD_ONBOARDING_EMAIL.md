@@ -1,6 +1,6 @@
 **Subject:** TodoBuild Titan OS: Su Paquete de Inicio (TMD Tier 2)
 
-Estimado Eduardo López,
+Estimado Don Eduardo,
 
 Bienvenido a TodoBuild Group. Estamos listos para comenzar la implementación técnica de su ecosistema "Tier 2 Fullbay Connected".
 

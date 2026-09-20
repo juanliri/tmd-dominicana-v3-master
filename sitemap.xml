@@ -5,27 +5,27 @@
 
   <!-- 1. Homepage & TCO Estimator -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/</loc>
+    <loc>https://tmddominicana.com/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://tmd-dominicana-2026.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://tmd-dominicana-2026.vercel.app/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tmddominicana.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tmddominicana.com/?lang=en" />
   </url>
 
   <!-- 2. Native Bio-Link & Social Hub -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/bio</loc>
+    <loc>https://tmddominicana.com/bio</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://tmd-dominicana-2026.vercel.app/bio" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://tmd-dominicana-2026.vercel.app/bio?lang=en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tmddominicana.com/bio" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tmddominicana.com/bio?lang=en" />
   </url>
 
   <!-- 3. Catálogo de Maquinaria 0 Km & Renta -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/#/vehicles</loc>
+    <loc>https://tmddominicana.com/#/vehicles</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -33,7 +33,7 @@
 
   <!-- 4. Repuestos Genuinos OEM Express -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/#/parts</loc>
+    <loc>https://tmddominicana.com/#/parts</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -41,7 +41,7 @@
 
   <!-- 5. Taller Central Km 22 & Reserva de Bahías -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/#/service</loc>
+    <loc>https://tmddominicana.com/#/service</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -49,7 +49,7 @@
 
   <!-- 6. Cotizaciones Formales DGII NCF B01/B15 -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/#/quote</loc>
+    <loc>https://tmddominicana.com/#/quote</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -57,7 +57,7 @@
 
   <!-- 7. Cobertura Nacional & Sedes Regionales -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/#/about</loc>
+    <loc>https://tmddominicana.com/#/about</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -65,7 +65,7 @@
 
   <!-- 8. Portal de Clientes VIP & Telemetría LiveLink -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/#/portal</loc>
+    <loc>https://tmddominicana.com/#/portal</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -73,17 +73,17 @@
 
   <!-- 9. Configurador & Cotizador de Equipos -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/configurador</loc>
+    <loc>https://tmddominicana.com/configurador</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://tmd-dominicana-2026.vercel.app/configurador" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://tmd-dominicana-2026.vercel.app/configurador?lang=en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tmddominicana.com/configurador" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://tmddominicana.com/configurador?lang=en" />
   </url>
 
   <!-- 10. Configurador — alias routes -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/cotizar</loc>
+    <loc>https://tmddominicana.com/cotizar</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -91,7 +91,7 @@
 
   <!-- 11. Ficha Técnica Oficial de Equipos -->
   <url>
-    <loc>https://tmd-dominicana-2026.vercel.app/ficha</loc>
+    <loc>https://tmddominicana.com/ficha</loc>
     <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
