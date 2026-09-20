@@ -689,7 +689,7 @@
         <span class="material-symbols-outlined" style="font-size:16px;">tune</span>
         Configurador
       </a>
-      <a href="https://wa.me/18098262222?text=Hola%20Don%20Eduardo,%20deseo%20cotizar%20maquinaria" class="btn-flota-nav" target="_blank">
+      <a href="https://wa.me/18098262222?text=Hola%20Ingenier%C3%ADa%20TMD,%20deseo%20cotizar%20maquinaria" class="btn-flota-nav" target="_blank">
         Cotizar Flota ➔
       </a>
     </div>
@@ -1138,6 +1138,40 @@
         const waMsg = encodeURIComponent(`Hola Ingeniería TMD, estoy viendo la Ficha Técnica de la ${p.title} ($${priceUSD.toLocaleString('en-US')} USD) en la web de TMD. Quisiera cotizar una unidad y consultar disponibilidad para entrega.`);
         document.getElementById('btn-wa-action').href = `https://wa.me/18098262222?text=${waMsg}`;
         document.getElementById('btn-config-action').href = `/#/configurador?brand=${encodeURIComponent(p.brand)}&model=${encodeURIComponent(p.id)}`;
+
+        // Dynamic Schema.org Product JSON-LD
+        let schemaEl = document.getElementById('product-schema-jsonld');
+        if (!schemaEl) {
+          schemaEl = document.createElement('script');
+          schemaEl.id = 'product-schema-jsonld';
+          schemaEl.type = 'application/ld+json';
+          document.head.appendChild(schemaEl);
+        }
+        schemaEl.textContent = JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          "name": p.title,
+          "image": p.image,
+          "description": p.tagline || `Ficha técnica oficial de ${p.title} en TMD Dominicana.`,
+          "brand": {
+            "@type": "Brand",
+            "name": p.brand
+          },
+          "sku": p.sku || p.id,
+          "offers": {
+            "@type": "Offer",
+            "url": window.location.href,
+            "priceCurrency": "USD",
+            "price": priceUSD,
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": {
+              "@type": "Organization",
+              "name": "TMD Dominicana — Tecnomaquinarias Diesel",
+              "url": "https://tmd-dominicana-2026-todobuild-apps.vercel.app"
+            }
+          }
+        });
 
         // Related items
         renderRelated(p);
