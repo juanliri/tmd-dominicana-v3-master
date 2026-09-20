@@ -4558,7 +4558,7 @@
     var raw = (window.location.hash || '').replace(/^#\/?/, '').toLowerCase().trim();
     if (!raw || raw === '' || raw === 'inicio' || raw === 'home') return 'home';
     if (raw === 'portal' || raw === 'portal-vip' || raw === 'login' || raw === 'portal-clientes' || raw === 'client-portal') return 'portal';
-    if (raw === 'vehicles' || raw === 'modelos' || raw === 'catalogo' || ['construccion','agricolas','industriales','mineria'].includes(raw)) return 'vehicles';
+    if (raw === 'vehicles' || raw === 'machinery' || raw === 'modelos' || raw === 'catalogo' || ['construccion','agricolas','industriales','mineria'].includes(raw)) return 'vehicles';
     if (raw.startsWith('vehicle/') || raw.startsWith('maquinaria/')) return 'vehicle-detail';
     if (raw.startsWith('configurator') || raw.startsWith('studio-3d')) return 'configurator';
     if (raw === 'service' || raw === 'servicios' || raw === 'taller') return 'service';
