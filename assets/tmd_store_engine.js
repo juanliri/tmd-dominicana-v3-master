@@ -2183,12 +2183,16 @@
     ];
 
     var tableRows = specsToCompare.map(function(param) {
+      var vals = _compareList.map(function(item) { return String(param.getVal(item)).trim(); });
+      var allSame = vals.every(function(v) { return v === vals[0]; });
       var cells = _compareList.map(function(item) {
-        return `<td class="p-3.5 text-center font-mono text-xs border-b border-white/5 text-neutral-200">${param.getVal(item)}</td>`;
+        var val = param.getVal(item);
+        var diffStyle = (!allSame && vals.length > 1) ? 'text-amber-400 font-bold bg-amber-500/[0.06]' : 'text-neutral-200';
+        return `<td class="p-3.5 text-center font-mono text-xs border-b border-white/5 ${diffStyle}">${val}</td>`;
       }).join('');
       return `
         <tr class="hover:bg-white/[0.02] transition">
-          <td class="p-3.5 font-sans font-bold text-xs uppercase text-neutral-400 border-b border-white/5 bg-neutral-950/60 sticky left-0">${param.label}</td>
+          <td class="p-3.5 font-sans font-bold text-xs uppercase text-neutral-400 border-b border-white/5 bg-neutral-950/80 sticky left-0">${param.label}</td>
           ${cells}
         </tr>
       `;
@@ -2230,15 +2234,109 @@
           <button onclick="window.tmdClearCompare(); document.getElementById('tmd-compare-modal-overlay').remove()" class="text-xs font-mono text-neutral-400 hover:text-white underline cursor-pointer">
             Limpiar selección de comparativa
           </button>
-          <a href="https://wa.me/18098262222?text=${waMsg}" target="_blank" class="py-2.5 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center gap-2 shadow-lg transition cursor-pointer">
-            <span class="material-symbols-outlined text-[18px]">chat</span>
-            <span>Cotizar Comparativa Completa con Ingeniería TMD (WhatsApp)</span>
-          </a>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="window.tmdExportComparePDF()" class="py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white border border-white/15 font-mono text-xs font-bold uppercase flex items-center gap-1.5 transition cursor-pointer hover:border-amber-500/40">
+              <span class="material-symbols-outlined text-[16px] text-amber-400">picture_as_pdf</span>
+              <span>Exportar PDF</span>
+            </button>
+            <a href="https://wa.me/18098262222?text=${waMsg}" target="_blank" rel="noopener noreferrer" class="py-2.5 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase flex items-center gap-2 shadow-lg transition cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">chat</span>
+              <span>Cotizar con Ingeniería TMD (WhatsApp)</span>
+            </a>
+          </div>
         </div>
       </div>
     `;
 
     document.body.appendChild(modal);
+  };
+
+  // ─── INSTANT COMPARISON MATRIX PDF EXPORT ───
+  window.tmdExportComparePDF = function() {
+    if (!_compareList || _compareList.length === 0) return;
+    if (typeof window.tmdTrackEvent === 'function') {
+      window.tmdTrackEvent('compare_pdf_exported', { count: _compareList.length });
+    }
+    var printWindow = window.open('', '_blank', 'width=1050,height=850');
+    if (!printWindow) {
+      alert('Por favor permita ventanas emergentes para generar el reporte de comparativa.');
+      return;
+    }
+
+    var colsHeader = _compareList.map(function(m) {
+      return '<th style="padding:12px;border:1px solid #e5e7eb;background:#f9fafb;text-align:center;">' +
+        '<div style="font-weight:900;font-size:13px;color:#111;text-transform:uppercase;">' + m.title + '</div>' +
+        '<div style="color:#b45309;font-weight:bold;font-size:12px;margin-top:4px;">US$ ' + Number(m.priceUSD || 0).toLocaleString() + '</div>' +
+        '</th>';
+    }).join('');
+
+    var specsToCompare = [
+      { label: 'Marca Oficial', getVal: function(i) { return i.brand; } },
+      { label: 'Categoría', getVal: function(i) { return i.category || 'Equipo Industrial'; } },
+      { label: 'Garantía TMD', getVal: function(i) { return i.warranty || '1 Año Oficial TMD'; } },
+      { label: 'Potencia Motor', getVal: function(i) { return (i.specs && (i.specs.enginePower || i.specs.potencia || i.specs.power)) || 'Estándar'; } },
+      { label: 'Peso Operativo', getVal: function(i) { return (i.specs && (i.specs.operatingWeight || i.specs.peso || i.specs.weight)) || 'Estándar'; } },
+      { label: 'Capacidad de Balde / Carga', getVal: function(i) { return (i.specs && (i.specs.bucketCapacity || i.specs.roc || i.specs.capacidad)) || 'N/D'; } },
+      { label: 'Profundidad de Excavación', getVal: function(i) { return (i.specs && (i.specs.digDepth || i.specs.maxDigDepth)) || 'N/D'; } },
+      { label: 'Flujo / Presión Hidráulica', getVal: function(i) { return (i.specs && (i.specs.hydraulicFlow || i.specs.presionOperacion)) || 'N/D'; } },
+      { label: 'Disponibilidad', getVal: function(i) { return 'Entrega Inmediata Patio Km 22'; } }
+    ];
+
+    var rowsHtml = specsToCompare.map(function(param) {
+      var cells = _compareList.map(function(m) {
+        return '<td style="padding:8px 12px;border:1px solid #e5e7eb;text-align:center;font-size:12px;">' + param.getVal(m) + '</td>';
+      }).join('');
+      return '<tr><td style="padding:8px 12px;border:1px solid #e5e7eb;font-weight:bold;background:#fafafa;text-transform:uppercase;font-size:11px;">' + param.label + '</td>' + cells + '</tr>';
+    }).join('');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>COMPARATIVA TÉCNICA OFICIAL — TMD DOMINICANA</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 35px; color: #111; font-size: 13px; line-height: 1.5; }
+          .hdr { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #f59e0b; padding-bottom: 14px; margin-bottom: 24px; }
+          .logo-box { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; }
+          .badge { background: #f59e0b; color: #000; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 10px; }
+          table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+          @media print { .no-print { display: none; } }
+        </style>
+      </head>
+      <body>
+        <div class="hdr">
+          <div>
+            <div class="logo-box">TECNOMAQUINARIAS DIESEL <span style="color:#f59e0b;">(TMD)</span></div>
+            <div style="color:#6b7280; font-size:11px; margin-top:2px;">RNC: 1-31-12345-6 · Autopista Duarte Km 22, Santo Domingo Oeste, RD</div>
+          </div>
+          <div style="text-align:right;">
+            <span class="badge">MATRIZ COMPARATIVA OFICIAL</span>
+            <div style="font-size:11px; color:#6b7280; margin-top:4px;">Fecha: \${new Date().toLocaleDateString('es-DO')}</div>
+          </div>
+        </div>
+        <h2 style="font-size:16px;text-transform:uppercase;margin:0 0 10px;color:#111;">Análisis Técnico Comparativo Lado a Lado</h2>
+        <p style="font-size:12px;color:#6b7280;margin:0 0 15px;">Cuadro comparativo de parámetros de ingeniería y rendimiento para toma de decisión de inversión en flota.</p>
+        <table>
+          <thead>
+            <tr>
+              <th style="padding:12px;border:1px solid #e5e7eb;background:#f3f4f6;text-align:left;font-size:11px;text-transform:uppercase;">Parámetro</th>
+              \${colsHeader}
+            </tr>
+          </thead>
+          <tbody>
+            \${rowsHtml}
+          </tbody>
+        </table>
+        <div style="margin-top:30px;padding:15px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;font-size:11px;color:#4b5563;">
+          <strong>Nota Institucional:</strong> Todas las cotizaciones y valores son de referencia para entrega en patio Km 22 o despacho a nivel nacional en cama baja Lowboy. Respaldado por el taller especializado TMD y disponibilidad de repuestos genuinos.
+        </div>
+        <div class="no-print" style="margin-top:25px;text-align:center;">
+          <button onclick="window.print()" style="padding:10px 22px;background:#f59e0b;color:#000;font-weight:bold;border:none;border-radius:6px;cursor:pointer;font-size:13px;text-transform:uppercase;">Imprimir / Guardar como PDF</button>
+        </div>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   // ─── Brand CDN Fallback Image Map ─────────────────────────────────────────
@@ -2512,11 +2610,11 @@
           else state = 'order';
         }
         if (state === 'transit' || state === 'transito') {
-          return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-amber-300 border border-amber-500/40">🟡 En Tránsito</span>';
+          return '<span class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-amber-300 border border-amber-500/40 backdrop-blur-sm">🟡 En Puerto (5-7 Días)</span>';
         } else if (state === 'order' || state === 'pedido') {
-          return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-cyan-300 border border-cyan-500/40">🔵 Por Pedido</span>';
+          return '<span class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-cyan-300 border border-cyan-500/40 backdrop-blur-sm">🔵 Importación (30 Días)</span>';
         }
-        return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30">🟢 Stock Km 22</span>';
+        return '<span class="px-2.5 py-1 rounded-lg text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm">🟢 En Patio Km 22 (24h)</span>';
       })(item);
 
       return `
@@ -4660,8 +4758,9 @@
       // H. CONFIGURADOR INTERACTIVO (#/configurador or #/configurator) — BUG-3 FIX
       else if (currentRoute === 'configurador' || currentRoute === 'configurator') {
         if (!document.getElementById('tmd-configurador-spa-section') && mainEl) {
-          // Parse brand/model query params for deep-link from store cards
-          var urlParams = new URLSearchParams(window.location.search);
+          // Parse brand/model query params from either hash query or standard search
+          var hashQuery = (window.location.hash && window.location.hash.includes('?')) ? window.location.hash.split('?')[1] : '';
+          var urlParams = new URLSearchParams(hashQuery || window.location.search);
           var presetBrand = urlParams.get('brand') || '';
           var presetModel = urlParams.get('model') || '';
 
