@@ -490,115 +490,117 @@
     var c = calculateLeasing();
 
     return `
-      <div id="tmd-leasing-infusion-container" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
-        <!-- Header -->
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
-              <span>PORTAL FINANCIERO RD</span>
-              <span>/</span>
-              <span>LEASING BANCARIO</span>
-              <span>/</span>
-              <span class="text-white font-bold">LEY 392-07 PROINDUSTRIA</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white uppercase">
-              Simulador Financiero & Escudo Fiscal Dominicano
-            </h3>
-            <p class="text-xs text-neutral-400 font-mono mt-1">
-              Calcule su cuota con tasas corporativas preferenciales y deducción de impuestos de importación y renta.
-            </p>
-          </div>
-          <div class="text-right">
-            <span class="text-xs font-mono text-neutral-400 block">VALOR DEL EQUIPO:</span>
-            <span class="text-xl font-bold font-mono text-amber-400">$${_currentMachinePrice.toLocaleString()} USD</span>
-            <span class="text-xs font-mono text-neutral-500 block">(RD$ ${(_currentMachinePrice * 60).toLocaleString()})</span>
-          </div>
-        </div>
-
-        <!-- Bank Selector Tabs -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          ${DOM_BANKS.map(function (b) {
-            var isActive = _activeBank.bankName === b.bankName;
-            return `
-              <div onclick="window.tmdSetBank('${b.bankName}')" class="tmd-bank-card p-3.5 rounded-xl border ${isActive ? 'active' : 'border-white/10 bg-black/50'}">
-                <div class="flex justify-between items-center mb-1">
-                  <span class="text-xs font-mono font-bold ${isActive ? 'text-amber-400' : 'text-white'}">${b.bankName}</span>
-                  <span class="w-2 h-2 rounded-full ${isActive ? 'bg-emerald-400' : 'bg-neutral-600'}"></span>
-                </div>
-                <div class="text-[11px] text-neutral-400 truncate mb-2">${b.name}</div>
-                <div class="flex items-baseline justify-between pt-2 border-t border-white/10 text-xs font-mono">
-                  <span class="text-neutral-500">TASA FIJA:</span>
-                  <span class="text-sm font-bold text-amber-400">${b.rate.toFixed(2)}%</span>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-
-        <!-- Sliders & Results Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-black/60 p-5 rounded-xl border border-white/10">
-          <div class="lg:col-span-6 space-y-5">
+      <div id="tmd-leasing-infusion-container" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 my-4">
+        <div class="rounded-3xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-xl p-6 sm:p-8 text-slate-900 dark:text-white transition-all">
+          <!-- Header -->
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200 dark:border-neutral-800 pb-5 mb-6">
             <div>
-              <div class="flex justify-between items-center text-xs font-mono mb-2">
-                <span class="text-neutral-400">INICIAL / DOWN PAYMENT (${_downPaymentPct}%):</span>
-                <span class="text-amber-400 font-bold">$${c.dpAmountUsd.toLocaleString()} USD (RD$ ${c.dpAmountDop.toLocaleString()})</span>
+              <div class="flex items-center gap-2 text-xs font-mono text-amber-500 dark:text-amber-400 font-bold mb-2">
+                <span>PORTAL FINANCIERO RD</span>
+                <span>/</span>
+                <span>LEASING BANCARIO</span>
+                <span>/</span>
+                <span class="text-slate-900 dark:text-white">LEY 392-07 PROINDUSTRIA</span>
               </div>
-              <input type="range" min="10" max="50" step="5" value="${_downPaymentPct}" oninput="window.tmdUpdateDp(this.value)" class="tmd-slider">
-            </div>
-
-            <div>
-              <div class="flex justify-between items-center text-xs font-mono mb-2">
-                <span class="text-neutral-400">PLAZO DEL FINANCIAMIENTO:</span>
-                <span class="text-amber-400 font-bold">${_loanTermMonths} MESES (${(_loanTermMonths / 12).toFixed(1)} Años)</span>
-              </div>
-              <input type="range" min="12" max="60" step="12" value="${_loanTermMonths}" oninput="window.tmdUpdateTerm(this.value)" class="tmd-slider">
-            </div>
-
-            <div class="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 space-y-2">
-              <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                BENEFICIO TRIBUTARIO LEY 392-07 (PROINDUSTRIA)
-              </div>
-              <p class="text-[11px] text-neutral-300 leading-relaxed">
-                Adquisición exenta del 18% de ITBIS aduanal + depreciación acelerada deductible del 27% del Impuesto Sobre la Renta (ISR corporativo).
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 dark:text-white leading-tight">
+                Simulador Financiero & Escudo Fiscal Dominicano
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-neutral-400 mt-1 max-w-2xl">
+                Calcule su cuota con tasas corporativas preferenciales y deducción de impuestos de importación y renta según las normativas DGII.
               </p>
-              <div class="pt-1 text-xs font-mono text-emerald-300 font-bold flex justify-between">
-                <span>Ahorro Fiscal Total Estimado:</span>
-                <span>RD$ ${c.totalShieldDop.toLocaleString()}</span>
-              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="text-xs font-mono text-slate-500 dark:text-neutral-400 block uppercase font-bold">Valor de Referencia:</span>
+              <span class="text-2xl font-black font-mono text-amber-500 dark:text-amber-400">$${_currentMachinePrice.toLocaleString()} USD</span>
+              <span class="text-xs font-mono text-slate-400 dark:text-neutral-500 block">(RD$ ${(_currentMachinePrice * 60).toLocaleString()})</span>
             </div>
           </div>
 
-          <div class="lg:col-span-6 flex flex-col justify-between p-5 rounded-xl border border-amber-500/40 bg-neutral-950">
-            <div>
-              <span class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block mb-1">CUOTA MENSUAL ESTIMADA (${_activeBank.bankName}):</span>
-              <div class="flex items-baseline gap-3 mb-1">
-                <span class="text-3xl font-black font-mono text-amber-400">$${c.monthlyUsd.toLocaleString()} USD</span>
-                <span class="text-sm font-mono text-neutral-400">/ mes</span>
-              </div>
-              <div class="text-sm font-mono font-bold text-neutral-300 mb-4">RD$ ${c.monthlyDop.toLocaleString()} / mes aprox.</div>
+          <!-- Bank Selector Tabs -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-6">
+            ${DOM_BANKS.map(function (b) {
+              var isActive = _activeBank.bankName === b.bankName;
+              return `
+                <div onclick="window.tmdSetBank('${b.bankName}')" class="rounded-2xl p-4 border transition-all cursor-pointer ${isActive ? 'border-amber-500 ring-2 ring-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10' : 'bg-slate-50 dark:bg-neutral-950/60 border-slate-200 dark:border-neutral-800 hover:border-amber-500/40'}">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-xs font-mono font-bold ${isActive ? 'text-amber-600 dark:text-amber-400' : 'text-slate-900 dark:text-white'}">${b.bankName}</span>
+                    <span class="w-2.5 h-2.5 rounded-full ${isActive ? 'bg-emerald-500 shadow-sm shadow-emerald-500/50' : 'bg-slate-300 dark:bg-neutral-700'}"></span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 dark:text-neutral-400 truncate mb-3">${b.name}</div>
+                  <div class="flex items-baseline justify-between pt-2.5 border-t border-slate-200 dark:border-neutral-800/80 text-xs font-mono">
+                    <span class="text-slate-400 dark:text-neutral-500">TASA FIJA:</span>
+                    <span class="text-sm font-bold text-amber-600 dark:text-amber-400">${b.rate.toFixed(2)}%</span>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
 
-              <div class="space-y-1.5 text-xs font-mono text-neutral-400 border-t border-white/10 pt-3">
-                <div class="flex justify-between">
-                  <span>Monto Financiado:</span>
-                  <span class="text-white font-bold">$${c.financedUsd.toLocaleString()} USD</span>
+          <!-- Sliders & Results Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-slate-50 dark:bg-neutral-950/80 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800">
+            <div class="lg:col-span-6 space-y-6">
+              <div>
+                <div class="flex justify-between items-center text-xs font-mono mb-2">
+                  <span class="text-slate-600 dark:text-neutral-400 font-bold">INICIAL / DOWN PAYMENT (${_downPaymentPct}%):</span>
+                  <span class="text-amber-600 dark:text-amber-400 font-bold">$${c.dpAmountUsd.toLocaleString()} USD (RD$ ${c.dpAmountDop.toLocaleString()})</span>
                 </div>
-                <div class="flex justify-between">
-                  <span>Entidad Bancaria:</span>
-                  <span class="text-amber-400 font-bold">${_activeBank.name}</span>
+                <input type="range" min="10" max="50" step="5" value="${_downPaymentPct}" oninput="window.tmdUpdateDp(this.value)" class="tmd-slider w-full accent-amber-500 cursor-pointer">
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs font-mono mb-2">
+                  <span class="text-slate-600 dark:text-neutral-400 font-bold">PLAZO DEL FINANCIAMIENTO:</span>
+                  <span class="text-amber-600 dark:text-amber-400 font-bold">${_loanTermMonths} MESES (${(_loanTermMonths / 12).toFixed(1)} Años)</span>
                 </div>
-                <div class="flex justify-between">
-                  <span>Tasa Anual Efectiva:</span>
-                  <span class="text-emerald-400 font-bold">${_activeBank.rate.toFixed(2)}%</span>
+                <input type="range" min="12" max="60" step="12" value="${_loanTermMonths}" oninput="window.tmdUpdateTerm(this.value)" class="tmd-slider w-full accent-amber-500 cursor-pointer">
+              </div>
+
+              <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-400 text-xs font-mono">
+                <div class="flex items-center gap-2 font-bold mb-1">
+                  <span class="material-symbols-outlined text-[16px]">verified</span>
+                  <span>BENEFICIO TRIBUTARIO LEY 392-07 (PROINDUSTRIA)</span>
+                </div>
+                <p class="text-[11px] leading-relaxed text-emerald-700 dark:text-emerald-300">
+                  Adquisición exenta del 18% de ITBIS aduanal + depreciación acelerada deducible del 27% del Impuesto Sobre la Renta (ISR corporativo).
+                </p>
+                <div class="mt-2 pt-2 border-t border-emerald-500/20 flex justify-between font-bold">
+                  <span>Ahorro Fiscal Total Estimado:</span>
+                  <span>RD$ ${c.totalShieldDop.toLocaleString()}</span>
                 </div>
               </div>
             </div>
 
-            <div class="pt-4 border-t border-white/10 mt-4 flex items-center gap-3">
-              <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo solicitar formalmente la corrida de leasing con ' + _activeBank.name + ' para el equipo ' + _currentMachineName + ' (Precio: $' + _currentMachinePrice + ' USD, Plazo: ' + _loanTermMonths + ' meses, Cuota: $' + c.monthlyUsd + ' USD/mes con Escudo Ley 392-07).')}" target="_blank" class="w-full py-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-mono font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.861.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
+            <!-- Result Card -->
+            <div class="lg:col-span-6 flex flex-col justify-between p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-lg">
+              <div>
+                <span class="text-xs font-mono text-slate-500 dark:text-neutral-400 block uppercase font-bold mb-1">CUOTA MENSUAL ESTIMADA (${_activeBank.bankName}):</span>
+                <div class="text-3xl sm:text-4xl font-black font-mono text-amber-500 dark:text-amber-400 mb-1">
+                  $${c.monthlyPaymentUsd.toLocaleString()} <span class="text-sm font-sans font-medium text-slate-500 dark:text-neutral-400">USD / mes</span>
+                </div>
+                <div class="text-xs font-mono text-slate-500 dark:text-neutral-400 mb-4">
+                  RD$ ${c.monthlyPaymentDop.toLocaleString()} / mes aprox.
+                </div>
+
+                <div class="space-y-2 text-xs font-mono border-t border-slate-100 dark:border-neutral-800 pt-3">
+                  <div class="flex justify-between text-slate-600 dark:text-neutral-400">
+                    <span>Monto Financiado:</span>
+                    <strong class="text-slate-900 dark:text-white">$${c.loanAmountUsd.toLocaleString()} USD</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-600 dark:text-neutral-400">
+                    <span>Entidad Bancaria:</span>
+                    <strong class="text-slate-900 dark:text-white">${_activeBank.name}</strong>
+                  </div>
+                  <div class="flex justify-between text-slate-600 dark:text-neutral-400">
+                    <span>Tasa Anual Efectiva:</span>
+                    <strong class="text-emerald-600 dark:text-emerald-400">${_activeBank.rate.toFixed(2)}%</strong>
+                  </div>
+                </div>
+              </div>
+
+              <button onclick="window.tmdRequestBankApproval()" class="mt-6 w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                <span class="material-symbols-outlined text-[16px]">point_of_sale</span>
                 <span>Solicitar Pre-Aprobación Bancaria WhatsApp</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -648,84 +650,90 @@
 
   function renderVehicleDetailInfusion(machineName) {
     return `
-      <div id="tmd-vehicle-360-infusion" class="tmd-stitch-section rounded-2xl border p-6 md:p-8 bg-neutral-950/90 dark:bg-black/90 text-white shadow-2xl border-amber-500/20">
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-white/10 pb-5 mb-6">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
-              <span>INSPECTOR 360°</span>
-              <span>/</span>
-              <span>TELEMETRÍA EN VIVO</span>
-              <span>/</span>
-              <span class="text-white font-bold">${machineName || 'JCB 3CX ECO 4X4'}</span>
+      <div id="tmd-vehicle-360-infusion" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 my-4">
+        <div class="rounded-3xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-xl p-6 sm:p-8 text-slate-900 dark:text-white transition-all">
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200 dark:border-neutral-800 pb-5 mb-6">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-mono text-amber-500 dark:text-amber-400 font-bold mb-2">
+                <span>INSPECTOR 360°</span>
+                <span>/</span>
+                <span>TELEMETRÍA EN VIVO</span>
+                <span>/</span>
+                <span class="text-slate-900 dark:text-white">${machineName || 'JCB 3CX ECO 4X4'}</span>
+              </div>
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 dark:text-white leading-tight">
+                Inspección Virtual 360° & Selector de Implementos Hidráulicos
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-neutral-400 mt-1 max-w-2xl">
+                Seleccione el ángulo de visualización y el implemento de trabajo para recalcular en tiempo real el flujo hidráulico y el peso en orden de marcha.
+              </p>
             </div>
-            <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white uppercase">
-              Inspección Virtual 360° & Selector de Implementos Hidráulicos
-            </h3>
-            <p class="text-xs text-neutral-400 font-mono mt-1">
-              Seleccione el ángulo de visualización y el implemento de trabajo para recalcular en tiempo real el flujo hidráulico y el peso en orden de marcha.
-            </p>
+
+            <div class="flex items-center gap-2 font-mono text-xs shrink-0">
+              <div class="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center gap-2 font-bold">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>RPM: <strong>2,200</strong></span>
+              </div>
+              <div class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 text-slate-700 dark:text-neutral-300">
+                Temp: <strong class="text-amber-500 font-bold">88°C</strong>
+              </div>
+              <div class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 text-slate-700 dark:text-neutral-300">
+                Consumo: <strong class="text-slate-900 dark:text-white font-bold">1.8 gal/h</strong>
+              </div>
+            </div>
           </div>
 
-          <div class="flex items-center gap-2 font-mono text-xs">
-            <div class="px-3 py-1.5 rounded bg-black/60 border border-emerald-500/30 text-emerald-400 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              RPM: <strong>2,200</strong>
-            </div>
-            <div class="px-3 py-1.5 rounded bg-black/60 border border-white/10 text-neutral-300">
-              Temp: <strong class="text-amber-400">88°C</strong>
-            </div>
-            <div class="px-3 py-1.5 rounded bg-black/60 border border-white/10 text-neutral-300">
-              Consumo: <strong class="text-white">1.8 gal/h</strong>
-            </div>
+          <!-- Angle Selector Pills -->
+          <div class="flex flex-wrap items-center gap-2 mb-6">
+            <span class="text-xs font-mono text-slate-500 dark:text-neutral-400 font-bold mr-1">ÁNGULO:</span>
+            <button onclick="window.tmdSetAngle(0)" class="px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${_activeAngle === 0 ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-slate-100 dark:bg-neutral-800/80 text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700 hover:border-amber-500/50'}">
+              0° Frontal
+            </button>
+            <button onclick="window.tmdSetAngle(90)" class="px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${_activeAngle === 90 ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-slate-100 dark:bg-neutral-800/80 text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700 hover:border-amber-500/50'}">
+              90° Lateral Oruga/Rueda
+            </button>
+            <button onclick="window.tmdSetAngle(180)" class="px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${_activeAngle === 180 ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-slate-100 dark:bg-neutral-800/80 text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700 hover:border-amber-500/50'}">
+              180° Brazo Extradig
+            </button>
+            <button onclick="window.tmdSetAngle(270)" class="px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${_activeAngle === 270 ? 'bg-amber-500 text-black font-black shadow-md' : 'bg-slate-100 dark:bg-neutral-800/80 text-slate-700 dark:text-neutral-300 border border-slate-200 dark:border-neutral-700 hover:border-amber-500/50'}">
+              270° Cabina Climatizada
+            </button>
           </div>
-        </div>
 
-        <div class="flex items-center gap-2 mb-6">
-          <span class="text-xs font-mono text-neutral-400 mr-2">ÁNGULO:</span>
-          <button onclick="window.tmdSetAngle(0)" class="tmd-360-btn px-3 py-1.5 rounded-lg border text-xs font-mono uppercase ${_activeAngle === 0 ? 'active' : 'border-white/10 bg-black text-neutral-400'}">
-            0° Frontal
-          </button>
-          <button onclick="window.tmdSetAngle(90)" class="tmd-360-btn px-3 py-1.5 rounded-lg border text-xs font-mono uppercase ${_activeAngle === 90 ? 'active' : 'border-white/10 bg-black text-neutral-400'}">
-            90° Lateral Oruga/Rueda
-          </button>
-          <button onclick="window.tmdSetAngle(180)" class="tmd-360-btn px-3 py-1.5 rounded-lg border text-xs font-mono uppercase ${_activeAngle === 180 ? 'active' : 'border-white/10 bg-black text-neutral-400'}">
-            180° Brazo Extradig
-          </button>
-          <button onclick="window.tmdSetAngle(270)" class="tmd-360-btn px-3 py-1.5 rounded-lg border text-xs font-mono uppercase ${_activeAngle === 270 ? 'active' : 'border-white/10 bg-black text-neutral-400'}">
-            270° Cabina Climatizada
-          </button>
-        </div>
-
-        <div class="mb-4">
-          <label class="block text-xs font-mono text-neutral-400 uppercase mb-2">Acople Rápido de Accesorios Hidráulicos:</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            ${ATTACHMENTS.map(function (att) {
-              var isSel = _activeAttachment.name === att.name;
-              return `
-                <div onclick="window.tmdSelectAttachment('${att.id}')" class="tmd-implement-card p-3.5 rounded-xl border ${isSel ? 'active' : 'border-white/10 bg-black/60'}">
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="text-xs font-mono font-bold ${isSel ? 'text-amber-400' : 'text-white'}">${att.name}</span>
-                    <span class="w-2 h-2 rounded-full ${isSel ? 'bg-amber-400' : 'bg-neutral-600'}"></span>
+          <!-- Attachments Grid -->
+          <div class="mb-5">
+            <label class="block text-xs font-mono text-slate-500 dark:text-neutral-400 uppercase font-bold mb-3">Acople Rápido de Accesorios Hidráulicos:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              ${ATTACHMENTS.map(function (att) {
+                var isSel = _activeAttachment.name === att.name;
+                return `
+                  <div onclick="window.tmdSelectAttachment('${att.id}')" class="rounded-2xl p-4 border transition-all cursor-pointer ${isSel ? 'border-amber-500 ring-2 ring-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10' : 'bg-slate-50 dark:bg-neutral-950/60 border-slate-200 dark:border-neutral-800 hover:border-amber-500/40'}">
+                    <div class="flex justify-between items-center mb-1.5">
+                      <span class="text-xs font-mono font-bold ${isSel ? 'text-amber-600 dark:text-amber-400' : 'text-slate-900 dark:text-white'}">${att.name}</span>
+                      <span class="w-2.5 h-2.5 rounded-full ${isSel ? 'bg-amber-500 shadow-sm shadow-amber-500/50' : 'bg-slate-300 dark:bg-neutral-700'}"></span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-neutral-400 mb-3 leading-relaxed">${att.desc}</p>
+                    <div class="flex justify-between items-center text-[11px] font-mono text-slate-500 dark:text-neutral-400 border-t border-slate-200 dark:border-neutral-800/80 pt-2.5">
+                      <span>Flujo: <strong class="text-slate-900 dark:text-white">${att.flow} L/min</strong></span>
+                      <span class="font-bold text-amber-600 dark:text-amber-400">${att.price > 0 ? '+$' + att.price.toLocaleString() + ' USD' : 'Incluido'}</span>
+                    </div>
                   </div>
-                  <p class="text-[11px] text-neutral-400 mb-2">${att.desc}</p>
-                  <div class="flex justify-between items-center text-[10px] font-mono text-neutral-400 border-t border-white/10 pt-2">
-                    <span>Flujo: <strong class="text-white">${att.flow} L/min</strong></span>
-                    <span>${att.price > 0 ? '+$' + att.price + ' USD' : 'Incluido'}</span>
-                  </div>
-                </div>
-              `;
-            }).join('')}
+                `;
+              }).join('')}
+            </div>
           </div>
-        </div>
 
-        <div class="p-3.5 rounded-xl bg-black/80 border border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
-          <div class="flex items-center gap-4">
-            <span>Peso Operativo Recalculado: <strong class="text-white">${(8135 + _activeAttachment.extraWeight).toLocaleString()} kg</strong></span>
-            <span>Caudal Hidráulico Demandado: <strong class="text-amber-400">${_activeAttachment.flow} L/min</strong></span>
+          <!-- Recalculated Bar -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-neutral-950/80 border border-slate-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+            <div class="flex items-center gap-5 flex-wrap">
+              <span class="text-slate-600 dark:text-neutral-400">Peso Operativo Recalculado: <strong class="text-slate-900 dark:text-white font-bold">${(8135 + _activeAttachment.extraWeight).toLocaleString()} kg</strong></span>
+              <span class="text-slate-600 dark:text-neutral-400">Caudal Hidráulico Demandado: <strong class="text-amber-600 dark:text-amber-400 font-bold">${_activeAttachment.flow} L/min</strong></span>
+            </div>
+            <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar el equipo ' + machineName + ' configurado con ' + _activeAttachment.name + ' para entrega en obra.')}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold uppercase tracking-wider text-xs transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+              <span>Cotizar Configuración en WhatsApp</span>
+              <span>➔</span>
+            </a>
           </div>
-          <a href="https://api.whatsapp.com/send/?phone=18098262222&text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar el equipo ' + machineName + ' configurado con ' + _activeAttachment.name + ' para entrega en obra.')}" target="_blank" class="px-4 py-1.5 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider text-[11px] transition-colors">
-            Cotizar Configuración en WhatsApp →
-          </a>
         </div>
       </div>
     `;
@@ -1273,7 +1281,7 @@
     ];
 
     var cardsHtml = bestSellers.map(function(item) {
-      var waMsg = encodeURIComponent('Hola Don Eduardo, vi el Best Seller ' + item.title + ' en la portada de TMD y deseo cotizar una unidad.');
+      var waMsg = encodeURIComponent('Hola TMD Corporativo, solicito cotización para el equipo ' + item.title + ' en la portada de TMD y deseo cotizar una unidad.');
       var specsSnippet = item.specs.map(function(s) {
         return `
           <div class="p-2 rounded-lg bg-black/40 border border-white/[0.04]">
@@ -1324,7 +1332,7 @@
           <!-- Actions -->
           <div class="space-y-2">
             <div class="grid grid-cols-2 gap-2">
-              <a href="/ficha?id=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1 transition text-center">
+              <a href="/ficha_tecnica.html?id=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1 transition text-center">
                 <span class="material-symbols-outlined text-[14px] text-amber-400">description</span>
                 <span>Ver Ficha</span>
               </a>
@@ -1336,7 +1344,7 @@
 
             <a href="https://wa.me/18098262222?text=${waMsg}" target="_blank" class="w-full py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center justify-center gap-2 transition shadow cursor-pointer">
               <span class="material-symbols-outlined text-[16px]">chat</span>
-              <span>Cotizar con Don Eduardo</span>
+              <span>Solicitar Cotización B2B</span>
             </a>
           </div>
         </div>
@@ -1909,93 +1917,101 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 8. MODULE 3: CATÁLOGO UNIVERSAL MULTIMARCA & TIENDA INDUSTRIAL B2B (#/vehicles)
-  // 10 Marcas Oficiales · Categorías Superiores · Filtros Laterales · Infinite Scroll · Barra de Comparación
+    // ─────────────────────────────────────────────────────────────────────────────
+  // 8. MODULE 3: CATÁLOGO MAESTRO MULTIMARCA & TIENDA INDUSTRIAL B2B (#/vehicles)
+  // 180+ Unidades Oficiales · 10 Marcas · Modos Duales (Renta / Compra) · Comparador
   // ─────────────────────────────────────────────────────────────────────────────
-  var _activeSector = 'ALL';
-  var _activeBrandFilter = 'ALL';
-  var _activePowerFilter = 'ALL';
-  var _activeWeightFilter = 'ALL';
+  var _activeModality = 'ALL';       // 'ALL' | 'RENT' | 'BUY'
+  var _activeSector = 'ALL';         // 'ALL' | 'CONSTRUCTION' | 'AGRICULTURE' | 'COMPACTION' | 'CONCRETE' | 'SAFETY'
+  var _activeBrandFilter = 'ALL';    // 'ALL' | 'JCB' | 'LIUGONG' | 'KUBOTA' | 'LSTRACTOR' | 'YANMAR' | 'AMMANN' | 'IMER' | 'IMPLEMENTOS' | 'AFEX'
+  var _activePowerFilter = 'ALL';    // 'ALL' | 'sub50' | '50_100' | '100_200' | 'plus200'
+  var _activeWeightFilter = 'ALL';   // 'ALL' | 'compact' | 'medium' | 'heavy'
   var _activeStockOnly = false;
   var _catalogSearchQuery = '';
-  var _catalogSortOrder = 'popular';
-  var _visibleCount = 24;           // Infinite scroll: items currently shown
-  var _infiniteScrollBatchSize = 12; // Items added per intersection trigger
-  var _infiniteScrollObserver = null; // Active IntersectionObserver
+  var _catalogSortOrder = 'popular'; // 'popular' | 'price_asc' | 'price_desc' | 'hp_desc' | 'weight_desc'
+  var _currentPage = 1;
+  var _itemsPerPage = 12;            // Enterprise paginated batch (12 units)
   var _compareList = [];
+  window._storeViewMode = 'grid';
 
-  // Helpers: reset visible count & disconnect observer before any filter change
-  function tmdResetInfiniteScroll() {
-    _visibleCount = 24;
-    if (_infiniteScrollObserver) {
-      _infiniteScrollObserver.disconnect();
-      _infiniteScrollObserver = null;
+  // Helpers: reset page to 1 on filter changes
+  function tmdResetPage() {
+    _currentPage = 1;
+  }
+
+  // Enterprise Pagination Navigator
+  window.tmdGoToPage = function(p) {
+    _currentPage = parseInt(p, 10) || 1;
+    window.tmdRenderStoreGrid();
+    var gridEl = document.getElementById('tmd-store-cards-grid');
+    if (gridEl) {
+      var y = gridEl.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
     }
-  }
+  };
 
-  // Attach IntersectionObserver to the sentinel after grid renders
-  function tmdAttachInfiniteScrollObserver(totalItems) {
-    var sentinel = document.getElementById('tmd-infinite-sentinel');
-    if (!sentinel || _visibleCount >= totalItems) return; // Nothing more to load
-    if (_infiniteScrollObserver) _infiniteScrollObserver.disconnect();
+  // Filter setters
+  window.tmdSetModalityFilter = function(modality) {
+    _activeModality = modality || 'ALL';
+    tmdResetPage();
+    window.tmdRefreshStoreUI();
+  };
 
-    _infiniteScrollObserver = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) {
-        _infiniteScrollObserver.disconnect();
-        _infiniteScrollObserver = null;
-        _visibleCount += _infiniteScrollBatchSize;
-        window.tmdRenderStoreGrid();
-      }
-    }, { rootMargin: '200px' }); // Preload 200px before sentinel hits viewport
-
-    _infiniteScrollObserver.observe(sentinel);
-  }
-
-  // Global Filter Setters
   window.tmdSetSectorFilter = function(sectorId) {
-    _activeSector = sectorId;
+    _activeSector = sectorId || 'ALL';
     _activeBrandFilter = 'ALL';
-    tmdResetInfiniteScroll();
+    tmdResetPage();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetBrandFilter = function(brandId) {
-    _activeBrandFilter = brandId;
-    tmdResetInfiniteScroll();
+    _activeBrandFilter = brandId || 'ALL';
+    tmdResetPage();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetPowerFilter = function(powerRange) {
-    _activePowerFilter = powerRange;
-    tmdResetInfiniteScroll();
+    _activePowerFilter = powerRange || 'ALL';
+    tmdResetPage();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetWeightFilter = function(weightRange) {
-    _activeWeightFilter = weightRange;
-    tmdResetInfiniteScroll();
+    _activeWeightFilter = weightRange || 'ALL';
+    tmdResetPage();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdToggleStockOnly = function(checked) {
     _activeStockOnly = !!checked;
-    tmdResetInfiniteScroll();
+    tmdResetPage();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdSetSortOrder = function(order) {
-    _catalogSortOrder = order;
-    tmdResetInfiniteScroll();
+    _catalogSortOrder = order || 'popular';
+    tmdResetPage();
     window.tmdRefreshStoreUI();
   };
 
   window.tmdOnCatalogSearchInput = function(val) {
     _catalogSearchQuery = (val || '').toLowerCase().trim();
-    tmdResetInfiniteScroll();
+    tmdResetPage();
     window.tmdRenderStoreGrid();
+    window.tmdRenderActiveChips();
+  };
+
+  window.tmdClearSearch = function() {
+    _catalogSearchQuery = '';
+    var inp = document.getElementById('tmd-store-search-input');
+    if (inp) inp.value = '';
+    tmdResetPage();
+    window.tmdRenderStoreGrid();
+    window.tmdRenderActiveChips();
   };
 
   window.tmdResetAllFilters = function() {
+    _activeModality = 'ALL';
     _activeSector = 'ALL';
     _activeBrandFilter = 'ALL';
     _activePowerFilter = 'ALL';
@@ -2003,16 +2019,21 @@
     _activeStockOnly = false;
     _catalogSearchQuery = '';
     _catalogSortOrder = 'popular';
-    tmdResetInfiniteScroll();
+    tmdResetPage();
+
     var searchInput = document.getElementById('tmd-store-search-input');
     if (searchInput) searchInput.value = '';
     var stockCheckbox = document.getElementById('tmd-filter-stock-only');
     if (stockCheckbox) stockCheckbox.checked = false;
+    var pSelect = document.getElementById('tmd-filter-power');
+    if (pSelect) pSelect.value = 'ALL';
+    var wSelect = document.getElementById('tmd-filter-weight');
+    if (wSelect) wSelect.value = 'ALL';
+
     window.tmdRefreshStoreUI();
   };
 
   // View Mode: 'grid' | 'list'
-  window._storeViewMode = 'grid';
   window.tmdSetStoreViewMode = function(mode) {
     window._storeViewMode = mode;
     var gridEl = document.getElementById('tmd-store-cards-grid');
@@ -2027,17 +2048,17 @@
     }
     if (btnGrid && btnList) {
       if (mode === 'list') {
-        btnList.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 bg-amber-500 text-black';
-        btnGrid.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 text-neutral-400 hover:text-white';
+        btnList.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-amber-500 text-black shadow';
+        btnGrid.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-neutral-400 hover:text-white';
       } else {
-        btnGrid.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 bg-amber-500 text-black';
-        btnList.className = 'px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 text-neutral-400 hover:text-white';
+        btnGrid.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-amber-500 text-black shadow';
+        btnList.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-neutral-400 hover:text-white';
       }
     }
     window.tmdRenderStoreGrid();
   };
 
-  // Compare Bar Functions
+  // Compare Dock & Modal
   window.tmdToggleCompare = function(prodId) {
     var all = getAllStoreProducts();
     var item = all.find(function(x) { return x.id === prodId; });
@@ -2048,173 +2069,137 @@
       _compareList.splice(existingIdx, 1);
     } else {
       if (_compareList.length >= 4) {
-        alert('Puede comparar un máximo de 4 equipos simultáneamente.');
+        if (typeof window.tmdShowToast === 'function') {
+          window.tmdShowToast('Puede comparar un máximo de 4 equipos simultáneamente.', 'info');
+        } else {
+          alert('Máximo 4 equipos para comparar.');
+        }
         return;
       }
       _compareList.push(item);
     }
     window.tmdUpdateCompareBarUI();
-  };
-
-  window.tmdRemoveFromCompare = function(prodId) {
-    _compareList = _compareList.filter(function(x) { return x.id !== prodId; });
-    window.tmdUpdateCompareBarUI();
+    window.tmdRenderStoreGrid();
   };
 
   window.tmdClearCompare = function() {
     _compareList = [];
     window.tmdUpdateCompareBarUI();
+    window.tmdRenderStoreGrid();
   };
 
   window.tmdUpdateCompareBarUI = function() {
     var bar = document.getElementById('tmd-floating-compare-bar');
+    var countEl = document.getElementById('tmd-compare-bar-count');
+    var thumbsEl = document.getElementById('tmd-compare-bar-thumbs');
     if (!bar) return;
 
-    // Update checkboxes on cards
-    document.querySelectorAll('[data-compare-btn]').forEach(function(btn) {
-      var id = btn.getAttribute('data-compare-btn');
-      var isSelected = _compareList.some(function(x) { return x.id === id; });
-      if (isSelected) {
-        btn.classList.add('bg-amber-500', 'text-black', 'border-amber-400');
-        btn.classList.remove('bg-black/80', 'text-neutral-300');
-        btn.innerHTML = '<span class="material-symbols-outlined text-[14px]">check</span><span>Comparando</span>';
-      } else {
-        btn.classList.remove('bg-amber-500', 'text-black', 'border-amber-400');
-        btn.classList.add('bg-black/80', 'text-neutral-300');
-        btn.innerHTML = '<span class="material-symbols-outlined text-[14px]">add</span><span>Comparar</span>';
-      }
-    });
-
     if (_compareList.length === 0) {
-      bar.classList.remove('visible');
-      bar.style.transform = 'translateX(-50%) translateY(150%)';
+      bar.classList.add('translate-y-[180%]');
+      bar.classList.remove('translate-y-0');
       return;
     }
 
-    bar.classList.add('visible');
-    bar.style.transform = 'translateX(-50%) translateY(0)';
-
-    var countEl = document.getElementById('tmd-compare-bar-count');
+    bar.classList.remove('translate-y-[180%]');
+    bar.classList.add('translate-y-0');
     if (countEl) countEl.innerText = _compareList.length + ' de 4 seleccionados';
 
-    var thumbsEl = document.getElementById('tmd-compare-bar-thumbs');
     if (thumbsEl) {
       thumbsEl.innerHTML = _compareList.map(function(item) {
         return `
-          <div class="relative group">
-            <img src="${item.image}" class="w-11 h-11 rounded-lg bg-neutral-900 border border-white/20 object-contain p-1" title="${item.title}">
-            <button type="button" onclick="window.tmdRemoveFromCompare('${item.id}')" class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold flex items-center justify-center cursor-pointer shadow">×</button>
+          <div class="relative w-10 h-10 rounded-lg bg-neutral-900 border border-amber-500/40 p-1 flex items-center justify-center shrink-0 group" title="${item.title}">
+            <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain">
+            <button type="button" onclick="event.stopPropagation(); window.tmdToggleCompare('${item.id}')" class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-red-600 text-white font-black text-[9px] flex items-center justify-center cursor-pointer shadow">×</button>
           </div>
         `;
       }).join('');
     }
   };
 
-  // Open Fullscreen Technical Comparison Matrix Modal
   window.tmdOpenCompareModal = function() {
-    if (_compareList.length === 0) return;
+    if (_compareList.length < 2) {
+      if (typeof window.tmdShowToast === 'function') {
+        window.tmdShowToast('Seleccione al menos 2 equipos para iniciar la comparativa técnica.', 'info');
+      } else {
+        alert('Seleccione al menos 2 equipos para comparar.');
+      }
+      return;
+    }
 
     var existing = document.getElementById('tmd-compare-modal-overlay');
     if (existing) existing.remove();
 
     var modal = document.createElement('div');
     modal.id = 'tmd-compare-modal-overlay';
-    modal.className = 'fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto';
+    modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-xl animate-fade-in';
 
-    var modelsTitles = _compareList.map(function(x) { return x.title; }).join(' vs ');
-    var waMsg = encodeURIComponent('Hola Don Eduardo, estoy comparando los siguientes equipos en la web de TMD: ' + modelsTitles + '. Quisiera una cotización comparativa formal.');
-
-    var tableHeaders = _compareList.map(function(item) {
+    var colsHtml = _compareList.map(function(item) {
+      var priceFmt = item.priceUSD ? 'US$ ' + Number(item.priceUSD).toLocaleString('en-US') : 'Consultar';
+      var dailyFmt = 'US$ ' + item.dailyRate + ' / día';
       return `
-        <th class="p-4 bg-neutral-900/90 border-b border-amber-500/30 text-center min-w-[220px]">
-          <div class="relative inline-block mb-2">
-            <img src="${item.image}" class="h-28 mx-auto object-contain">
-            <button onclick="window.tmdRemoveFromCompare('${item.id}'); window.tmdOpenCompareModal();" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-xs font-bold">×</button>
-          </div>
-          <div class="text-[10px] font-mono text-amber-400 font-bold uppercase">${item.brand}</div>
-          <div class="text-sm font-bold text-white uppercase">${item.title}</div>
-          <div class="text-xs font-mono font-bold text-amber-400 mt-1">US$ ${Number(item.priceUSD || 50000).toLocaleString()}</div>
-          <div class="text-[10px] font-mono text-neutral-400">Leasing desde $${Math.round((item.priceUSD || 50000) * 0.02)}/m</div>
-          <div class="mt-3 flex flex-col gap-1.5">
-            <a href="/ficha?id=${encodeURIComponent(item.id)}" class="py-1.5 px-3 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-bold uppercase transition">Ver Ficha ➔</a>
-            <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-1.5 px-3 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 border border-amber-500/40 text-xs font-bold uppercase transition">Configurar 3D</a>
-          </div>
-        </th>
-      `;
-    }).join('');
+        <div class="min-w-[220px] max-w-[280px] p-4 rounded-2xl bg-neutral-900/90 border border-white/10 flex flex-col justify-between shrink-0">
+          <div>
+            <div class="h-32 w-full rounded-xl bg-black/70 p-2 mb-3 flex items-center justify-center border border-white/5">
+              <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[10px] text-amber-500 font-bold uppercase mb-1">
+              <span>${item.brand}</span>
+              <span>•</span>
+              <span>${item.category}</span>
+            </div>
+            <h4 class="font-bold text-white uppercase text-sm leading-snug line-clamp-2">${item.title}</h4>
+            
+            <div class="my-3 py-2 border-y border-white/10 space-y-1 text-xs">
+              <div class="flex justify-between"><span class="text-neutral-400 font-mono text-[11px]">Venta 0 Km:</span><span class="font-bold text-amber-400">${priceFmt}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400 font-mono text-[11px]">Renta Diaria:</span><span class="font-bold text-emerald-400">${dailyFmt}</span></div>
+              <div class="flex justify-between"><span class="text-neutral-400 font-mono text-[11px]">Garantía:</span><span class="text-neutral-200 font-mono text-[11px] truncate">${item.warranty || 'Oficial TMD'}</span></div>
+            </div>
 
-    // Spec parameters to compare
-    var specsToCompare = [
-      { label: 'Categoría', getVal: function(i) { return i.category || 'Equipo Industrial'; } },
-      { label: 'Garantía TMD', getVal: function(i) { return i.warranty || '1 Año Oficial TMD'; } },
-      { label: 'Potencia Motor', getVal: function(i) { return (i.specs && (i.specs.enginePower || i.specs.potencia || i.specs.power)) || 'Estándar'; } },
-      { label: 'Peso Operativo', getVal: function(i) { return (i.specs && (i.specs.operatingWeight || i.specs.peso || i.specs.weight)) || 'Estándar'; } },
-      { label: 'Capacidad de Balde / Carga', getVal: function(i) { return (i.specs && (i.specs.bucketCapacity || i.specs.roc || i.specs.capacidad)) || 'N/D'; } },
-      { label: 'Profundidad de Excavación', getVal: function(i) { return (i.specs && (i.specs.digDepth || i.specs.maxDigDepth)) || 'N/D'; } },
-      { label: 'Flujo / Presión Hidráulica', getVal: function(i) { return (i.specs && (i.specs.hydraulicFlow || i.specs.presionOperacion)) || 'N/D'; } },
-      { label: 'Disponibilidad Km 22', getVal: function(i) { return 'Entrega Inmediata Patio Km 22'; } }
-    ];
+            <div class="space-y-1.5 text-[11px] font-mono">
+              ${Object.keys(item.specs || {}).slice(0, 5).map(function(k) {
+                return `<div class="p-1.5 rounded bg-black/40 border border-white/5 flex justify-between"><span class="text-neutral-400 truncate">${k}:</span><span class="font-bold text-white ml-2 truncate">${item.specs[k]}</span></div>`;
+              }).join('')}
+            </div>
+          </div>
 
-    var tableRows = specsToCompare.map(function(param) {
-      var cells = _compareList.map(function(item) {
-        return `<td class="p-3.5 text-center font-mono text-xs border-b border-white/5 text-neutral-200">${param.getVal(item)}</td>`;
-      }).join('');
-      return `
-        <tr class="hover:bg-white/[0.02] transition">
-          <td class="p-3.5 font-sans font-bold text-xs uppercase text-neutral-400 border-b border-white/5 bg-neutral-950/60 sticky left-0">${param.label}</td>
-          ${cells}
-        </tr>
+          <div class="mt-4 pt-3 border-t border-white/10 space-y-2">
+            <a href="/ficha_tecnica.html?id=${encodeURIComponent(item.id)}" class="w-full py-2 px-3 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white font-mono text-[11px] font-bold flex items-center justify-center gap-1 transition text-center">
+              <span>Ficha Técnica 360°</span>
+            </a>
+            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, solicito información técnica y cotización para ' + item.title + ' y deseo asesoría técnica y cotización.')}" target="_blank" class="w-full py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center justify-center gap-1.5 transition">
+              <span class="material-symbols-outlined text-[15px]">chat</span>
+              <span>Solicitar Cotización B2B</span>
+            </a>
+          </div>
+        </div>
       `;
     }).join('');
 
     modal.innerHTML = `
-      <div class="relative w-full max-w-6xl bg-[#0e121a] border border-amber-500/30 rounded-2xl shadow-2xl overflow-hidden my-8">
-        <!-- Header -->
-        <div class="p-5 bg-neutral-950/90 border-b border-white/10 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center">
-              <span class="material-symbols-outlined text-[20px]">compare_arrows</span>
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-white uppercase font-headline-sm tracking-wide">Comparativa Técnica Lado a Lado</h3>
-              <p class="text-xs text-neutral-400">Análisis comparativo de especificaciones de ingeniería TMD Dominicana</p>
-            </div>
+      <div class="relative w-full max-w-6xl max-h-[90vh] flex flex-col bg-neutral-950 border border-amber-500/40 rounded-3xl shadow-2xl overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-neutral-900/80">
+          <div>
+            <span class="text-amber-500 font-mono text-[10px] font-bold uppercase tracking-widest block">MATRIZ TÉCNICA COMPARATIVA</span>
+            <h3 class="text-xl sm:text-2xl font-black uppercase text-white font-headline-sm">Comparación Técnica Directa</h3>
           </div>
-          <button onclick="document.getElementById('tmd-compare-modal-overlay').remove()" class="w-8 h-8 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white flex items-center justify-center font-bold">×</button>
+          <button onclick="document.getElementById('tmd-compare-modal-overlay').remove()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition cursor-pointer">✕</button>
         </div>
-
-        <!-- Scrollable Table -->
-        <div class="overflow-x-auto max-h-[70vh] p-4">
-          <table class="w-full border-collapse">
-            <thead>
-              <tr>
-                <th class="p-4 bg-neutral-950 border-b border-amber-500/30 text-left font-mono text-xs text-amber-500 uppercase sticky left-0">Parámetros</th>
-                ${tableHeaders}
-              </tr>
-            </thead>
-            <tbody>
-              ${tableRows}
-            </tbody>
-          </table>
+        <div class="p-4 sm:p-6 overflow-x-auto flex gap-4 items-stretch flex-1">
+          ${colsHtml}
         </div>
-
-        <!-- Footer Actions -->
-        <div class="p-4 bg-neutral-950 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <button onclick="window.tmdClearCompare(); document.getElementById('tmd-compare-modal-overlay').remove()" class="text-xs font-mono text-neutral-400 hover:text-white underline cursor-pointer">
-            Limpiar selección de comparativa
-          </button>
-          <a href="https://wa.me/18098262222?text=${waMsg}" target="_blank" class="py-2.5 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center gap-2 shadow-lg transition cursor-pointer">
+        <div class="p-4 bg-neutral-900 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <button onclick="window.tmdClearCompare(); document.getElementById('tmd-compare-modal-overlay').remove()" class="text-xs font-mono text-neutral-400 hover:text-white underline cursor-pointer">Limpiar selección de comparativa</button>
+          <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, solicito cotización comparativa para ' + _compareList.map(function(x){ return x.title; }).join(' vs ') + ' y deseo asesoría.')}" target="_blank" class="py-2.5 px-5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-bold text-xs uppercase flex items-center gap-2 shadow-lg transition cursor-pointer">
             <span class="material-symbols-outlined text-[18px]">chat</span>
-            <span>Cotizar Comparativa Completa con Don Eduardo (WhatsApp)</span>
+            <span>Solicitar Comparativa Técnica (WhatsApp Corporativo)</span>
           </a>
         </div>
       </div>
     `;
-
     document.body.appendChild(modal);
   };
 
-  // ─── Brand CDN Fallback Image Map ─────────────────────────────────────────
+  // ── Brand CDN Fallback Image Map ──────────────────────────────────────────
   var _brandFallbackImages = {
     'JCB':         '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg',
     'KUBOTA':      '/assets/machinery/rugged_utility_farm_tractor_with_heavy.jpg',
@@ -2227,13 +2212,40 @@
     'IMPLEMENTOS': '/assets/machinery/brand_new_genuine_yellow_and_black.jpg'
   };
 
-  // Normalize image from any catalog schema: string image, images[], imageFallback
   function normalizeProductImage(p, brandKey) {
-    var img = p.image || (p.images && p.images[0]) || p.image3d || p.imageFallback || '';
+    var img = p.image || (p.images && p.images[0]) || p.image3d || p.heroImage || p.imageFallback || '';
     if (!img || img.trim() === '') {
       img = _brandFallbackImages[brandKey] || _brandFallbackImages['JCB'];
     }
     return img;
+  }
+
+  // Technical Spec Label Normalizer for Enterprise Presentation
+  function formatSpecLabel(k) {
+    if (!k) return '';
+    var map = {
+      'operatingWeight': 'Peso Operativo',
+      'operatingweight': 'Peso Operativo',
+      'peso': 'Peso Operativo',
+      'weight': 'Peso Operativo',
+      'hingepinHeight': 'Altura Pasador',
+      'hingepinheight': 'Altura Pasador',
+      'enginePower': 'Potencia Motor',
+      'enginepower': 'Potencia Motor',
+      'potencia': 'Potencia',
+      'power': 'Potencia',
+      'bucketCapacity': 'Capacidad Balde',
+      'capacity': 'Capacidad',
+      'dumpHeight': 'Altura Descarga',
+      'turningRadius': 'Radio de Giro',
+      'depth': 'Profundidad',
+      'reach': 'Alcance Máx.',
+      'motor': 'Motor Diésel',
+      'model': 'Modelo'
+    };
+    if (map[k]) return map[k];
+    var s = k.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim();
+    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
   // Master Inventory Aggregator across all 9 catalogs
@@ -2243,6 +2255,7 @@
     // 1. JCB
     if (window.TMD_JCB_CATALOG && window.TMD_JCB_CATALOG.machines) {
       window.TMD_JCB_CATALOG.machines.forEach(function(m) {
+        var price = m.priceUSD || 65000;
         all.push({
           id: m.id || m.sku || m.model,
           sku: m.sku || m.model,
@@ -2254,14 +2267,19 @@
           category: m.subcategoryName || 'Construcción',
           tagline: m.tagline || 'Rendimiento industrial de alta exigencia con respaldo oficial en RD.',
           image: normalizeProductImage(m, 'JCB'),
-          priceUSD: m.priceUSD || 65000,
+          priceUSD: price,
+          dailyRate: Math.round(price ? Math.max(160, Math.round(price * 0.0036)) : 220),
+          monthlyRate: Math.round((price ? Math.max(160, Math.round(price * 0.0036)) : 220) * 30 * 0.70),
+          leasing: Math.round(price * 0.02),
           specs: m.specs || {},
           badges: m.badges || ['0 Km', 'Entrega Inmediata'],
-          warranty: m.warranty || 'Garantía Oficial TMD 1 Año / 2000 Horas'
+          warranty: m.warranty || 'Garantía Oficial TMD 2,000 Horas / 1 Año',
+          stockState: 'stock'
         });
       });
       if (window.TMD_JCB_CATALOG.attachments) {
         window.TMD_JCB_CATALOG.attachments.forEach(function(a) {
+          var price = a.priceUSD || 5500;
           all.push({
             id: a.id || a.sku || a.model,
             sku: a.sku || a.model,
@@ -2273,16 +2291,20 @@
             category: a.subcategoryName || 'Implementos',
             tagline: a.tagline || 'Aditamento certificado para trabajo pesado continuo.',
             image: normalizeProductImage(a, 'JCB'),
-            priceUSD: a.priceUSD || 4500,
+            priceUSD: price,
+            dailyRate: Math.round(price ? Math.max(80, Math.round(price * 0.008)) : 100),
+            monthlyRate: Math.round((price ? Math.max(80, Math.round(price * 0.008)) : 100) * 30 * 0.70),
+            leasing: Math.round(price * 0.025),
             specs: a.specs || {},
             badges: ['Implemento Genuino', 'Acople Rápido'],
-            warranty: a.warranty || 'Garantía Oficial TMD 1 Año'
+            warranty: a.warranty || 'Garantía Oficial TMD 1 Año',
+            stockState: 'stock'
           });
         });
       }
     }
 
-    // 2. All Other Catalogs
+    // 2. Other Catalogs
     var catDefs = [
       { key: 'TMD_KUBOTA_CATALOG',     brand: 'KUBOTA',      brandName: 'Kubota',          sector: 'AGRICULTURE'  },
       { key: 'TMD_LSTRACTOR_CATALOG',  brand: 'LSTRACTOR',   brandName: 'LS Tractor',      sector: 'AGRICULTURE'  },
@@ -2298,6 +2320,7 @@
       var cat = window[def.key];
       if (cat && typeof cat.getAllProducts === 'function') {
         cat.getAllProducts().forEach(function(p) {
+          var price = p.priceUSD || 45000;
           all.push({
             id: p.id,
             sku: p.id,
@@ -2309,10 +2332,18 @@
             category: p.category || p.sector || 'Equipo Certificado',
             tagline: p.tagline || p.description || 'Equipamiento de alto rendimiento certificado para el mercado dominicano.',
             image: normalizeProductImage(p, def.brand),
-            priceUSD: p.priceUSD || 45000,
+            priceUSD: price,
+            dailyRate: Math.round(price ? Math.max(150, Math.round(price * 0.0036)) : 200),
+            monthlyRate: Math.round((price ? Math.max(150, Math.round(price * 0.0036)) : 200) * 30 * 0.70),
+            leasing: Math.round(price * 0.02),
             specs: p.specs || {},
             badges: p.badges || ['0 Km', 'Garantía Certificada'],
-            warranty: p.warranty || 'Garantía Oficial TMD 1 Año'
+            warranty: p.warranty || 'Garantía Oficial TMD 1 Año',
+            stockState: (function() {
+              var h = 0;
+              for (var i = 0; i < (p.id || '').length; i++) h += p.id.charCodeAt(i);
+              return (h % 10 < 6) ? 'stock' : ((h % 10 < 8) ? 'transit' : 'order');
+            })()
           });
         });
       }
@@ -2324,17 +2355,22 @@
   function getFilteredStoreProducts() {
     var items = getAllStoreProducts();
 
-    // 1. Sector Filter
+    // 1. Modality Filter
+    if (_activeModality === 'RENT') {
+      items = items.filter(function(x) { return x.dailyRate > 0; });
+    }
+
+    // 2. Sector Filter
     if (_activeSector !== 'ALL') {
       items = items.filter(function(x) { return x.sector === _activeSector; });
     }
 
-    // 2. Brand Filter
+    // 3. Brand Filter
     if (_activeBrandFilter !== 'ALL') {
       items = items.filter(function(x) { return x.brand === _activeBrandFilter; });
     }
 
-    // 3. Search Query
+    // 4. Search Query
     if (_catalogSearchQuery) {
       items = items.filter(function(x) {
         var str = (x.title + ' ' + x.brand + ' ' + x.category + ' ' + (x.model || '') + ' ' + (x.tagline || '')).toLowerCase();
@@ -2342,7 +2378,7 @@
       });
     }
 
-    // 4. Power Filter (HP)
+    // 5. Power Filter (HP)
     if (_activePowerFilter !== 'ALL') {
       items = items.filter(function(x) {
         var hpStr = (x.specs && (x.specs.enginePower || x.specs.potencia || x.specs.power)) || '';
@@ -2355,12 +2391,11 @@
       });
     }
 
-    // 5. Weight Filter (Tons)
+    // 6. Weight Filter (Tons)
     if (_activeWeightFilter !== 'ALL') {
       items = items.filter(function(x) {
         var wStr = (x.specs && (x.specs.operatingWeight || x.specs.peso || x.specs.weight)) || '';
         var wNum = parseInt(wStr.replace(/[^0-9]/g, ''), 10) || 0;
-        // if weight in lbs, convert approx to kg
         if (wStr.toLowerCase().includes('lb')) wNum = Math.round(wNum * 0.4535);
         if (_activeWeightFilter === 'compact') return wNum > 0 && wNum < 6000;
         if (_activeWeightFilter === 'medium') return wNum >= 6000 && wNum <= 15000;
@@ -2369,15 +2404,93 @@
       });
     }
 
-    // Sort order
+    // 7. Stock Only Filter
+    if (_activeStockOnly) {
+      items = items.filter(function(x) { return x.stockState === 'stock'; });
+    }
+
+    // 8. Sort order
     if (_catalogSortOrder === 'price_asc') {
       items.sort(function(a, b) { return (a.priceUSD || 0) - (b.priceUSD || 0); });
     } else if (_catalogSortOrder === 'price_desc') {
       items.sort(function(a, b) { return (b.priceUSD || 0) - (a.priceUSD || 0); });
+    } else if (_catalogSortOrder === 'hp_desc') {
+      items.sort(function(a, b) {
+        var ha = parseInt(((a.specs && (a.specs.enginePower || a.specs.potencia)) || '0').replace(/[^0-9]/g, ''), 10) || 0;
+        var hb = parseInt(((b.specs && (b.specs.enginePower || b.specs.potencia)) || '0').replace(/[^0-9]/g, ''), 10) || 0;
+        return hb - ha;
+      });
+    } else if (_catalogSortOrder === 'weight_desc') {
+      items.sort(function(a, b) {
+        var wa = parseInt(((a.specs && (a.specs.operatingWeight || a.specs.peso)) || '0').replace(/[^0-9]/g, ''), 10) || 0;
+        var wb = parseInt(((b.specs && (b.specs.operatingWeight || b.specs.peso)) || '0').replace(/[^0-9]/g, ''), 10) || 0;
+        return wb - wa;
+      });
     }
 
     return items;
   }
+
+  // Render Active Filter Chips
+  window.tmdRenderActiveChips = function() {
+    var chipsContainer = document.getElementById('tmd-active-filters-chips');
+    if (!chipsContainer) return;
+
+    var chips = [];
+
+    if (_activeModality === 'RENT') {
+      chips.push(`<span class="tmd-active-chip">🚜 Modo Renta <button type="button" onclick="window.tmdSetModalityFilter('ALL')" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    } else if (_activeModality === 'BUY') {
+      chips.push(`<span class="tmd-active-chip">🏢 Modo Compra <button type="button" onclick="window.tmdSetModalityFilter('ALL')" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (_activeSector !== 'ALL') {
+      var secNames = {
+        'CONSTRUCTION': 'Construcción & Vial',
+        'AGRICULTURE': 'Agro & Tractores',
+        'COMPACTION': 'Compactación',
+        'CONCRETE': 'Concreto & Silos',
+        'SAFETY': 'Seguridad Incendio'
+      };
+      chips.push(`<span class="tmd-active-chip">Sector: ${secNames[_activeSector] || _activeSector} <button type="button" onclick="window.tmdSetSectorFilter('ALL')" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (_activeBrandFilter !== 'ALL') {
+      chips.push(`<span class="tmd-active-chip">Marca: ${_activeBrandFilter} <button type="button" onclick="window.tmdSetBrandFilter('ALL')" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (_activePowerFilter !== 'ALL') {
+      var pLabels = { 'sub50': '< 50 HP', '50_100': '50-100 HP', '100_200': '100-200 HP', 'plus200': '> 200 HP' };
+      chips.push(`<span class="tmd-active-chip">Potencia: ${pLabels[_activePowerFilter] || _activePowerFilter} <button type="button" onclick="window.tmdSetPowerFilter('ALL')" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (_activeWeightFilter !== 'ALL') {
+      var wLabels = { 'compact': '< 6 Tons', 'medium': '6 - 15 Tons', 'heavy': '> 15 Tons' };
+      chips.push(`<span class="tmd-active-chip">Peso: ${wLabels[_activeWeightFilter] || _activeWeightFilter} <button type="button" onclick="window.tmdSetWeightFilter('ALL')" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (_activeStockOnly) {
+      chips.push(`<span class="tmd-active-chip">Stock Inmediato Km 22 <button type="button" onclick="window.tmdToggleStockOnly(false)" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (_catalogSearchQuery) {
+      chips.push(`<span class="tmd-active-chip">Búsqueda: "${_catalogSearchQuery}" <button type="button" onclick="window.tmdClearSearch()" class="ml-1 hover:text-white cursor-pointer font-bold">×</button></span>`);
+    }
+
+    if (chips.length > 0) {
+      chipsContainer.innerHTML = `
+        <div class="flex items-center gap-2 flex-wrap pt-2">
+          <span class="text-[11px] font-mono uppercase text-neutral-400 font-bold">Filtros Activos:</span>
+          ${chips.join('')}
+          <button type="button" onclick="window.tmdResetAllFilters()" class="text-[10px] font-mono text-amber-400 hover:text-amber-300 underline font-bold cursor-pointer ml-1">
+            Limpiar Todos
+          </button>
+        </div>
+      `;
+    } else {
+      chipsContainer.innerHTML = '';
+    }
+  };
 
   window.tmdRenderStoreGrid = function() {
     var gridEl = document.getElementById('tmd-store-cards-grid');
@@ -2393,8 +2506,10 @@
 
     var filtered = getFilteredStoreProducts();
     var totalItems = filtered.length;
-    // Cap visibleCount to totalItems
-    if (_visibleCount > totalItems) _visibleCount = totalItems;
+    var totalPages = Math.ceil(totalItems / _itemsPerPage) || 1;
+
+    if (_currentPage > totalPages) _currentPage = totalPages;
+    if (_currentPage < 1) _currentPage = 1;
 
     if (counterEl) {
       counterEl.innerText = totalItems + ' Equipos en Inventario';
@@ -2402,141 +2517,184 @@
 
     if (totalItems === 0) {
       gridEl.innerHTML = `
-        <div class="col-span-full py-16 text-center text-neutral-400 bg-surface-charcoal/40 rounded-[24px] border border-white/8">
-          <span class="material-symbols-outlined text-[48px] text-amber-500/60 mb-2">search_off</span>
-          <h4 class="text-base font-bold text-white uppercase">No se encontraron productos con estos filtros</h4>
-          <p class="text-xs text-neutral-400 mt-1">Pruebe seleccionando otra marca, sector o eliminando los filtros activos.</p>
-          <button type="button" onclick="window.tmdResetAllFilters()" class="mt-4 px-5 py-2.5 rounded-[50px] bg-amber-500 text-black font-bold text-xs uppercase cursor-pointer">
-            Restablecer Todos los Filtros
+        <div class="col-span-full py-16 text-center text-neutral-400 bg-neutral-900/60 rounded-3xl border border-white/10 p-8">
+          <span class="material-symbols-outlined text-[44px] text-amber-500/70 mb-2">search_off</span>
+          <h4 class="text-base font-bold text-white uppercase font-headline-sm">No se encontraron equipos con los criterios seleccionados</h4>
+          <p class="text-xs text-neutral-400 mt-1 max-w-md mx-auto">Ajuste los filtros de marca, potencia o modalidad para consultar las unidades disponibles en patio Km 22.</p>
+          <button type="button" onclick="window.tmdResetAllFilters()" class="mt-4 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase cursor-pointer transition shadow">
+            Restablecer Filtros
           </button>
         </div>
       `;
       if (paginationEl) paginationEl.innerHTML = '';
+      window.tmdRenderActiveChips();
       return;
     }
 
-    // Infinite scroll: slice only the visible batch
-    var visibleItems = filtered.slice(0, _visibleCount);
-    var hasMore = _visibleCount < totalItems;
+    var startIdx = (_currentPage - 1) * _itemsPerPage;
+    var endIdx = Math.min(startIdx + _itemsPerPage, totalItems);
+    var visibleItems = filtered.slice(startIdx, endIdx);
 
     var cardsHtml = visibleItems.map(function(item) {
       var isCompared = _compareList.some(function(x) { return x.id === item.id; });
-      var priceFormatted = item.priceUSD 
-        ? 'US$ ' + Number(item.priceUSD).toLocaleString() 
-        : 'Consultar Precio';
-      var leasingFormatted = item.priceUSD 
-        ? 'Leasing: $' + Math.round(item.priceUSD * 0.02).toLocaleString() + '/mes'
-        : 'Financiamiento disponible';
+      var priceFormatted = item.priceUSD ? 'US$ ' + Number(item.priceUSD).toLocaleString('en-US') : 'Consultar';
+      var leasingFormatted = item.leasing ? 'US$ ' + Number(item.leasing).toLocaleString('en-US') + ' / mes' : 'Disponible';
+      var dailyFormatted = 'US$ ' + item.dailyRate + ' / día';
+      var monthlyFormatted = 'US$ ' + Number(item.monthlyRate).toLocaleString('en-US') + ' / mes';
 
-      // Pick up to 3 specs
+      // 3 key specs formatted cleanly
       var specKeys = Object.keys(item.specs || {}).slice(0, 3);
       var specsSnippet = specKeys.map(function(k) {
         var val = item.specs[k];
         return `
-          <div>
-            <span class="font-mono text-[8px] uppercase text-neutral-400 block truncate">${k}</span>
-            <span class="font-mono text-[11px] font-bold text-neutral-200 block truncate">${val}</span>
+          <div class="tmd-spec-box flex flex-col justify-center">
+            <span class="font-mono text-[9px] uppercase tracking-wider text-neutral-400 block truncate mb-0.5">${formatSpecLabel(k)}</span>
+            <span class="font-mono text-[11px] sm:text-xs font-bold text-neutral-100 block truncate">${val}</span>
           </div>
         `;
       }).join('');
 
       if (!specsSnippet) {
         specsSnippet = `
-          <div><span class="font-mono text-[8px] uppercase text-neutral-400 block">Condición</span><span class="font-mono text-[11px] font-bold text-neutral-200 block">0 Km / Nuevo</span></div>
-          <div><span class="font-mono text-[8px] uppercase text-neutral-400 block">Garantía</span><span class="font-mono text-[11px] font-bold text-amber-400 block">Oficial TMD</span></div>
+          <div class="tmd-spec-box flex flex-col justify-center"><span class="font-mono text-[9px] uppercase tracking-wider text-neutral-400 block mb-0.5">Condición</span><span class="font-mono text-[11px] sm:text-xs font-bold text-neutral-100 block">0 Km / Nuevo</span></div>
+          <div class="tmd-spec-box flex flex-col justify-center"><span class="font-mono text-[9px] uppercase tracking-wider text-neutral-400 block mb-0.5">Garantía</span><span class="font-mono text-[11px] sm:text-xs font-bold text-amber-400 block">Oficial TMD</span></div>
+          <div class="tmd-spec-box flex flex-col justify-center"><span class="font-mono text-[9px] uppercase tracking-wider text-neutral-400 block mb-0.5">Despacho</span><span class="font-mono text-[11px] sm:text-xs font-bold text-emerald-400 block">24h Km 22</span></div>
         `;
       }
 
-      var stockBadgeHtml = (function(itm) {
-        var state = itm.stockState || itm.availability;
-        if (!state) {
-          var hash = 0;
-          for (var i = 0; i < (itm.id || '').length; i++) hash += itm.id.charCodeAt(i);
-          var mod = hash % 10;
-          if (mod < 6) state = 'stock';
-          else if (mod < 8) state = 'transit';
-          else state = 'order';
-        }
-        if (state === 'transit' || state === 'transito') {
-          return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-amber-300 border border-amber-500/40">🟡 En Tránsito</span>';
-        } else if (state === 'order' || state === 'pedido') {
-          return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-cyan-300 border border-cyan-500/40">🔵 Por Pedido</span>';
-        }
-        return '<span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-black/80 text-emerald-400 border border-emerald-500/30">🟢 Stock Km 22</span>';
-      })(item);
+      // Stock status badge
+      var stockBadgeHtml = (function(state) {
+        if (state === 'transit') return '<span class="px-2 py-0.5 rounded text-[9px] uppercase font-mono font-bold bg-neutral-900/90 text-amber-300 border border-amber-500/40">🟡 Tránsito</span>';
+        if (state === 'order') return '<span class="px-2 py-0.5 rounded text-[9px] uppercase font-mono font-bold bg-neutral-900/90 text-cyan-300 border border-cyan-500/40">🔵 Por Pedido</span>';
+        return '<span class="px-2 py-0.5 rounded text-[9px] uppercase font-mono font-bold bg-neutral-900/90 text-emerald-400 border border-emerald-500/40">🟢 Stock Km 22</span>';
+      })(item.stockState);
+
+      // Enterprise Adaptive Pricing Block
+      var pricingBlock = '';
+      var primaryActionBtn = '';
+
+      if (_activeModality === 'RENT') {
+        pricingBlock = `
+          <div class="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 flex items-center justify-between">
+            <div>
+              <span class="font-mono text-[9px] uppercase tracking-wider text-emerald-400 block">Tarifa de Renta TMD</span>
+              <span class="text-sm sm:text-base font-bold text-emerald-400 font-mono">${dailyFormatted}</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[9px] font-bold text-emerald-300 bg-emerald-500/15 px-2 py-0.5 rounded border border-emerald-500/25 inline-block mb-0.5">-30% Mensual</span>
+              <span class="font-mono text-[11px] text-neutral-200 block font-medium">${monthlyFormatted}</span>
+            </div>
+          </div>
+        `;
+        primaryActionBtn = `
+          <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, solicito cotización de renta para la máquina ' + item.title + ' (Tarifa ref: ' + dailyFormatted + ') para obra en RD.')}" target="_blank" class="w-full py-2 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer shadow">
+            <span class="material-symbols-outlined text-[15px]">request_quote</span>
+            <span>Solicitar Renta de Flota</span>
+          </a>
+        `;
+      } else if (_activeModality === 'BUY') {
+        pricingBlock = `
+          <div class="p-2.5 rounded-xl bg-white/[0.03] border border-amber-500/25 flex items-center justify-between">
+            <div>
+              <span class="font-mono text-[9px] uppercase tracking-wider text-neutral-400 block">Inversión 0 Km</span>
+              <span class="text-sm sm:text-base font-bold text-amber-400 font-mono">${priceFormatted}</span>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-[9px] uppercase tracking-wider text-neutral-400 block">Leasing Fiscal DGII</span>
+              <span class="font-mono text-[11px] text-neutral-200 font-semibold">${leasingFormatted}</span>
+            </div>
+          </div>
+        `;
+        primaryActionBtn = `
+          <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, solicito cotización 0 Km para la máquina ' + item.title + ' (Inversión: ' + priceFormatted + ') con factura B01.')}" target="_blank" class="w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer shadow">
+            <span class="material-symbols-outlined text-[15px]">assignment_turned_in</span>
+            <span>Solicitar Cotización B2B</span>
+          </a>
+        `;
+      } else {
+        // Dual Pricing
+        pricingBlock = `
+          <div class="p-2 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between text-xs">
+            <div>
+              <span class="font-mono text-[9px] uppercase tracking-wider text-amber-400/80 block">Venta 0 Km</span>
+              <span class="text-xs sm:text-sm font-bold text-amber-400 font-mono">${priceFormatted}</span>
+            </div>
+            <div class="text-right">
+              <span class="font-mono text-[9px] uppercase tracking-wider text-emerald-400/80 block">Renta TMD</span>
+              <span class="text-xs sm:text-sm font-bold text-emerald-400 font-mono">${dailyFormatted}</span>
+            </div>
+          </div>
+        `;
+        primaryActionBtn = `
+          <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, solicito cotización corporativa para ' + item.title + ' con crédito fiscal DGII.')}" target="_blank" class="w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer shadow">
+            <span class="material-symbols-outlined text-[15px]">assignment_turned_in</span>
+            <span>Solicitar Cotización B2B</span>
+          </a>
+        `;
+      }
 
       return `
-        <div class="machinery-card rounded-[20px] overflow-hidden shadow-xl flex flex-col justify-between group hover:border-amber-500/50 transition-all duration-300" style="backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(18, 21, 26, 0.65);">
+        <div class="machinery-card group rounded-3xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:border-amber-500/60 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between p-5 sm:p-6 text-slate-900 dark:text-white" data-machine-card="${item.id}">
           <div>
             <!-- Image Frame -->
-            <div class="tmd-card-img-frame relative h-48 w-full overflow-hidden bg-black/80 flex items-center justify-center p-3">
-              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='${_brandFallbackImages[item.brand]||_brandFallbackImages.JCB}'">
+            <div class="tmd-card-img-frame relative aspect-[16/11] w-full rounded-2xl bg-slate-50 dark:bg-white/5 p-4 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-neutral-800 mb-4">
+              <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='${_brandFallbackImages[item.brand]||_brandFallbackImages.JCB}'">
               
               <!-- Badges Top Left -->
-              <div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1 z-10">
-                <span class="px-2 py-0.5 rounded-[6px] text-[9px] uppercase font-mono font-bold bg-amber-500 text-black">${item.brand}</span>
+              <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] uppercase font-mono font-black bg-neutral-900/90 text-amber-400 border border-white/10 shadow">${item.brand}</span>
                 ${stockBadgeHtml}
               </div>
 
-              <!-- Compare Button Top Right -->
-              <div class="absolute top-2.5 right-2.5 z-10">
-                <button type="button" data-compare-btn="${item.id}" onclick="window.tmdToggleCompare('${item.id}')" class="px-2.5 py-1 rounded-[8px] ${isCompared ? 'bg-amber-500 text-black border-amber-400' : 'bg-black/80 text-neutral-300'} hover:text-white border border-white/10 font-mono text-[10px] font-bold uppercase flex items-center gap-1 transition-all cursor-pointer">
+              <!-- Compare Toggle Top Right -->
+              <div class="absolute top-3 right-3 z-10">
+                <button type="button" data-compare-btn="${item.id}" onclick="window.tmdToggleCompare('${item.id}')" class="px-2.5 py-1 rounded-xl ${isCompared ? 'bg-amber-500 text-black font-bold border-amber-400' : 'bg-black/75 text-neutral-300 hover:text-white'} border border-white/10 font-mono text-[10px] uppercase flex items-center gap-1 transition-all cursor-pointer shadow-md">
                   <span class="material-symbols-outlined text-[13px]">${isCompared ? 'check' : 'add'}</span>
                   <span>${isCompared ? 'Comparando' : 'Comparar'}</span>
                 </button>
               </div>
             </div>
 
-            <!-- Content Body -->
-            <div class="tmd-card-body p-4">
-              <div class="flex items-center justify-between text-neutral-400 font-mono text-[10px] uppercase mb-1">
-                <span>${item.category}</span>
-                <span class="text-amber-500 font-bold">${item.sku || item.model}</span>
+            <!-- Card Body -->
+            <div class="tmd-card-body">
+              <div class="flex items-center justify-between text-slate-400 dark:text-neutral-500 font-mono text-[10px] uppercase mb-1">
+                <span class="truncate tracking-wider">${item.category}</span>
+                <span class="font-semibold ml-2 shrink-0">${item.sku || item.model}</span>
               </div>
 
-              <h3 class="font-headline-sm text-lg uppercase font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-1">
+              <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-amber-500 transition-colors line-clamp-1">
                 ${item.title}
               </h3>
 
-              <p class="text-xs text-neutral-400 mt-1 line-clamp-2 leading-relaxed">
+              <p class="text-xs text-slate-500 dark:text-neutral-400 mt-1 mb-3 line-clamp-2 leading-relaxed font-normal">
                 ${item.tagline}
               </p>
 
-              <!-- Specs Row -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 my-3 p-2.5 rounded-[12px] bg-black/40 border border-white/[0.04]">
+              <!-- 3 Specs Row -->
+              <div class="grid grid-cols-3 gap-2 my-3">
                 ${specsSnippet}
               </div>
 
-              <!-- Price Box -->
-              <div class="pt-2 flex items-baseline justify-between border-t border-white/[0.06]">
-                <div>
-                  <span class="font-mono text-[8px] uppercase text-neutral-400 block">Inversión 0 Km:</span>
-                  <span class="font-headline-sm text-base text-amber-400 font-bold">${priceFormatted}</span>
-                </div>
-                <div class="text-right">
-                  <span class="font-mono text-[8px] uppercase text-emerald-400 block">${leasingFormatted}</span>
-                </div>
+              <!-- Pricing Block -->
+              <div class="my-3">
+                ${pricingBlock}
               </div>
             </div>
           </div>
 
-          <!-- Card Actions (Direct Ficha, Configurator, WhatsApp) -->
-          <div class="tmd-card-actions p-4 pt-0 space-y-2">
-            <div class="grid grid-cols-2 gap-2">
-              <a href="/ficha?id=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-neutral-900 hover:bg-neutral-800 text-white font-mono text-[11px] font-bold border border-white/15 flex items-center justify-center gap-1.5 transition text-center">
-                <span class="material-symbols-outlined text-[15px] text-amber-400">description</span>
-                <span>Ficha Técnica</span>
+          <!-- Actions Footer -->
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-neutral-800 space-y-2">
+            ${primaryActionBtn}
+            
+            <div class="flex items-center gap-2">
+              <a href="#/vehicle/${item.slug || item.id}" class="flex-1 py-2 px-3 rounded-xl border border-slate-200 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-mono text-xs font-semibold text-center transition flex items-center justify-center gap-1">
+                <span>Ver Ficha</span>
+                <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
               </a>
-              <a href="#/configurador?brand=${encodeURIComponent(item.brand)}&model=${encodeURIComponent(item.id)}" class="py-2 px-3 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 font-mono text-[11px] font-bold border border-amber-500/40 flex items-center justify-center gap-1.5 transition text-center">
-                <span class="material-symbols-outlined text-[15px]">tune</span>
-                <span>Configurar</span>
+              <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Dominicana, deseo cotizar el equipo ' + item.title + ' (' + item.brand + ') para entrega en RD.')}" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-mono text-xs font-bold transition flex items-center justify-center gap-1" title="WhatsApp Técnico Km 22">
+                <span>WhatsApp</span>
               </a>
             </div>
-
-            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola Don Eduardo, estoy viendo la ' + item.title + ' en la tienda web de TMD y quisiera cotizar entrega inmediata.')}" target="_blank" class="w-full py-2 px-3 rounded-[10px] bg-emerald-500 hover:bg-emerald-600 text-black font-headline-sm text-xs font-bold uppercase transition flex items-center justify-center gap-2 cursor-pointer">
-              <span class="material-symbols-outlined text-[15px]">chat</span>
-              <span>Cotizar con Don Eduardo</span>
-            </a>
           </div>
         </div>
       `;
@@ -2544,48 +2702,106 @@
 
     gridEl.innerHTML = cardsHtml;
 
-    // Infinite Scroll: render sentinel + loader; attach IntersectionObserver
+    // Enterprise Pagination Controls (Replaces Infinite Scroll so Footer is accessible)
     if (paginationEl) {
-      if (hasMore) {
+      if (totalPages > 1) {
+        var pageBtnsHtml = '';
+        var maxButtons = 5;
+        var startPage = Math.max(1, _currentPage - 2);
+        var endPage = Math.min(totalPages, startPage + maxButtons - 1);
+        if (endPage - startPage < maxButtons - 1) {
+          startPage = Math.max(1, endPage - maxButtons + 1);
+        }
+
+        if (startPage > 1) {
+          pageBtnsHtml += `<button type="button" onclick="window.tmdGoToPage(1)" class="w-8 h-8 rounded-lg font-mono text-xs font-bold bg-neutral-900/80 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-white/10 transition cursor-pointer">1</button>`;
+          if (startPage > 2) pageBtnsHtml += `<span class="text-neutral-500 text-xs font-mono">...</span>`;
+        }
+
+        for (var p = startPage; p <= endPage; p++) {
+          var isActive = (p === _currentPage);
+          pageBtnsHtml += `
+            <button type="button" onclick="window.tmdGoToPage(${p})" class="w-8 h-8 rounded-lg font-mono text-xs font-bold transition cursor-pointer ${isActive ? 'bg-amber-500 text-black shadow-md' : 'bg-neutral-900/80 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-white/10'}">
+              ${p}
+            </button>
+          `;
+        }
+
+        if (endPage < totalPages) {
+          if (endPage < totalPages - 1) pageBtnsHtml += `<span class="text-neutral-500 text-xs font-mono">...</span>`;
+          pageBtnsHtml += `<button type="button" onclick="window.tmdGoToPage(${totalPages})" class="w-8 h-8 rounded-lg font-mono text-xs font-bold bg-neutral-900/80 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-white/10 transition cursor-pointer">${totalPages}</button>`;
+        }
+
         paginationEl.innerHTML = `
-          <div class="flex flex-col items-center justify-center py-10 gap-3">
-            <div id="tmd-infinite-sentinel" class="w-full h-px"></div>
-            <div class="flex items-center gap-2 text-neutral-500 font-mono text-xs animate-pulse">
-              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-              <span>Cargando más equipos... (${_visibleCount} de ${totalItems} mostrados)</span>
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-8 border-t border-white/10 mt-8">
+            <span class="text-xs font-mono text-neutral-400">
+              Mostrando <strong class="text-white">${startIdx + 1} - ${endIdx}</strong> de <strong class="text-amber-400">${totalItems}</strong> equipos
+            </span>
+
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="window.tmdGoToPage(${_currentPage - 1})" ${_currentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/10 font-mono text-xs font-semibold disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer flex items-center gap-1">
+                <span>← Anterior</span>
+              </button>
+
+              <div class="flex items-center gap-1">
+                ${pageBtnsHtml}
+              </div>
+
+              <button type="button" onclick="window.tmdGoToPage(${_currentPage + 1})" ${_currentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/10 font-mono text-xs font-semibold disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer flex items-center gap-1">
+                <span>Siguiente →</span>
+              </button>
             </div>
+
+            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, solicito información técnica para adquisición de flota.')}" target="_blank" class="text-xs font-mono text-neutral-400 hover:text-amber-400 flex items-center gap-1 transition">
+              <span>Mesa Técnica Km 22</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
           </div>
         `;
-        // Small delay to ensure DOM is painted before attaching observer
-        setTimeout(function() { tmdAttachInfiniteScrollObserver(totalItems); }, 80);
       } else {
-        // All items shown — render end-of-catalog message
         paginationEl.innerHTML = `
-          <div class="flex flex-col items-center justify-center py-10 gap-2">
-            <span class="w-8 h-px bg-amber-500/40 block"></span>
-            <p class="font-mono text-[11px] text-neutral-500">Catálogo completo · ${totalItems} equipos disponibles</p>
-            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola Don Eduardo, revisé el catálogo completo de TMD y quisiera cotizar un equipo.')}" target="_blank" class="mt-2 px-5 py-2 rounded-[50px] bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-bold uppercase transition flex items-center gap-2">
-              <span class="material-symbols-outlined text-[16px]">chat</span>
-              ¿No encontró lo que busca? Consúltenos
+          <div class="flex items-center justify-between py-6 border-t border-white/10 mt-8 text-xs font-mono text-neutral-400">
+            <span>Total: <strong class="text-amber-400">${totalItems}</strong> equipos en esta selección</span>
+            <a href="https://wa.me/18098262222?text=${encodeURIComponent('Hola TMD Corporativo, requiero cotización especial para obra.')}" target="_blank" class="hover:text-amber-400 transition flex items-center gap-1">
+              <span>Mesa Técnica Km 22</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
             </a>
           </div>
         `;
       }
     }
+
+    window.tmdRenderActiveChips();
   };
 
   window.tmdRefreshStoreUI = function() {
-    // Update top sector pills
-    document.querySelectorAll('[data-sector-pill]').forEach(function(pill) {
-      var s = pill.getAttribute('data-sector-pill');
-      if (s === _activeSector) {
-        pill.className = 'px-4 py-2 rounded-[50px] bg-amber-500 text-black font-bold text-xs uppercase shadow-md transition-all whitespace-nowrap cursor-pointer';
+    // 1. Update Modality Switcher
+    document.querySelectorAll('[data-modality-btn]').forEach(function(btn) {
+      var m = btn.getAttribute('data-modality-btn');
+      if (m === _activeModality) {
+        if (m === 'RENT') {
+          btn.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all bg-emerald-500 text-black shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer';
+        } else if (m === 'BUY') {
+          btn.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all bg-amber-500 text-black shadow-lg shadow-amber-500/30 flex items-center gap-2 cursor-pointer';
+        } else {
+          btn.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all bg-amber-500 text-black shadow-lg shadow-amber-500/30 flex items-center gap-2 cursor-pointer';
+        }
       } else {
-        pill.className = 'px-4 py-2 rounded-[50px] bg-surface-charcoal/80 hover:bg-surface-charcoal text-neutral-300 hover:text-white font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer';
+        btn.className = 'px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide transition-all text-neutral-400 hover:text-white hover:bg-white/5 flex items-center gap-2 cursor-pointer';
       }
     });
 
-    // Update brand checkboxes
+    // 2. Update Sector Pills
+    document.querySelectorAll('[data-sector-pill]').forEach(function(pill) {
+      var s = pill.getAttribute('data-sector-pill');
+      if (s === _activeSector) {
+        pill.className = 'px-4 py-2 rounded-full bg-amber-500 text-black font-black text-xs uppercase shadow-md transition-all whitespace-nowrap cursor-pointer';
+      } else {
+        pill.className = 'px-4 py-2 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-neutral-300 hover:text-white font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer';
+      }
+    });
+
+    // 3. Update Brand Items
     document.querySelectorAll('[data-brand-radio]').forEach(function(r) {
       var b = r.getAttribute('data-brand-radio');
       if (b === _activeBrandFilter) {
@@ -2597,309 +2813,386 @@
       }
     });
 
+    // 4. Update Modality Radios in Sidebar
+    document.querySelectorAll('[data-sidebar-modality]').forEach(function(rad) {
+      var m = rad.getAttribute('data-sidebar-modality');
+      if (m === _activeModality) {
+        rad.classList.add('bg-amber-500/20', 'border-amber-500/50', 'text-amber-400', 'font-bold');
+        rad.classList.remove('text-neutral-400');
+      } else {
+        rad.classList.remove('bg-amber-500/20', 'border-amber-500/50', 'text-amber-400', 'font-bold');
+        rad.classList.add('text-neutral-400');
+      }
+    });
+
     window.tmdRenderStoreGrid();
     window.tmdUpdateCompareBarUI();
   };
 
-  function renderIndustryB2BFiltersModule() {
+  // Master Full Page Render
+  function renderUnifiedVehiclesCatalogPage() {
     setTimeout(function() {
       window.tmdRefreshStoreUI();
     }, 60);
 
     return `
-      <section id="tmd-industry-filters-infusion" class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 mb-12">
-        
-        <!-- Header & Breadcrumbs Banner -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/[0.08]">
-          <div>
-            <div class="flex items-center gap-2 font-mono text-xs uppercase text-amber-500 font-bold mb-1">
-              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-              <span>Tienda Oficial Multimarca TMD · 10 Marcas Certificadas en RD</span>
+      <div id="tmd-unified-vehicles-page" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 text-slate-900 dark:text-white transition-colors">
+
+        <!-- 1. HERO & COMMAND HEADER -->
+        <header class="mb-10 pb-6 border-b border-slate-200 dark:border-white/10">
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div class="max-w-3xl">
+              <!-- Live Inventory Indicator -->
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 font-mono text-xs font-bold uppercase tracking-wider mb-3">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>INVENTARIO OFICIAL EN TIEMPO REAL · SEDE CENTRAL KM 22</span>
+              </div>
+
+              <!-- Main Title -->
+              <h1 class="text-3xl sm:text-5xl font-black uppercase text-slate-900 dark:text-white tracking-tight leading-tight">
+                Catálogo Maestro de <span class="text-amber-500 dark:text-amber-400">Maquinaria Pesada</span>
+              </h1>
+
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-neutral-400 mt-2.5 leading-relaxed max-w-2xl">
+                180+ unidades disponibles para entrega inmediata en el Km 22 o importación directa. Respaldo oficial de taller Fullbay, repuestos genuinos, contratos de alquiler y opciones de leasing bancario deducible.
+              </p>
             </div>
-            <h2 class="text-2xl sm:text-3xl font-bold uppercase text-white font-headline-sm tracking-tight">
-              Catálogo de Maquinaria Pesada & Equipos 0 Km
-            </h2>
-            <p class="text-xs sm:text-sm text-neutral-400 mt-1 max-w-2xl">
-              Consulte inventario en tiempo real, filtre por potencia o marca, examine fichas técnicas de ingeniería y configure unidades para entrega inmediata en el Km 22.
-            </p>
+
+            <!-- Modality Switcher (Homepage Pill Style) -->
+            <div class="bg-white dark:bg-neutral-900 p-1.5 rounded-2xl shadow-lg border border-slate-200 dark:border-neutral-800 flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <button type="button" data-modality-btn="ALL" onclick="window.tmdSetModalityFilter('ALL')" class="px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wide transition-all bg-amber-500 text-black shadow-md font-black flex items-center gap-2 cursor-pointer">
+                <span>🌐 Todas las Modalidades (180+)</span>
+              </button>
+              <button type="button" data-modality-btn="RENT" onclick="window.tmdSetModalityFilter('RENT')" class="px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wide transition-all text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-2 cursor-pointer">
+                <span>🚜 Modo Renta (Alquiler)</span>
+              </button>
+              <button type="button" data-modality-btn="BUY" onclick="window.tmdSetModalityFilter('BUY')" class="px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wide transition-all text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-2 cursor-pointer">
+                <span>🏢 Modo Compra (0 Km)</span>
+              </button>
+            </div>
           </div>
 
-          <div class="flex items-center gap-3">
-            <span id="tmd-catalog-count-badge" class="px-3.5 py-1.5 rounded-[10px] bg-surface-charcoal border border-white/10 font-mono text-xs font-bold text-amber-400">
-              Cargando catálogo...
-            </span>
-            <a href="#/configurador" class="px-3.5 py-1.5 rounded-[10px] bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold uppercase flex items-center gap-1.5 transition-all">
-              <span class="material-symbols-outlined text-[16px]">tune</span>
-              <span>Configurador 3D</span>
-            </a>
+          <!-- KPI Strip -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 mt-6 pt-6 border-t border-slate-100 dark:border-neutral-800/80">
+            <div class="p-3.5 rounded-2xl bg-white dark:bg-neutral-900/90 border border-slate-200 dark:border-neutral-800 shadow-sm flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500">
+                <span class="material-symbols-outlined text-[20px]">construction</span>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-900 dark:text-white uppercase block">180+ Unidades</span>
+                <span class="text-[10px] font-mono text-slate-500 dark:text-neutral-400">10 Marcas Certificadas</span>
+              </div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white dark:bg-neutral-900/90 border border-slate-200 dark:border-neutral-800 shadow-sm flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-900 dark:text-white uppercase block">Despacho Lowboy 24h</span>
+                <span class="text-[10px] font-mono text-slate-500 dark:text-neutral-400">Entrega en 32 Provincias</span>
+              </div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white dark:bg-neutral-900/90 border border-slate-200 dark:border-neutral-800 shadow-sm flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500">
+                <span class="material-symbols-outlined text-[20px]">verified</span>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-900 dark:text-white uppercase block">Garantía Oficial TMD</span>
+                <span class="text-[10px] font-mono text-slate-500 dark:text-neutral-400">1-2 Años / 2,000 Horas</span>
+              </div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-white dark:bg-neutral-900/90 border border-slate-200 dark:border-neutral-800 shadow-sm flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+                <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+              </div>
+              <div>
+                <span class="text-xs font-bold text-slate-900 dark:text-white uppercase block">Crédito DGII B01/B15</span>
+                <span class="text-[10px] font-mono text-slate-500 dark:text-neutral-400">Leasing Bancario Deducible</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </header>
 
-        <!-- Level 1: Top Category Pills (Sector Tabs) -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none">
-          <button type="button" data-sector-pill="ALL" onclick="window.tmdSetSectorFilter('ALL')" class="px-4 py-2 rounded-[50px] bg-amber-500 text-black font-bold text-xs uppercase shadow-md transition-all whitespace-nowrap cursor-pointer">
-            🌐 Todos los Equipos (106+)
-          </button>
-          <button type="button" data-sector-pill="CONSTRUCTION" onclick="window.tmdSetSectorFilter('CONSTRUCTION')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
-            🏗️ Construcción & Vial (JCB, LiuGong)
-          </button>
-          <button type="button" data-sector-pill="AGRICULTURE" onclick="window.tmdSetSectorFilter('AGRICULTURE')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
-            🌾 Agro & Tractores (Kubota, LS, Yanmar, Yomel)
-          </button>
-          <button type="button" data-sector-pill="COMPACTION" onclick="window.tmdSetSectorFilter('COMPACTION')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
-            🔩 Compactación (Ammann)
-          </button>
-          <button type="button" data-sector-pill="CONCRETE" onclick="window.tmdSetSectorFilter('CONCRETE')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
-            🧱 Concreto (IMER Group)
-          </button>
-          <button type="button" data-sector-pill="SAFETY" onclick="window.tmdSetSectorFilter('SAFETY')" class="px-4 py-2 rounded-[50px] bg-surface-charcoal/80 text-neutral-300 font-bold text-xs uppercase border border-white/10 transition-all whitespace-nowrap cursor-pointer">
-            🛡️ Seguridad Incendio (AFEX)
-          </button>
-        </div>
-
-        <!-- 2-Column Store Layout: Left Filters + Right Grid (inline layout — bypasses Tailwind purge) -->
-        <div style="display:flex;flex-direction:column;gap:2rem;align-items:flex-start;" class="tmd-store-layout-wrapper">
-          
-          <!-- LEFT STICKY FILTER SIDEBAR -->
-          <aside style="width:100%;" class="tmd-filter-sidebar rounded-2xl bg-[#0d121c] border border-white/10 p-5 shadow-xl space-y-6">
-            <div class="flex items-center justify-between pb-3 border-b border-white/10">
-              <span class="font-headline-sm text-sm font-bold uppercase text-white flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-amber-500 text-[18px]">filter_list</span>
-                Filtros de Búsqueda
+        <!-- 2. SPOTLIGHT: FLOTA DESTACADA EN KM 22 -->
+        <section class="mb-10">
+          <div class="flex items-center justify-between gap-4 mb-3.5">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-600 dark:text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <span>⭐</span> FLOTA DESTACADA CON ENTREGA INMEDIATA EN KM 22
               </span>
-              <button type="button" onclick="window.tmdResetAllFilters()" class="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer">
+            </div>
+            <span class="text-[11px] font-mono text-slate-500 dark:text-neutral-400">Stock físico verificado</span>
+          </div>
+
+          <div class="tmd-spotlight-strip">
+            <!-- 1. JCB 3CX -->
+            <div class="tmd-spotlight-card rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-sm hover:border-amber-500/50 p-4 transition-all text-slate-900 dark:text-white cursor-pointer group" onclick="window.tmdSetBrandFilter('JCB')">
+              <div class="flex items-center justify-between text-[10px] font-mono mb-2">
+                <span class="px-2 py-0.5 rounded font-black bg-amber-500 text-black">JCB</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-bold">🟢 Stock Inmediato</span>
+              </div>
+              <div class="h-28 w-full flex items-center justify-center p-2 mb-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/5">
+                <img src="/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg" alt="JCB 3CX Eco" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">
+              </div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm uppercase truncate group-hover:text-amber-500 transition-colors">JCB 3CX Eco Retroexcavadora</h4>
+              <p class="text-[11px] text-slate-500 dark:text-neutral-400 line-clamp-1 mt-0.5">92 HP Turbo · Balde 1.0 m³ · #1 en RD</p>
+              <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-neutral-800 flex items-baseline justify-between">
+                <span class="text-xs font-bold text-amber-600 dark:text-amber-400">US$ 89,500</span>
+                <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">Renta: $220/d</span>
+              </div>
+            </div>
+
+            <!-- 2. LiuGong 922E -->
+            <div class="tmd-spotlight-card rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-sm hover:border-amber-500/50 p-4 transition-all text-slate-900 dark:text-white cursor-pointer group" onclick="window.tmdSetBrandFilter('LIUGONG')">
+              <div class="flex items-center justify-between text-[10px] font-mono mb-2">
+                <span class="px-2 py-0.5 rounded font-black bg-amber-500 text-black">LiuGong</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-bold">🟢 Stock Inmediato</span>
+              </div>
+              <div class="h-28 w-full flex items-center justify-center p-2 mb-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/5">
+                <img src="/assets/machinery/heavy_liugong_922e_hd_22_ton.jpg" alt="LiuGong 922E" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">
+              </div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm uppercase truncate group-hover:text-amber-500 transition-colors">LiuGong 922E HD Excavadora</h4>
+              <p class="text-[11px] text-slate-500 dark:text-neutral-400 line-clamp-1 mt-0.5">22 Ton · Motor Cummins 150 HP · Canteras</p>
+              <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-neutral-800 flex items-baseline justify-between">
+                <span class="text-xs font-bold text-amber-600 dark:text-amber-400">US$ 115,000</span>
+                <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">Renta: $380/d</span>
+              </div>
+            </div>
+
+            <!-- 3. LS Plus 100 -->
+            <div class="tmd-spotlight-card rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-sm hover:border-amber-500/50 p-4 transition-all text-slate-900 dark:text-white cursor-pointer group" onclick="window.tmdSetBrandFilter('LSTRACTOR')">
+              <div class="flex items-center justify-between text-[10px] font-mono mb-2">
+                <span class="px-2 py-0.5 rounded font-black bg-amber-500 text-black">LS Tractor</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-bold">🟢 Stock Inmediato</span>
+              </div>
+              <div class="h-28 w-full flex items-center justify-center p-2 mb-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/5">
+                <img src="/assets/machinery/high_torque_ls_tractor_plus_100.jpg" alt="LS Plus 100" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">
+              </div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm uppercase truncate group-hover:text-amber-500 transition-colors">LS Tractor Plus 100 4WD</h4>
+              <p class="text-[11px] text-slate-500 dark:text-neutral-400 line-clamp-1 mt-0.5">105 HP · Transmisión Synchro Shuttle 16x16</p>
+              <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-neutral-800 flex items-baseline justify-between">
+                <span class="text-xs font-bold text-amber-600 dark:text-amber-400">US$ 48,000</span>
+                <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">Renta: $160/d</span>
+              </div>
+            </div>
+
+            <!-- 4. Ammann ARX 26 -->
+            <div class="tmd-spotlight-card rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-sm hover:border-amber-500/50 p-4 transition-all text-slate-900 dark:text-white cursor-pointer group" onclick="window.tmdSetBrandFilter('AMMANN')">
+              <div class="flex items-center justify-between text-[10px] font-mono mb-2">
+                <span class="px-2 py-0.5 rounded font-black bg-amber-500 text-black">Ammann</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-bold">🟢 Stock Inmediato</span>
+              </div>
+              <div class="h-28 w-full flex items-center justify-center p-2 mb-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/5">
+                <img src="/assets/machinery/ammann_arx26_roller.jpg" alt="Ammann ARX 26" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">
+              </div>
+              <h4 class="font-bold text-slate-900 dark:text-white text-sm uppercase truncate group-hover:text-amber-500 transition-colors">Ammann ARX 26 Rodillo</h4>
+              <p class="text-[11px] text-slate-500 dark:text-neutral-400 line-clamp-1 mt-0.5">2.6 Ton Tándem · Doble vibración asfáltica</p>
+              <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-neutral-800 flex items-baseline justify-between">
+                <span class="text-xs font-bold text-amber-600 dark:text-amber-400">US$ 42,000</span>
+                <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">Renta: $190/d</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. WORKBENCH: SIDEBAR + CARDS COLUMN -->
+        <div class="tmd-catalog-workbench">
+
+          <!-- A. FILTER SIDEBAR (CLEAN ENTERPRISE PALETTE) -->
+          <aside class="tmd-filter-sidebar rounded-3xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-xl p-5 text-slate-900 dark:text-white">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-neutral-800 mb-5">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-amber-500 text-[20px]">tune</span>
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Filtros Avanzados</h3>
+              </div>
+              <button type="button" onclick="window.tmdResetAllFilters()" class="text-[11px] font-mono text-slate-500 dark:text-neutral-400 hover:text-amber-500 cursor-pointer underline transition-colors">
                 Limpiar
               </button>
             </div>
 
-            <!-- Search input in sidebar -->
-            <div>
-              <label class="font-mono text-[10px] uppercase text-neutral-400 block mb-1.5 font-bold">Buscador Instantáneo</label>
+            <!-- Search Field -->
+            <div class="mb-5">
+              <label class="block text-xs font-mono text-slate-500 dark:text-neutral-400 uppercase font-bold mb-1.5">Búsqueda Rápida</label>
               <div class="relative">
-                <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-neutral-500 text-[16px]">search</span>
-                <input id="tmd-store-search-input" type="text" oninput="window.tmdOnCatalogSearchInput(this.value)" placeholder="Modelo o palabra clave..." class="w-full bg-black/60 border border-white/10 rounded-lg pl-8 pr-3 py-2 font-mono text-xs text-white placeholder:text-neutral-500 outline-none focus:border-amber-500 transition">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+                <input id="tmd-catalog-search-input" type="text" placeholder="Modelo, marca o aplicación..." oninput="window.tmdOnSearchInput(this.value)" class="w-full bg-slate-50 dark:bg-neutral-950/80 border border-slate-200 dark:border-neutral-700 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 transition">
               </div>
             </div>
 
-            <!-- Brand Selector -->
-            <div>
-              <label class="font-mono text-[10px] uppercase text-neutral-400 block mb-2 font-bold">Filtrar por Marca</label>
+            <!-- Brand Accordion -->
+            <div class="mb-5 border-b border-slate-100 dark:border-neutral-800/80 pb-5">
+              <label class="block text-xs font-mono text-slate-500 dark:text-neutral-400 uppercase font-bold mb-2.5">Marcas Certificadas (10)</label>
               <div class="space-y-1 max-h-52 overflow-y-auto pr-1">
-                <div data-brand-radio="ALL" onclick="window.tmdSetBrandFilter('ALL')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-300">
-                  <span>Todas las Marcas</span>
-                  <span class="text-[10px] font-mono opacity-60">106</span>
-                </div>
-                <div data-brand-radio="JCB" onclick="window.tmdSetBrandFilter('JCB')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>JCB (Inglaterra)</span>
-                  <span class="text-[10px] font-mono opacity-60">40+</span>
-                </div>
-                <div data-brand-radio="LIUGONG" onclick="window.tmdSetBrandFilter('LIUGONG')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>LiuGong (Heavy Duty)</span>
-                  <span class="text-[10px] font-mono opacity-60">14</span>
-                </div>
-                <div data-brand-radio="KUBOTA" onclick="window.tmdSetBrandFilter('KUBOTA')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>Kubota (Japón)</span>
-                  <span class="text-[10px] font-mono opacity-60">15</span>
-                </div>
-                <div data-brand-radio="LSTRACTOR" onclick="window.tmdSetBrandFilter('LSTRACTOR')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>LS Tractor (Corea)</span>
-                  <span class="text-[10px] font-mono opacity-60">12</span>
-                </div>
-                <div data-brand-radio="YANMAR" onclick="window.tmdSetBrandFilter('YANMAR')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>Yanmar (Diésel Pro)</span>
-                  <span class="text-[10px] font-mono opacity-60">12</span>
-                </div>
-                <div data-brand-radio="AMMANN" onclick="window.tmdSetBrandFilter('AMMANN')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>Ammann (Suiza)</span>
-                  <span class="text-[10px] font-mono opacity-60">14</span>
-                </div>
-                <div data-brand-radio="IMER" onclick="window.tmdSetBrandFilter('IMER')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>IMER Group (Italia)</span>
-                  <span class="text-[10px] font-mono opacity-60">12</span>
-                </div>
-                <div data-brand-radio="IMPLEMENTOS" onclick="window.tmdSetBrandFilter('IMPLEMENTOS')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>Yomel / Orsi / Celli</span>
-                  <span class="text-[10px] font-mono opacity-60">14</span>
-                </div>
-                <div data-brand-radio="AFEX" onclick="window.tmdSetBrandFilter('AFEX')" class="p-2 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer text-xs flex items-center justify-between transition text-neutral-400">
-                  <span>AFEX Supresión Fuego</span>
-                  <span class="text-[10px] font-mono opacity-60">13</span>
-                </div>
+                ${_brandsList.map(function(b) {
+                  return `
+                    <label class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-neutral-800/50 cursor-pointer text-xs transition">
+                      <div class="flex items-center gap-2">
+                        <input type="checkbox" data-brand-cb="${b.id}" onchange="window.tmdToggleBrandFilter('${b.id}')" class="rounded border-slate-300 dark:border-neutral-700 text-amber-500 focus:ring-amber-500 accent-amber-500">
+                        <span class="text-slate-800 dark:text-neutral-200 font-medium">${b.name}</span>
+                      </div>
+                      <span class="font-mono text-[10px] text-slate-400 dark:text-neutral-500">${b.count}</span>
+                    </label>
+                  `;
+                }).join('')}
               </div>
             </div>
 
-            <!-- Power Range Filter -->
-            <div>
-              <label class="font-mono text-[10px] uppercase text-neutral-400 block mb-2 font-bold">Rango de Potencia (HP)</label>
-              <select onchange="window.tmdSetPowerFilter(this.value)" class="w-full bg-black/60 border border-white/10 rounded-lg p-2 font-mono text-xs text-white outline-none focus:border-amber-500 cursor-pointer">
-                <option value="ALL">Cualquier Potencia</option>
-                <option value="sub50">Menor a 50 HP (Compactos)</option>
-                <option value="50_100">50 a 100 HP (Medios)</option>
-                <option value="100_200">100 a 200 HP (Heavy Duty)</option>
-                <option value="plus200">Mayor a 200 HP (Minería / Cantera)</option>
-              </select>
+            <!-- Sector Filter -->
+            <div class="mb-5 border-b border-slate-100 dark:border-neutral-800/80 pb-5">
+              <label class="block text-xs font-mono text-slate-500 dark:text-neutral-400 uppercase font-bold mb-2">Sector de Aplicación</label>
+              <div class="space-y-1">
+                ${_sectorsList.map(function(s) {
+                  return `
+                    <button type="button" data-sector-btn="${s.id}" onclick="window.tmdSetSectorFilter('${s.id}')" class="w-full text-left p-2 rounded-xl text-xs flex items-center justify-between transition cursor-pointer text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-800/60">
+                      <span>${s.name}</span>
+                      <span class="font-mono text-[10px] text-slate-400 dark:text-neutral-500">${s.count}</span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
             </div>
 
-            <!-- Weight Range Filter -->
-            <div>
-              <label class="font-mono text-[10px] uppercase text-neutral-400 block mb-2 font-bold">Peso Operativo (Toneladas)</label>
-              <select onchange="window.tmdSetWeightFilter(this.value)" class="w-full bg-black/60 border border-white/10 rounded-lg p-2 font-mono text-xs text-white outline-none focus:border-amber-500 cursor-pointer">
-                <option value="ALL">Cualquier Peso</option>
-                <option value="compact">Mini / Compacto (&lt; 6 Tons)</option>
-                <option value="medium">Mediano (6 a 15 Tons)</option>
-                <option value="heavy">Pesado / Minería (&gt; 15 Tons)</option>
-              </select>
+            <!-- Horsepower Range Slider -->
+            <div class="mb-5 border-b border-slate-100 dark:border-neutral-800/80 pb-5">
+              <div class="flex items-center justify-between text-xs font-mono mb-2">
+                <span class="text-slate-500 dark:text-neutral-400 font-bold uppercase">Potencia Motor</span>
+                <span id="tmd-hp-range-label" class="text-amber-600 dark:text-amber-400 font-bold">20 – 400+ HP</span>
+              </div>
+              <input id="tmd-hp-slider" type="range" min="20" max="400" step="10" value="400" oninput="window.tmdOnHpSlider(this.value)" class="w-full accent-amber-500 cursor-pointer">
             </div>
 
-            <!-- Delivery & Stock Km 22 -->
-            <div class="pt-2 border-t border-white/10">
-              <label class="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
-                <input id="tmd-filter-stock-only" type="checkbox" onchange="window.tmdToggleStockOnly(this.checked)" class="w-4 h-4 rounded text-amber-500 focus:ring-0 cursor-pointer">
-                <span>Solo Entrega Inmediata Km 22</span>
-              </label>
-            </div>
-
-            <!-- Contact Help Box -->
-            <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
-              <span class="font-bold text-amber-400 block mb-1">¿No encuentra su máquina?</span>
-              <p class="text-[11px] text-neutral-400 leading-snug">Consulte a Don Eduardo por importación directa de cualquier equipo o implemento especial.</p>
-              <a href="https://wa.me/18098262222?text=Hola%20Don%20Eduardo,%20busco%20un%20equipo%20especial" target="_blank" class="text-amber-400 font-bold block mt-2 text-[11px] hover:underline">WhatsApp Directo ➔</a>
+            <!-- Help Me Choose CTA -->
+            <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-center">
+              <span class="material-symbols-outlined text-amber-500 text-[28px] mb-1">psychology</span>
+              <h4 class="text-xs font-bold uppercase text-slate-900 dark:text-white mb-1">¿No sabe qué máquina elegir?</h4>
+              <p class="text-[11px] text-slate-600 dark:text-neutral-400 mb-3">Responda 3 preguntas sobre su suelo y le recomendamos el equipo ideal.</p>
+              <button type="button" onclick="window.tmdOpenMachineAdvisor()" class="w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono text-xs font-bold uppercase tracking-wider transition shadow cursor-pointer">
+                Asesor Inteligente ➔
+              </button>
             </div>
           </aside>
 
-          <!-- RIGHT STORE COLUMN (inline flex — bypasses Tailwind purge) -->
-          <div style="flex:1 1 0%;min-width:0;" class="tmd-store-right-col flex flex-col justify-between min-h-[600px]">
-            
-            <!-- Sorting & View Toolbar -->
-            <div class="p-3.5 rounded-xl bg-surface-charcoal/90 border border-white/10 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs">
-              <div class="flex flex-wrap items-center gap-4">
-                <div class="flex items-center gap-2">
-                  <span class="text-neutral-400">Ordenar por:</span>
-                  <select onchange="window.tmdSetSortOrder(this.value)" class="bg-black/70 border border-white/10 text-amber-400 font-bold rounded-lg p-1.5 outline-none cursor-pointer">
-                    <option value="popular">Más Populares (Best Sellers)</option>
-                    <option value="price_asc">Menor Inversión (USD)</option>
-                    <option value="price_desc">Mayor Inversión (USD)</option>
-                  </select>
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <span class="text-neutral-400">Vista:</span>
-                  <div class="inline-flex rounded-lg bg-black/60 border border-white/10 p-0.5">
-                    <button type="button" id="tmd-btn-view-grid" onclick="window.tmdSetStoreViewMode('grid')" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode !== 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
-                      <span class="material-symbols-outlined text-[15px]">grid_view</span>
-                      <span class="hidden md:inline">Grid</span>
-                    </button>
-                    <button type="button" id="tmd-btn-view-list" onclick="window.tmdSetStoreViewMode('list')" class="px-2.5 py-1 rounded-[6px] text-xs font-bold transition flex items-center gap-1 ${window._storeViewMode === 'list' ? 'bg-amber-500 text-black' : 'text-neutral-400 hover:text-white'}">
-                      <span class="material-symbols-outlined text-[15px]">view_list</span>
-                      <span class="hidden md:inline">Lista Técnica</span>
-                    </button>
-                  </div>
-                </div>
+          <!-- B. MAIN CARDS COLUMN -->
+          <main class="min-w-0">
+            <!-- Active Filter Chips & View Controls -->
+            <div class="rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-sm p-3.5 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-slate-900 dark:text-white">
+              <div id="tmd-active-chips-bar" class="flex flex-wrap items-center gap-1.5 min-w-0">
+                <!-- Chips dynamically injected -->
               </div>
 
-              <div class="text-neutral-400 text-[11px] flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                <span>Scroll infinito · Carga automática al avanzar</span>
+              <div class="flex items-center gap-3 shrink-0 self-end sm:self-auto">
+                <span id="tmd-catalog-count-badge" class="font-mono text-xs text-slate-500 dark:text-neutral-400 font-bold whitespace-nowrap">
+                  180+ Equipos en Inventario
+                </span>
+
+                <!-- Grid / List Switcher -->
+                <div class="flex items-center rounded-xl bg-slate-100 dark:bg-neutral-800 p-1 border border-slate-200 dark:border-neutral-700">
+                  <button type="button" id="tmd-view-grid-btn" onclick="window.tmdSetStoreViewMode('grid')" class="p-1 rounded-lg text-amber-500 dark:text-amber-400 transition cursor-pointer" title="Vista Cuadrícula">
+                    <span class="material-symbols-outlined text-[18px]">grid_view</span>
+                  </button>
+                  <button type="button" id="tmd-view-list-btn" onclick="window.tmdSetStoreViewMode('list')" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white transition cursor-pointer" title="Vista Lista">
+                    <span class="material-symbols-outlined text-[18px]">view_list</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- The Grid -->
-            <div id="tmd-store-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Product Cards Grid -->
+            <div id="tmd-store-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              <!-- Dynamically populated by tmdRenderStoreGrid -->
+            </div>
+
+            <!-- Pagination Bar (Accessible Footer Immediately Below) -->
+            <div id="tmd-store-pagination" class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-sm mb-12">
               <!-- Dynamically rendered -->
             </div>
-
-            <!-- Infinite Scroll Sentinel & Loader -->
-            <div id="tmd-store-pagination"></div>
-
-          </div>
+          </main>
 
         </div>
 
-      </section>
-
-      <!-- Floating Compare Bar Container -->
-      <div id="tmd-floating-compare-bar" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-[150%] bg-[#0e131d]/95 border border-amber-500/40 backdrop-blur-xl shadow-2xl rounded-2xl p-3 px-5 z-50 flex items-center gap-5 transition-transform duration-300">
-        <div>
-          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block">Comparativa Técnica</span>
-          <span id="tmd-compare-bar-count" class="text-[10px] font-mono text-neutral-400">0 de 4 seleccionados</span>
+        <!-- 4. FLOATING COMPARISON DOCK BAR -->
+        <div id="tmd-store-compare-bar" class="tmd-compare-dock-bar hidden">
+          <!-- Dynamically populated -->
         </div>
-        <div id="tmd-compare-bar-thumbs" class="flex items-center gap-2"></div>
-        <button type="button" onclick="window.tmdOpenCompareModal()" class="py-2 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-headline-sm font-bold text-xs uppercase flex items-center gap-1.5 transition shadow cursor-pointer">
-          <span class="material-symbols-outlined text-[16px]">compare_arrows</span>
-          <span>Comparar Equipos ➔</span>
-        </button>
+
       </div>
     `;
   }
+
   // 9. MODULE 4: PAQUETE TROPICALIZADO CARIBE & CONDICIONES EXTREMAS (#/vehicle/:slug)
   // ─────────────────────────────────────────────────────────────────────────────
   function renderTropicalizedEngineeringModule(machineName) {
     return `
-      <section id="tmd-tropical-engineering-infusion" class="w-full max-w-7xl mx-auto px-6 py-8 my-6">
-        <div class="p-6 sm:p-8 rounded-[20px] bg-gradient-to-b from-[#181c26]/90 to-[#0b0d13]/95 backdrop-blur-[24px] border border-white/8 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+      <section id="tmd-tropical-engineering-infusion" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 my-4">
+        <div class="rounded-3xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 shadow-xl p-6 sm:p-8 text-slate-900 dark:text-white transition-all">
           <div class="flex items-center gap-3 mb-2">
-            <span class="text-amber-500 font-mono text-xs tracking-widest uppercase font-bold">EQUIPAMIENTO DE SERIE PROFESIONAL</span>
-            <span class="h-px bg-white/10 flex-1"></span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 dark:text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">
+              <span class="material-symbols-outlined text-[14px]">shield</span>
+              <span>EQUIPAMIENTO DE SERIE PROFESIONAL</span>
+            </span>
           </div>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-white uppercase mb-6">
+          <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-2 leading-tight">
             PAQUETE TROPICALIZADO PARA EL CARIBE & CONDICIONES EXTREMAS RD
           </h3>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-neutral-400 mb-6 max-w-3xl">
+            Configuración de fábrica reforzada para soportar el clima tropical de alta humedad, temperaturas de 38°C+, salinidad marina y partículas abrasivas en canteras dominicanas.
+          </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <!-- 1. Cabina Tropicalizada -->
-            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+            <div class="rounded-2xl bg-slate-50 dark:bg-neutral-950/60 border border-slate-200 dark:border-neutral-800 p-5 flex flex-col justify-between hover:border-amber-500/40 transition-all">
               <div>
-                <div class="text-amber-500 mb-2.5">
-                  <span class="material-symbols-outlined text-[28px]">ac_unit</span>
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400 mb-3">
+                  <span class="material-symbols-outlined text-[24px]">ac_unit</span>
                 </div>
-                <h4 class="text-sm font-bold text-white mb-1">Cabina Tropicalizada 38°C+</h4>
-                <p class="text-xs text-neutral-400">
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Cabina Tropicalizada 38°C+</h4>
+                <p class="text-xs text-slate-600 dark:text-neutral-400 leading-relaxed">
                   Compresor de A/C sobredimensionado para altas temperaturas. Aislamiento acústico a 72 dB(A), asiento neumático y visión panorámica 360°.
                 </p>
               </div>
-              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">CERTIFICADO CLIMA CARIBE</span>
+              <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-4 pt-2.5 border-t border-slate-200 dark:border-neutral-800/80 font-bold">CERTIFICADO CLIMA CARIBE</span>
             </div>
 
             <!-- 2. Radiador Anti-Bagazo -->
-            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+            <div class="rounded-2xl bg-slate-50 dark:bg-neutral-950/60 border border-slate-200 dark:border-neutral-800 p-5 flex flex-col justify-between hover:border-amber-500/40 transition-all">
               <div>
-                <div class="text-amber-500 mb-2.5">
-                  <span class="material-symbols-outlined text-[28px]">mode_fan</span>
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400 mb-3">
+                  <span class="material-symbols-outlined text-[24px]">mode_fan</span>
                 </div>
-                <h4 class="text-sm font-bold text-white mb-1">Radiador Anti-Bagazo & Salitre</h4>
-                <p class="text-xs text-neutral-400">
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Radiador Anti-Bagazo & Salitre</h4>
+                <p class="text-xs text-slate-600 dark:text-neutral-400 leading-relaxed">
                   Paso ancho de aletas para evitar taponamientos en zafra azucarera y polvo de cantera, con tratamiento anticorrosivo marino para zonas costeras.
                 </p>
               </div>
-              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">PROTECCIÓN MARINA MICM</span>
+              <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-4 pt-2.5 border-t border-slate-200 dark:border-neutral-800/80 font-bold">PROTECCIÓN MARINA MICM</span>
             </div>
 
             <!-- 3. Filtro Ciclónico Dual -->
-            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+            <div class="rounded-2xl bg-slate-50 dark:bg-neutral-950/60 border border-slate-200 dark:border-neutral-800 p-5 flex flex-col justify-between hover:border-amber-500/40 transition-all">
               <div>
-                <div class="text-amber-500 mb-2.5">
-                  <span class="material-symbols-outlined text-[28px]">filter_drama</span>
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400 mb-3">
+                  <span class="material-symbols-outlined text-[24px]">filter_drama</span>
                 </div>
-                <h4 class="text-sm font-bold text-white mb-1">Pre-Filtro Ciclónico Donaldson</h4>
-                <p class="text-xs text-neutral-400">
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Pre-Filtro Ciclónico Donaldson</h4>
+                <p class="text-xs text-slate-600 dark:text-neutral-400 leading-relaxed">
                   Separación centrífuga de hasta 99.4% de partículas abrasivas previo al paso por los elementos de aire primario y secundario.
                 </p>
               </div>
-              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">CALIDAD SEVERE-DUTY</span>
+              <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-4 pt-2.5 border-t border-slate-200 dark:border-neutral-800/80 font-bold">CALIDAD SEVERE-DUTY</span>
             </div>
 
             <!-- 4. Telemetría LiveLink RTK -->
-            <div class="tmd-tropical-card p-4 rounded-[16px] flex flex-col justify-between">
+            <div class="rounded-2xl bg-slate-50 dark:bg-neutral-950/60 border border-slate-200 dark:border-neutral-800 p-5 flex flex-col justify-between hover:border-amber-500/40 transition-all">
               <div>
-                <div class="text-amber-500 mb-2.5">
-                  <span class="material-symbols-outlined text-[28px]">satellite_alt</span>
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400 mb-3">
+                  <span class="material-symbols-outlined text-[24px]">satellite_alt</span>
                 </div>
-                <h4 class="text-sm font-bold text-white mb-1">Pre-instalación Auto-Steer RTK</h4>
-                <p class="text-xs text-neutral-400">
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Pre-instalación Auto-Steer RTK</h4>
+                <p class="text-xs text-slate-600 dark:text-neutral-400 leading-relaxed">
                   Arnés ISOBUS de fábrica y sensor de ángulo de giro homologado para antenas Trimble y guiado satelital submétrico de 2.5 cm.
                 </p>
               </div>
-              <span class="text-[10px] font-mono text-emerald-400 mt-3 pt-2 border-t border-white/5 font-bold">CONEXIÓN CAN BUS SATELITAL</span>
+              <span class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-4 pt-2.5 border-t border-slate-200 dark:border-neutral-800/80 font-bold">CONEXIÓN CAN BUS SATELITAL</span>
             </div>
           </div>
         </div>
@@ -4277,16 +4570,25 @@
   }
 
   function cleanupInjectedSections(activeRoute) {
+    // 0. Best Sellers Hero: ONLY on 'home'
+    if (activeRoute !== 'home') {
+      var hero = document.getElementById('tmd-best-sellers-hero-infusion');
+      if (hero) hero.remove();
+    }
     // 1. TCO Estimator: ONLY on 'home'
     if (activeRoute !== 'home') {
       var el = document.getElementById('tmd-tco-estimator-infusion');
       if (el) el.remove();
     }
 
-    // 2. Industry Filters: ONLY on 'vehicles'
+    // 2. Unified Vehicles Page & Industry Filters: ONLY on 'vehicles'
     if (activeRoute !== 'vehicles') {
       var el = document.getElementById('tmd-industry-filters-infusion');
       if (el) el.remove();
+      var uPage = document.getElementById('tmd-unified-vehicles-page');
+      if (uPage) uPage.remove();
+      var cDock = document.getElementById('tmd-floating-compare-bar');
+      if (cDock) cDock.remove();
     }
 
     // 3. Parts Schematic: ONLY on 'parts'
@@ -4321,24 +4623,91 @@
 
     // 7. Service Suite: ONLY on 'service'
     if (activeRoute !== 'service') {
-      var el = document.getElementById('tmd-v2-full-service-page');
-      if (el) el.remove();
+      safelyUnmountFromMain('tmd-v2-full-service-page');
     }
 
     // 8. Tools Dashboard: ONLY on 'tools'
     if (activeRoute !== 'tools') {
-      var el = document.getElementById('tmd-tools-dashboard-infusion');
-      if (el) el.remove();
+      safelyUnmountFromMain('tmd-tools-dashboard-infusion');
     }
 
     // 9. Enterprise Portal Landing: ONLY on 'portal'
     if (activeRoute !== 'portal') {
-      var el = document.getElementById('tmd-enterprise-portal-landing');
-      if (el) el.remove();
+      safelyUnmountFromMain('tmd-enterprise-portal-landing');
+    }
+
+    // 10. Vehicles Catalog: ONLY on 'vehicles'
+    if (activeRoute !== 'vehicles') {
+      safelyUnmountFromMain('tmd-unified-vehicles-page');
     }
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // REACT-SAFE MOUNT / UNMOUNT HELPERS (ZERO DOM CORRUPTION, ZERO CRASHES)
+  // ─────────────────────────────────────────────────────────────────────────────
+  function safelyMountToMain(sectionId, renderFn, onReady) {
+    var mainEl = document.querySelector('#root main');
+    if (!mainEl) return false;
+
+    // 1. Hide native React children cleanly with CSS without removing them from DOM
+    for (var i = 0; i < mainEl.children.length; i++) {
+      var child = mainEl.children[i];
+      if (child.id !== sectionId) {
+        child.style.display = 'none';
+      }
+    }
+
+    // 2. If section already exists in DOM, ensure it is visible and call onReady
+    var existing = document.getElementById(sectionId);
+    if (existing) {
+      existing.style.display = '';
+      if (typeof onReady === 'function') onReady();
+      return true;
+    }
+
+    // 3. Render section and append to main
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = typeof renderFn === 'function' ? renderFn() : renderFn;
+    var newElem = wrapper.firstElementChild;
+    if (newElem) {
+      mainEl.appendChild(newElem);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (typeof onReady === 'function') onReady();
+      return true;
+    }
+    return false;
+  }
+
+  function safelyUnmountFromMain(sectionId) {
+    var elem = document.getElementById(sectionId);
+    if (elem) elem.remove();
+
+    var mainEl = document.querySelector('#root main');
+    if (mainEl) {
+      // Check if any other custom full-page section is active
+      var customIds = [
+        'tmd-enterprise-portal-landing',
+        'tmd-tools-dashboard-infusion',
+        'tmd-v2-full-service-page',
+        'tmd-unified-vehicles-page',
+        'tmd-configurador-spa-section'
+      ];
+      var hasCustomActive = false;
+      for (var j = 0; j < customIds.length; j++) {
+        var other = document.getElementById(customIds[j]);
+        if (other && other.style.display !== 'none') {
+          hasCustomActive = true;
+          break;
+        }
+      }
+      if (!hasCustomActive) {
+        for (var k = 0; k < mainEl.children.length; k++) {
+          mainEl.children[k].style.display = '';
+        }
+      }
+    }
+  }
+
   // 13. ROUTE-SPECIFIC INFUSION DISPATCHER (NO LEAKS, NO DUPLICATES)
   // ─────────────────────────────────────────────────────────────────────────────
   var _isInfusing = false;
@@ -4360,59 +4729,46 @@
 
       // A0-1. ENTERPRISE PORTAL LANDING PAGE (#/portal)
       if (currentRoute === 'portal') {
-        if (!document.getElementById('tmd-enterprise-portal-landing') && mainEl) {
-          mainEl.innerHTML = renderEnterprisePortalLandingPage();
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        }
+        safelyMountToMain('tmd-enterprise-portal-landing', renderEnterprisePortalLandingPage);
       }
 
       // A0. TOOLS DASHBOARD PAGE (#/tools)
-      if (currentRoute === 'tools') {
-        if (!document.getElementById('tmd-tools-dashboard-infusion') && mainEl) {
-          mainEl.innerHTML = renderToolsDashboardModule();
-          window.scrollTo({ top: 0, behavior: 'instant' });
+      else if (currentRoute === 'tools') {
+        safelyMountToMain('tmd-tools-dashboard-infusion', renderToolsDashboardModule, function() {
           if (typeof window.tmdSwitchToolsTab === 'function') {
             window.tmdSwitchToolsTab('comp');
           }
-        }
+        });
       }
 
       // A. SERVICE PAGE (#/service)
-      if (currentRoute === 'service') {
-        if (!document.getElementById('tmd-v2-full-service-page') && window.TMD_V2_SERVICE_HTML) {
-          if (mainEl) {
-            // Replace ONLY what is inside <main>, leaving Header, Topbar, and Footer 100% intact!
-            mainEl.innerHTML = window.TMD_V2_SERVICE_HTML;
-            window.scrollTo({ top: 0, behavior: 'instant' });
-
-            var bookingForm = mainEl.querySelector('form');
+      else if (currentRoute === 'service') {
+        if (window.TMD_V2_SERVICE_HTML) {
+          safelyMountToMain('tmd-v2-full-service-page', function() { return window.TMD_V2_SERVICE_HTML; }, function() {
+            var bookingForm = document.querySelector('#tmd-v2-full-service-page form');
             if (bookingForm && bookingForm.id !== 'dtcServiceForm') {
               bookingForm.onsubmit = function (e) {
                 e.preventDefault();
                 window.tmdSubmitBookingForm();
               };
             }
-
-            // Append National Coverage Radar at bottom of service page
             var sPage = document.getElementById('tmd-v2-full-service-page');
             if (sPage && !sPage.querySelector('#tmd-national-coverage-infusion')) {
               var wrapperCoverage = document.createElement('div');
               wrapperCoverage.innerHTML = renderNationalCoverageModule();
               sPage.appendChild(wrapperCoverage.firstElementChild);
             }
-          }
+          });
         }
       }
 
       // B. HOME PAGE (#/home)
       else if (currentRoute === 'home') {
-        // 1. Best Sellers Hero Showcase
         if (!document.getElementById('tmd-best-sellers-hero-infusion') && mainEl) {
           var wrapperHeroBS = document.createElement('div');
           wrapperHeroBS.innerHTML = renderBestSellersHeroModule();
           mainEl.insertBefore(wrapperHeroBS.firstElementChild, mainEl.firstElementChild);
         }
-        // 2. TCO Estimator
         if (!document.getElementById('tmd-tco-estimator-infusion') && mainEl) {
           var wrapperTco = document.createElement('div');
           wrapperTco.innerHTML = renderTcoEstimatorModule();
@@ -4433,27 +4789,19 @@
 
       // D. VEHICLES CATALOG (#/vehicles)
       else if (currentRoute === 'vehicles') {
-        if (!document.getElementById('tmd-industry-filters-infusion') && mainEl) {
-          var gridTarget = mainEl.querySelector('div.grid');
-          var wrapperInd = document.createElement('div');
-          wrapperInd.innerHTML = renderIndustryB2BFiltersModule();
-          if (gridTarget && gridTarget.parentNode) {
-            gridTarget.parentNode.insertBefore(wrapperInd.firstElementChild, gridTarget);
-          } else {
-            mainEl.appendChild(wrapperInd.firstElementChild);
+        safelyMountToMain('tmd-unified-vehicles-page', renderUnifiedVehiclesCatalogPage, function() {
+          if (typeof window.tmdRefreshStoreUI === 'function') {
+            window.tmdRefreshStoreUI();
           }
-        }
+        });
       }
 
       // E. PARTS CATALOG (#/parts)
       else if (currentRoute === 'parts') {
-        // On parts page, keep original 390+ OEM parts list 100% visible and interactive!
-        // Place the interactive SVG exploded schematic neatly AFTER the parts grid
         if (!document.getElementById('tmd-schematic-infusion-container') && mainEl) {
           var partsContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
           var wrapperSchematic = document.createElement('div');
           wrapperSchematic.innerHTML = renderSchematicModule();
-          // Append after the catalog grid so search and products remain first!
           partsContainer.appendChild(wrapperSchematic.firstElementChild);
         }
       }
@@ -4466,21 +4814,18 @@
         if (mainEl) {
           var vehicleContainer = mainEl.querySelector('.max-w-7xl') || mainEl;
 
-          // 1. Tropicalized Engineering Package
           if (!document.getElementById('tmd-tropical-engineering-infusion')) {
             var wrapperTrop = document.createElement('div');
             wrapperTrop.innerHTML = renderTropicalizedEngineeringModule(_currentMachineName);
             vehicleContainer.appendChild(wrapperTrop.firstElementChild);
           }
 
-          // 2. 360 Inspector
           if (!document.getElementById('tmd-vehicle-360-infusion')) {
             var wrapper360 = document.createElement('div');
             wrapper360.innerHTML = renderVehicleDetailInfusion(_currentMachineName);
             vehicleContainer.appendChild(wrapper360.firstElementChild);
           }
 
-          // 3. Leasing & Tax Shield
           if (!document.getElementById('tmd-leasing-infusion-container')) {
             var wrapperLeasing = document.createElement('div');
             wrapperLeasing.innerHTML = renderLeasingModule();

@@ -759,7 +759,7 @@ Fecha Propuesta: ${date}`;
       '      <div class="hi-price">' + priceStr + '</div>',
       '      <div class="hi-price-rd">' + priceRD + '</div>',
       '      <div class="badge">🟢 Stock Km 22 · Entrega Inmediata</div>',
-      '      <div class="wa-box">📲 Cotizar: (809) 826-2222 · Don Eduardo · wa.me/18098262222</div>',
+      '      <div class="wa-box">📲 Cotizar: (809) 826-2222 · Ventas Corporativas · wa.me/18098262222</div>',
       '    </div>',
       '  </div>',
       '  <div class="specs-wrap">',

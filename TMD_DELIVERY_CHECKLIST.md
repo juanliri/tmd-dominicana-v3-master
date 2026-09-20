@@ -2,7 +2,7 @@
 
 This checklist is used to track the delivery of the 9 specific features promised in the TMD Tier 2 Scope of Work. 
 
-**Client:** Don Eduardo (TMD)
+**Client:** Eduardo López (TMD)
 **Tier:** Tier 2 (Fullbay Connected + Web Ecosystem)
 **Total Value:** $2,850 Setup + $150/mo Retainer
 
@@ -42,10 +42,10 @@ This checklist is used to track the delivery of the 9 specific features promised
 - [x] **3. Motor Cotizador (Configurador & Cotizador) con exportación a PDF**
   - [x] Lógica de cotización multimarca client-side en tiempo real (`tmd_quote_builder.js`).
   - [x] Generador formal de propuesta PDF para financiamiento bancario local.
-  - [x] Branding corporativo oficial TMD, cálculo DGII Ley 11-92 y botón WhatsApp a Don Eduardo (`/configurador`).
+  - [x] Branding corporativo oficial TMD, cálculo DGII Ley 11-92 y botón WhatsApp a Eduardo López (`/configurador`).
 
 - [ ] **4. Pasarela de Pagos Local (AZUL / PayPal)**
-  - [ ] Solicitar credenciales API AZUL o PayPal a Don Eduardo (Bloqueado pendiente cliente).
+  - [ ] Solicitar credenciales API AZUL o PayPal a Eduardo López (Bloqueado pendiente cliente).
   - [x] Arquitectura de botón Square Web Payments SDK configurada (`Location ID: CGBWWYE4W8J85`).
   - [ ] Pruebas de tokens de producción post-depósito.
 
@@ -63,7 +63,7 @@ This checklist is used to track the delivery of the 9 specific features promised
   - [x] Selector dinámico de duración de alquiler: `[ Por Día ]` `[ Por Semana ]` `[ Por Mes ]`.
   - [x] Selector de aditamentos opcionales: Martillos hidráulicos, baldes de zanja/roca, acopladores rápidos.
   - [x] Estimación instantánea en tiempo real sin formularios largos ni esperas de 48 horas.
-  - [x] Botón de cierre directo: **"Reservar por WhatsApp con Don Eduardo"** con mensaje pre-redactado conteniendo máquina, duración y aditamentos.
+  - [x] Botón de cierre directo: **"Reservar por WhatsApp con Eduardo López"** con mensaje pre-redactado conteniendo máquina, duración y aditamentos.
 
 - [x] **C. Mobile Cockpit para Contratistas en Obra (Job-Site Optimization)**
   - [x] Carga instantánea < 0.8s en redes móviles 4G/LTE de República Dominicana (Vercel Edge Caching + Turbopack).
@@ -155,7 +155,7 @@ Basado en el **Informe de Inteligencia Competitiva vs. Bobcat, Caterpillar, New 
 ## 🟦 PHASE 2: B. Integración y Portales (Fullbay Fleet)
 
 - [ ] **5. Sincronización API con Fullbay (Lectura)**
-  - [ ] Obtain Fullbay API keys from client (Pendiente llaves Don Eduardo).
+  - [ ] Obtain Fullbay API keys from client (Pendiente llaves Eduardo López).
   - [x] Create API Adapter Layer (`assets/tmd_api_adapter.js`) con interfaz Fullbay/JCB estandarizada.
   - [ ] Set up Cron schedule for periodic syncing.
 
@@ -211,7 +211,7 @@ Basado en el **Informe de Inteligencia Competitiva vs. Bobcat, Caterpillar, New 
   - [ ] Production Edge Cache verification (< 1.2s load time across Santo Domingo LTE).
 
 - [ ] **14. Cierre, Capacitación & Activación del Retainer VIP**
-  - [ ] Remote video walkthrough with Don Eduardo & Km 22 shop dispatch staff.
+  - [ ] Remote video walkthrough with Eduardo López & Km 22 shop dispatch staff.
   - [ ] Final 50% balance invoice settlement ($1,425.00 USD).
   - [ ] Deliver source code buyout package ([TECH 003]).
   - [ ] Activate automated recurring billing for the $150/mo VIP Retainer series ([MNT 011]).
@@ -237,7 +237,7 @@ Este cronograma vincula directamente cada hito técnico con los contratos y dese
 | **Hito 0: Formalización** | Día 1 | Firma digital de acuerdos de confidencialidad y prestación de servicios. | **Square NDA (#000202)** & **Square MSA (#000201)** | $0.00 |
 | **Hito 1: Kick-Off & Setup** | Día 1 – 2 | Despliegue de entorno staging en Vercel, provisión de base de datos Supabase y recepción de llaves API Fullbay/JCB. | **Square Setup Invoice (50% Deposit)** | **$1,425.00 USD** *(RD$ 84,788)* |
 | **Fase 2: Integración Técnica** | Días 3 – 10 | Conexión de catálogo 3 pilares (Dealer 0 Km, Renta 44 máquinas, Taller Fullbay), telemetría de 350 Bar y buscador de repuestos. | Anexo Técnico SOW (Tier 2 SOW-720) | En ejecución |
-| **Fase 3: Pruebas UAT en Vivo** | Días 11 – 12 | Validación conjunta en vivo con Don Eduardo y personal de taller Km 22. Validación de CNAME en subdominio cliente. | Acta de Recepción Técnica (UAT Sign-off) | Aprobación de entrega |
+| **Fase 3: Pruebas UAT en Vivo** | Días 11 – 12 | Validación conjunta en vivo con Eduardo López y personal de taller Km 22. Validación de CNAME en subdominio cliente. | Acta de Recepción Técnica (UAT Sign-off) | Aprobación de entrega |
 | **Hito 2: Go-Live & Handover** | Días 13 – 14 | Pase oficial a producción, retiro de PIN Gate, entrega del paquete de código fuente (`[TECH 003]`) y sesión de capacitación. | **Square Balance Settlement Invoice (50%)** | **$1,425.00 USD** *(RD$ 84,788)* |
 | **Hito 3: Retainer Mensual** | Día 30 en adelante | Monitoreo 24/7 de API Fullbay, certificados SSL automáticos, respaldos diarios en la nube y asistencia prioritaria. | **VIP Maintenance Retainer (`MNT-011` / #000203)** | **$150.00 USD / mes** *(Recurrente Card-on-File)* |
 
