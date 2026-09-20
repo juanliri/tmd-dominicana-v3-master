@@ -3095,6 +3095,95 @@
                 </a>
               </div>
             </div>
+
+            <!-- Phase 18: Magazine / B2B Technical Intelligence Hub -->
+            <div class="mt-10 pt-8 border-t border-white/10">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                  <div class="flex items-center gap-2 font-mono text-[11px] uppercase text-amber-500 font-bold mb-1">
+                    <span class="material-symbols-outlined text-[16px]">menu_book</span>
+                    <span>Revista Técnica &amp; Inteligencia de Flota TMD</span>
+                  </div>
+                  <h3 class="text-xl font-bold uppercase text-white font-headline-sm tracking-tight">
+                    Guías de Aplicación &amp; Criterios de Selección en RD
+                  </h3>
+                </div>
+                <div class="text-[11px] font-mono text-neutral-400">
+                  Respaldo Técnico · Autopista Duarte Km 22
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Guide Card 1 -->
+                <div class="p-5 rounded-2xl bg-gradient-to-b from-[#111724]/90 to-[#0b0f18]/90 border border-white/10 hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-lg">
+                  <div>
+                    <div class="flex items-center justify-between mb-3 text-[10px] font-mono">
+                      <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 font-bold uppercase">Construcción Vial</span>
+                      <span class="text-neutral-500">4 min lectura</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-white uppercase group-hover:text-amber-400 transition mb-2 font-headline-sm leading-snug">
+                      Excavadoras sobre Orugas vs. Retroexcavadoras en Terreno Dominicano
+                    </h4>
+                    <p class="text-xs text-neutral-400 leading-relaxed">
+                      Comparativa técnica de m³ removidos por galón diésel en suelo rocoso y calizo de la Cordillera Central y canteras locales.
+                    </p>
+                  </div>
+                  <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[11px] font-mono text-neutral-400">Por Ing. Civil TMD</span>
+                    <a href="https://wa.me/18098262222?text=Hola%20Ingenier%C3%ADa%20TMD,%20deseo%20recibir%20la%20gu%C3%ADa%20t%C3%A9cnica%20de%20Excavadoras%20vs%20Retroexcavadoras" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1">
+                      <span>Ver Guía</span>
+                      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Guide Card 2 -->
+                <div class="p-5 rounded-2xl bg-gradient-to-b from-[#111724]/90 to-[#0b0f18]/90 border border-white/10 hover:border-emerald-500/40 transition-all flex flex-col justify-between group shadow-lg">
+                  <div>
+                    <div class="flex items-center justify-between mb-3 text-[10px] font-mono">
+                      <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-bold uppercase">Telemetría &amp; Ahorro</span>
+                      <span class="text-neutral-500">5 min lectura</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-white uppercase group-hover:text-emerald-400 transition mb-2 font-headline-sm leading-snug">
+                      Monitoreo Satelital LiveLink: Reducción del 18% en Consumo Diésel
+                    </h4>
+                    <p class="text-xs text-neutral-400 leading-relaxed">
+                      Cómo el apagado automático por ralentí y las geocercas activas optimizan el horómetro de flotas en proyectos de infraestructura.
+                    </p>
+                  </div>
+                  <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[11px] font-mono text-neutral-400">Por Especialista Telemático</span>
+                    <a href="https://wa.me/18098262222?text=Hola%20Ingenier%C3%ADa%20TMD,%20deseo%20conocer%20el%20sistema%20de%20telemetr%C3%ADa%20LiveLink" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-emerald-400 hover:underline flex items-center gap-1">
+                      <span>Ver Datos</span>
+                      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Guide Card 3 -->
+                <div class="p-5 rounded-2xl bg-gradient-to-b from-[#111724]/90 to-[#0b0f18]/90 border border-white/10 hover:border-cyan-500/40 transition-all flex flex-col justify-between group shadow-lg">
+                  <div>
+                    <div class="flex items-center justify-between mb-3 text-[10px] font-mono">
+                      <span class="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-400 font-bold uppercase">Régimen DGII</span>
+                      <span class="text-neutral-500">3 min lectura</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-white uppercase group-hover:text-cyan-400 transition mb-2 font-headline-sm leading-snug">
+                      Deducción Inmediata B01 &amp; Ley 392-07 para Contratistas RD
+                    </h4>
+                    <p class="text-xs text-neutral-400 leading-relaxed">
+                      Optimización de amortización fiscal de activos productivos 0 Km con facturación NCF oficial para constructoras y mineras.
+                    </p>
+                  </div>
+                  <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between">
+                    <span class="text-[11px] font-mono text-neutral-400">Por Asesoría Fiscal B2B</span>
+                    <a href="https://wa.me/18098262222?text=Hola%20Ingenier%C3%ADa%20TMD,%20solicito%20asesor%C3%ADa%20sobre%20deducci%C3%B3n%20DGII%20B01" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-cyan-400 hover:underline flex items-center gap-1">
+                      <span>Consultar DGII</span>
+                      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

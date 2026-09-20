@@ -5,7 +5,7 @@
  * Master index of all partner brands, their sector assignments,
  * product categories, and catalog data references.
  * 
- * Used by: tmd_quote_builder.js, tmd_stitch_infusion.js
+ * Used by: tmd_quote_builder.js, tmd_store_engine.js
  */
 
 window.TMD_BRAND_REGISTRY = {

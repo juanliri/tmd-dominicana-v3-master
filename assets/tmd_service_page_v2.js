@@ -1,6 +1,6 @@
 /* ═════════════════════════════════════════════════════════════════════════════
    TMD DOMINICANA 2026 — SERVICE MASTER SUITE V2 TEMPLATE & CONTROLLER
-   Full Overhaul of #/service matching theme_v2_stitch/servicio_tecnico_overhaul_km22.html
+   Full Overhaul of #/service matching TMD Enterprise Taller Km 22 standards
 ═════════════════════════════════════════════════════════════════════════════ */
 
 (function () {
