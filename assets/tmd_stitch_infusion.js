@@ -2351,6 +2351,7 @@
 
     return all;
   }
+  window.tmdGetAllStoreProducts = getAllStoreProducts;
 
   function getFilteredStoreProducts() {
     var items = getAllStoreProducts();
@@ -4740,12 +4741,14 @@
         });
       }
       // D. MULTIBRAND VEHICLES CATALOG (#/vehicles or #/machinery or #/modelos or #/catalogo)
+      // 100% Native React Rendering via a1e — NO DOM HIJACKING, NO EMPTY VOID
       else if (currentRoute === 'vehicles') {
-        safelyMountToMain('tmd-unified-vehicles-page', renderUnifiedVehiclesCatalogPage, function() {
-          if (typeof window.tmdRefreshStoreUI === 'function') {
-            window.tmdRefreshStoreUI();
+        safelyUnmountFromMain('tmd-unified-vehicles-page');
+        if (mainEl) {
+          for (var i = 0; i < mainEl.children.length; i++) {
+            mainEl.children[i].style.display = '';
           }
-        });
+        }
       }
       // E. PARTS SCHEMATIC (#/parts)
       else if (currentRoute === 'parts') {
