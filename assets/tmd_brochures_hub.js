@@ -693,4 +693,97 @@ Fecha Propuesta: ${date}`;
     }
   });
 
+  // ─── P5: FICHA PDF PRINT ENGINE ───────────────────────────────────────────
+  // Called by ficha_tecnica.html when user clicks "Imprimir Ficha PDF".
+  // Generates a branded, single-page print popup with TMD Obsidian theme.
+  window.tmdDownloadMachinePDF = function(p) {
+    if (!p) { window.print(); return; }
+
+    var priceStr  = p.priceUSD ? '$' + p.priceUSD.toLocaleString('en-US') + ' USD' : 'Consultar';
+    var priceRD   = p.priceUSD ? '≈ RD$ ' + (p.priceUSD * 60).toLocaleString('en-US') : '';
+    var specsRows = '';
+    if (p.specs) {
+      Object.keys(p.specs).slice(0, 12).forEach(function(k) {
+        specsRows += '<tr><td class="sp">' + k + '</td><td class="sv">' + p.specs[k] + '</td></tr>';
+      });
+    }
+    var imgSrc = p.image || '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg';
+    var code   = p.brochureCode || ('FT-TMD-' + (p.id || '').toUpperCase() + '-2026');
+
+    var html = [
+      '<!DOCTYPE html><html lang="es"><head>',
+      '<meta charset="UTF-8">',
+      '<title>Ficha Técnica — ' + (p.title || 'TMD') + ' | TMD Dominicana</title>',
+      '<style>',
+      '  @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@600;800&display=swap");',
+      '  *{box-sizing:border-box;margin:0;padding:0;}',
+      '  body{background:#fff;color:#0a0f1a;font-family:Inter,sans-serif;font-size:12px;line-height:1.5;}',
+      '  @page{size:A4 portrait;margin:0;}',
+      '  .page{width:210mm;min-height:297mm;padding:0;display:flex;flex-direction:column;}',
+      '  .hdr{background:#0a0f1a;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;}',
+      '  .hdr-brand{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:900;letter-spacing:1px;color:#FFB800;}',
+      '  .hdr-sub{font-size:10px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;}',
+      '  .hdr-code{font-family:"JetBrains Mono",monospace;font-size:10px;color:#FFB800;text-align:right;}',
+      '  .hero{display:flex;gap:0;border-bottom:3px solid #FFB800;}',
+      '  .hero-img-box{width:55%;background:radial-gradient(circle at center,#172133 0%,#0d1320 80%);display:flex;align-items:center;justify-content:center;padding:24px;}',
+      '  .hero-img{max-width:100%;max-height:180px;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.6));}',
+      '  .hero-info{width:45%;padding:20px 22px;background:#f8fafc;border-left:1px solid #e2e8f0;}',
+      '  .hi-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;margin-bottom:6px;}',
+      '  .hi-title{font-family:"Barlow Condensed",sans-serif;font-size:30px;font-weight:900;text-transform:uppercase;color:#0a0f1a;line-height:1;margin-bottom:8px;}',
+      '  .hi-tagline{font-size:11px;color:#475569;line-height:1.4;margin-bottom:12px;}',
+      '  .hi-price{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:900;color:#d97706;}',
+      '  .hi-price-rd{font-size:10px;color:#64748b;font-family:"JetBrains Mono",monospace;margin-bottom:10px;}',
+      '  .badge{display:inline-block;background:#0a0f1a;color:#10B981;border:1px solid rgba(16,185,129,0.4);padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;font-family:"JetBrains Mono",monospace;text-transform:uppercase;margin-bottom:12px;}',
+      '  .wa-box{background:#dcfce7;border:1px solid #86efac;border-radius:6px;padding:8px 10px;font-size:10px;font-weight:700;color:#166534;}',
+      '  .specs-wrap{padding:18px 24px;flex:1;}',
+      '  .specs-title{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;color:#0a0f1a;margin-bottom:10px;border-bottom:2px solid #FFB800;padding-bottom:4px;}',
+      '  table.st{width:100%;border-collapse:collapse;font-size:11px;}',
+      '  table.st tr{border-bottom:1px solid #f1f5f9;}',
+      '  table.st td{padding:6px 8px;}',
+      '  td.sp{color:#64748b;width:42%;font-weight:600;}',
+      '  td.sv{color:#0a0f1a;font-family:"JetBrains Mono",monospace;font-weight:700;}',
+      '  .ftr{background:#0a0f1a;color:#64748b;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-family:"JetBrains Mono",monospace;margin-top:auto;}',
+      '  .ftr-amber{color:#FFB800;font-weight:700;}',
+      '</style></head><body>',
+      '<div class="page">',
+      '  <div class="hdr">',
+      '    <div><div class="hdr-brand">TMD · Tecnomaquinarias Diesel</div><div class="hdr-sub">Distribuidor Oficial Multimarca · Autopista Duarte Km 22, Santo Domingo</div></div>',
+      '    <div class="hdr-code">Código: ' + code + '<br>Ficha Técnica Oficial 2026</div>',
+      '  </div>',
+      '  <div class="hero">',
+      '    <div class="hero-img-box"><img class="hero-img" src="' + imgSrc + '" alt="' + (p.title || '') + '" onerror="this.onerror=null;this.src=\'https://tmd-dominicana-2026-todobuild-apps.vercel.app/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg\'"></div>',
+      '    <div class="hero-info">',
+      '      <div class="hi-cat">' + (p.brand || '') + ' · ' + (p.category || '') + '</div>',
+      '      <div class="hi-title">' + (p.title || '') + '</div>',
+      '      <div class="hi-tagline">' + (p.tagline || 'Maquinaria certificada con garantía oficial TMD y respaldo de taller especializado Km 22.') + '</div>',
+      '      <div class="hi-price">' + priceStr + '</div>',
+      '      <div class="hi-price-rd">' + priceRD + '</div>',
+      '      <div class="badge">🟢 Stock Km 22 · Entrega Inmediata</div>',
+      '      <div class="wa-box">📲 Cotizar: (809) 826-2222 · Don Eduardo · wa.me/18098262222</div>',
+      '    </div>',
+      '  </div>',
+      '  <div class="specs-wrap">',
+      '    <div class="specs-title">Especificaciones Técnicas de Ingeniería</div>',
+      '    <table class="st"><tbody>' + (specsRows || '<tr><td class="sp">Condición</td><td class="sv">0 Km / Nuevo</td></tr><tr><td class="sp">Garantía</td><td class="sv">Oficial TMD 2,000 h / 1 año</td></tr>') + '</tbody></table>',
+      '    <p style="margin-top:12px;font-size:10px;color:#94a3b8;">Especificaciones sujetas a cambio sin previo aviso. Precios en USD antes de ITBIS. Sujeto a disponibilidad. Aprobación crediticia aplica en financiamientos.</p>',
+      '  </div>',
+      '  <div class="ftr">',
+      '    <span><span class="ftr-amber">TMD Dominicana</span> · RNC 1-30-88492-1 · Tel. (809) 826-2222</span>',
+      '    <span>tmd-dominicana-2026-todobuild-apps.vercel.app</span>',
+      '  </div>',
+      '</div>',
+      '<script>window.onload=function(){window.print();setTimeout(function(){window.close();},800);};<\/script>',
+      '</body></html>'
+    ].join('\n');
+
+    var w = window.open('', '_blank', 'width=800,height=1100,menubar=no,toolbar=no,status=no');
+    if (w) {
+      w.document.open();
+      w.document.write(html);
+      w.document.close();
+    } else {
+      window.print(); // popup blocked fallback
+    }
+  };
+
 })();

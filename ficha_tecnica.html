@@ -1191,24 +1191,61 @@
         }
       });
 
-      // Related Products
+      // Related Products — P2: same-brand priority, stock badges, slug URLs
       function renderRelated(p) {
         const relatedBox = document.getElementById('related-container');
         relatedBox.innerHTML = '';
-        const others = inventory.filter(x => x.id !== p.id && (x.brand === p.brand || x.category === p.category)).slice(0, 4);
-        
+
+        // Priority: same brand first, then same category, exclude self
+        const sameBrand   = inventory.filter(x => x.id !== p.id && x.brand === p.brand).slice(0, 2);
+        const sameCategory = inventory.filter(x => x.id !== p.id && x.brand !== p.brand && x.category === p.category).slice(0, 2);
+        const others = [...sameBrand, ...sameCategory].slice(0, 4);
+
+        if (others.length === 0) {
+          relatedBox.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">No se encontraron equipos similares en inventario activo.</p>';
+          return;
+        }
+
         others.forEach(r => {
+          // Stock badge for related card
+          let rState = r.stockState || r.availability;
+          if (!rState) {
+            let h = 0;
+            for (let i = 0; i < (r.id || '').length; i++) h += r.id.charCodeAt(i);
+            const mod = h % 10;
+            rState = mod < 6 ? 'stock' : (mod < 8 ? 'transit' : 'order');
+          }
+          let rBadgeColor = '#10B981'; let rBadgeText = '🟢 Km 22';
+          if (rState === 'transit' || rState === 'transito') { rBadgeColor = '#FFB800'; rBadgeText = '🟡 En Tránsito'; }
+          else if (rState === 'order' || rState === 'pedido') { rBadgeColor = '#38bdf8'; rBadgeText = '🔵 Por Pedido'; }
+
+          const rSlug = encodeURIComponent(r.id);
+          const rWaMsg = encodeURIComponent(`Hola Don Eduardo, vi el equipo ${r.title} en la web de TMD y quiero cotizarlo. Precio referencia: $${(r.priceUSD || 0).toLocaleString('en-US')} USD.`);
+          const rImgFallback = '/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg';
+
           const card = document.createElement('div');
           card.className = 'related-card';
           card.innerHTML = `
             <div>
-              <img src="${r.image}" class="related-img" alt="${r.title}" onerror="this.onerror=null;this.src='/assets/machinery/classic_robust_yellow_jcb_3cx_backhoe.jpg';">
-              <span style="font-size:10px; color:var(--amber); font-weight:700; text-transform:uppercase;">${r.brand}</span>
+              <img src="${r.image}" class="related-img" alt="${r.title}" onerror="this.onerror=null;this.src='${rImgFallback}';">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:10px; color:var(--amber); font-weight:700; text-transform:uppercase; font-family:var(--font-mono);">${r.brand}</span>
+                <span style="font-size:9px; font-weight:700; color:${rBadgeColor}; font-family:var(--font-mono);">${rBadgeText}</span>
+              </div>
               <div class="related-title">${r.title}</div>
+              ${r.tagline ? `<p style="font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.4;">${r.tagline}</p>` : ''}
             </div>
-            <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
-              <span class="related-price">$${(r.priceUSD || 0).toLocaleString('en-US')} USD</span>
-              <a href="/ficha?id=${encodeURIComponent(r.id)}" style="font-size:11px; font-weight:700; color:var(--amber); border-bottom:1px solid var(--amber);">Ver Ficha ➔</a>
+            <div style="margin-top:14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span class="related-price">$${(r.priceUSD || 0).toLocaleString('en-US')} USD</span>
+                <a href="/ficha/${rSlug}" style="font-size:11px; font-weight:700; color:var(--amber); border-bottom:1px solid rgba(255,184,0,0.4); padding-bottom:1px;">Ver Ficha ➔</a>
+              </div>
+              <a href="https://wa.me/18098262222?text=${rWaMsg}" target="_blank"
+                 style="display:flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:8px; border-radius:8px; background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.25); color:#25D366; font-size:11px; font-weight:700; text-transform:uppercase; transition:all 0.2s;"
+                 onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.1)'">
+                <span class="material-symbols-outlined" style="font-size:13px;">chat</span>
+                Cotizar por WhatsApp
+              </a>
             </div>
           `;
           relatedBox.appendChild(card);
