@@ -24,7 +24,6 @@
   <meta name="twitter:image" content="https://www.tmd.com.do/wp-content/uploads/2023/07/logo.png" />
   <link rel="canonical" href="https://tmddominicana.com/bio" />
   <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="/assets/tmd_client_portal.css?v=20260919_isolated_v6" />
   <link rel="stylesheet" href="/assets/tmd_animation_suite.css?v=20260919_enterprise_v4" />
   
   <!-- Google Fonts -->
@@ -94,8 +93,9 @@
 
     html {
       scroll-behavior: auto !important;
-      overflow-x: hidden;
+      overflow-x: hidden !important;
       background: #000000 !important;
+      width: 100%;
     }
 
     body {
@@ -105,11 +105,16 @@
       background-image: none !important;
       color: var(--text-white);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
       position: relative;
-      overflow-x: hidden;
-      padding: 16px 14px 64px;
+      overflow-x: hidden !important;
+      padding: 24px 16px 80px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
     }
 
     /* Ambient layers purged for 100% pure uniform black (zero half-screen split) */
@@ -122,11 +127,12 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 530px;
-      margin: 0 auto;
+      max-width: 540px !important;
+      margin: 0 auto !important;
       display: flex;
       flex-direction: column;
       gap: 14px;
+      box-sizing: border-box;
     }
 
     .cards-section-header {
@@ -155,23 +161,27 @@
       border: 1px solid rgba(255, 184, 0, 0.35);
     }
 
-    /* Tablet & Desktop Centered Luxury Deck (Zero Checkerboard Distortion) */
+    /* Tablet & Desktop Centered Luxury Deck (Strict Linktree Centering, Zero Side-by-Side Shift) */
     @media (min-width: 768px) {
       body {
-        padding: 36px 20px 80px !important;
-        justify-content: center !important;
+        padding: 40px 20px 88px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
       }
       .bio-container {
-        max-width: 550px !important;
+        max-width: 540px !important;
         margin: 0 auto !important;
       }
     }
     @media (min-width: 1024px) {
       body {
         padding: 48px 24px 96px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
       }
       .bio-container {
-        max-width: 560px !important;
+        max-width: 550px !important;
+        margin: 0 auto !important;
       }
     }
 
@@ -1095,7 +1105,7 @@
       </a>
 
       <!-- 2. Repuestos Genuinos OEM & Búsqueda por Serial -->
-      <a class="link-card" data-trackable href="index.html#/parts" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenPartsSerialEngine==='function'){event.preventDefault(); window.tmdOpenPartsSerialEngine();}">
+      <a class="link-card" data-trackable href="index.html#/parts" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Screenshot_104.png" onerror="this.onerror=null; this.src='/assets/images/tmd_sede_central_patio_km22.jpg';" alt="Repuestos OEM Genuinos" loading="lazy" />
@@ -1112,7 +1122,7 @@
       </a>
 
       <!-- 2B. Comparador 3-Vías (JCB vs Caterpillar & John Deere) -->
-      <a class="link-card" data-trackable href="javascript:void(0)" onclick="if(typeof window.tmdOpenModelComparator==='function'){event.preventDefault(); window.tmdOpenModelComparator('backhoes');}">
+      <a class="link-card" data-trackable href="index.html#/vehicles" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Untitled-design-4.jpg" onerror="this.onerror=null; this.src='/assets/video/tmd_hero_poster.jpg';" alt="Comparador de Maquinaria" loading="lazy" />
@@ -1122,7 +1132,7 @@
               <span class="link-title">Comparador 3-Vías de Maquinaria</span>
               <span class="tag-badge gold">BENCHMARK</span>
             </div>
-            <span class="link-desc">JCB & LiuGong vs Cat y Deere · 14 Vectores de Ingeniería</span>
+            <span class="link-desc">JCB &amp; LiuGong vs Cat y Deere · 14 Vectores de Ingeniería</span>
           </div>
         </div>
         <span class="material-symbols-outlined link-chevron">chevron_right</span>
@@ -1146,7 +1156,7 @@
       </a>
 
       <!-- 4. Cotización Formal DGII (NCF B01/B15) -->
-      <a class="link-card" data-trackable href="index.html?quote=true#/home" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenDigitalToolsHub==='function'){event.preventDefault(); window.tmdOpenDigitalToolsHub();}">
+      <a class="link-card" data-trackable href="index.html?quote=true#/home" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2024/07/20231011_104123-1-scaled.webp" onerror="this.onerror=null; this.src='/assets/images/tmd_sede_central_entrance_km22.jpg';" alt="Cotización Formal DGII" loading="lazy" />
@@ -1163,14 +1173,14 @@
       </a>
 
       <!-- 4B. Lease vs. Buy & Escudo Fiscal DGII (Ley 11-92) -->
-      <a class="link-card" data-trackable href="index.html#/configurator" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenFinancialSuite==='function'){event.preventDefault(); window.tmdOpenFinancialSuite(95000);}">
+      <a class="link-card" data-trackable href="index.html#/configurator" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Untitled-design-12.jpg" onerror="this.onerror=null; this.src='/assets/images/tmd_sede_central_patio_km22.jpg';" alt="Lease vs Buy Escudo Fiscal" loading="lazy" />
           </div>
           <div class="link-content">
             <div class="link-header-row">
-              <span class="link-title">Lease vs. Buy & Escudo Fiscal</span>
+              <span class="link-title">Lease vs. Buy &amp; Escudo Fiscal</span>
               <span class="tag-badge emerald">LEY 11-92</span>
             </div>
             <span class="link-desc">Amortización acelerada 25%, ITBIS 18% y leasing bancario</span>
@@ -1187,7 +1197,7 @@
           </div>
           <div class="link-content">
             <div class="link-header-row">
-              <span class="link-title" data-i18n="link5_title">Calculadora TCO & Estimador de Renta</span>
+              <span class="link-title" data-i18n="link5_title">Calculadora TCO &amp; Estimador de Renta</span>
               <span class="tag-badge emerald" id="priceBadge">DOP / DÍA</span>
             </div>
             <span class="link-desc" data-i18n="link5_desc">Calcula costos por día, semana o mes con operador y diésel</span>
@@ -1197,14 +1207,14 @@
       </a>
 
       <!-- 6. Portal de Clientes VIP & Telemetría LiveLink -->
-      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenTelematicsCockpit==='function'){event.preventDefault(); window.tmdOpenTelematicsCockpit();}">
+      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Monitoreo-de-equipos-2.jpg" onerror="this.onerror=null; this.src='/assets/images/tmd_sede_central_patio_km22.jpg';" alt="Telemetría Satelital LiveLink" loading="lazy" />
           </div>
           <div class="link-content">
             <div class="link-header-row">
-              <span class="link-title" data-i18n="link6_title">Portal VIP & Telemetría Satelital</span>
+              <span class="link-title" data-i18n="link6_title">Portal VIP &amp; Telemetría Satelital</span>
               <span class="tag-badge blue">LIVELINK</span>
             </div>
             <span class="link-desc" data-i18n="link6_desc">Monitoreo de horas de motor, fallas y órdenes de servicio</span>
@@ -1214,7 +1224,7 @@
       </a>
 
       <!-- 6B. Centro de Herramientas Digitales (Operations Center) -->
-      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenDigitalToolsHub==='function'){event.preventDefault(); window.tmdOpenDigitalToolsHub();}">
+      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Untitled-design-24.jpg" onerror="this.onerror=null; this.src='/assets/images/tmd_sede_central_patio_km22.jpg';" alt="Centro de Herramientas Digitales" loading="lazy" />
@@ -1231,7 +1241,7 @@
       </a>
 
       <!-- 6C. Asesor "Help Me Choose" (AI Fleet Advisor) -->
-      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenMachineAdvisor==='function'){event.preventDefault(); window.tmdOpenMachineAdvisor();}">
+      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Untitled-design-2.jpg" onerror="this.onerror=null; this.src='/assets/video/tmd_hero_poster.jpg';" alt="Asesor de Flota Inteligente" loading="lazy" />
@@ -1248,14 +1258,14 @@
       </a>
 
       <!-- 6D. Fichas Técnicas & Brochures PDF Oficiales -->
-      <a class="link-card" data-trackable href="index.html#/tools" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenBrochuresHub==='function'){event.preventDefault(); window.tmdOpenBrochuresHub();}">
+      <a class="link-card" data-trackable href="index.html#/magazine" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2023/06/Untitled-design-23.jpg" onerror="this.onerror=null; this.src='/assets/images/tmd_sede_central_patio_km22.jpg';" alt="Fichas Técnicas Oficiales" loading="lazy" />
           </div>
           <div class="link-content">
             <div class="link-header-row">
-              <span class="link-title">Fichas Técnicas & Catálogos PDF</span>
+              <span class="link-title">Fichas Técnicas &amp; Catálogos PDF</span>
               <span class="tag-badge blue">DESCARGA</span>
             </div>
             <span class="link-desc">Manuales, especificaciones de fábrica y tabla de mantenimiento</span>
@@ -1265,7 +1275,7 @@
       </a>
 
       <!-- 6E. Solicitar Demostración en Obra / Cantera -->
-      <a class="link-card" data-trackable href="https://wa.me/18098262222?text=Hola%20TMD,%20deseo%20agendar%20una%20demostracion%20en%20obra" target="_blank" rel="noopener" onclick="if(typeof window.tmdOpenDemoRequestModal==='function'){event.preventDefault(); window.tmdOpenDemoRequestModal();}">
+      <a class="link-card" data-trackable href="https://wa.me/18098262222?text=Hola%20TMD%20Dominicana,%20deseo%20agendar%20una%20demostracion%20en%20obra" target="_blank" rel="noopener">
         <div class="link-left">
           <div class="link-thumb-wrap">
             <img class="link-thumb-img" src="https://www.tmd.com.do/wp-content/uploads/2024/07/Foto-ORU-READY-Malespin-1.jpg" onerror="this.onerror=null; this.src='/assets/video/tmd_hero_poster.jpg';" alt="Demostración en Cantera" loading="lazy" />
@@ -1565,15 +1575,7 @@ END:VCARD`;
       showToast(currentLang === 'EN' ? 'Language: English' : 'Idioma: Español');
     }
   </script>
-  
-  <!-- Interactive Tools & Engines -->
-  <script src="/assets/tmd_model_comparator.js?v=20260919_v2"></script>
-  <script src="/assets/tmd_parts_serial_engine.js?v=20260919_v2"></script>
-  <script src="/assets/tmd_financial_suite.js?v=20260919_v2"></script>
-  <script src="/assets/tmd_telematics_cockpit.js?v=20260919_v2"></script>
-  <script src="/assets/tmd_digital_tools_hub.js?v=20260919_v2"></script>
-  <script src="/assets/tmd_machine_advisor.js?v=20260919_v2"></script>
-  <script src="/assets/tmd_brochures_hub.js?v=20260919_v2"></script>
+
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- TMD BIO: SCROLL PARALLAX, REVEAL & 3D TILT ENGINE               -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
